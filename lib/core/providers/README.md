@@ -4,7 +4,7 @@ This directory contains centralized provider definitions for the Barruu applicat
 
 ## Architecture
 
-```
+```text
 Presentation Layer (Widgets)
       ↓ (reads from)
 Providers (Dependency Injection)
@@ -16,12 +16,14 @@ Repository Interfaces
 Repository Implementations (Data Layer)
       ↓ (uses)
 Data Sources (Local DB, API, etc.)
-```
+```text
 
 ## Provider Organization
 
 ### 1. **workspace_use_case_providers.dart**
+
 Contains all providers related to workspace/document operations:
+
 - Document repository provider
 - Block CRUD use case providers
 - Document metadata use case providers
@@ -31,6 +33,7 @@ Contains all providers related to workspace/document operations:
 ### 1. Reading Providers in Widgets
 
 Use `ref.watch()` for reactive updates:
+
 ```dart
 class MyWidget extends ConsumerWidget {
   @override
@@ -44,11 +47,12 @@ class MyWidget extends ConsumerWidget {
     return ...;
   }
 }
-```
+```text
 
 ### 2. Reading Providers Once
 
 Use `ref.read()` for one-time access (e.g., in event handlers):
+
 ```dart
 class MyWidget extends ConsumerWidget {
   @override
@@ -68,11 +72,12 @@ class MyWidget extends ConsumerWidget {
     );
   }
 }
-```
+```text
 
 ### 3. Optimizing with Selectors
 
 Use selectors to rebuild only when specific data changes:
+
 ```dart
 class MyWidget extends ConsumerWidget {
   @override
@@ -85,11 +90,12 @@ class MyWidget extends ConsumerWidget {
     return Text('$blockCount blocks');
   }
 }
-```
+```text
 
 ### 4. Testing with Providers
 
 Override providers in tests:
+
 ```dart
 testWidgets('should create block', (tester) async {
   await tester.pumpWidget(
@@ -104,11 +110,12 @@ testWidgets('should create block', (tester) async {
   
   // Test your widget...
 });
-```
+```text
 
 ## Best Practices
 
-### DO:
+### DO
+
 - ✅ Use `ref.watch()` in build methods for reactive updates
 - ✅ Use `ref.read()` in event handlers for one-time access
 - ✅ Use selectors to optimize rebuilds
@@ -116,7 +123,8 @@ testWidgets('should create block', (tester) async {
 - ✅ Document each provider with usage examples
 - ✅ Use interfaces for loose coupling
 
-### DON'T:
+### DON'T
+
 - ❌ Use `ref.read()` in build methods (causes missed updates)
 - ❌ Create circular dependencies between providers
 - ❌ Put business logic in providers (use use cases)
@@ -126,43 +134,48 @@ testWidgets('should create block', (tester) async {
 ## Provider Types
 
 ### 1. **Provider** - Immutable, cached values
+
 ```dart
 final configProvider = Provider<Config>((ref) {
   return Config();
 });
-```
+```text
 
 ### 2. **StateProvider** - Simple mutable state
+
 ```dart
 final counterProvider = StateProvider<int>((ref) => 0);
-```
+```text
 
 ### 3. **StateNotifierProvider** - Complex state management
+
 ```dart
 final todoListProvider = StateNotifierProvider<TodoList, List<Todo>>((ref) {
   return TodoList();
 });
-```
+```text
 
 ### 4. **FutureProvider** - Async data loading
+
 ```dart
 final userProvider = FutureProvider<User>((ref) async {
   final repository = ref.watch(repositoryProvider);
   return await repository.getUser();
 });
-```
+```text
 
 ### 5. **StreamProvider** - Stream data
+
 ```dart
 final messagesProvider = StreamProvider<List<Message>>((ref) {
   final repository = ref.watch(repositoryProvider);
   return repository.watchMessages();
 });
-```
+```text
 
 ## Dependency Graph
 
-```
+```text
 workspace_use_case_providers.dart
 ├── documentRepositoryProvider
 │   └── DocumentRepository (concrete)
@@ -191,19 +204,20 @@ workspace_use_case_providers.dart
 └── getDocumentTagsUseCaseProvider
     └── GetDocumentTagsUseCase
         └── uses documentRepositoryProvider
-```
+```text
 
 ## Adding New Providers
 
 When adding a new provider:
 
 1. **Create the provider** in the appropriate feature file
-2. **Document the provider** with usage examples
-3. **Update this README** with the new provider
-4. **Write tests** for the provider behavior
-5. **Update dependency graph** if needed
+1. **Document the provider** with usage examples
+1. **Update this README** with the new provider
+1. **Write tests** for the provider behavior
+1. **Update dependency graph** if needed
 
 Example:
+
 ```dart
 /// Provider for [MyNewUseCase]
 /// 
@@ -218,15 +232,15 @@ final myNewUseCaseProvider = Provider.family<MyNewUseCase, Param>((ref, param) {
   final repository = ref.watch(repositoryProvider(param));
   return MyNewUseCase(repository);
 });
-```
+```text
 
 ## Performance Considerations
 
 1. **Use `.family` for parameterized providers** to avoid creating unnecessary instances
-2. **Use `.autoDispose` for short-lived data** to free memory automatically
-3. **Use selectors** to reduce rebuilds
-4. **Keep provider scope minimal** - don't watch providers you don't need
-5. **Profile your app** to identify provider-related performance issues
+1. **Use `.autoDispose` for short-lived data** to free memory automatically
+1. **Use selectors** to reduce rebuilds
+1. **Keep provider scope minimal** - don't watch providers you don't need
+1. **Profile your app** to identify provider-related performance issues
 
 ## Resources
 

@@ -14,21 +14,21 @@ The migration adds the following fields to each document's `meta.json` file:
    - Uses current user ID or provided default
    - Essential for publishing workflow and attribution
 
-2. **visibility** (string): Document visibility setting
+1. **visibility** (string): Document visibility setting
    - Values: `'private'`, `'public'`, `'followers'`
    - Default: `'private'`
    - Controls who can see the document when published
 
-3. **published** (boolean): Publication status
+1. **published** (boolean): Publication status
    - Default: `false`
    - Indicates whether document is published to the social feed
 
-4. **publishedAt** (string | null): Publication timestamp
+1. **publishedAt** (string | null): Publication timestamp
    - ISO 8601 format or null for unpublished documents
    - Default: `null`
    - Records when document was first published
 
-5. **Engagement Counters** (integers): Denormalized counters for performance
+1. **Engagement Counters** (integers): Denormalized counters for performance
    - **views**: Number of times document has been viewed (default: 0)
    - **likes**: Number of likes received (default: 0)
    - **comments**: Number of comments (default: 0)
@@ -101,6 +101,7 @@ if (hasMetadata) {
 ### Idempotency
 
 The migration is **idempotent** - it can be run multiple times safely:
+
 - Documents that already have social metadata are skipped
 - Only missing fields are added
 - Existing values are never overwritten
@@ -109,6 +110,7 @@ The migration is **idempotent** - it can be run multiple times safely:
 ### Data Preservation
 
 The migration preserves all existing metadata fields:
+
 - Original fields like `name`, `description`, `tags`, etc. are unchanged
 - Custom fields added by other parts of the app are preserved
 - Only new social metadata fields are added
@@ -116,6 +118,7 @@ The migration preserves all existing metadata fields:
 ### Error Handling
 
 The migration handles errors gracefully:
+
 - Documents without metadata files are skipped
 - Individual document failures don't stop the migration
 - All errors are logged and returned in the results
@@ -140,6 +143,7 @@ unawaited(migration.migrateAllDocuments(defaultAuthorId: userId));
 ### New Documents
 
 New documents automatically include social metadata when created:
+
 - `DocumentService.createDocument()` now includes all social metadata fields
 - No migration needed for documents created after this update
 
@@ -152,6 +156,7 @@ flutter test test/core/migrations/document_social_metadata_migration_test.dart
 ```
 
 Test coverage includes:
+
 - Migration of legacy documents without social metadata
 - Skipping documents that already have social metadata
 - Mixed document scenarios (some legacy, some modern)
@@ -210,11 +215,12 @@ Test coverage includes:
 ## Rollback
 
 If you need to rollback the migration:
+
 1. The original fields are never modified, so documents remain functional
-2. Simply remove the new fields from `meta.json` files:
+1. Simply remove the new fields from `meta.json` files:
    - `authorId`, `visibility`, `published`, `publishedAt`
    - `views`, `likes`, `comments`, `shares`
-3. Or restore from backup if available
+1. Or restore from backup if available
 
 ## Future Enhancements
 
@@ -233,7 +239,8 @@ If you need to rollback the migration:
 ## Support
 
 For issues or questions about the migration:
+
 1. Check the test cases for usage examples
-2. Review error messages in the migration results
-3. Check app logs for detailed error information
-4. Open an issue in the repository with migration results and logs
+1. Review error messages in the migration results
+1. Check app logs for detailed error information
+1. Open an issue in the repository with migration results and logs

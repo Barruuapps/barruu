@@ -10,6 +10,7 @@ assignees: ''
 A clear description of what's missing or what needs improvement.
 
 **Type of documentation**
+
 - [ ] README
 - [ ] CONTRIBUTING guide
 - [ ] Architecture docs

@@ -9,17 +9,20 @@ Barruu follows a **Clean Architecture** pattern with feature-based modules. The 
 ## Layers
 
 ### Presentation Layer
+
 - Flutter widgets and screens
 - Riverpod state management
 - GoRouter navigation
 - Platform-specific adaptations
 
 ### Domain Layer
+
 - Business logic entities
 - Use cases
 - Repository interfaces
 
 ### Data Layer
+
 - Repository implementations
 - Local data sources (SQLite via Sqflite)
 - Remote data sources (future)
@@ -49,6 +52,7 @@ lib/
 ## Future: Rust Integration
 
 Planned Rust components:
+
 - Document CRDT engine for collaborative editing
 - File export pipeline (PDF, Markdown)
 - Image processing

@@ -32,17 +32,18 @@ This project adheres to the [Contributor Covenant Code of Conduct](CODE_OF_CONDU
 1. **Install Flutter SDK** (>= 3.8.1)
    - Follow the [official Flutter installation guide](https://flutter.dev/docs/get-started/install)
 
-2. **Install Rust** (optional, for future backend components)
+1. **Install Rust** (optional, for future backend components)
    - Via [rustup](https://rustup.rs/): `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
 
-3. **Clone and set up**
+1. **Clone and set up**
+
    ```bash
    git clone https://github.com/Barruuapps/barruu.git
    cd barruu
    flutter pub get
    ```
 
-4. **Install IDE plugins**
+1. **Install IDE plugins**
    - VS Code: Flutter, Dart, Rust Analyzer
    - Android Studio / IntelliJ: Flutter, Dart
 
@@ -60,7 +61,7 @@ flutter run -d windows  # Windows
 # Run on mobile
 flutter run -d android
 flutter run -d ios
-```
+```text
 
 ## Development Workflow
 
@@ -85,19 +86,21 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/):
 [optional body]
 
 [optional footer(s)]
-```
+```text
 
 **Types**: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `ci`, `build`
 
 **Examples**:
-```
+
+```text
 feat(editor): add slash command for quiz block insertion
 fix(blocks): resolve graph rendering crash on empty data
 docs(readme): update installation instructions for Linux
 chore(deps): bump flutter_riverpod to ^3.3.1
-```
+```text
 
 **Rules**:
+
 - Use imperative mood ("add" not "added" or "adds")
 - Keep the subject line under 72 characters
 - Reference issues with `Closes #123` or `Fixes #456` in the footer if applicable
@@ -106,33 +109,35 @@ chore(deps): bump flutter_riverpod to ^3.3.1
 ### Pull Request Process
 
 1. **Create a feature branch** from `dev`
+
    ```bash
    git checkout dev
    git pull origin dev
    git checkout -b feat/my-feature
    ```
 
-2. **Make your changes** and ensure they meet coding standards
+1. **Make your changes** and ensure they meet coding standards
 
-3. **Run quality checks** before pushing:
+1. **Run quality checks** before pushing:
+
    ```bash
    flutter analyze          # Dart static analysis
    dart format lib/ test/   # Format code
    flutter test             # Run tests
    ```
 
-4. **Push your branch** and open a Pull Request against `dev`
+1. **Push your branch** and open a Pull Request against `dev`
    - Use the PR template
    - Link related issues
    - Add appropriate labels
    - Request review from maintainers
 
-5. **Address review feedback**
+1. **Address review feedback**
    - All conversations must be resolved before merging
    - At least one approving review is required
    - CI must pass (formatting, analysis, tests)
 
-6. **Merge**
+1. **Merge**
    - Use **Squash and Merge** for a clean history
    - The merge commit should follow Conventional Commits format
 
@@ -188,19 +193,21 @@ As a reviewer, be respectful and constructive. As an author, be open to feedback
 - Run `flutter test` before pushing
 
 Test naming convention:
+
 ```dart
 group('MyWidget', () {
   testWidgets('should render correctly with given props', (tester) async {
     // ...
   });
 });
-```
+```text
 
 ## Issue Workflow
 
 ### Bug Reports
 
 Please include:
+
 - Barruu version
 - Operating system and version
 - Steps to reproduce
@@ -213,6 +220,7 @@ Use the **Bug Report** template when creating issues.
 ### Feature Requests
 
 Please include:
+
 - Clear description of the feature
 - Use case or problem it solves
 - Proposed solution (optional)
@@ -223,9 +231,9 @@ Use the **Feature Request** template.
 ### Picking Up Issues
 
 1. Find an issue you'd like to work on
-2. Comment on the issue to express interest
-3. Wait for a maintainer to assign it to you (prevents duplicate work)
-4. Start working and reference the issue in your commits
+1. Comment on the issue to express interest
+1. Wait for a maintainer to assign it to you (prevents duplicate work)
+1. Start working and reference the issue in your commits
 
 ## Community
 

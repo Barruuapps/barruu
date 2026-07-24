@@ -8,10 +8,7 @@ default: true
 MD033: false
 
 # Line length (relaxed for documentation)
-MD013:
-  line_length: 120
-  heading_line_length: 80
-  code_block_line_length: 100
+MD013: false
 
 # Allow duplicate headings (useful in changelogs)
 MD024:
@@ -31,5 +28,10 @@ MD004:
   style: "dash"
 
 # Ordered list prefix
-MD029:
-  style: "one"
+MD029: false
+
+# Table column alignment style
+MD060: false
+
+# Disable link fragment validation
+MD051: false

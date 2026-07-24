@@ -16,6 +16,7 @@ A clear and concise description of what you want to happen.
 A clear and concise description of any alternative solutions or features you've considered.
 
 **Which part of Barruu does this affect?**
+
 - [ ] Core Editor
 - [ ] Blocks (which type?)
 - [ ] Desktop app

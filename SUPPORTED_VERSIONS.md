@@ -38,14 +38,14 @@ Versions that have reached EOL:
 
 ## Platform Support
 
-| Platform        | Version           | Status      |
+| Platform | Version | Status |
 | --------------- | ----------------- | ----------- |
-| Linux (x86_64)  | Latest Flutter stable | Supported |
-| macOS           | Latest Flutter stable | Supported |
-| Windows 10/11   | Latest Flutter stable | Supported |
-| Android         | API 24+ (Android 7.0+) | Supported |
-| iOS             | 15.0+              | Supported |
-| Web             | Any modern browser | Planned     |
+| Linux (x86_64) | Latest Flutter stable | Supported |
+| macOS | Latest Flutter stable | Supported |
+| Windows 10/11 | Latest Flutter stable | Supported |
+| Android | API 24+ (Android 7.0+) | Supported |
+| iOS | 15.0+ | Supported |
+| Web | Any modern browser | Planned |
 
 ## Data Migration
 

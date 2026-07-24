@@ -43,6 +43,7 @@ A cloud synchronization layer is planned for Phase 3. Key principles:
 ## Backup
 
 Users are encouraged to export and back up their data regularly. Export options include:
+
 - Full database backup (.sqlite)
 - Document export (PDF, Markdown, HTML)
 

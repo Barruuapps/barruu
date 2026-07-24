@@ -79,6 +79,7 @@ See [Architecture documentation](../architecture/README.md).
 ### VS Code
 
 Recommended extensions:
+
 - Flutter
 - Dart
 - Rust Analyzer (if working with Rust code)
@@ -87,6 +88,7 @@ Recommended extensions:
 ### Android Studio / IntelliJ
 
 Required plugins:
+
 - Flutter
 - Dart
 
