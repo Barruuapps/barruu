@@ -27,6 +27,7 @@ Barruu is not just another note-taking application — it is an open-source plat
 ## Features
 
 ### Core Editor
+
 - **Block-based editing** — Paragraphs, headings, lists, quotes, code blocks, and more
 - **Rich text formatting** — Bold, italic, underline, strikethrough, links, and inline code
 - **Drag-and-drop** — Reorder blocks intuitively
@@ -34,6 +35,7 @@ Barruu is not just another note-taking application — it is an open-source plat
 - **Offline-first** — All data stored locally. No internet required.
 
 ### Interactive Blocks
+
 - **Quiz blocks** — Create multiple-choice, fill-in-the-blank, and matching questions
 - **Graph blocks** — Embedded chart and graph visualization
 - **Math blocks** — LaTeX-powered mathematical expressions
@@ -43,6 +45,7 @@ Barruu is not just another note-taking application — it is an open-source plat
 - **Audio reader blocks** — Inline audio playback with transcripts
 
 ### Knowledge Platform
+
 - **Workspace organization** — Group documents into workspaces
 - **Export** — PDF, Markdown, HTML, and more (planned)
 - **Search** — Full-text search across all documents
@@ -50,6 +53,7 @@ Barruu is not just another note-taking application — it is an open-source plat
 - **Plugin system** — Extend with custom block types (planned)
 
 ### Cross-Platform
+
 - **Desktop** — Linux, macOS, Windows
 - **Mobile** — Android, iOS
 - **Web** (planned)
@@ -186,6 +190,7 @@ dart format lib/
 See [ROADMAP.md](ROADMAP.md) for the full roadmap.
 
 ### Phase 1 — Core Editor (Current)
+
 - [x] Rich text block editor
 - [x] Flutter desktop support (Linux, macOS, Windows)
 - [x] Flutter mobile support (Android, iOS)
@@ -193,6 +198,7 @@ See [ROADMAP.md](ROADMAP.md) for the full roadmap.
 - [x] Slash command insertion
 
 ### Phase 2 — Interactive Blocks
+
 - [ ] Quiz & assessment blocks
 - [ ] Drawing/sketch blocks
 - [ ] Code execution blocks
@@ -200,6 +206,7 @@ See [ROADMAP.md](ROADMAP.md) for the full roadmap.
 - [ ] Export to PDF, Markdown, HTML
 
 ### Phase 3 — Platform & Ecosystem
+
 - [ ] AI assistant
 - [ ] Cloud synchronization
 - [ ] Block marketplace
@@ -214,12 +221,12 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for deta
 ### Quick Start for Contributors
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feat/amazing-feature`)
-3. Make your changes
-4. Run tests (`flutter test`)
-5. Run the linter (`flutter analyze`)
-6. Commit following [Conventional Commits](https://www.conventionalcommits.org/)
-7. Push and open a Pull Request
+1. Create a feature branch (`git checkout -b feat/amazing-feature`)
+1. Make your changes
+1. Run tests (`flutter test`)
+1. Run the linter (`flutter analyze`)
+1. Commit following [Conventional Commits](https://www.conventionalcommits.org/)
+1. Push and open a Pull Request
 
 ## Community
 

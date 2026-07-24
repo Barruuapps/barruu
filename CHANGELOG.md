@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
 - Initial project setup with Flutter
 - Block-based editor with core block types (text, header, list, code, quote, columns)
 - Graph visualization blocks (chart, diagram)

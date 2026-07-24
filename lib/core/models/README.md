@@ -5,7 +5,9 @@ This directory contains the data models for Barrugram's core features.
 ## Models
 
 ### UserProfile
+
 User profile model for the social platform. Contains:
+
 - Basic user information (uid, username, display name)
 - Profile customization (bio, avatar, cover image)
 - Professional information (title, organization, website)
@@ -33,6 +35,7 @@ flutter pub run build_runner watch --delete-conflicting-outputs
 ### What Gets Generated
 
 For each model file (e.g., `user_profile.dart`), the following files are generated:
+
 - `*.freezed.dart` - Freezed code (immutability, copy
 With, equality, toString)
 - `*.g.dart` - JSON serialization code (fromJson, toJson)
@@ -42,6 +45,7 @@ With, equality, toString)
 ### Dependencies
 
 The following packages are required for code generation:
+
 - `freezed_annotation` - Freezed annotations (runtime)
 - `json_annotation` - JSON annotations (runtime)
 - `freezed` - Freezed code generator (dev)
@@ -55,6 +59,7 @@ These are already configured in `pubspec.yaml`.
 When adding a new model:
 
 1. Create the model file following the freezed pattern:
+
 ```dart
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -73,16 +78,18 @@ class MyModel with _$MyModel {
 }
 ```
 
-2. Run code generation:
+1. Run code generation:
+
 ```bash
 flutter pub run build_runner build --delete-conflicting-outputs
 ```
 
-3. The generated files will appear in the same directory.
+1. The generated files will appear in the same directory.
 
 ## Testing Models
 
 Models should have corresponding test files in `test/core/models/` to verify:
+
 - JSON serialization/deserialization
 - Copy with functionality
 - Equality comparison

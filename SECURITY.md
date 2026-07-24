@@ -34,15 +34,15 @@ Please include the following information in your report:
 
 1. **Acknowledgment**: You will receive an acknowledgment of your report within **48 hours**.
 
-2. **Investigation**: The team will investigate and validate the issue. We may ask for additional information during this phase.
+1. **Investigation**: The team will investigate and validate the issue. We may ask for additional information during this phase.
 
-3. **Resolution Timeline**:
+1. **Resolution Timeline**:
    - **Critical** vulnerabilities: Fix targeted within **72 hours**, with an out-of-band release if necessary.
    - **High** severity: Fix targeted within **7 days**.
    - **Medium** severity: Fix targeted within **30 days**, included in the next scheduled release.
    - **Low** severity: Fix targeted within **90 days**, included in a future release.
 
-4. **Disclosure**: We follow coordinated disclosure. Once a fix is available, we will:
+1. **Disclosure**: We follow coordinated disclosure. Once a fix is available, we will:
    - Publish a security advisory on GitHub
    - Credit the reporter (unless anonymity is requested)
    - Release a patched version
