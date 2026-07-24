@@ -4,7 +4,7 @@ This document describes the high-level architecture of Barruu.
 
 ## Overview
 
-Barruu follows a **Clean Architecture** pattern with feature-based modules. The application is built with Flutter for the frontend (desktop, mobile, web) and plans to use Rust for performance-critical backend operations.
+Barruu follows a **Clean Architecture** pattern with feature-based modules. The entire application is built with Flutter and Dart, targeting desktop (Linux, macOS, Windows), mobile (Android, iOS), and web.
 
 ## Layers
 
@@ -30,6 +30,7 @@ Barruu follows a **Clean Architecture** pattern with feature-based modules. The 
 - **Block-based documents**: Every piece of content is a block, enabling rich compositions.
 - **Riverpod**: Chosen over BLoC for its simplicity, compile-time safety, and testability.
 - **Freezed**: Used for immutable data classes with pattern matching support.
+- **SQLite**: Local persistence via sqflite, providing reliable offline storage.
 
 ## Directory Structure
 
@@ -46,14 +47,14 @@ lib/
 └── router/        # Navigation configuration
 ```
 
-## Future: Rust Integration
+## Data Flow
 
-Planned Rust components:
-- Document CRDT engine for collaborative editing
-- File export pipeline (PDF, Markdown)
-- Image processing
-- Search indexing
-- Plugin runtime sandbox
+```text
+┌──────────┐     ┌──────────────┐     ┌───────────┐
+│   UI     │ ──▶ │  Repository  │ ──▶ │  SQLite   │
+│ (Riverpod)│ ◀── │              │ ◀── │ (Sqflite) │
+└──────────┘     └──────────────┘     └───────────┘
+```
 
 ---
 

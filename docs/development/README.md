@@ -6,7 +6,6 @@ This document provides a comprehensive guide for setting up and working on Barru
 
 - **Flutter SDK** >= 3.8.1
 - **Dart SDK** (included with Flutter)
-- **Rust** (optional, for future backend)
 
 ### Platform-Specific
 
@@ -81,7 +80,6 @@ See [Architecture documentation](../architecture/README.md).
 Recommended extensions:
 - Flutter
 - Dart
-- Rust Analyzer (if working with Rust code)
 - EditorConfig
 
 ### Android Studio / IntelliJ

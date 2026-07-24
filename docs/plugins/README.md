@@ -1,6 +1,6 @@
 # Plugins (Future)
 
-*Coming in Phase 3.*
+*Coming in a future release.*
 
 The plugin system will allow developers to extend Barruu with custom functionality.
 
@@ -16,7 +16,7 @@ Barruu's plugin system will enable:
 
 ## Plugin API (Planned)
 
-The plugin API will support both Dart (Flutter-native) and Rust (via FFI) plugins.
+The plugin API will be built in Dart, enabling Flutter-native integration with full access to the block editor, storage layer, and theming system.
 
 ---
 

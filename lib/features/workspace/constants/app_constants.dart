@@ -17,14 +17,6 @@ class AppConstants {
   /// Base URL for the web application
   static const String webBaseUrl = 'https://barruu.app';
   
-  // Security Note: Encryption key should be managed securely.
-  // For production, consider using:
-  // - Device-specific keys generated at first launch
-  // - Key derivation from user passwords
-  // - Secure key storage (Keychain/Keystore)
-  // This default key is used as a fallback for the encryption system.
-  static const String defaultEncryptionSalt = 'barruu_default_salt_v1';
-  
   /// Maximum file size for uploads (in bytes) - 100MB
   static const int maxFileSize = 100 * 1024 * 1024;
   

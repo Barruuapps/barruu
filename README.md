@@ -20,7 +20,7 @@
 
 ## Overview
 
-**Barruu** is an offline-first, block-based knowledge and interactive content platform built with Flutter and Rust. It enables users to create rich documents, educational books, notes, databases, and interactive learning experiences using a modern block editor.
+**Barruu** is an offline-first, block-based knowledge and interactive content platform built with Flutter. It enables users to create rich documents, educational books, notes, databases, and interactive learning experiences using a modern block editor.
 
 Barruu is not just another note-taking application — it is an open-source platform for creating **interactive knowledge**. Think of it as the love child of Notion's block editor and a learning management system, built from the ground up to be extensible, private, and community-driven.
 
@@ -102,7 +102,7 @@ lib/
 | Layer          | Technology                                      |
 |--------------- |-------------------------------------------------|
 | **Frontend**   | Flutter, Riverpod, GoRouter, Freezed            |
-| **Backend**    | Rust (planned), SQLite (offline), Sqflite       |
+| **Backend**    | Dart, SQLite (offline), Sqflite                 |
 | **Storage**    | Local-first with SQLite                         |
 | **Rendering**  | Flutter's Impeller engine                       |
 | **State**      | Riverpod (functional reactive state management) |

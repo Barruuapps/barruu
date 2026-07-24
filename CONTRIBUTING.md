@@ -15,7 +15,6 @@ Thank you for your interest in contributing to Barruu! 🎉 This document outlin
   - [Code Review](#code-review)
 - [Coding Standards](#coding-standards)
   - [Dart / Flutter](#dart--flutter)
-  - [Rust](#rust)
   - [Documentation](#documentation)
 - [Testing](#testing)
 - [Issue Workflow](#issue-workflow)
@@ -32,18 +31,15 @@ This project adheres to the [Contributor Covenant Code of Conduct](CODE_OF_CONDU
 1. **Install Flutter SDK** (>= 3.8.1)
    - Follow the [official Flutter installation guide](https://flutter.dev/docs/get-started/install)
 
-2. **Install Rust** (optional, for future backend components)
-   - Via [rustup](https://rustup.rs/): `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
-
-3. **Clone and set up**
+2. **Clone and set up**
    ```bash
    git clone https://github.com/Barruuapps/barruu.git
    cd barruu
    flutter pub get
    ```
 
-4. **Install IDE plugins**
-   - VS Code: Flutter, Dart, Rust Analyzer
+3. **Install IDE plugins**
+   - VS Code: Flutter, Dart
    - Android Studio / IntelliJ: Flutter, Dart
 
 ### Building the Project
@@ -162,15 +158,6 @@ As a reviewer, be respectful and constructive. As an author, be open to feedback
 - Use Freezed for immutable models
 - Follow the project's feature-based folder structure
 - Use `analysis_options.yaml` lint rules (do not disable without justification)
-
-### Rust
-
-- Follow the [Rust API Guidelines](https://rust-lang.github.io/api-guidelines/)
-- Format with `rustfmt`
-- Lint with `clippy` (`cargo clippy -- -D warnings`)
-- Write doc comments for public items (`///`)
-- Use `Result` and `Option` properly — avoid `unwrap()` in production code
-- Follow the standard module structure
 
 ### Documentation
 
