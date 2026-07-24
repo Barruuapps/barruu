@@ -5,6 +5,7 @@ Barruu supports a variety of block types for creating rich, interactive content.
 ## Implemented Blocks
 
 ### Text & Structure
+
 - **Paragraph** — Standard text block
 - **Header** — H1 through H6 headings
 - **List** — Ordered and unordered lists
@@ -12,21 +13,25 @@ Barruu supports a variety of block types for creating rich, interactive content.
 - **Divider** — Horizontal rule
 
 ### Media
+
 - **Image** — PNG, JPG, GIF, SVG
 - **Video** — MP4, WebM playback
 - **Audio** — MP3, WAV, OGG with transcripts
 
 ### Code & Math
+
 - **Code** — Syntax highlighting for 50+ languages
 - **Math** — LaTeX rendering (inline and block)
 
 ### Interactive
+
 - **Quiz** — Multiple choice, fill-in-the-blank (in progress)
 - **Stepper** — Step-by-step tutorials
 - **Graph** — Chart visualization (bar, line, pie)
 - **Diagram** — Graph/flowchart diagrams
 
 ### Layout
+
 - **Columns** — Multi-column layout
 
 ## Block Implementation Pattern
