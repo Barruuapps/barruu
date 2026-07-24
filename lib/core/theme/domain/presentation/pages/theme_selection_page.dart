@@ -219,9 +219,7 @@ class _ThemeSelectionPageState extends ConsumerState<ThemeSelectionPage> {
       selectedColor: theme.colorScheme.primary,
       showCheckmark: false,
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     );
   }
 }

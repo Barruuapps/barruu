@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
@@ -39,12 +38,17 @@ class TableControls extends ConsumerWidget {
               child: Row(
                 children: [
                   Icon(
-                    isFirstRowHeader ? Icons.radio_button_unchecked : Icons.radio_button_checked,
+                    isFirstRowHeader
+                        ? Icons.radio_button_unchecked
+                        : Icons.radio_button_checked,
                     size: 18,
                     color: theme.colorScheme.primary,
                   ),
                   const SizedBox(width: 8),
-                  const Text('No Header', style: TextStyle(fontWeight: FontWeight.w500)),
+                  const Text(
+                    'No Header',
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
                 ],
               ),
             ),
@@ -53,12 +57,17 @@ class TableControls extends ConsumerWidget {
               child: Row(
                 children: [
                   Icon(
-                    isFirstRowHeader ? Icons.radio_button_checked : Icons.radio_button_unchecked,
+                    isFirstRowHeader
+                        ? Icons.radio_button_checked
+                        : Icons.radio_button_unchecked,
                     size: 18,
                     color: theme.colorScheme.primary,
                   ),
                   const SizedBox(width: 8),
-                  const Text('First Row as Header', style: TextStyle(fontWeight: FontWeight.w500)),
+                  const Text(
+                    'First Row as Header',
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
                 ],
               ),
             ),
@@ -71,7 +80,11 @@ class TableControls extends ConsumerWidget {
                 block.style.copyWith(headerStyle: newHeaderStyle),
               );
             } catch (e, stackTrace) {
-              logger.e('Failed to update table header style', error: e, stackTrace: stackTrace);
+              logger.e(
+                'Failed to update table header style',
+                error: e,
+                stackTrace: stackTrace,
+              );
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Error updating table header: $e')),
@@ -83,7 +96,10 @@ class TableControls extends ConsumerWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
         IconButton(
-          icon: Icon(IconsaxPlusLinear.gallery, color: theme.colorScheme.primary),
+          icon: Icon(
+            IconsaxPlusLinear.gallery,
+            color: theme.colorScheme.primary,
+          ),
           tooltip: 'Select Table Template',
           onPressed: () {
             showDialog(
@@ -100,10 +116,16 @@ class TableControls extends ConsumerWidget {
                       Navigator.of(context).pop();
                     }
                   } catch (e, stackTrace) {
-                    logger.e('Failed to update table template', error: e, stackTrace: stackTrace);
+                    logger.e(
+                      'Failed to update table template',
+                      error: e,
+                      stackTrace: stackTrace,
+                    );
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Error updating table template: $e')),
+                        SnackBar(
+                          content: Text('Error updating table template: $e'),
+                        ),
                       );
                     }
                   }

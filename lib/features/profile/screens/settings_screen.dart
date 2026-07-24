@@ -231,7 +231,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       ),
       leading: Icon(icon, size: 22, color: theme.colorScheme.primary),
       title: Text(title, style: theme.textTheme.bodyLarge),
-      trailing: trailing ??
+      trailing:
+          trailing ??
           Icon(
             IconsaxPlusLinear.arrow_right_3,
             size: 18,
@@ -249,7 +250,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     bool isLoading = false,
     VoidCallback? onTap,
   }) {
-    final color = isDestructive ? theme.colorScheme.error : theme.colorScheme.onSurface;
+    final color = isDestructive
+        ? theme.colorScheme.error
+        : theme.colorScheme.onSurface;
     return ListTile(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(14)),
@@ -315,7 +318,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 width: 36,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
+                  color: theme.colorScheme.onSurfaceVariant.withValues(
+                    alpha: 0.4,
+                  ),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -336,8 +341,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   ),
                   title: Text(mode.displayName),
                   trailing: selected
-                      ? Icon(Icons.check_rounded,
-                          color: theme.colorScheme.primary)
+                      ? Icon(
+                          Icons.check_rounded,
+                          color: theme.colorScheme.primary,
+                        )
                       : null,
                   onTap: () async {
                     Navigator.pop(ctx);
@@ -391,9 +398,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       if (mounted) context.go('/login');
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Logout failed: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Logout failed: $e')));
       }
     }
   }
@@ -448,4 +455,3 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     }
   }
 }
-

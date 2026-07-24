@@ -602,7 +602,9 @@ class _AudioPlayerWidgetState extends ConsumerState<_AudioPlayerWidget>
                     _seek(Duration(milliseconds: value.toInt()));
                   },
                   activeColor: theme.colorScheme.primary,
-                  inactiveColor: theme.colorScheme.primary.withValues(alpha: 0.2),
+                  inactiveColor: theme.colorScheme.primary.withValues(
+                    alpha: 0.2,
+                  ),
                 ),
               ),
               Text(

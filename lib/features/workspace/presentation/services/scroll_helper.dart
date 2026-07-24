@@ -91,8 +91,9 @@ class ScrollHelper {
   static Animation<double> createScrollIndicatorOpacityAnimation({
     required AnimationController controller,
   }) {
-    return Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: controller, curve: Curves.easeInOut),
-    );
+    return Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
   }
 }

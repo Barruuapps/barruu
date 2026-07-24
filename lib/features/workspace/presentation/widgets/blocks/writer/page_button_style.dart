@@ -21,8 +21,10 @@ Widget buildPageBlockButtonStyle({
 }) {
   TextDecoration? decoration;
   if (blockStyle.underline && blockStyle.strikethrough) {
-    decoration = TextDecoration.combine(
-        [TextDecoration.underline, TextDecoration.lineThrough]);
+    decoration = TextDecoration.combine([
+      TextDecoration.underline,
+      TextDecoration.lineThrough,
+    ]);
   } else if (blockStyle.underline) {
     decoration = TextDecoration.underline;
   } else if (blockStyle.strikethrough) {
@@ -37,8 +39,10 @@ Widget buildPageBlockButtonStyle({
     decoration: decoration,
   );
 
-  final bgColor = styleUtils.parseHex(blockStyle.background) ?? theme.colorScheme.primary;
-  final fgColor = styleUtils.parseHex(blockStyle.color) ?? theme.colorScheme.onPrimary;
+  final bgColor =
+      styleUtils.parseHex(blockStyle.background) ?? theme.colorScheme.primary;
+  final fgColor =
+      styleUtils.parseHex(blockStyle.color) ?? theme.colorScheme.onPrimary;
 
   if (!isEditing) {
     // Reader / non-editing: show a proper clickable button that navigates
@@ -79,7 +83,11 @@ Widget buildPageBlockButtonStyle({
         child: Row(
           children: [
             if (showIcon) ...[
-              Icon(getPageIcon(blockStyle.customIcon), size: 20, color: fgColor),
+              Icon(
+                getPageIcon(blockStyle.customIcon),
+                size: 20,
+                color: fgColor,
+              ),
               const SizedBox(width: 10),
             ],
             Expanded(
@@ -97,7 +105,11 @@ Widget buildPageBlockButtonStyle({
                 ),
               ),
             ),
-            Icon(IconsaxPlusLinear.arrow_right_3, size: 18, color: fgColor.withOpacity(0.7)),
+            Icon(
+              IconsaxPlusLinear.arrow_right_3,
+              size: 18,
+              color: fgColor.withOpacity(0.7),
+            ),
           ],
         ),
       ),
@@ -140,4 +152,3 @@ Widget buildPageBlockButtonStyle({
     ],
   );
 }
-

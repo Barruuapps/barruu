@@ -31,7 +31,9 @@ class UrlInputDialog {
                 return 'Please enter a URL';
               }
               final uri = Uri.tryParse(value.trim());
-              if (uri == null || !uri.hasScheme || (!uri.scheme.startsWith('http'))) {
+              if (uri == null ||
+                  !uri.hasScheme ||
+                  (!uri.scheme.startsWith('http'))) {
                 return 'Please enter a valid URL';
               }
               return null;

@@ -5,10 +5,10 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 /// A widget that renders a bar chart from numeric data
-/// 
+///
 /// This widget parses comma-separated numeric values and displays
 /// them as a bar chart with support for grid and tooltips.
-/// 
+///
 /// Example usage:
 /// ```dart
 /// GraphBarChartWidget(
@@ -20,10 +20,10 @@ import 'package:flutter/material.dart';
 class GraphBarChartWidget extends StatelessWidget {
   /// Comma-separated numeric values (e.g., "10,20,15,30,25")
   final String data;
-  
+
   /// Whether to show grid lines
   final bool showGrid;
-  
+
   /// App theme for styling
   final ThemeData theme;
 
@@ -46,7 +46,7 @@ class GraphBarChartWidget extends StatelessWidget {
 
       final barGroups = <BarChartGroupData>[];
       final maxValue = values.reduce((a, b) => a > b ? a : b);
-      
+
       for (int i = 0; i < values.length; i++) {
         barGroups.add(
           BarChartGroupData(
@@ -60,7 +60,9 @@ class GraphBarChartWidget extends StatelessWidget {
                 backDrawRodData: BackgroundBarChartRodData(
                   show: true,
                   toY: maxValue * 1.1,
-                  color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+                  color: theme.colorScheme.surfaceContainerHighest.withValues(
+                    alpha: 0.3,
+                  ),
                 ),
               ),
             ],
@@ -73,7 +75,7 @@ class GraphBarChartWidget extends StatelessWidget {
           alignment: BarChartAlignment.spaceAround,
           maxY: maxValue * 1.2,
           barGroups: barGroups,
-          gridData: showGrid 
+          gridData: showGrid
               ? FlGridData(
                   drawVerticalLine: false,
                   horizontalInterval: maxValue / 5,

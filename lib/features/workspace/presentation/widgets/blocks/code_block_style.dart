@@ -1,4 +1,3 @@
-
 import 'package:barruu/core/theme/platform_theme_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_code_editor/flutter_code_editor.dart';
@@ -33,22 +32,22 @@ abstract final class CodeBlockStyle {
 
   /// Shared text style for code content.
   static TextStyle codeTextStyle() => TextStyle(
-        fontFamily: fontFamily,
-        fontSize: 13,
-        height: 1.6,
-        fontWeight: FontWeight.w600,
-      );
+    fontFamily: fontFamily,
+    fontSize: 13,
+    height: 1.6,
+    fontWeight: FontWeight.w600,
+  );
 
   /// Shared [GutterStyle] for line numbers.
   static GutterStyle gutterStyle(Color lineNumberColor) => GutterStyle(
-        showLineNumbers: true,
-        showErrors: false,
-        showFoldingHandles: false,
-        width: 48,
-        textStyle: TextStyle(
-          fontFamily: fontFamily,
-          fontSize: 13,
-          color: lineNumberColor,
-        ),
-      );
+    showLineNumbers: true,
+    showErrors: false,
+    showFoldingHandles: false,
+    width: 48,
+    textStyle: TextStyle(
+      fontFamily: fontFamily,
+      fontSize: 13,
+      color: lineNumberColor,
+    ),
+  );
 }

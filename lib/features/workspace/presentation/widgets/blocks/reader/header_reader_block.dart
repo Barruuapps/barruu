@@ -238,7 +238,9 @@ class _HeaderBlockReaderState extends ConsumerState<HeaderBlockReader>
                         gradient: LinearGradient(
                           colors: [
                             borderColor.withValues(alpha: 0.3),
-                            borderColor.withValues(alpha: _isHovering ? 1.0 : 0.8),
+                            borderColor.withValues(
+                              alpha: _isHovering ? 1.0 : 0.8,
+                            ),
                             borderColor.withValues(alpha: 0.3),
                           ],
                         ),
@@ -322,7 +324,9 @@ class _HeaderBlockReaderState extends ConsumerState<HeaderBlockReader>
                 margin: margin,
                 child: CustomPaint(
                   painter: CustomBorderPainter(
-                    color: borderColor.withValues(alpha: _isHovering ? 1.0 : 0.7),
+                    color: borderColor.withValues(
+                      alpha: _isHovering ? 1.0 : 0.7,
+                    ),
                     style: 'solid',
                     strokeWidth: borderWidth + (_isHovering ? 0.5 : 0),
                   ),
@@ -413,7 +417,9 @@ class _HeaderBlockReaderState extends ConsumerState<HeaderBlockReader>
                     end: Alignment.bottomRight,
                   ),
                   border: Border.all(
-                    color: borderColor.withValues(alpha: _isHovering ? 1.0 : 0.7),
+                    color: borderColor.withValues(
+                      alpha: _isHovering ? 1.0 : 0.7,
+                    ),
                     width: borderWidth,
                   ),
                 ),
@@ -480,7 +486,9 @@ class _HeaderBlockReaderState extends ConsumerState<HeaderBlockReader>
                 padding: padding,
                 margin: margin,
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                  color: theme.colorScheme.surfaceContainerHighest.withValues(
+                    alpha: 0.5,
+                  ),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
@@ -669,7 +677,9 @@ class _HeaderBlockReaderState extends ConsumerState<HeaderBlockReader>
               padding: padding.copyWith(top: padding.top + 16),
               margin: margin.copyWith(top: margin.top + 12),
               decoration: BoxDecoration(
-                color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                color: theme.colorScheme.surfaceContainerHighest.withValues(
+                  alpha: 0.5,
+                ),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: headerTextWidget,
@@ -728,7 +738,9 @@ class _HeaderBlockReaderState extends ConsumerState<HeaderBlockReader>
                 padding: padding,
                 margin: margin,
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
+                  color: theme.colorScheme.primaryContainer.withValues(
+                    alpha: 0.5,
+                  ),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: borderColor, width: borderWidth),
                 ),

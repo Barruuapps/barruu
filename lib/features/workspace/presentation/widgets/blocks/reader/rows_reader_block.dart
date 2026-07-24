@@ -11,12 +11,8 @@ import 'package:barruu/features/workspace/presentation/widgets/blocks/writer/row
 class RowsReaderBlock extends ConsumerWidget {
   final Block block;
   final Directory? docDir;
-  
-  const RowsReaderBlock({
-    required this.block,
-    this.docDir,
-    super.key,
-  });
+
+  const RowsReaderBlock({required this.block, this.docDir, super.key});
 
   Map<String, dynamic> _parseContent() {
     final converter = JsonStringConverter();
@@ -51,15 +47,14 @@ class RowsReaderBlock extends ConsumerWidget {
     final color = parsedColor ?? theme.colorScheme.onSurface;
     final parsedBackground = styleUtils.parseHex(block.style.background);
     final textMultiplier = ResponsiveUtils.getTextSizeMultiplier(context);
-    final baseTextStyle = styleUtils.applyStyle(block.style).copyWith(
-      fontSize: fontSize * textMultiplier,
-      color: color,
-    );
+    final baseTextStyle = styleUtils
+        .applyStyle(block.style)
+        .copyWith(fontSize: fontSize * textMultiplier, color: color);
 
     if (rows.isEmpty) {
       return Container(
         padding: const EdgeInsets.all(16),
-        decoration: parsedBackground != null 
+        decoration: parsedBackground != null
             ? BoxDecoration(
                 color: parsedBackground,
                 borderRadius: BorderRadius.circular(8),
@@ -77,7 +72,7 @@ class RowsReaderBlock extends ConsumerWidget {
     return DefaultTextStyle(
       style: baseTextStyle,
       child: Container(
-        decoration: parsedBackground != null 
+        decoration: parsedBackground != null
             ? BoxDecoration(
                 color: parsedBackground,
                 borderRadius: BorderRadius.circular(8),
@@ -88,7 +83,13 @@ class RowsReaderBlock extends ConsumerWidget {
     );
   }
 
-  Widget _buildRowsContent(ThemeData theme, List rows, double gap, String rowStyle, String rowTemplate) {
+  Widget _buildRowsContent(
+    ThemeData theme,
+    List rows,
+    double gap,
+    String rowStyle,
+    String rowTemplate,
+  ) {
     // Timeline template uses vertical layout
     if (rowTemplate == 'timeline') {
       return Container(
@@ -155,7 +156,13 @@ class RowsReaderBlock extends ConsumerWidget {
     );
   }
 
-  Widget _buildRowContent(ThemeData theme, Map<String, dynamic> row, String rowStyle, String rowTemplate, double gap) {
+  Widget _buildRowContent(
+    ThemeData theme,
+    Map<String, dynamic> row,
+    String rowStyle,
+    String rowTemplate,
+    double gap,
+  ) {
     switch (rowTemplate) {
       case 'stacked':
         return buildStackedRowTemplate(

@@ -1,4 +1,3 @@
-
 import 'package:barruu/core/utils/responsive_utils.dart';
 import 'package:barruu/core/theme/platform_theme_helper.dart';
 import 'package:barruu/features/workspace/domain/entities/block.dart';
@@ -19,10 +18,7 @@ import 'package:highlight/languages/all.dart';
 class CodeReaderBlock extends ConsumerStatefulWidget {
   final Block block;
 
-  const CodeReaderBlock({
-    super.key,
-    required this.block,
-  });
+  const CodeReaderBlock({super.key, required this.block});
 
   @override
   ConsumerState<CodeReaderBlock> createState() => _CodeReaderBlockState();
@@ -53,11 +49,17 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
     Map<String, dynamic> content = {'content': ''};
     try {
       if (widget.block.content.isNotEmpty) {
-        content = JsonStringConverter().convertFromJsonString(widget.block.content);
+        content = JsonStringConverter().convertFromJsonString(
+          widget.block.content,
+        );
         content['content'] ??= '';
       }
     } catch (e, stackTrace) {
-      logger.e('Failed to parse block content', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to parse block content',
+        error: e,
+        stackTrace: stackTrace,
+      );
     }
     return content;
   }
@@ -97,8 +99,9 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
     final styleUtils = ref.read(styleUtilsProvider);
     final brightness = theme.brightness;
     final userBackground = styleUtils.parseHex(widget.block.style.background);
-    final langDisplay =
-        getLanguageDisplayName(widget.block.style.language ?? 'text');
+    final langDisplay = getLanguageDisplayName(
+      widget.block.style.language ?? 'text',
+    );
     final verticalMargin = ResponsiveUtils.getBlockSpacing(context);
     final radius = ResponsiveUtils.getPlatformRadius(context, baseRadius: 8.0);
     final template = widget.block.style.codeTemplate ?? 'minimal';
@@ -197,7 +200,8 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
     required Color? userBackground,
     required double radius,
   }) {
-    final backgroundColor = userBackground ?? CodeBlockStyle.background(brightness);
+    final backgroundColor =
+        userBackground ?? CodeBlockStyle.background(brightness);
     return Container(
       decoration: BoxDecoration(
         color: backgroundColor,
@@ -209,7 +213,9 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
         children: [
           CodeTheme(
             data: CodeThemeData(
-              styles: brightness == Brightness.dark ? atomOneDarkTheme : atomOneLightTheme,
+              styles: brightness == Brightness.dark
+                  ? atomOneDarkTheme
+                  : atomOneLightTheme,
             ),
             child: CodeField(
               controller: _codeController,
@@ -228,7 +234,9 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
               IconButton(
                 icon: Icon(
                   Icons.copy_outlined,
-                  color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
+                  color: theme.colorScheme.onSurfaceVariant.withValues(
+                    alpha: 0.6,
+                  ),
                   size: 14,
                 ),
                 tooltip: 'Copy code',
@@ -256,7 +264,8 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
     required String langDisplay,
     required double radius,
   }) {
-    final backgroundColor = userBackground ?? CodeBlockStyle.background(brightness);
+    final backgroundColor =
+        userBackground ?? CodeBlockStyle.background(brightness);
     final headerBackground = CodeBlockStyle.header(brightness);
     final borderColor = CodeBlockStyle.border(brightness);
 
@@ -300,13 +309,19 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.code, color: theme.colorScheme.onSurfaceVariant, size: 14),
+              Icon(
+                Icons.code,
+                color: theme.colorScheme.onSurfaceVariant,
+                size: 14,
+              ),
               const SizedBox(width: 6),
               Text(
                 langDisplay,
                 style: TextStyle(
                   color: theme.colorScheme.onSurfaceVariant,
-                  fontWeight: PlatformThemeHelper.isAndroid ? FontWeight.w600 : FontWeight.w500,
+                  fontWeight: PlatformThemeHelper.isAndroid
+                      ? FontWeight.w600
+                      : FontWeight.w500,
                   fontSize: 12,
                   letterSpacing: 0.2,
                 ),
@@ -315,7 +330,11 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
           ),
           ResponsiveUtils.ensureTouchTarget(
             IconButton(
-              icon: Icon(Icons.copy_outlined, color: theme.colorScheme.onSurfaceVariant, size: 16),
+              icon: Icon(
+                Icons.copy_outlined,
+                color: theme.colorScheme.onSurfaceVariant,
+                size: 16,
+              ),
               tooltip: 'Copy code',
               padding: const EdgeInsets.all(4),
               constraints: const BoxConstraints(),
@@ -340,7 +359,8 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
     required String langDisplay,
     required double radius,
   }) {
-    final backgroundColor = userBackground ?? CodeBlockStyle.background(brightness);
+    final backgroundColor =
+        userBackground ?? CodeBlockStyle.background(brightness);
     final borderColor = CodeBlockStyle.border(brightness);
 
     return Container(
@@ -371,7 +391,11 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.code, color: theme.colorScheme.primary, size: 14),
+                    Icon(
+                      Icons.code,
+                      color: theme.colorScheme.primary,
+                      size: 14,
+                    ),
                     const SizedBox(width: 6),
                     Text(
                       langDisplay,
@@ -386,7 +410,11 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
                 ),
                 ResponsiveUtils.ensureTouchTarget(
                   IconButton(
-                    icon: Icon(Icons.copy_outlined, color: theme.colorScheme.primary.withValues(alpha: 0.8), size: 16),
+                    icon: Icon(
+                      Icons.copy_outlined,
+                      color: theme.colorScheme.primary.withValues(alpha: 0.8),
+                      size: 16,
+                    ),
                     tooltip: 'Copy code',
                     padding: const EdgeInsets.all(4),
                     constraints: const BoxConstraints(),
@@ -448,7 +476,11 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.copy_outlined, color: Color(0xFFABB2BF), size: 16),
+                  icon: const Icon(
+                    Icons.copy_outlined,
+                    color: Color(0xFFABB2BF),
+                    size: 16,
+                  ),
                   tooltip: 'Copy code',
                   padding: const EdgeInsets.all(4),
                   constraints: const BoxConstraints(),
@@ -469,8 +501,12 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
               enabled: false,
               readOnly: true,
               wrap: false,
-              gutterStyle: CodeBlockStyle.gutterStyle(const Color(0xFFABB2BF).withValues(alpha: 0.4)),
-              textStyle: CodeBlockStyle.codeTextStyle().copyWith(color: const Color(0xFFABB2BF)),
+              gutterStyle: CodeBlockStyle.gutterStyle(
+                const Color(0xFFABB2BF).withValues(alpha: 0.4),
+              ),
+              textStyle: CodeBlockStyle.codeTextStyle().copyWith(
+                color: const Color(0xFFABB2BF),
+              ),
             ),
           ),
         ],
@@ -520,7 +556,10 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         border: Border.all(color: githubBorder),
                         borderRadius: BorderRadius.circular(4),
@@ -538,7 +577,11 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
                   ],
                 ),
                 IconButton(
-                  icon: const Icon(Icons.copy_outlined, color: githubText, size: 16),
+                  icon: const Icon(
+                    Icons.copy_outlined,
+                    color: githubText,
+                    size: 16,
+                  ),
                   tooltip: 'Copy code',
                   padding: const EdgeInsets.all(4),
                   constraints: const BoxConstraints(),
@@ -558,7 +601,9 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
               enabled: false,
               readOnly: true,
               wrap: false,
-              gutterStyle: CodeBlockStyle.gutterStyle(const Color(0xFF24292F).withValues(alpha: 0.4)),
+              gutterStyle: CodeBlockStyle.gutterStyle(
+                const Color(0xFF24292F).withValues(alpha: 0.4),
+              ),
               textStyle: CodeBlockStyle.codeTextStyle(),
             ),
           ),
@@ -577,7 +622,8 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
     required String langDisplay,
     required double radius,
   }) {
-    final backgroundColor = userBackground ?? CodeBlockStyle.background(brightness);
+    final backgroundColor =
+        userBackground ?? CodeBlockStyle.background(brightness);
     final borderColor = CodeBlockStyle.border(brightness);
 
     // ClipRRect handles rounded corners so BoxDecoration can use a
@@ -610,7 +656,11 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.code, color: theme.colorScheme.primary, size: 14),
+                      Icon(
+                        Icons.code,
+                        color: theme.colorScheme.primary,
+                        size: 14,
+                      ),
                       const SizedBox(width: 6),
                       Text(
                         langDisplay,
@@ -654,7 +704,9 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
   Widget _buildCodeField(Brightness brightness) {
     return CodeTheme(
       data: CodeThemeData(
-        styles: brightness == Brightness.dark ? atomOneDarkTheme : atomOneLightTheme,
+        styles: brightness == Brightness.dark
+            ? atomOneDarkTheme
+            : atomOneLightTheme,
       ),
       child: CodeField(
         controller: _codeController,
@@ -674,10 +726,7 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
 
   // ── Dracula: dark purple-accented theme ───────────────────────────────────
 
-  Widget _buildDraculaTemplate(
-    BuildContext context, {
-    required double radius,
-  }) {
+  Widget _buildDraculaTemplate(BuildContext context, {required double radius}) {
     const bg = Color(0xFF282A36);
     const header = Color(0xFF21222C);
     const border = Color(0xFF44475A);
@@ -703,7 +752,9 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
-                    getLanguageDisplayName(widget.block.style.language ?? 'text'),
+                    getLanguageDisplayName(
+                      widget.block.style.language ?? 'text',
+                    ),
                     style: const TextStyle(
                       color: accent,
                       fontSize: 12,
@@ -714,7 +765,11 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.copy_outlined, color: textColor, size: 16),
+                  icon: const Icon(
+                    Icons.copy_outlined,
+                    color: textColor,
+                    size: 16,
+                  ),
                   tooltip: 'Copy code',
                   padding: const EdgeInsets.all(4),
                   constraints: const BoxConstraints(),
@@ -735,7 +790,9 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
               readOnly: true,
               wrap: false,
               gutterStyle: CodeBlockStyle.gutterStyle(const Color(0xFF6272A4)),
-              textStyle: CodeBlockStyle.codeTextStyle().copyWith(color: textColor),
+              textStyle: CodeBlockStyle.codeTextStyle().copyWith(
+                color: textColor,
+              ),
             ),
           ),
         ],
@@ -745,10 +802,7 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
 
   // ── Monokai: warm dark olive theme ────────────────────────────────────────
 
-  Widget _buildMonokaiTemplate(
-    BuildContext context, {
-    required double radius,
-  }) {
+  Widget _buildMonokaiTemplate(BuildContext context, {required double radius}) {
     const bg = Color(0xFF272822);
     const header = Color(0xFF1D1E1A);
     const border = Color(0xFF3E3D32);
@@ -781,7 +835,9 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
-                    getLanguageDisplayName(widget.block.style.language ?? 'text'),
+                    getLanguageDisplayName(
+                      widget.block.style.language ?? 'text',
+                    ),
                     style: const TextStyle(
                       color: accent,
                       fontSize: 12,
@@ -792,7 +848,11 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.copy_outlined, color: textColor, size: 16),
+                  icon: const Icon(
+                    Icons.copy_outlined,
+                    color: textColor,
+                    size: 16,
+                  ),
                   tooltip: 'Copy code',
                   padding: const EdgeInsets.all(4),
                   constraints: const BoxConstraints(),
@@ -813,7 +873,9 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
               readOnly: true,
               wrap: false,
               gutterStyle: CodeBlockStyle.gutterStyle(const Color(0xFF75715E)),
-              textStyle: CodeBlockStyle.codeTextStyle().copyWith(color: textColor),
+              textStyle: CodeBlockStyle.codeTextStyle().copyWith(
+                color: textColor,
+              ),
             ),
           ),
         ],
@@ -823,10 +885,7 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
 
   // ── VS Code Dark: realistic VS Code dark theme ────────────────────────────
 
-  Widget _buildVscodeTemplate(
-    BuildContext context, {
-    required double radius,
-  }) {
+  Widget _buildVscodeTemplate(BuildContext context, {required double radius}) {
     const bg = Color(0xFF1E1E1E);
     const header = Color(0xFF2D2D2D);
     const border = Color(0xFF404040);
@@ -850,15 +909,18 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
             child: Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: tabActive,
-                    border: Border(
-                      top: BorderSide(color: accent, width: 1.5),
-                    ),
+                    border: Border(top: BorderSide(color: accent, width: 1.5)),
                   ),
                   child: Text(
-                    getLanguageDisplayName(widget.block.style.language ?? 'text'),
+                    getLanguageDisplayName(
+                      widget.block.style.language ?? 'text',
+                    ),
                     style: const TextStyle(
                       color: textColor,
                       fontSize: 12,
@@ -868,7 +930,11 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
                 ),
                 const Spacer(),
                 IconButton(
-                  icon: const Icon(Icons.copy_outlined, color: textColor, size: 16),
+                  icon: const Icon(
+                    Icons.copy_outlined,
+                    color: textColor,
+                    size: 16,
+                  ),
                   tooltip: 'Copy code',
                   padding: const EdgeInsets.all(4),
                   constraints: const BoxConstraints(),
@@ -889,7 +955,9 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
               readOnly: true,
               wrap: false,
               gutterStyle: CodeBlockStyle.gutterStyle(const Color(0xFF858585)),
-              textStyle: CodeBlockStyle.codeTextStyle().copyWith(color: textColor),
+              textStyle: CodeBlockStyle.codeTextStyle().copyWith(
+                color: textColor,
+              ),
             ),
           ),
         ],

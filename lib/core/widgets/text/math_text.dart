@@ -33,7 +33,12 @@ class MathText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (!text.contains(r'$')) {
-      return Text(text, style: style, semanticsLabel: semanticsLabel, textAlign: textAlign);
+      return Text(
+        text,
+        style: style,
+        semanticsLabel: semanticsLabel,
+        textAlign: textAlign,
+      );
     }
 
     try {
@@ -85,13 +90,16 @@ class MathText extends StatelessWidget {
 
       int equationStart = -1;
 
-      if (nextDisplayStart != -1 && (nextInlineStart == -1 || nextDisplayStart <= nextInlineStart)) {
+      if (nextDisplayStart != -1 &&
+          (nextInlineStart == -1 || nextDisplayStart <= nextInlineStart)) {
         // Display equation comes first
         equationStart = nextDisplayStart;
 
         // Add text before the equation
         if (equationStart > currentPos) {
-          result.add(TextPart(text.substring(currentPos, equationStart), false, false));
+          result.add(
+            TextPart(text.substring(currentPos, equationStart), false, false),
+          );
         }
 
         // Find closing delimiters
@@ -99,7 +107,10 @@ class MathText extends StatelessWidget {
         final equationContentEnd = text.indexOf(r'$$', equationContentStart);
 
         if (equationContentEnd != -1) {
-          final equationContent = text.substring(equationContentStart, equationContentEnd);
+          final equationContent = text.substring(
+            equationContentStart,
+            equationContentEnd,
+          );
           result.add(TextPart(equationContent, true, true));
           currentPos = equationContentEnd + 2; // Skip closing $$
         } else {
@@ -113,7 +124,9 @@ class MathText extends StatelessWidget {
 
         // Add text before the equation
         if (equationStart > currentPos) {
-          result.add(TextPart(text.substring(currentPos, equationStart), false, false));
+          result.add(
+            TextPart(text.substring(currentPos, equationStart), false, false),
+          );
         }
 
         // Find closing delimiter
@@ -121,7 +134,10 @@ class MathText extends StatelessWidget {
         final equationContentEnd = text.indexOf(r'$', equationContentStart);
 
         if (equationContentEnd != -1) {
-          final equationContent = text.substring(equationContentStart, equationContentEnd);
+          final equationContent = text.substring(
+            equationContentStart,
+            equationContentEnd,
+          );
           result.add(TextPart(equationContent, true, false));
           currentPos = equationContentEnd + 1; // Skip closing $
         } else {
@@ -168,10 +184,7 @@ class MathText extends StatelessWidget {
         result.add(
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Math.tex(
-              part.content,
-              textStyle: style,
-            ),
+            child: Math.tex(part.content, textStyle: style),
           ),
         );
       } else {
@@ -205,17 +218,17 @@ class MathText extends StatelessWidget {
   }
 
   /// Builds inline text spans for text with only inline equations.
-  List<InlineSpan> _buildInlineTextSpans(List<TextPart> parts, BuildContext context) {
+  List<InlineSpan> _buildInlineTextSpans(
+    List<TextPart> parts,
+    BuildContext context,
+  ) {
     final spans = <InlineSpan>[];
 
     for (final part in parts) {
       if (part.isEquation) {
         spans.add(
           WidgetSpan(
-            child: Math.tex(
-              part.content,
-              textStyle: style,
-            ),
+            child: Math.tex(part.content, textStyle: style),
             alignment: PlaceholderAlignment.middle,
           ),
         );

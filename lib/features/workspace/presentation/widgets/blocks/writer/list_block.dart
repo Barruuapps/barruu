@@ -36,12 +36,12 @@ class _ListBlockState extends BaseEditableBlockState<ListBlock> {
   final TextEditingController _bulkInputController = TextEditingController();
   bool _preferencesChecked = false;
   late final Debouncer _debouncer;
-  
+
   // Track focused index and pending cursor selections
   int _focusedIndex = -1;
   final Map<int, TextSelection> _pendingSelections = {};
   TextSelection? _headerPendingSelection;
-  
+
   // Flag to prevent infinite save loops
   bool _isSaving = false;
 
@@ -51,7 +51,9 @@ class _ListBlockState extends BaseEditableBlockState<ListBlock> {
   @override
   void initializeBlockSpecifics() {
     _debouncer = Debouncer(delay: const Duration(milliseconds: 500));
-    _headerController = TextEditingController(text: content['header']?.toString() ?? '');
+    _headerController = TextEditingController(
+      text: content['header']?.toString() ?? '',
+    );
     _itemControllers = [];
     _itemFocusNodes.clear();
     final itemsList = content['items'] is List ? content['items'] : [];
@@ -63,7 +65,7 @@ class _ListBlockState extends BaseEditableBlockState<ListBlock> {
     if (_itemControllers.isEmpty) {
       _addNewItem();
     }
-    
+
     _setupFocusListeners();
   }
 
@@ -85,13 +87,14 @@ class _ListBlockState extends BaseEditableBlockState<ListBlock> {
   void onContentChanged() {
     // Skip update if we're the ones who triggered the save
     if (_isSaving) return;
-    
+
     // Update header if changed
-    final headerChanged = content['header']?.toString() != _headerController.text;
+    final headerChanged =
+        content['header']?.toString() != _headerController.text;
     if (headerChanged) {
       _headerController.text = content['header']?.toString() ?? '';
     }
-    
+
     final itemsList = content['items'] is List ? content['items'] : [];
     if (itemsList.length != _itemControllers.length) {
       _updateItemsFromContent(content);
@@ -114,7 +117,9 @@ class _ListBlockState extends BaseEditableBlockState<ListBlock> {
 
     _headerFocusNode.addListener(() => onFocusChange(_headerFocusNode, -1));
     for (int i = 0; i < _itemFocusNodes.length; i++) {
-      _itemFocusNodes[i].addListener(() => onFocusChange(_itemFocusNodes[i], i));
+      _itemFocusNodes[i].addListener(
+        () => onFocusChange(_itemFocusNodes[i], i),
+      );
     }
   }
 
@@ -129,7 +134,9 @@ class _ListBlockState extends BaseEditableBlockState<ListBlock> {
     final itemsList = newContent['items'] is List ? newContent['items'] : [];
     final newControllers = List<TextEditingController>.generate(
       itemsList.length,
-      (i) => i < _itemControllers.length ? _itemControllers[i] : TextEditingController(),
+      (i) => i < _itemControllers.length
+          ? _itemControllers[i]
+          : TextEditingController(),
     );
     final newFocusNodes = List<FocusNode>.generate(
       itemsList.length,
@@ -184,7 +191,10 @@ class _ListBlockState extends BaseEditableBlockState<ListBlock> {
       _itemFocusNodes.removeAt(index);
       _pendingSelections.remove(index);
       if (_focusedIndex >= index) {
-        _focusedIndex = (_focusedIndex - 1).clamp(-1, _itemControllers.length - 1);
+        _focusedIndex = (_focusedIndex - 1).clamp(
+          -1,
+          _itemControllers.length - 1,
+        );
       }
     });
 
@@ -194,21 +204,21 @@ class _ListBlockState extends BaseEditableBlockState<ListBlock> {
   void _saveContentItems() {
     // Keep all items during editing, including empty ones
     // This prevents items from disappearing while user is typing
-    final items = _itemControllers
-        .map((c) => c.text)
-        .toList();
+    final items = _itemControllers.map((c) => c.text).toList();
 
     content['header'] = _headerController.text.trim();
     content['items'] = items;
-    
+
     // Set flag to prevent infinite loop when saveContent calls onContentChanged
     _isSaving = true;
     _debouncer.call(() {
-      saveContent().then((_) {
-        _isSaving = false;
-      }).catchError((e) {
-        _isSaving = false;
-      });
+      saveContent()
+          .then((_) {
+            _isSaving = false;
+          })
+          .catchError((e) {
+            _isSaving = false;
+          });
     });
   }
 
@@ -237,7 +247,9 @@ class _ListBlockState extends BaseEditableBlockState<ListBlock> {
     setState(() {
       _showBulkInput = !_showBulkInput;
       if (_showBulkInput) {
-        ref.read(blockStylePreferencesProvider.notifier).setListBulkImport(true);
+        ref
+            .read(blockStylePreferencesProvider.notifier)
+            .setListBulkImport(true);
         _bulkImportMode = true;
         if (_itemControllers.isNotEmpty) {
           _bulkInputController.text = _itemControllers
@@ -291,7 +303,10 @@ class _ListBlockState extends BaseEditableBlockState<ListBlock> {
 
     final List<String> cleanedLines = lines.map((line) {
       String cleaned = line.trim();
-      cleaned = cleaned.replaceFirst(RegExp(r'^[•\-\*\+\>\✓\✔\◦\◘\◙\○\◎\◉\◈\diamond\◆\★\☆\✦\✧\➤\➢](\s|\t)+'), '');
+      cleaned = cleaned.replaceFirst(
+        RegExp(r'^[•\-\*\+\>\✓\✔\◦\◘\◙\○\◎\◉\◈\diamond\◆\★\☆\✦\✧\➤\➢](\s|\t)+'),
+        '',
+      );
       cleaned = cleaned.replaceFirst(RegExp(r'^\d+[\.\)\]]\s*'), '');
       cleaned = cleaned.replaceFirst(RegExp(r'^[a-zA-Z][\.\)\]]\s*'), '');
       cleaned = cleaned.replaceFirst(RegExp(r'^[ivxIVX]+[\.\)\]]\s*'), '');
@@ -374,7 +389,9 @@ class _ListBlockState extends BaseEditableBlockState<ListBlock> {
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: 'List item ${index + 1}',
-                hintStyle: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
+                hintStyle: TextStyle(
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                ),
               ),
               onChanged: (value) => _onTextFieldChanged(index, value),
               onSubmitted: (_) {
@@ -402,7 +419,9 @@ class _ListBlockState extends BaseEditableBlockState<ListBlock> {
   }
 
   void _showCustomEmojiInput(BuildContext context, ThemeData theme) {
-    final controller = TextEditingController(text: widget.block.style.customIcon ?? '🔹');
+    final controller = TextEditingController(
+      text: widget.block.style.customIcon ?? '🔹',
+    );
     showDialog(
       context: context,
       builder: (context) {
@@ -433,7 +452,11 @@ class _ListBlockState extends BaseEditableBlockState<ListBlock> {
                       customIcon: emoji,
                     ),
                   );
-                  ref.read(editDocumentControllerProvider(widget.docDir).notifier).saveBlock(updatedBlock);
+                  ref
+                      .read(
+                        editDocumentControllerProvider(widget.docDir).notifier,
+                      )
+                      .saveBlock(updatedBlock);
                 }
                 Navigator.pop(context);
               },
@@ -497,7 +520,11 @@ class _ListBlockState extends BaseEditableBlockState<ListBlock> {
 
   Widget _buildListTypeSelector(ThemeData theme) {
     return PopupMenuButton<String>(
-      icon: Icon(Icons.format_list_bulleted, size: 20, color: theme.colorScheme.primary),
+      icon: Icon(
+        Icons.format_list_bulleted,
+        size: 20,
+        color: theme.colorScheme.primary,
+      ),
       tooltip: 'Change List Type',
       itemBuilder: (context) => [
         const PopupMenuItem(
@@ -557,10 +584,7 @@ class _ListBlockState extends BaseEditableBlockState<ListBlock> {
         const PopupMenuItem(
           value: 'none',
           child: Row(
-            children: [
-              SizedBox(width: 16),
-              Text('None (Plain list)'),
-            ],
+            children: [SizedBox(width: 16), Text('None (Plain list)')],
           ),
         ),
       ],
@@ -571,7 +595,9 @@ class _ListBlockState extends BaseEditableBlockState<ListBlock> {
           final updatedBlock = widget.block.copyWith(
             style: widget.block.style.copyWith(listType: value),
           );
-          ref.read(editDocumentControllerProvider(widget.docDir).notifier).saveBlock(updatedBlock);
+          ref
+              .read(editDocumentControllerProvider(widget.docDir).notifier)
+              .saveBlock(updatedBlock);
         }
       },
     );
@@ -614,7 +640,8 @@ class _ListBlockState extends BaseEditableBlockState<ListBlock> {
               maxLines: 10,
               autofocus: true,
               decoration: InputDecoration(
-                hintText: 'Paste your list here...\n• Item 1\n• Item 2\n• Item 3',
+                hintText:
+                    'Paste your list here...\n• Item 1\n• Item 2\n• Item 3',
                 border: const OutlineInputBorder(),
                 filled: true,
                 fillColor: theme.colorScheme.surface,
@@ -662,7 +689,9 @@ class _ListBlockState extends BaseEditableBlockState<ListBlock> {
     final parsedColor = styleUtils.parseHex(widget.block.style.color);
     final color = parsedColor ?? theme.colorScheme.onSurface;
     final textAlign = styleUtils.textAlignFromStyle(widget.block.style);
-    final textStyle = styleUtils.applyStyle(widget.block.style).copyWith(color: color);
+    final textStyle = styleUtils
+        .applyStyle(widget.block.style)
+        .copyWith(color: color);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -677,16 +706,17 @@ class _ListBlockState extends BaseEditableBlockState<ListBlock> {
             decoration: InputDecoration(
               border: InputBorder.none,
               hintText: 'List Title (optional)',
-              hintStyle: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
+              hintStyle: TextStyle(
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+              ),
             ),
-            style: styleUtils.applyStyle(widget.block.style).copyWith(
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
+            style: styleUtils
+                .applyStyle(widget.block.style)
+                .copyWith(fontWeight: FontWeight.bold, color: color),
             onChanged: _onHeaderChanged,
           ),
         ),
-        
+
         FadeTransition(
           opacity: toolbarOpacity,
           child: Toolbar(block: widget.block, docDir: widget.docDir),
@@ -701,7 +731,11 @@ class _ListBlockState extends BaseEditableBlockState<ListBlock> {
               children: [
                 _buildListTypeSelector(theme),
                 IconButton(
-                  icon: Icon(IconsaxPlusLinear.document_upload, size: 20, color: theme.colorScheme.secondary),
+                  icon: Icon(
+                    IconsaxPlusLinear.document_upload,
+                    size: 20,
+                    color: theme.colorScheme.secondary,
+                  ),
                   tooltip: 'Bulk Import',
                   onPressed: _toggleBulkInput,
                 ),

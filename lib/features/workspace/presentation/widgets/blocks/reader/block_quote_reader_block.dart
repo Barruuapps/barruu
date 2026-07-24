@@ -42,7 +42,12 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
     }
   }
 
-  Widget _buildAvatar(String? avatarPath, double size, ThemeData theme, Directory? docDir) {
+  Widget _buildAvatar(
+    String? avatarPath,
+    double size,
+    ThemeData theme,
+    Directory? docDir,
+  ) {
     if (avatarPath == null || avatarPath.isEmpty) {
       return const SizedBox.shrink();
     }
@@ -107,39 +112,48 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
     final config = QuoteTypes.getConfig(quoteType);
 
     final fontSize = block.style.fontSize;
-    
+
     // Use config colors unless user has customized them
-    final borderColor = styleUtils.parseHex(block.style.borderColor) ?? 
-                        config.getBorderColor(isDark);
-    final backgroundColor = styleUtils.parseHex(block.style.background) ?? 
-                           config.getBackgroundColor(isDark);
+    final borderColor =
+        styleUtils.parseHex(block.style.borderColor) ??
+        config.getBorderColor(isDark);
+    final backgroundColor =
+        styleUtils.parseHex(block.style.background) ??
+        config.getBackgroundColor(isDark);
     final iconColor = config.getIconColor(isDark);
     final parsedColor = styleUtils.parseHex(block.style.color);
     final color = parsedColor ?? theme.colorScheme.onSurface;
 
     final isWide = MediaQuery.of(context).size.width > 600;
     final isDesktop = ResponsiveUtils.isDesktop(context);
-    
+
     // Platform-aware padding using spacing constants
-    final horizontalPadding = isDesktop 
-        ? ResponsiveUtils.spacing20 
+    final horizontalPadding = isDesktop
+        ? ResponsiveUtils.spacing20
         : (isWide ? ResponsiveUtils.spacing16 : ResponsiveUtils.spacing8);
-    final verticalPadding = isDesktop 
-        ? ResponsiveUtils.spacing16 
+    final verticalPadding = isDesktop
+        ? ResponsiveUtils.spacing16
         : (isWide ? ResponsiveUtils.spacing12 : ResponsiveUtils.spacing8);
-    final padding = EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding);
+    final padding = EdgeInsets.symmetric(
+      horizontal: horizontalPadding,
+      vertical: verticalPadding,
+    );
     final verticalMargin = ResponsiveUtils.getBlockSpacing(context);
     final margin = EdgeInsets.symmetric(vertical: verticalMargin);
     final lineHeight = ResponsiveUtils.getLineHeight(context, baseHeight: 1.5);
     final textMultiplier = ResponsiveUtils.getTextSizeMultiplier(context);
-    
+
     Map<String, dynamic> content = {'content': '', 'author': ''};
     try {
       if (block.content.isNotEmpty) {
         content = JsonStringConverter().convertFromJsonString(block.content);
       }
     } catch (e, stackTrace) {
-      logger.e('Failed to parse block content', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to parse block content',
+        error: e,
+        stackTrace: stackTrace,
+      );
     }
 
     final quoteText = content['content'] ?? '';
@@ -147,18 +161,19 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
     final hasAuthor = authorText.isNotEmpty;
     final authorAvatar = block.style.authorAvatar;
 
-    final baseStyle = styleUtils.applyStyle(block.style).copyWith(
-      fontSize: fontSize * textMultiplier,
-      color: color,
-      height: lineHeight,
-    );
+    final baseStyle = styleUtils
+        .applyStyle(block.style)
+        .copyWith(
+          fontSize: fontSize * textMultiplier,
+          color: color,
+          height: lineHeight,
+        );
 
     final linkStyle = baseStyle.copyWith(
       color: theme.colorScheme.primary,
       decoration: TextDecoration.none,
       fontWeight: FontWeight.w500,
     );
-
 
     // Build the content widget based on quote template
     Widget contentWidget = _buildContentForTemplate(
@@ -370,7 +385,10 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
           data: quoteText,
           styleSheet: MarkdownStyleSheet(
             p: baseStyle.copyWith(fontStyle: FontStyle.italic),
-            strong: baseStyle.copyWith(fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
+            strong: baseStyle.copyWith(
+              fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.italic,
+            ),
             em: baseStyle.copyWith(fontStyle: FontStyle.italic),
             a: linkStyle.copyWith(fontStyle: FontStyle.italic),
             code: baseStyle.copyWith(
@@ -378,7 +396,9 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
               backgroundColor: linkStyle.backgroundColor,
             ),
             listBullet: baseStyle.copyWith(fontStyle: FontStyle.italic),
-            textAlign: _getWrapAlignment(styleUtils.textAlignFromStyle(block.style)),
+            textAlign: _getWrapAlignment(
+              styleUtils.textAlignFromStyle(block.style),
+            ),
           ),
           selectable: allowSelection,
           onTapLink: (text, href, title) async {
@@ -403,10 +423,21 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
               backgroundColor: linkStyle.backgroundColor,
             ),
             listBullet: baseStyle,
-            h1: baseStyle.copyWith(fontSize: baseStyle.fontSize! * 1.3, fontWeight: FontWeight.bold),
-            h2: baseStyle.copyWith(fontSize: baseStyle.fontSize! * 1.2, fontWeight: FontWeight.bold),
-            h3: baseStyle.copyWith(fontSize: baseStyle.fontSize! * 1.1, fontWeight: FontWeight.bold),
-            textAlign: _getWrapAlignment(styleUtils.textAlignFromStyle(block.style)),
+            h1: baseStyle.copyWith(
+              fontSize: baseStyle.fontSize! * 1.3,
+              fontWeight: FontWeight.bold,
+            ),
+            h2: baseStyle.copyWith(
+              fontSize: baseStyle.fontSize! * 1.2,
+              fontWeight: FontWeight.bold,
+            ),
+            h3: baseStyle.copyWith(
+              fontSize: baseStyle.fontSize! * 1.1,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: _getWrapAlignment(
+              styleUtils.textAlignFromStyle(block.style),
+            ),
           ),
           selectable: allowSelection,
           onTapLink: (text, href, title) async {
@@ -419,7 +450,12 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
     }
   }
 
-  Widget _buildAuthorWidget(String authorText, String? authorAvatar, ThemeData theme, double textMultiplier) {
+  Widget _buildAuthorWidget(
+    String authorText,
+    String? authorAvatar,
+    ThemeData theme,
+    double textMultiplier,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: Row(
@@ -513,9 +549,7 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
           ] else ...[
             quoteContent,
           ],
-          if (hasAuthor) ...[
-            authorWidget,
-          ],
+          if (hasAuthor) ...[authorWidget],
         ],
       ),
     );
@@ -547,16 +581,10 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            Icons.format_quote,
-            size: 24,
-            color: borderColor,
-          ),
+          Icon(Icons.format_quote, size: 24, color: borderColor),
           const SizedBox(height: 6),
           quoteContent,
-          if (hasAuthor) ...[
-            authorWidget,
-          ],
+          if (hasAuthor) ...[authorWidget],
         ],
       ),
     );
@@ -589,9 +617,7 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           quoteContent,
-          if (hasAuthor) ...[
-            authorWidget,
-          ],
+          if (hasAuthor) ...[authorWidget],
         ],
       ),
     );
@@ -627,10 +653,7 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
-                  theme.colorScheme.primary,
-                  theme.colorScheme.tertiary,
-                ],
+                colors: [theme.colorScheme.primary, theme.colorScheme.tertiary],
               ),
               borderRadius: BorderRadius.circular(2),
             ),
@@ -645,9 +668,7 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
                   const SizedBox(height: 6),
                 ],
                 quoteContent,
-                if (hasAuthor) ...[
-                  authorWidget,
-                ],
+                if (hasAuthor) ...[authorWidget],
               ],
             ),
           ),
@@ -690,9 +711,7 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
           ),
           const SizedBox(height: 6),
           quoteContent,
-          if (hasAuthor) ...[
-            authorWidget,
-          ],
+          if (hasAuthor) ...[authorWidget],
         ],
       ),
     );
@@ -748,9 +767,7 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
           ),
           const SizedBox(height: 8),
           quoteContent,
-          if (hasAuthor) ...[
-            authorWidget,
-          ],
+          if (hasAuthor) ...[authorWidget],
         ],
       ),
     );
@@ -788,7 +805,9 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
               child: Container(
                 padding: padding,
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                  color: theme.colorScheme.surfaceContainerHighest.withValues(
+                    alpha: 0.5,
+                  ),
                   borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(8),
                     bottomRight: Radius.circular(8),
@@ -798,16 +817,10 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (quoteType == 'quote')
-                      Icon(
-                        Icons.format_quote,
-                        size: 20,
-                        color: borderColor,
-                      ),
+                      Icon(Icons.format_quote, size: 20, color: borderColor),
                     if (quoteType == 'quote') const SizedBox(height: 6),
                     quoteContent,
-                    if (hasAuthor) ...[
-                      authorWidget,
-                    ],
+                    if (hasAuthor) ...[authorWidget],
                   ],
                 ),
               ),
@@ -844,20 +857,14 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
           ],
         ),
         borderRadius: BorderRadius.circular(12),
-        border: Border(
-          left: BorderSide(color: borderColor, width: 4),
-        ),
+        border: Border(left: BorderSide(color: borderColor, width: 4)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(
-                Icons.format_quote,
-                size: 24,
-                color: borderColor,
-              ),
+              Icon(Icons.format_quote, size: 24, color: borderColor),
               const SizedBox(width: 12),
               if (quoteType != 'quote')
                 Text(
@@ -872,9 +879,7 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
           ),
           const SizedBox(height: 6),
           quoteContent,
-          if (hasAuthor) ...[
-            authorWidget,
-          ],
+          if (hasAuthor) ...[authorWidget],
         ],
       ),
     );
@@ -913,17 +918,11 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
               color: theme.colorScheme.primaryContainer,
               shape: BoxShape.circle,
             ),
-            child: Icon(
-              Icons.format_quote,
-              size: 24,
-              color: borderColor,
-            ),
+            child: Icon(Icons.format_quote, size: 24, color: borderColor),
           ),
           const SizedBox(height: 12),
           quoteContent,
-          if (hasAuthor) ...[
-            authorWidget,
-          ],
+          if (hasAuthor) ...[authorWidget],
         ],
       ),
     );

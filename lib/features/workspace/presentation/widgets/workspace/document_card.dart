@@ -8,30 +8,30 @@ import 'package:intl/intl.dart';
 import 'package:barruu/core/utils/app_logger.dart';
 
 /// A card widget that displays a document's summary information.
-/// 
+///
 /// This widget shows:
 /// - Document cover image
 /// - Document title and description
 /// - Last modified date
 /// - Popup menu for actions
-/// 
+///
 /// The card is responsive and adapts its layout based on screen size.
 class WorkspaceDocumentCard extends StatelessWidget {
   /// The directory containing the document
   final Directory doc;
-  
+
   /// Cached metadata for the document
   final Map<String, dynamic> meta;
-  
+
   /// Widget to display the cover image
   final Widget Function(String?, ThemeData) buildCoverImage;
-  
+
   /// Widget for the popup menu button
   final Widget Function(Directory) buildPopupMenuButton;
-  
+
   /// Callback when the card needs to show a snackbar
   final void Function(String message) onShowSnackBar;
-  
+
   /// Callback when documents need to be reloaded
   final VoidCallback onReloadDocuments;
 
@@ -48,14 +48,17 @@ class WorkspaceDocumentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final title = meta[MetaFile.nameKey]?.toString().trim() ?? 'Untitled Document';
+    final title =
+        meta[MetaFile.nameKey]?.toString().trim() ?? 'Untitled Document';
     final description = meta[MetaFile.descriptionKey]?.toString().trim() ?? '';
     final lastModified = meta['lastModified'] as DateTime? ?? DateTime.now();
     final coverImageUrl = meta[MetaFile.coverKey]?.toString();
     final formattedDate = DateFormat('MMM d, yyyy').format(lastModified);
 
-    final borderRadius = ResponsiveUtils.getBorderRadius(context, baseRadius: 20.0);
-    final elevation = ResponsiveUtils.getElevation(context, baseElevation: 8.0);
+    final borderRadius = ResponsiveUtils.getBorderRadius(
+      context,
+      baseRadius: 20.0,
+    );
     final textMultiplier = ResponsiveUtils.getTextSizeMultiplier(context);
     final cardMinWidth = ResponsiveUtils.getCardMinWidth(context);
 
@@ -66,7 +69,9 @@ class WorkspaceDocumentCard extends StatelessWidget {
       ),
       child: Card(
         margin: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
         color: theme.colorScheme.surfaceContainer,
         elevation: 0,
         child: InkWell(
@@ -84,7 +89,9 @@ class WorkspaceDocumentCard extends StatelessWidget {
                   fit: StackFit.expand,
                   children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.vertical(top: Radius.circular(borderRadius)),
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(borderRadius),
+                      ),
                       child: SizedBox(
                         width: double.infinity,
                         height: double.infinity,
@@ -115,10 +122,14 @@ class WorkspaceDocumentCard extends StatelessWidget {
                       right: 12,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: theme.colorScheme.surface.withValues(alpha: 0.95),
+                          color: theme.colorScheme.surface.withValues(
+                            alpha: 0.95,
+                          ),
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: theme.colorScheme.outline.withValues(alpha: 0.2),
+                            color: theme.colorScheme.outline.withValues(
+                              alpha: 0.2,
+                            ),
                           ),
                         ),
                         child: buildPopupMenuButton(doc),
@@ -131,7 +142,9 @@ class WorkspaceDocumentCard extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: Padding(
-                  padding: EdgeInsets.all(ResponsiveUtils.isDesktop(context) ? 20.0 : 16.0),
+                  padding: EdgeInsets.all(
+                    ResponsiveUtils.isDesktop(context) ? 20.0 : 16.0,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
@@ -144,8 +157,10 @@ class WorkspaceDocumentCard extends StatelessWidget {
                             letterSpacing: -0.3,
                             color: theme.colorScheme.onSurface,
                             height: 1.3,
-                            fontSize: theme.textTheme.titleMedium?.fontSize != null
-                                ? theme.textTheme.titleMedium!.fontSize! * textMultiplier
+                            fontSize:
+                                theme.textTheme.titleMedium?.fontSize != null
+                                ? theme.textTheme.titleMedium!.fontSize! *
+                                      textMultiplier
                                 : null,
                           ),
                           maxLines: 2,
@@ -153,15 +168,19 @@ class WorkspaceDocumentCard extends StatelessWidget {
                         ),
                       ),
                       if (description.isNotEmpty) ...[
-                        SizedBox(height: ResponsiveUtils.isDesktop(context) ? 6 : 4),
+                        SizedBox(
+                          height: ResponsiveUtils.isDesktop(context) ? 6 : 4,
+                        ),
                         Flexible(
                           child: Text(
                             description,
                             style: theme.textTheme.bodySmall?.copyWith(
                               color: theme.colorScheme.onSurfaceVariant,
                               height: 1.4,
-                              fontSize: theme.textTheme.bodySmall?.fontSize != null
-                                  ? theme.textTheme.bodySmall!.fontSize! * textMultiplier
+                              fontSize:
+                                  theme.textTheme.bodySmall?.fontSize != null
+                                  ? theme.textTheme.bodySmall!.fontSize! *
+                                        textMultiplier
                                   : null,
                             ),
                             maxLines: 1,
@@ -172,19 +191,30 @@ class WorkspaceDocumentCard extends StatelessWidget {
                       const Spacer(),
                       Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: ResponsiveUtils.isDesktop(context) ? 12 : 10,
+                          horizontal: ResponsiveUtils.isDesktop(context)
+                              ? 12
+                              : 10,
                           vertical: ResponsiveUtils.isDesktop(context) ? 8 : 6,
                         ),
                         decoration: BoxDecoration(
-                          color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-                          borderRadius: BorderRadius.circular(ResponsiveUtils.getBorderRadius(context, baseRadius: 8.0)),
+                          color: theme.colorScheme.surfaceContainerHighest
+                              .withValues(alpha: 0.5),
+                          borderRadius: BorderRadius.circular(
+                            ResponsiveUtils.getBorderRadius(
+                              context,
+                              baseRadius: 8.0,
+                            ),
+                          ),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Icon(
                               IconsaxPlusLinear.calendar,
-                              size: ResponsiveUtils.getIconSize(context, baseSize: 13.0),
+                              size: ResponsiveUtils.getIconSize(
+                                context,
+                                baseSize: 13.0,
+                              ),
                               color: theme.colorScheme.onSurfaceVariant,
                             ),
                             const SizedBox(width: 5),
@@ -217,7 +247,11 @@ class WorkspaceDocumentCard extends StatelessWidget {
       await context.push('/preview-document/$docPath');
       onReloadDocuments();
     } catch (e, stackTrace) {
-      logger.e('Navigation error: ${doc.path}', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Navigation error: ${doc.path}',
+        error: e,
+        stackTrace: stackTrace,
+      );
       onShowSnackBar('Failed to open document');
     }
   }

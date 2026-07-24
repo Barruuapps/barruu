@@ -6,17 +6,16 @@ import 'package:flutter/material.dart';
 class SpacerReaderBlock extends StatelessWidget {
   final Block block;
 
-  const SpacerReaderBlock({
-    super.key,
-    required this.block,
-  });
+  const SpacerReaderBlock({super.key, required this.block});
 
   double _resolveHeight() {
     if (block.style.height != null && block.style.height! > 0) {
       return block.style.height!;
     }
     try {
-      final content = JsonStringConverter().convertFromJsonString(block.content);
+      final content = JsonStringConverter().convertFromJsonString(
+        block.content,
+      );
       final contentHeight = (content['height'] as num?)?.toDouble();
       if (contentHeight != null && contentHeight > 0) return contentHeight;
     } catch (_) {}

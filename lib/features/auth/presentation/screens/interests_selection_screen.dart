@@ -25,10 +25,12 @@ class InterestsSelectionScreen extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<InterestsSelectionScreen> createState() => _InterestsSelectionScreenState();
+  ConsumerState<InterestsSelectionScreen> createState() =>
+      _InterestsSelectionScreenState();
 }
 
-class _InterestsSelectionScreenState extends ConsumerState<InterestsSelectionScreen> {
+class _InterestsSelectionScreenState
+    extends ConsumerState<InterestsSelectionScreen> {
   List<String> _selectedInterests = [];
   bool _isLoading = false;
   bool _agreedToTerms = false;
@@ -40,7 +42,9 @@ class _InterestsSelectionScreenState extends ConsumerState<InterestsSelectionScr
       _isLoading = true;
     });
 
-    final success = await ref.read(authStateProvider.notifier).register(
+    final success = await ref
+        .read(authStateProvider.notifier)
+        .register(
           widget.email,
           widget.password,
           widget.name,
@@ -151,7 +155,8 @@ class _InterestsSelectionScreenState extends ConsumerState<InterestsSelectionScr
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+                      color: theme.colorScheme.surfaceContainerHighest
+                          .withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
                         color: theme.colorScheme.outline.withValues(alpha: 0.2),
@@ -214,7 +219,8 @@ class _InterestsSelectionScreenState extends ConsumerState<InterestsSelectionScr
                                   ),
                                 ),
                                 TextSpan(
-                                  text: ' and consent to the processing of my personal data',
+                                  text:
+                                      ' and consent to the processing of my personal data',
                                   style: theme.textTheme.bodySmall,
                                 ),
                               ],

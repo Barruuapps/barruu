@@ -5,10 +5,10 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 /// A widget that renders a polar graph from a polar expression
-/// 
+///
 /// This widget evaluates a polar expression r = f(theta) and displays
 /// it as a curve in Cartesian coordinates with support for zoom, pan, and grid.
-/// 
+///
 /// Example usage:
 /// ```dart
 /// GraphPolarChartWidget(
@@ -24,22 +24,22 @@ import 'package:flutter/material.dart';
 class GraphPolarChartWidget extends StatelessWidget {
   /// The polar expression (e.g., "2*cos(theta)")
   final String expression;
-  
+
   /// Minimum theta value
   final double thetaMin;
-  
+
   /// Maximum theta value
   final double thetaMax;
-  
+
   /// Current zoom level (1.0 = normal, >1.0 = zoomed in)
   final double zoomLevel;
-  
+
   /// Pan offset for navigation
   final Offset panOffset;
-  
+
   /// Whether to show grid lines
   final bool showGrid;
-  
+
   /// App theme for styling
   final ThemeData theme;
 
@@ -75,7 +75,7 @@ class GraphPolarChartWidget extends StatelessWidget {
       // Calculate scaled bounds with padding
       final paddingX = (result.maxX - result.minX) * 0.1;
       final paddingY = (result.maxY - result.minY) * 0.1;
-      
+
       final scaledXBounds = GraphUtilities.calculateScaledBounds(
         minValue: result.minX,
         maxValue: result.maxX,
@@ -83,7 +83,7 @@ class GraphPolarChartWidget extends StatelessWidget {
         panOffset: panOffset.dx,
         padding: paddingX / (result.maxX - result.minX),
       );
-      
+
       final scaledYBounds = GraphUtilities.calculateScaledBounds(
         minValue: result.minY,
         maxValue: result.maxY,
@@ -97,7 +97,7 @@ class GraphPolarChartWidget extends StatelessWidget {
 
       return LineChart(
         LineChartData(
-          gridData: showGrid 
+          gridData: showGrid
               ? GraphUtilities.buildGridData(theme, hInterval, vInterval)
               : const FlGridData(show: false),
           titlesData: GraphUtilities.buildTitlesData(theme),
@@ -126,7 +126,11 @@ class GraphPolarChartWidget extends StatelessWidget {
         ),
       );
     } catch (e, stackTrace) {
-      logger.e('Error generating polar graph', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Error generating polar graph',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return _buildEmptyState('Error generating graph');
     }
   }

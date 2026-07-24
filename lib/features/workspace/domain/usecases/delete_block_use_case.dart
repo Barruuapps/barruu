@@ -3,7 +3,7 @@ import 'package:barruu/features/workspace/domain/usecases/base_use_case.dart';
 import 'package:barruu/features/workspace/domain/repositories/i_document_repository.dart';
 
 /// Use case for deleting a block from a document
-/// 
+///
 /// This use case handles block deletion logic, including validation
 /// and error handling.
 class DeleteBlockUseCase extends UseCase<bool, DeleteBlockParams> {
@@ -21,7 +21,7 @@ class DeleteBlockUseCase extends UseCase<bool, DeleteBlockParams> {
 
       // Delete the block
       final success = await _repository.deleteBlock(params.blockId);
-      
+
       if (!success) {
         return Result.error('Failed to delete block: Block not found');
       }

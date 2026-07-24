@@ -13,7 +13,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 
 /// Screen for editing user profile information
-/// 
+///
 /// Features:
 /// - Avatar upload with R2 storage integration
 /// - Profile information editing (name, bio, etc.)
@@ -24,10 +24,7 @@ class EditProfileScreen extends ConsumerStatefulWidget {
   /// Current user profile to edit
   final UserProfile profile;
 
-  const EditProfileScreen({
-    super.key,
-    required this.profile,
-  });
+  const EditProfileScreen({super.key, required this.profile});
 
   @override
   ConsumerState<EditProfileScreen> createState() => _EditProfileScreenState();
@@ -40,13 +37,13 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   late TextEditingController _professionalTitleController;
   late TextEditingController _organizationController;
   late TextEditingController _websiteController;
-  
+
   final _formKey = GlobalKey<FormState>();
-  
+
   String? _uploadedAvatarUrl;
   bool _isLoading = false;
   bool _isUploadingAvatar = false;
-  
+
   // New fields for profession and interests
   String? _selectedProfession;
   List<String> _selectedInterests = [];
@@ -54,9 +51,11 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   @override
   void initState() {
     super.initState();
-    
+
     // Initialize controllers with current profile data
-    _displayNameController = TextEditingController(text: widget.profile.displayName);
+    _displayNameController = TextEditingController(
+      text: widget.profile.displayName,
+    );
     _usernameController = TextEditingController(text: widget.profile.username);
     _bioController = TextEditingController(text: widget.profile.bio ?? '');
     _professionalTitleController = TextEditingController(
@@ -68,7 +67,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     _websiteController = TextEditingController(
       text: widget.profile.websiteUrl ?? '',
     );
-    
+
     _uploadedAvatarUrl = widget.profile.avatarUrl;
     _selectedProfession = widget.profile.profession;
     _selectedInterests = List.from(widget.profile.interests);
@@ -88,7 +87,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -109,7 +108,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               'Save',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: _isLoading 
+                color: _isLoading
                     ? theme.colorScheme.onSurface.withValues(alpha: 0.3)
                     : theme.colorScheme.primary,
               ),
@@ -127,7 +126,11 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                 // Avatar section
                 _buildAvatarSection(theme),
 
-                _buildSectionHeader(theme, 'Personal Info', IconsaxPlusLinear.user),
+                _buildSectionHeader(
+                  theme,
+                  'Personal Info',
+                  IconsaxPlusLinear.user,
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
@@ -180,7 +183,11 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                 const SizedBox(height: 8),
 
                 // Professional Info section
-                _buildSectionHeader(theme, 'Professional Info', IconsaxPlusLinear.briefcase),
+                _buildSectionHeader(
+                  theme,
+                  'Professional Info',
+                  IconsaxPlusLinear.briefcase,
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
@@ -202,7 +209,8 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                       const SizedBox(height: 4),
 
                       // Profession selector (professional accounts only)
-                      if (widget.profile.accountType == AccountType.professional) ...[
+                      if (widget.profile.accountType ==
+                          AccountType.professional) ...[
                         const SizedBox(height: 12),
                         ProfessionSelector(
                           selectedProfession: _selectedProfession,
@@ -221,7 +229,11 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                 const SizedBox(height: 8),
 
                 // Social Links section
-                _buildSectionHeader(theme, 'Social Links', IconsaxPlusLinear.link),
+                _buildSectionHeader(
+                  theme,
+                  'Social Links',
+                  IconsaxPlusLinear.link,
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
@@ -236,7 +248,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                         validator: (value) {
                           if (value != null && value.trim().isNotEmpty) {
                             final urlPattern = RegExp(
-                              r'^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$'
+                              r'^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$',
                             );
                             if (!urlPattern.hasMatch(value)) {
                               return 'Please enter a valid URL';
@@ -253,7 +265,11 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                 const SizedBox(height: 8),
 
                 // Interests section
-                _buildSectionHeader(theme, 'Interests', IconsaxPlusLinear.category),
+                _buildSectionHeader(
+                  theme,
+                  'Interests',
+                  IconsaxPlusLinear.category,
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
@@ -277,14 +293,12 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               ],
             ),
           ),
-          
+
           // Loading overlay
           if (_isLoading)
             Container(
               color: Colors.black54,
-              child: const Center(
-                child: ShimmerCircularProgress(size: 48),
-              ),
+              child: const Center(child: ShimmerCircularProgress(size: 48)),
             ),
         ],
       ),
@@ -339,8 +353,8 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       maxLines: maxLines,
       maxLength: maxLength,
       keyboardType: keyboardType,
-      textCapitalization: maxLines > 1 
-          ? TextCapitalization.sentences 
+      textCapitalization: maxLines > 1
+          ? TextCapitalization.sentences
           : TextCapitalization.words,
       validator: validator,
       decoration: InputDecoration(
@@ -382,7 +396,8 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     }
 
     // Validate profession for professional accounts
-    if (widget.profile.accountType == AccountType.professional && _selectedProfession == null) {
+    if (widget.profile.accountType == AccountType.professional &&
+        _selectedProfession == null) {
       UIUtils.showSnackBar(
         context,
         'Please select your profession',
@@ -399,8 +414,8 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       // Create updated profile
       final updatedProfile = widget.profile.copyWith(
         displayName: _displayNameController.text.trim(),
-        bio: _bioController.text.trim().isEmpty 
-            ? null 
+        bio: _bioController.text.trim().isEmpty
+            ? null
             : _bioController.text.trim(),
         avatarUrl: _uploadedAvatarUrl,
         professionalTitle: _professionalTitleController.text.trim().isEmpty
@@ -424,10 +439,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         if (mounted) {
           UIUtils.showSnackBar(
             context,
-            'Failed to update profile: ${result.when(
-              success: (_) => 'Unknown error',
-              error: (msg) => msg,
-            )}',
+            'Failed to update profile: ${result.when(success: (_) => 'Unknown error', error: (msg) => msg)}',
             isError: true,
           );
         }
@@ -438,10 +450,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       await ref.read(authStateProvider.notifier).refresh();
 
       if (mounted) {
-        UIUtils.showSnackBar(
-          context,
-          'Profile updated successfully!',
-        );
+        UIUtils.showSnackBar(context, 'Profile updated successfully!');
         Navigator.pop(context, updatedProfile);
       }
     } catch (e) {

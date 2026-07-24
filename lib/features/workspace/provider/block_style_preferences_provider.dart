@@ -8,8 +8,9 @@ class BlockStylePreferences {
   final bool multipleChoiceUseBulkImport;
   final String? chatProfileName;
   final String? chatAlignment;
-  final String? chatLeftProfileName;  // Remember name for left-aligned messages
-  final String? chatRightProfileName; // Remember name for right-aligned messages
+  final String? chatLeftProfileName; // Remember name for left-aligned messages
+  final String?
+  chatRightProfileName; // Remember name for right-aligned messages
   // Quiz/Multiple Choice preferences
   final bool? quizAnswerOnce;
   final bool? quizShowFeedbackInstantly;
@@ -45,14 +46,17 @@ class BlockStylePreferences {
   }) {
     return BlockStylePreferences(
       listUseBulkImport: listUseBulkImport ?? this.listUseBulkImport,
-      checkboxUseBulkImport: checkboxUseBulkImport ?? this.checkboxUseBulkImport,
-      multipleChoiceUseBulkImport: multipleChoiceUseBulkImport ?? this.multipleChoiceUseBulkImport,
+      checkboxUseBulkImport:
+          checkboxUseBulkImport ?? this.checkboxUseBulkImport,
+      multipleChoiceUseBulkImport:
+          multipleChoiceUseBulkImport ?? this.multipleChoiceUseBulkImport,
       chatProfileName: chatProfileName ?? this.chatProfileName,
       chatAlignment: chatAlignment ?? this.chatAlignment,
       chatLeftProfileName: chatLeftProfileName ?? this.chatLeftProfileName,
       chatRightProfileName: chatRightProfileName ?? this.chatRightProfileName,
       quizAnswerOnce: quizAnswerOnce ?? this.quizAnswerOnce,
-      quizShowFeedbackInstantly: quizShowFeedbackInstantly ?? this.quizShowFeedbackInstantly,
+      quizShowFeedbackInstantly:
+          quizShowFeedbackInstantly ?? this.quizShowFeedbackInstantly,
       quizMarksPerQuestion: quizMarksPerQuestion ?? this.quizMarksPerQuestion,
       quizQuestionGroup: quizQuestionGroup ?? this.quizQuestionGroup,
     );
@@ -60,7 +64,8 @@ class BlockStylePreferences {
 }
 
 /// State notifier for managing block style preferences during the session
-class BlockStylePreferencesNotifier extends StateNotifier<BlockStylePreferences> {
+class BlockStylePreferencesNotifier
+    extends StateNotifier<BlockStylePreferences> {
   BlockStylePreferencesNotifier() : super(const BlockStylePreferences());
 
   void setListBulkImport(bool value) {
@@ -111,6 +116,5 @@ class BlockStylePreferencesNotifier extends StateNotifier<BlockStylePreferences>
 /// Provider for block style preferences (session-based, resets on app close)
 final blockStylePreferencesProvider =
     StateNotifierProvider<BlockStylePreferencesNotifier, BlockStylePreferences>(
-  (ref) => BlockStylePreferencesNotifier(),
-);
-
+      (ref) => BlockStylePreferencesNotifier(),
+    );

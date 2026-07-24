@@ -54,8 +54,5 @@ class AIGeneratedPage {
   final String title;
   final List<Block> blocks;
 
-  const AIGeneratedPage({
-    required this.title,
-    required this.blocks,
-  });
+  const AIGeneratedPage({required this.title, required this.blocks});
 }

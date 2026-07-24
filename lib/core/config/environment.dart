@@ -32,40 +32,37 @@ class Environment {
   // Using Cloudflare R2 for large file storage (cost-effective)
   // Firebase Storage is used only for small files like images
   // All credentials are loaded from .env file for security
-  
+
   /// Cloudflare R2 endpoint
   /// Loaded from R2_ENDPOINT environment variable
-  static String get r2Endpoint => 
-    dotenv.env['R2_ENDPOINT'] ?? '';
-  
+  static String get r2Endpoint => dotenv.env['R2_ENDPOINT'] ?? '';
+
   /// Cloudflare R2 access key ID
   /// Loaded from R2_ACCESS_KEY_ID environment variable
-  static String get r2AccessKeyId => 
-    dotenv.env['R2_ACCESS_KEY_ID'] ?? '';
-  
+  static String get r2AccessKeyId => dotenv.env['R2_ACCESS_KEY_ID'] ?? '';
+
   /// Cloudflare R2 secret access key
   /// Loaded from R2_SECRET_ACCESS_KEY environment variable
-  static String get r2SecretAccessKey => 
-    dotenv.env['R2_SECRET_ACCESS_KEY'] ?? '';
-  
+  static String get r2SecretAccessKey =>
+      dotenv.env['R2_SECRET_ACCESS_KEY'] ?? '';
+
   /// Cloudflare R2 bucket name
   /// Loaded from R2_BUCKET_NAME environment variable, defaults to 'barrugram-production'
-  static String get r2BucketName => 
-    dotenv.env['R2_BUCKET_NAME'] ?? 'barrugram-production';
-  
+  static String get r2BucketName =>
+      dotenv.env['R2_BUCKET_NAME'] ?? 'barrugram-production';
+
   /// Cloudflare R2 public URL (CDN URL for accessing R2 bucket contents)
   /// Loaded from R2_PUBLIC_URL environment variable
   /// This should be your custom domain or R2 public URL
-  static String get r2PublicUrl => 
-    dotenv.env['R2_PUBLIC_URL'] ?? '';
+  static String get r2PublicUrl => dotenv.env['R2_PUBLIC_URL'] ?? '';
 
   /// Check if R2 storage is properly configured
-  static bool get isR2Configured => 
-    r2Endpoint.isNotEmpty && 
-    r2AccessKeyId.isNotEmpty && 
-    r2SecretAccessKey.isNotEmpty &&
-    r2BucketName.isNotEmpty &&
-    r2PublicUrl.isNotEmpty;
+  static bool get isR2Configured =>
+      r2Endpoint.isNotEmpty &&
+      r2AccessKeyId.isNotEmpty &&
+      r2SecretAccessKey.isNotEmpty &&
+      r2BucketName.isNotEmpty &&
+      r2PublicUrl.isNotEmpty;
 
   // ============== Legacy Appwrite Configuration (Deprecated) ==============
   // Kept for backward compatibility during migration

@@ -30,9 +30,7 @@ class PrimaryButton extends StatelessWidget {
           horizontal: AppSpacing.base,
           vertical: AppSpacing.md,
         ),
-        shape: RoundedRectangleBorder(
-          borderRadius: AppBorders.medium,
-        ),
+        shape: RoundedRectangleBorder(borderRadius: AppBorders.medium),
         elevation: 0,
         disabledBackgroundColor: AppColors.primary.withValues(alpha: 0.5),
       ),
@@ -88,9 +86,7 @@ class SecondaryButton extends StatelessWidget {
           vertical: AppSpacing.md,
         ),
         side: const BorderSide(color: AppColors.primary, width: 1.5),
-        shape: RoundedRectangleBorder(
-          borderRadius: AppBorders.medium,
-        ),
+        shape: RoundedRectangleBorder(borderRadius: AppBorders.medium),
       ),
       child: isLoading
           ? const ShimmerInlineLoading(size: 20, color: AppColors.primary)

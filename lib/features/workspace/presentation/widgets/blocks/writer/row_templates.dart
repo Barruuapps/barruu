@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 
 /// Row template styles for the rows block.
-/// 
+///
 /// Provides different visual templates for displaying rows:
 /// - standard: Horizontal layout with optional images (default)
 /// - stacked: Vertical compact layout
@@ -23,7 +23,7 @@ Widget buildStandardRowTemplate({
 }) {
   final imagePath = row['imagePath'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
-  
+
   Widget stdPlaceholder() => Container(
     width: double.infinity,
     height: 100,
@@ -63,9 +63,15 @@ Widget buildStandardRowTemplate({
               data: row['content']?.toString() ?? '',
               styleSheet: MarkdownStyleSheet(
                 p: theme.textTheme.bodyMedium?.copyWith(height: 1.5),
-                strong: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-                em: theme.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
-                code: theme.textTheme.bodyMedium?.copyWith(fontFamily: 'monospace'),
+                strong: theme.textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+                em: theme.textTheme.bodyMedium?.copyWith(
+                  fontStyle: FontStyle.italic,
+                ),
+                code: theme.textTheme.bodyMedium?.copyWith(
+                  fontFamily: 'monospace',
+                ),
               ),
             ),
           ),
@@ -87,7 +93,7 @@ Widget buildStackedRowTemplate({
 }) {
   final imagePath = row['imagePath'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
-  
+
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
     decoration: _getRowDecoration(theme, rowStyle),
@@ -102,7 +108,8 @@ Widget buildStackedRowTemplate({
               width: 70,
               height: 70,
               fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+              errorBuilder: (context, error, stackTrace) =>
+                  const SizedBox.shrink(),
             ),
           ),
           const SizedBox(width: 12),
@@ -127,9 +134,15 @@ Widget buildStackedRowTemplate({
             data: row['content']?.toString() ?? '',
             styleSheet: MarkdownStyleSheet(
               p: theme.textTheme.bodyMedium?.copyWith(height: 1.4),
-              strong: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-              em: theme.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
-              code: theme.textTheme.bodyMedium?.copyWith(fontFamily: 'monospace'),
+              strong: theme.textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+              em: theme.textTheme.bodyMedium?.copyWith(
+                fontStyle: FontStyle.italic,
+              ),
+              code: theme.textTheme.bodyMedium?.copyWith(
+                fontFamily: 'monospace',
+              ),
             ),
           ),
         ),
@@ -150,7 +163,7 @@ Widget buildHighlightRowTemplate({
 }) {
   final imagePath = row['imagePath'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
-  
+
   return Container(
     width: 260,
     padding: const EdgeInsets.all(20),
@@ -164,9 +177,9 @@ Widget buildHighlightRowTemplate({
         ],
       ),
       borderRadius: BorderRadius.circular(16),
-      border: rowStyle == 'outlined' 
-        ? Border.all(color: theme.colorScheme.primary, width: 2)
-        : null,
+      border: rowStyle == 'outlined'
+          ? Border.all(color: theme.colorScheme.primary, width: 2)
+          : null,
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -179,7 +192,8 @@ Widget buildHighlightRowTemplate({
               width: double.infinity,
               height: 120,
               fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+              errorBuilder: (context, error, stackTrace) =>
+                  const SizedBox.shrink(),
             ),
           ),
           const SizedBox(height: 16),
@@ -229,7 +243,7 @@ Widget buildTimelineRowTemplate({
 }) {
   final imagePath = row['imagePath'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
-  
+
   return IntrinsicHeight(
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -292,9 +306,9 @@ Widget buildTimelineRowTemplate({
             ],
           ),
         ),
-        
+
         const SizedBox(width: 16),
-        
+
         // Content
         Expanded(
           child: Container(
@@ -312,7 +326,8 @@ Widget buildTimelineRowTemplate({
                       width: double.infinity,
                       height: 120,
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+                      errorBuilder: (context, error, stackTrace) =>
+                          const SizedBox.shrink(),
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -321,9 +336,15 @@ Widget buildTimelineRowTemplate({
                   data: row['content']?.toString() ?? '',
                   styleSheet: MarkdownStyleSheet(
                     p: theme.textTheme.bodyMedium?.copyWith(height: 1.5),
-                    strong: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-                    em: theme.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
-                    code: theme.textTheme.bodyMedium?.copyWith(fontFamily: 'monospace'),
+                    strong: theme.textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    em: theme.textTheme.bodyMedium?.copyWith(
+                      fontStyle: FontStyle.italic,
+                    ),
+                    code: theme.textTheme.bodyMedium?.copyWith(
+                      fontFamily: 'monospace',
+                    ),
                   ),
                 ),
               ],
@@ -347,21 +368,18 @@ Widget buildFeatureRowTemplate({
 }) {
   final imagePath = row['imagePath'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
-  
+
   return Container(
     width: 340,
     padding: const EdgeInsets.all(24),
     decoration: BoxDecoration(
-      color: rowStyle == 'filled' 
-        ? theme.colorScheme.surfaceContainerHighest
-        : theme.colorScheme.surface,
+      color: rowStyle == 'filled'
+          ? theme.colorScheme.surfaceContainerHighest
+          : theme.colorScheme.surface,
       borderRadius: BorderRadius.circular(16),
       border: rowStyle == 'outlined'
-        ? Border.all(
-            color: theme.colorScheme.outline,
-            width: 2,
-          )
-        : null,
+          ? Border.all(color: theme.colorScheme.outline, width: 2)
+          : null,
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -374,7 +392,8 @@ Widget buildFeatureRowTemplate({
               width: double.infinity,
               height: 180,
               fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+              errorBuilder: (context, error, stackTrace) =>
+                  const SizedBox.shrink(),
             ),
           ),
           const SizedBox(height: 20),
@@ -406,10 +425,19 @@ Widget buildFeatureRowTemplate({
             child: MarkdownBody(
               data: row['content']?.toString() ?? '',
               styleSheet: MarkdownStyleSheet(
-                p: theme.textTheme.bodyLarge?.copyWith(height: 1.6, fontWeight: FontWeight.w500),
-                strong: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
-                em: theme.textTheme.bodyLarge?.copyWith(fontStyle: FontStyle.italic),
-                code: theme.textTheme.bodyLarge?.copyWith(fontFamily: 'monospace'),
+                p: theme.textTheme.bodyLarge?.copyWith(
+                  height: 1.6,
+                  fontWeight: FontWeight.w500,
+                ),
+                strong: theme.textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+                em: theme.textTheme.bodyLarge?.copyWith(
+                  fontStyle: FontStyle.italic,
+                ),
+                code: theme.textTheme.bodyLarge?.copyWith(
+                  fontFamily: 'monospace',
+                ),
               ),
             ),
           ),
@@ -432,10 +460,7 @@ BoxDecoration _getRowDecoration(ThemeData theme, String rowStyle) {
       return BoxDecoration(
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: theme.colorScheme.outline,
-          width: 1,
-        ),
+        border: Border.all(color: theme.colorScheme.outline, width: 1),
       );
     case 'filled':
       return BoxDecoration(
@@ -496,62 +521,75 @@ Widget buildCompactRowTemplate({
 }) {
   final imagePath = row['imagePath'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
-  
-  return LayoutBuilder(builder: (context, constraints) {
-    final availH = constraints.maxHeight.isFinite ? constraints.maxHeight - 20 : 80.0;
-    return Container(
-      width: 200,
-      padding: const EdgeInsets.all(10),
-      decoration: _getRowDecoration(theme, rowStyle),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-        if (hasImage)
-          ClipRRect(
-            borderRadius: BorderRadius.circular(6),
-            child: Image.file(
-              File('${docDir.path}/$imagePath'),
-              width: 60,
-              height: 60,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
-            ),
-          )
-        else
-          Container(
-            width: 60,
-            height: 60,
-            decoration: BoxDecoration(
-              color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: Icon(
-              Icons.article_outlined,
-              color: theme.colorScheme.primary,
-              size: 24,
-            ),
-          ),
-        const SizedBox(width: 12),
-          Expanded(
-            child: SizedBox(
-              height: availH,
-              child: SingleChildScrollView(
-                child: MarkdownBody(
-                  data: row['content']?.toString() ?? '',
-                  styleSheet: MarkdownStyleSheet(
-                    p: theme.textTheme.bodySmall?.copyWith(height: 1.3),
-                    strong: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
-                    em: theme.textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic),
-                    code: theme.textTheme.bodySmall?.copyWith(fontFamily: 'monospace'),
+
+  return LayoutBuilder(
+    builder: (context, constraints) {
+      final availH = constraints.maxHeight.isFinite
+          ? constraints.maxHeight - 20
+          : 80.0;
+      return Container(
+        width: 200,
+        padding: const EdgeInsets.all(10),
+        decoration: _getRowDecoration(theme, rowStyle),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            if (hasImage)
+              ClipRRect(
+                borderRadius: BorderRadius.circular(6),
+                child: Image.file(
+                  File('${docDir.path}/$imagePath'),
+                  width: 60,
+                  height: 60,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) =>
+                      const SizedBox.shrink(),
+                ),
+              )
+            else
+              Container(
+                width: 60,
+                height: 60,
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.primaryContainer.withValues(
+                    alpha: 0.3,
+                  ),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Icon(
+                  Icons.article_outlined,
+                  color: theme.colorScheme.primary,
+                  size: 24,
+                ),
+              ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: SizedBox(
+                height: availH,
+                child: SingleChildScrollView(
+                  child: MarkdownBody(
+                    data: row['content']?.toString() ?? '',
+                    styleSheet: MarkdownStyleSheet(
+                      p: theme.textTheme.bodySmall?.copyWith(height: 1.3),
+                      strong: theme.textTheme.bodySmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                      em: theme.textTheme.bodySmall?.copyWith(
+                        fontStyle: FontStyle.italic,
+                      ),
+                      code: theme.textTheme.bodySmall?.copyWith(
+                        fontFamily: 'monospace',
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  });
+          ],
+        ),
+      );
+    },
+  );
 }
 
 /// Overlay row template with text overlaid on image.
@@ -565,7 +603,7 @@ Widget buildOverlayRowTemplate({
 }) {
   final imagePath = row['imagePath'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
-  
+
   return SizedBox(
     width: 240,
     height: 250,
@@ -591,7 +629,8 @@ Widget buildOverlayRowTemplate({
               child: Image.file(
                 File('${docDir.path}/$imagePath'),
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+                errorBuilder: (context, error, stackTrace) =>
+                    const SizedBox.shrink(),
               ),
             ),
           ),
@@ -610,15 +649,29 @@ Widget buildOverlayRowTemplate({
                   Colors.black.withValues(alpha: 0.8),
                 ],
               ),
-              borderRadius: const BorderRadius.vertical(bottom: Radius.circular(12)),
+              borderRadius: const BorderRadius.vertical(
+                bottom: Radius.circular(12),
+              ),
             ),
             child: MarkdownBody(
               data: row['content']?.toString() ?? '',
               styleSheet: MarkdownStyleSheet(
-                p: theme.textTheme.bodyMedium?.copyWith(color: Colors.white, fontWeight: FontWeight.w500),
-                strong: theme.textTheme.bodyMedium?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-                em: theme.textTheme.bodyMedium?.copyWith(color: Colors.white, fontStyle: FontStyle.italic),
-                code: theme.textTheme.bodyMedium?.copyWith(color: Colors.white, fontFamily: 'monospace'),
+                p: theme.textTheme.bodyMedium?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+                strong: theme.textTheme.bodyMedium?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+                em: theme.textTheme.bodyMedium?.copyWith(
+                  color: Colors.white,
+                  fontStyle: FontStyle.italic,
+                ),
+                code: theme.textTheme.bodyMedium?.copyWith(
+                  color: Colors.white,
+                  fontFamily: 'monospace',
+                ),
               ),
             ),
           ),
@@ -639,51 +692,65 @@ Widget buildMagazineRowTemplate({
 }) {
   final imagePath = row['imagePath'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
-  
-  return LayoutBuilder(builder: (context, constraints) {
-    final availH = constraints.maxHeight.isFinite ? constraints.maxHeight - 24 : 140.0;
-    return Container(
-      width: 260,
-      padding: const EdgeInsets.all(12),
-      decoration: _getRowDecoration(theme, rowStyle),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (hasImage)
-          Expanded(
-            flex: 4,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.file(
-                File('${docDir.path}/$imagePath'),
-                height: 140,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+
+  return LayoutBuilder(
+    builder: (context, constraints) {
+      final availH = constraints.maxHeight.isFinite
+          ? constraints.maxHeight - 24
+          : 140.0;
+      return Container(
+        width: 260,
+        padding: const EdgeInsets.all(12),
+        decoration: _getRowDecoration(theme, rowStyle),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (hasImage)
+              Expanded(
+                flex: 4,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.file(
+                    File('${docDir.path}/$imagePath'),
+                    height: 140,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) =>
+                        const SizedBox.shrink(),
+                  ),
+                ),
               ),
-            ),
-          ),
-        if (hasImage) const SizedBox(width: 12),
-          Expanded(
-            flex: 6,
-            child: SizedBox(
-              height: availH,
-              child: SingleChildScrollView(
-                child: MarkdownBody(
-                  data: row['content']?.toString() ?? '',
-                  styleSheet: MarkdownStyleSheet(
-                    p: theme.textTheme.bodyMedium?.copyWith(height: 1.5, fontWeight: FontWeight.w500),
-                    strong: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-                    em: theme.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
-                    code: theme.textTheme.bodyMedium?.copyWith(fontFamily: 'monospace'),
+            if (hasImage) const SizedBox(width: 12),
+            Expanded(
+              flex: 6,
+              child: SizedBox(
+                height: availH,
+                child: SingleChildScrollView(
+                  child: MarkdownBody(
+                    data: row['content']?.toString() ?? '',
+                    styleSheet: MarkdownStyleSheet(
+                      p: theme.textTheme.bodyMedium?.copyWith(
+                        height: 1.5,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      strong: theme.textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                      em: theme.textTheme.bodyMedium?.copyWith(
+                        fontStyle: FontStyle.italic,
+                      ),
+                      code: theme.textTheme.bodyMedium?.copyWith(
+                        fontFamily: 'monospace',
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  });
+          ],
+        ),
+      );
+    },
+  );
 }
 
 /// Split row template with divided sections.
@@ -699,7 +766,7 @@ Widget buildSplitRowTemplate({
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
   final content = row['content']?.toString() ?? '';
   final parts = content.split('|');
-  
+
   return SizedBox(
     width: 260,
     height: 200,
@@ -726,7 +793,8 @@ Widget buildSplitRowTemplate({
                       width: double.infinity,
                       height: 80,
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+                      errorBuilder: (context, error, stackTrace) =>
+                          const SizedBox.shrink(),
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -760,7 +828,9 @@ Widget buildSplitRowTemplate({
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: theme.colorScheme.secondaryContainer.withValues(alpha: 0.3),
+              color: theme.colorScheme.secondaryContainer.withValues(
+                alpha: 0.3,
+              ),
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(12),
                 bottomRight: Radius.circular(12),
@@ -793,7 +863,7 @@ Widget buildBannerRowTemplate({
 }) {
   final imagePath = row['imagePath'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
-  
+
   return Container(
     width: 280,
     height: 150,
@@ -802,10 +872,7 @@ Widget buildBannerRowTemplate({
       gradient: LinearGradient(
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
-        colors: [
-          theme.colorScheme.primary,
-          theme.colorScheme.tertiary,
-        ],
+        colors: [theme.colorScheme.primary, theme.colorScheme.tertiary],
       ),
       borderRadius: BorderRadius.circular(12),
     ),
@@ -820,7 +887,8 @@ Widget buildBannerRowTemplate({
               width: 100,
               height: 60,
               fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+              errorBuilder: (context, error, stackTrace) =>
+                  const SizedBox.shrink(),
             ),
           ),
           const SizedBox(height: 12),
@@ -830,10 +898,22 @@ Widget buildBannerRowTemplate({
             child: MarkdownBody(
               data: row['content']?.toString() ?? '',
               styleSheet: MarkdownStyleSheet(
-                p: theme.textTheme.bodyLarge?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-                strong: theme.textTheme.bodyLarge?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-                em: theme.textTheme.bodyLarge?.copyWith(color: Colors.white, fontStyle: FontStyle.italic),
-                code: theme.textTheme.bodyLarge?.copyWith(color: Colors.white, fontFamily: 'monospace'),
+                p: theme.textTheme.bodyLarge?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+                strong: theme.textTheme.bodyLarge?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+                em: theme.textTheme.bodyLarge?.copyWith(
+                  color: Colors.white,
+                  fontStyle: FontStyle.italic,
+                ),
+                code: theme.textTheme.bodyLarge?.copyWith(
+                  color: Colors.white,
+                  fontFamily: 'monospace',
+                ),
                 textAlign: WrapAlignment.center,
               ),
             ),
@@ -855,7 +935,7 @@ Widget buildAvatarRowTemplate({
 }) {
   final imagePath = row['imagePath'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
-  
+
   return Container(
     width: 200,
     padding: const EdgeInsets.all(16),
@@ -877,7 +957,11 @@ Widget buildAvatarRowTemplate({
                   shape: BoxShape.circle,
                   color: theme.colorScheme.primaryContainer,
                 ),
-                child: Icon(Icons.person, size: 40, color: theme.colorScheme.onPrimaryContainer),
+                child: Icon(
+                  Icons.person,
+                  size: 40,
+                  color: theme.colorScheme.onPrimaryContainer,
+                ),
               ),
             ),
           )
@@ -889,7 +973,11 @@ Widget buildAvatarRowTemplate({
               shape: BoxShape.circle,
               color: theme.colorScheme.primaryContainer,
             ),
-            child: Icon(Icons.person, size: 40, color: theme.colorScheme.onPrimaryContainer),
+            child: Icon(
+              Icons.person,
+              size: 40,
+              color: theme.colorScheme.onPrimaryContainer,
+            ),
           ),
         const SizedBox(height: 12),
         Expanded(
@@ -898,9 +986,15 @@ Widget buildAvatarRowTemplate({
               data: row['content']?.toString() ?? '',
               styleSheet: MarkdownStyleSheet(
                 p: theme.textTheme.bodyMedium,
-                strong: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-                em: theme.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
-                code: theme.textTheme.bodyMedium?.copyWith(fontFamily: 'monospace'),
+                strong: theme.textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+                em: theme.textTheme.bodyMedium?.copyWith(
+                  fontStyle: FontStyle.italic,
+                ),
+                code: theme.textTheme.bodyMedium?.copyWith(
+                  fontFamily: 'monospace',
+                ),
                 textAlign: WrapAlignment.center,
               ),
             ),
@@ -922,7 +1016,7 @@ Widget buildIconRowTemplate({
 }) {
   final imagePath = row['imagePath'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
-  
+
   return Container(
     width: 180,
     padding: const EdgeInsets.all(16),
@@ -938,7 +1032,8 @@ Widget buildIconRowTemplate({
               width: 60,
               height: 60,
               fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+              errorBuilder: (context, error, stackTrace) =>
+                  const SizedBox.shrink(),
             ),
           )
         else
@@ -956,11 +1051,7 @@ Widget buildIconRowTemplate({
                 ],
               ),
             ),
-            child: Icon(
-              Icons.star,
-              size: 30,
-              color: theme.colorScheme.primary,
-            ),
+            child: Icon(Icons.star, size: 30, color: theme.colorScheme.primary),
           ),
         const SizedBox(height: 12),
         Expanded(
@@ -969,9 +1060,15 @@ Widget buildIconRowTemplate({
               data: row['content']?.toString() ?? '',
               styleSheet: MarkdownStyleSheet(
                 p: theme.textTheme.bodyMedium,
-                strong: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-                em: theme.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
-                code: theme.textTheme.bodyMedium?.copyWith(fontFamily: 'monospace'),
+                strong: theme.textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+                em: theme.textTheme.bodyMedium?.copyWith(
+                  fontStyle: FontStyle.italic,
+                ),
+                code: theme.textTheme.bodyMedium?.copyWith(
+                  fontFamily: 'monospace',
+                ),
                 textAlign: WrapAlignment.center,
               ),
             ),
@@ -993,65 +1090,78 @@ Widget buildHorizontalRowTemplate({
 }) {
   final imagePath = row['imagePath'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
-  
-  return LayoutBuilder(builder: (context, constraints) {
-    final availH = constraints.maxHeight.isFinite ? constraints.maxHeight - 24 : 152.0;
-    return Container(
-      width: 240,
-      padding: const EdgeInsets.all(12),
-      decoration: _getRowDecoration(theme, rowStyle),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        if (hasImage)
-          Expanded(
-            flex: 3,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.file(
-                File('${docDir.path}/$imagePath'),
-                height: 140,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+
+  return LayoutBuilder(
+    builder: (context, constraints) {
+      final availH = constraints.maxHeight.isFinite
+          ? constraints.maxHeight - 24
+          : 152.0;
+      return Container(
+        width: 240,
+        padding: const EdgeInsets.all(12),
+        decoration: _getRowDecoration(theme, rowStyle),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            if (hasImage)
+              Expanded(
+                flex: 3,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.file(
+                    File('${docDir.path}/$imagePath'),
+                    height: 140,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) =>
+                        const SizedBox.shrink(),
+                  ),
+                ),
+              )
+            else
+              Expanded(
+                flex: 3,
+                child: Container(
+                  height: 140,
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(
+                    Icons.image_outlined,
+                    size: 48,
+                    color: theme.colorScheme.onPrimaryContainer.withValues(
+                      alpha: 0.5,
+                    ),
+                  ),
+                ),
               ),
-            ),
-          )
-        else
-          Expanded(
-            flex: 3,
-            child: Container(
-              height: 140,
-              decoration: BoxDecoration(
-                color: theme.colorScheme.primaryContainer,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Icon(
-                Icons.image_outlined,
-                size: 48,
-                color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.5),
-              ),
-            ),
-          ),
-        const SizedBox(width: 12),
-          Expanded(
-            flex: 4,
-            child: SizedBox(
-              height: availH,
-              child: SingleChildScrollView(
-                child: MarkdownBody(
-                  data: row['content']?.toString() ?? '',
-                  styleSheet: MarkdownStyleSheet(
-                    p: theme.textTheme.bodyMedium?.copyWith(height: 1.5),
-                    strong: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-                    em: theme.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
-                    code: theme.textTheme.bodyMedium?.copyWith(fontFamily: 'monospace'),
+            const SizedBox(width: 12),
+            Expanded(
+              flex: 4,
+              child: SizedBox(
+                height: availH,
+                child: SingleChildScrollView(
+                  child: MarkdownBody(
+                    data: row['content']?.toString() ?? '',
+                    styleSheet: MarkdownStyleSheet(
+                      p: theme.textTheme.bodyMedium?.copyWith(height: 1.5),
+                      strong: theme.textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                      em: theme.textTheme.bodyMedium?.copyWith(
+                        fontStyle: FontStyle.italic,
+                      ),
+                      code: theme.textTheme.bodyMedium?.copyWith(
+                        fontFamily: 'monospace',
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  });
+          ],
+        ),
+      );
+    },
+  );
 }

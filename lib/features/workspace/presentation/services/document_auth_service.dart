@@ -45,7 +45,9 @@ class DocumentAuthService {
       } else {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('You do not have permission to edit this document')),
+            const SnackBar(
+              content: Text('You do not have permission to edit this document'),
+            ),
           );
           context.go('/');
         }

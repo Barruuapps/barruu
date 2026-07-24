@@ -32,7 +32,11 @@ class TableTemplateSelector extends StatelessWidget {
             _buildTemplateOption('default', 'Default', _buildDefaultPreview()),
             _buildTemplateOption('striped', 'Striped', _buildStripedPreview()),
             _buildTemplateOption('minimal', 'Minimal', _buildMinimalPreview()),
-            _buildTemplateOption('bordered', 'Bordered', _buildBorderedPreview()),
+            _buildTemplateOption(
+              'bordered',
+              'Bordered',
+              _buildBorderedPreview(),
+            ),
             _buildTemplateOption('modern', 'Modern', _buildModernPreview()),
             _buildTemplateOption('card', 'Card', _buildCardPreview()),
           ],
@@ -55,7 +59,9 @@ class TableTemplateSelector extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(
-            color: isSelected ? theme.colorScheme.primary : theme.colorScheme.outline.withValues(alpha: 0.3),
+            color: isSelected
+                ? theme.colorScheme.primary
+                : theme.colorScheme.outline.withValues(alpha: 0.3),
             width: isSelected ? 2.5 : 1,
           ),
           borderRadius: BorderRadius.circular(8),
@@ -77,7 +83,9 @@ class TableTemplateSelector extends StatelessWidget {
               decoration: BoxDecoration(
                 color: isSelected
                     ? theme.colorScheme.primary.withValues(alpha: 0.1)
-                    : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                    : theme.colorScheme.surfaceContainerHighest.withValues(
+                        alpha: 0.5,
+                      ),
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(7),
                   bottomRight: Radius.circular(7),
@@ -193,7 +201,9 @@ class TableTemplateSelector extends StatelessWidget {
           left: BorderSide(color: borderColor, width: borderWidth),
           right: BorderSide(color: borderColor, width: borderWidth),
           horizontalInside: showHorizontalDividers
-              ? BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.2))
+              ? BorderSide(
+                  color: theme.colorScheme.outline.withValues(alpha: 0.2),
+                )
               : BorderSide.none,
           verticalInside: BorderSide(color: borderColor, width: borderWidth),
         ),
@@ -206,25 +216,37 @@ class TableTemplateSelector extends StatelessWidget {
           // Header row
           TableRow(
             decoration: BoxDecoration(color: headerColor),
-            children: List.generate(3, (c) => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 4),
-              child: Container(
-                height: 3,
-                color: (headerTextColor ?? theme.colorScheme.onSurface).withValues(alpha: 0.7),
+            children: List.generate(
+              3,
+              (c) => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 4),
+                child: Container(
+                  height: 3,
+                  color: (headerTextColor ?? theme.colorScheme.onSurface)
+                      .withValues(alpha: 0.7),
+                ),
               ),
-            )),
+            ),
           ),
           // Data rows
-          ...rowColors.asMap().entries.map((entry) => TableRow(
-            decoration: BoxDecoration(color: entry.value),
-            children: List.generate(3, (c) => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 3),
-              child: Container(
-                height: 2,
-                color: theme.colorScheme.onSurface.withValues(alpha: 0.35),
+          ...rowColors.asMap().entries.map(
+            (entry) => TableRow(
+              decoration: BoxDecoration(color: entry.value),
+              children: List.generate(
+                3,
+                (c) => Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 3,
+                    vertical: 3,
+                  ),
+                  child: Container(
+                    height: 2,
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.35),
+                  ),
+                ),
               ),
-            )),
-          )),
+            ),
+          ),
         ],
       ),
     );

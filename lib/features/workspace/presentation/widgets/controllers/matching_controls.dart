@@ -35,8 +35,11 @@ class MatchingControls extends ConsumerWidget {
               Navigator.of(context).pop();
             }
           } catch (e, stackTrace) {
-            logger.e('Failed to update matching question template',
-                error: e, stackTrace: stackTrace);
+            logger.e(
+              'Failed to update matching question template',
+              error: e,
+              stackTrace: stackTrace,
+            );
           }
         },
         theme: theme,

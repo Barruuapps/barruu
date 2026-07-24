@@ -77,19 +77,15 @@ class InspectorPanel extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
               horizontal: DesignTokens.spacing16,
             ),
-            child: Divider(
-              height: 1,
-              color: theme.colorScheme.outlineVariant,
-            ),
+            child: Divider(height: 1, color: theme.colorScheme.outlineVariant),
           ),
           // Content
           Expanded(
             child: ListView(
               controller: scrollController,
-              padding: padding ??
-                  const EdgeInsets.symmetric(
-                    vertical: DesignTokens.spacing8,
-                  ),
+              padding:
+                  padding ??
+                  const EdgeInsets.symmetric(vertical: DesignTokens.spacing8),
               children: children,
             ),
           ),
@@ -226,9 +222,7 @@ class InspectorPropertyRow extends StatelessWidget {
     final theme = Theme.of(context);
 
     final row = Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: DesignTokens.spacing4,
-      ),
+      padding: const EdgeInsets.symmetric(vertical: DesignTokens.spacing4),
       child: Row(
         children: [
           if (leadingIcon != null) ...[
@@ -313,14 +307,14 @@ class InspectorChip extends StatelessWidget {
               ? effectiveColor.withValues(alpha: 0.15)
               : theme.colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(DesignTokens.radiusSmall),
-          border: isActive
-              ? Border.all(color: effectiveColor, width: 1)
-              : null,
+          border: isActive ? Border.all(color: effectiveColor, width: 1) : null,
         ),
         child: Text(
           label,
           style: theme.textTheme.labelSmall?.copyWith(
-            color: isActive ? effectiveColor : theme.colorScheme.onSurfaceVariant,
+            color: isActive
+                ? effectiveColor
+                : theme.colorScheme.onSurfaceVariant,
             fontWeight: DesignTokens.weightMedium,
           ),
         ),

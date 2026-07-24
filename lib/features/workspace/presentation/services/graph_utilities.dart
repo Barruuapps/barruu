@@ -25,12 +25,12 @@ Color getEquationColor(int index, ThemeData theme) {
 }
 
 /// Utility functions for graph rendering
-/// 
+///
 /// This service provides common utilities for creating graph components
 /// such as grid lines, axis titles, intercept markers, and number formatting.
 class GraphUtilities {
   /// Formats a number for display on graph axes
-  /// 
+  ///
   /// Applies different formatting based on magnitude:
   /// - Large numbers (>= 1M): Shows as "1.5M"
   /// - Medium numbers (>= 1k): Shows as "2.3k"
@@ -52,12 +52,12 @@ class GraphUtilities {
   }
 
   /// Builds grid data for a chart with customizable intervals
-  /// 
+  ///
   /// Parameters:
   /// - [theme]: The app theme for color selection
   /// - [horizontalInterval]: Spacing between horizontal grid lines
   /// - [verticalInterval]: Spacing between vertical grid lines
-  /// 
+  ///
   /// Returns configured [FlGridData] with styled grid lines and axes
   static FlGridData buildGridData(
     ThemeData theme,
@@ -90,18 +90,18 @@ class GraphUtilities {
   }
 
   /// Builds axis titles configuration for a chart
-  /// 
+  ///
   /// Parameters:
   /// - [theme]: The app theme for styling
   /// - [formatNumber]: Optional custom number formatting function
-  /// 
+  ///
   /// Returns configured [FlTitlesData] for all four axes
   static FlTitlesData buildTitlesData(
     ThemeData theme, {
     String Function(double)? formatNumber,
   }) {
     final formatter = formatNumber ?? GraphUtilities.formatNumber;
-    
+
     return FlTitlesData(
       leftTitles: AxisTitles(
         sideTitles: SideTitles(
@@ -142,14 +142,14 @@ class GraphUtilities {
   }
 
   /// Builds visual markers for intercepts and critical points
-  /// 
+  ///
   /// Parameters:
   /// - [theme]: The app theme for color selection
   /// - [yIntercept]: Y-intercept point (where x = 0)
   /// - [xIntercepts]: List of x-intercept points (where y = 0)
   /// - [vertex]: Vertex or critical point
   /// - [formatNumber]: Optional custom number formatting function
-  /// 
+  ///
   /// Returns [ExtraLinesData] with colored markers for key points
   static ExtraLinesData buildInterceptLines(
     ThemeData theme, {
@@ -161,7 +161,7 @@ class GraphUtilities {
     final formatter = formatNumber ?? GraphUtilities.formatNumber;
     final horizontalLines = <HorizontalLine>[];
     final verticalLines = <VerticalLine>[];
-    
+
     // Mark y-intercept
     if (yIntercept != null) {
       verticalLines.add(
@@ -182,7 +182,7 @@ class GraphUtilities {
         ),
       );
     }
-    
+
     // Mark x-intercepts
     if (xIntercepts != null) {
       for (final intercept in xIntercepts) {
@@ -205,7 +205,7 @@ class GraphUtilities {
         );
       }
     }
-    
+
     // Mark vertex/critical point
     if (vertex != null) {
       horizontalLines.add(
@@ -226,7 +226,7 @@ class GraphUtilities {
         ),
       );
     }
-    
+
     return ExtraLinesData(
       horizontalLines: horizontalLines,
       verticalLines: verticalLines,
@@ -234,14 +234,14 @@ class GraphUtilities {
   }
 
   /// Calculates scaled bounds for zoom and pan functionality
-  /// 
+  ///
   /// Parameters:
   /// - [minValue]: Minimum value of the range
   /// - [maxValue]: Maximum value of the range
   /// - [zoomLevel]: Current zoom level (1.0 = normal, >1.0 = zoomed in)
   /// - [panOffset]: Pan offset in the direction
   /// - [padding]: Additional padding as a fraction of range (default: 0.1)
-  /// 
+  ///
   /// Returns a [ScaledBounds] object with calculated min and max
   static ScaledBounds calculateScaledBounds({
     required double minValue,
@@ -251,58 +251,63 @@ class GraphUtilities {
     double padding = 0.1,
   }) {
     final center = (minValue + maxValue) / 2;
-    final range = (maxValue - minValue).abs() + 2 * ((maxValue - minValue) * padding);
+    final range =
+        (maxValue - minValue).abs() + 2 * ((maxValue - minValue) * padding);
     final scaledMin = center + panOffset - (range / (2 * zoomLevel));
     final scaledMax = center + panOffset + (range / (2 * zoomLevel));
-    
+
     return ScaledBounds(min: scaledMin, max: scaledMax);
   }
 
   /// Creates a standard touch tooltip configuration for line charts
-  /// 
+  ///
   /// Parameters:
   /// - [theme]: The app theme for styling
   /// - [formatNumber]: Optional custom number formatting function
-  /// 
+  ///
   /// Returns configured [LineTouchTooltipData]
   static LineTouchTooltipData buildLineTouchTooltip(
     ThemeData theme, {
     String Function(double)? formatNumber,
   }) {
     final formatter = formatNumber ?? GraphUtilities.formatNumber;
-    
+
     return LineTouchTooltipData(
       getTooltipColor: (_) => theme.colorScheme.surface.withValues(alpha: 0.9),
       tooltipBorderRadius: BorderRadius.circular(8),
       getTooltipItems: (touchedSpots) => touchedSpots.map((spot) {
         return LineTooltipItem(
           '(${formatter(spot.x)}, ${formatter(spot.y)})',
-          theme.textTheme.bodySmall!.copyWith(color: theme.colorScheme.onSurface),
+          theme.textTheme.bodySmall!.copyWith(
+            color: theme.colorScheme.onSurface,
+          ),
         );
       }).toList(),
     );
   }
 
   /// Creates a standard touch tooltip configuration for bar charts
-  /// 
+  ///
   /// Parameters:
   /// - [theme]: The app theme for styling
   /// - [formatNumber]: Optional custom number formatting function
-  /// 
+  ///
   /// Returns configured [BarTouchTooltipData]
   static BarTouchTooltipData buildBarTouchTooltip(
     ThemeData theme, {
     String Function(double)? formatNumber,
   }) {
     final formatter = formatNumber ?? GraphUtilities.formatNumber;
-    
+
     return BarTouchTooltipData(
       getTooltipColor: (_) => theme.colorScheme.surface.withValues(alpha: 0.9),
       tooltipBorderRadius: BorderRadius.circular(8),
       getTooltipItem: (group, groupIndex, rod, rodIndex) {
         return BarTooltipItem(
           'Value: ${formatter(rod.toY)}',
-          theme.textTheme.bodySmall!.copyWith(color: theme.colorScheme.onSurface),
+          theme.textTheme.bodySmall!.copyWith(
+            color: theme.colorScheme.onSurface,
+          ),
         );
       },
     );
@@ -313,7 +318,7 @@ class GraphUtilities {
 class ScaledBounds {
   /// Minimum value after scaling
   final double min;
-  
+
   /// Maximum value after scaling
   final double max;
 

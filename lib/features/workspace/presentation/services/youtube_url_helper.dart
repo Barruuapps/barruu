@@ -27,29 +27,41 @@ class YouTubeUrlHelper {
   /// Returns null if the URL is not a valid YouTube URL.
   static String? extractVideoId(String url) {
     if (url.isEmpty) return null;
-    
+
     // First try the built-in converter
     final convertedId = YoutubePlayer.convertUrlToId(url);
     if (convertedId != null && convertedId.isNotEmpty) {
       return convertedId;
     }
-    
+
     // Handle additional YouTube URL formats not covered by the converter
     // This includes youtube-nocookie.com and other variations
     // Patterns allow for query parameters (?), fragments (#), or end of string ($)
     final regexPatterns = [
       // youtube-nocookie.com embed URLs
-      RegExp(r'youtube-nocookie\.com/embed/([a-zA-Z0-9_-]{11})(?:\?|#|&|$)', caseSensitive: false),
+      RegExp(
+        r'youtube-nocookie\.com/embed/([a-zA-Z0-9_-]{11})(?:\?|#|&|$)',
+        caseSensitive: false,
+      ),
       // Standard youtube.com URLs (fallback if converter failed)
-      RegExp(r'youtube\.com/watch\?v=([a-zA-Z0-9_-]{11})(?:&|#|$)', caseSensitive: false),
+      RegExp(
+        r'youtube\.com/watch\?v=([a-zA-Z0-9_-]{11})(?:&|#|$)',
+        caseSensitive: false,
+      ),
       // youtu.be short URLs (fallback) - CRITICAL: Must handle query params like ?si=...
       RegExp(r'youtu\.be/([a-zA-Z0-9_-]{11})(?:\?|#|$)', caseSensitive: false),
       // youtube.com embed URLs (fallback)
-      RegExp(r'youtube\.com/embed/([a-zA-Z0-9_-]{11})(?:\?|#|&|$)', caseSensitive: false),
+      RegExp(
+        r'youtube\.com/embed/([a-zA-Z0-9_-]{11})(?:\?|#|&|$)',
+        caseSensitive: false,
+      ),
       // youtube.com/v/ URLs
-      RegExp(r'youtube\.com/v/([a-zA-Z0-9_-]{11})(?:\?|#|&|$)', caseSensitive: false),
+      RegExp(
+        r'youtube\.com/v/([a-zA-Z0-9_-]{11})(?:\?|#|&|$)',
+        caseSensitive: false,
+      ),
     ];
-    
+
     for (final pattern in regexPatterns) {
       final match = pattern.firstMatch(url);
       if (match != null && match.groupCount >= 1) {
@@ -61,7 +73,7 @@ class YouTubeUrlHelper {
         }
       }
     }
-    
+
     return null;
   }
 

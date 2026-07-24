@@ -1,4 +1,3 @@
-
 import 'package:barruu/features/workspace/domain/entities/block.dart';
 import 'package:barruu/features/workspace/utils/json_string_converter.dart';
 import 'package:barruu/features/workspace/utils/style_utils.dart';
@@ -10,10 +9,7 @@ import 'package:flutter/material.dart';
 // Reader widget for displaying table content
 class TableReaderBlock extends ConsumerWidget {
   final Block block;
-  const TableReaderBlock({
-    super.key,
-    required this.block,
-  });
+  const TableReaderBlock({super.key, required this.block});
 
   Widget _buildEmptyTable(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
@@ -69,7 +65,11 @@ class TableReaderBlock extends ConsumerWidget {
         }
       }
     } catch (e, stackTrace) {
-      logger.e('Failed to parse JSON block content', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to parse JSON block content',
+        error: e,
+        stackTrace: stackTrace,
+      );
       // Fallback for backward compatibility with CSV or pipe-separated content
       try {
         // First try pipe separator (new format)
@@ -88,7 +88,11 @@ class TableReaderBlock extends ConsumerWidget {
           content = {'header': '', 'rows': rows};
         }
       } catch (e, stackTrace) {
-        logger.e('Failed to parse block content', error: e, stackTrace: stackTrace);
+        logger.e(
+          'Failed to parse block content',
+          error: e,
+          stackTrace: stackTrace,
+        );
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Error loading table content: $e')),
@@ -108,14 +112,19 @@ class TableReaderBlock extends ConsumerWidget {
 
       // Find the maximum number of columns
       final maxColumns = rows.isNotEmpty
-          ? rows.map((row) => (row as List<dynamic>).length).reduce((a, b) => a > b ? a : b)
+          ? rows
+                .map((row) => (row as List<dynamic>).length)
+                .reduce((a, b) => a > b ? a : b)
           : 0;
 
       // Pad rows with fewer columns
       final paddedRows = rows.map((row) {
         final currentRow = row as List<dynamic>;
         if (currentRow.length < maxColumns) {
-          return [...currentRow, ...List.filled(maxColumns - currentRow.length, '')];
+          return [
+            ...currentRow,
+            ...List.filled(maxColumns - currentRow.length, ''),
+          ];
         }
         return currentRow;
       }).toList();
@@ -145,13 +154,17 @@ class TableReaderBlock extends ConsumerWidget {
       switch (tableTemplate) {
         case 'striped':
           containerBgColor = theme.colorScheme.surface;
-          containerBorder = Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3));
+          containerBorder = Border.all(
+            color: theme.colorScheme.outline.withValues(alpha: 0.3),
+          );
           headerBgColor = theme.colorScheme.primary;
           rowBgColor = (i) => i % 2 == 0
               ? theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3)
               : Colors.transparent;
           tableBorder = TableBorder(
-            horizontalInside: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.2)),
+            horizontalInside: BorderSide(
+              color: theme.colorScheme.outline.withValues(alpha: 0.2),
+            ),
           );
           break;
         case 'minimal':
@@ -161,14 +174,21 @@ class TableReaderBlock extends ConsumerWidget {
           headerTextColor = theme.colorScheme.onSurface;
           rowBgColor = (_) => Colors.transparent;
           tableBorder = TableBorder(
-            horizontalInside: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
+            horizontalInside: BorderSide(
+              color: theme.colorScheme.outline.withValues(alpha: 0.3),
+            ),
           );
           break;
         case 'bordered':
           containerBgColor = theme.colorScheme.surface;
-          containerBorder = Border.all(color: theme.colorScheme.primary, width: 1.5);
+          containerBorder = Border.all(
+            color: theme.colorScheme.primary,
+            width: 1.5,
+          );
           containerRadius = BorderRadius.circular(8);
-          headerBgColor = theme.colorScheme.primaryContainer.withValues(alpha: 0.5);
+          headerBgColor = theme.colorScheme.primaryContainer.withValues(
+            alpha: 0.5,
+          );
           headerTextColor = theme.colorScheme.onSurface;
           rowBgColor = (_) => Colors.transparent;
           tableBorder = TableBorder.all(
@@ -178,7 +198,9 @@ class TableReaderBlock extends ConsumerWidget {
           break;
         case 'modern':
           containerBgColor = theme.colorScheme.surface;
-          containerBorder = Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.1));
+          containerBorder = Border.all(
+            color: theme.colorScheme.outline.withValues(alpha: 0.1),
+          );
           containerRadius = BorderRadius.circular(12);
           containerShadow = [
             BoxShadow(
@@ -190,7 +212,9 @@ class TableReaderBlock extends ConsumerWidget {
           headerBgColor = theme.colorScheme.primary;
           rowBgColor = (_) => Colors.transparent;
           tableBorder = TableBorder(
-            horizontalInside: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.15)),
+            horizontalInside: BorderSide(
+              color: theme.colorScheme.outline.withValues(alpha: 0.15),
+            ),
           );
           break;
         case 'card':
@@ -204,20 +228,28 @@ class TableReaderBlock extends ConsumerWidget {
               offset: const Offset(0, 3),
             ),
           ];
-          headerBgColor = theme.colorScheme.primaryContainer.withValues(alpha: 0.7);
+          headerBgColor = theme.colorScheme.primaryContainer.withValues(
+            alpha: 0.7,
+          );
           headerTextColor = theme.colorScheme.onSurface;
           rowBgColor = (i) => i % 2 == 0
-              ? theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.15)
+              ? theme.colorScheme.surfaceContainerHighest.withValues(
+                  alpha: 0.15,
+                )
               : Colors.transparent;
           tableBorder = TableBorder(
-            horizontalInside: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.1)),
+            horizontalInside: BorderSide(
+              color: theme.colorScheme.outline.withValues(alpha: 0.1),
+            ),
           );
           break;
         default: // 'default'
           containerBgColor = theme.colorScheme.surface;
           containerBorder = Border.all(color: theme.colorScheme.outline);
           headerBgColor = isFirstRowHeader ? theme.colorScheme.primary : null;
-          headerTextColor = isFirstRowHeader ? theme.colorScheme.onPrimary : theme.colorScheme.onSurface;
+          headerTextColor = isFirstRowHeader
+              ? theme.colorScheme.onPrimary
+              : theme.colorScheme.onSurface;
           rowBgColor = (i) => i % 2 == 0
               ? theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.1)
               : Colors.transparent;
@@ -252,9 +284,12 @@ class TableReaderBlock extends ConsumerWidget {
                 color: effectiveHeaderBg ?? effectiveRowBg,
                 borderRadius: isHeaderRow && tableTemplate != 'minimal'
                     ? const BorderRadius.vertical(top: Radius.circular(4))
-                    : (index == paddedRows.length - 1 && tableTemplate != 'minimal'
-                    ? const BorderRadius.vertical(bottom: Radius.circular(4))
-                    : null),
+                    : (index == paddedRows.length - 1 &&
+                              tableTemplate != 'minimal'
+                          ? const BorderRadius.vertical(
+                              bottom: Radius.circular(4),
+                            )
+                          : null),
               ),
               children: row.asMap().entries.map((cellEntry) {
                 final cellIndex = cellEntry.key;
@@ -263,9 +298,15 @@ class TableReaderBlock extends ConsumerWidget {
                 final baseStyle = textStyle.copyWith(
                   fontWeight: isHeaderRow ? FontWeight.bold : FontWeight.w400,
                   fontSize: isHeaderRow
-                      ? (isWide ? (textStyle.fontSize ?? 14) * 1.05 : (textStyle.fontSize ?? 14) * 0.9)
-                      : (isWide ? textStyle.fontSize : (textStyle.fontSize ?? 14) * 0.85),
-                  color: isHeaderRow ? headerTextColor : theme.colorScheme.onSurface,
+                      ? (isWide
+                            ? (textStyle.fontSize ?? 14) * 1.05
+                            : (textStyle.fontSize ?? 14) * 0.9)
+                      : (isWide
+                            ? textStyle.fontSize
+                            : (textStyle.fontSize ?? 14) * 0.85),
+                  color: isHeaderRow
+                      ? headerTextColor
+                      : theme.colorScheme.onSurface,
                   letterSpacing: isHeaderRow ? 0.4 : null,
                 );
                 final linkStyle = baseStyle.copyWith(
@@ -275,7 +316,9 @@ class TableReaderBlock extends ConsumerWidget {
                   decoration: TextDecoration.underline,
                   fontWeight: isHeaderRow ? FontWeight.w600 : FontWeight.w500,
                 );
-                final hoverColor = theme.colorScheme.primary.withValues(alpha: 0.7);
+                final hoverColor = theme.colorScheme.primary.withValues(
+                  alpha: 0.7,
+                );
 
                 return Semantics(
                   label: cell.isEmpty
@@ -285,8 +328,12 @@ class TableReaderBlock extends ConsumerWidget {
                       : 'Table cell row ${index + 1} column ${cellIndex + 1}: $cell',
                   child: Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: isWide ? 16.0 : 8.0, // Increased horizontal padding for readability
-                      vertical: isWide ? 12.0 : 8.0, // Slightly more vertical space
+                      horizontal: isWide
+                          ? 16.0
+                          : 8.0, // Increased horizontal padding for readability
+                      vertical: isWide
+                          ? 12.0
+                          : 8.0, // Slightly more vertical space
                     ),
                     child: RichText(
                       text: LinkUtils.parseTextWithLinks(
@@ -296,7 +343,8 @@ class TableReaderBlock extends ConsumerWidget {
                         hoverColor,
                       ),
                       textAlign: textAlign,
-                      overflow: TextOverflow.ellipsis, // Handle long text gracefully
+                      overflow:
+                          TextOverflow.ellipsis, // Handle long text gracefully
                       maxLines: 3, // Limit lines to prevent tall cells
                     ),
                   ),
@@ -313,7 +361,9 @@ class TableReaderBlock extends ConsumerWidget {
           scrollDirection: Axis.horizontal,
           child: ConstrainedBox(
             constraints: BoxConstraints(
-              minWidth: MediaQuery.of(context).size.width * 1.2, // Slight oversize for scroll hint
+              minWidth:
+                  MediaQuery.of(context).size.width *
+                  1.2, // Slight oversize for scroll hint
             ),
             child: tableWidget,
           ),
@@ -322,9 +372,7 @@ class TableReaderBlock extends ConsumerWidget {
 
       // For large tables, wrap in a vertically scrollable container without a fixed height cap
       if (paddedRows.length > 10) {
-        tableWidget = SingleChildScrollView(
-          child: tableWidget,
-        );
+        tableWidget = SingleChildScrollView(child: tableWidget);
       }
 
       return Column(
@@ -332,18 +380,23 @@ class TableReaderBlock extends ConsumerWidget {
         children: [
           if (header.isNotEmpty)
             Padding(
-              padding: const EdgeInsets.only(left: 12.0, right: 12.0, top: 8.0, bottom: 4.0),
-              child: Text(
-                header,
-                style: textStyle,
-                textAlign: textAlign,
+              padding: const EdgeInsets.only(
+                left: 12.0,
+                right: 12.0,
+                top: 8.0,
+                bottom: 4.0,
               ),
+              child: Text(header, style: textStyle, textAlign: textAlign),
             ),
           tableWidget,
         ],
       );
     } catch (e, stackTrace) {
-      logger.e('Unexpected error in TableReaderBlock', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Unexpected error in TableReaderBlock',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return _buildErrorTable(context, ref);
     }
   }

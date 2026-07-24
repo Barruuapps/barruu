@@ -23,9 +23,7 @@ class WelcomeScreen extends StatelessWidget {
               const Spacer(),
 
               // App logo
-              const AppLogoWidget(
-                size: 100,
-              ),
+              const AppLogoWidget(size: 100),
               const SizedBox(height: AppSpacing.xl),
 
               // Headline

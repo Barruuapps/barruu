@@ -17,7 +17,7 @@ class SyncfusionBubbleChartWidget extends StatelessWidget {
   static const double _minBubbleSize = 5.0;
   static const double _mobileScaleFactor = 0.8;
   static const double _desktopScaleFactor = 1.0;
-  
+
   final List<Map<String, dynamic>> data;
   final String xAxisLabel;
   final String yAxisLabel;
@@ -53,7 +53,7 @@ class SyncfusionBubbleChartWidget extends StatelessWidget {
         final axisFontSize = isWide ? 13.0 : 11.0;
         final labelFontSize = isWide ? 12.0 : 10.0;
         final legendFontSize = isWide ? 12.0 : 10.0;
-        
+
         return SfCartesianChart(
           title: title.isNotEmpty
               ? ChartTitle(
@@ -103,9 +103,12 @@ class SyncfusionBubbleChartWidget extends StatelessWidget {
           series: <BubbleSeries<BubbleChartData, double>>[
             BubbleSeries<BubbleChartData, double>(
               dataSource: chartData,
-              xValueMapper: (BubbleChartData data, _) => double.tryParse(data.x) ?? 0.0,
+              xValueMapper: (BubbleChartData data, _) =>
+                  double.tryParse(data.x) ?? 0.0,
               yValueMapper: (BubbleChartData data, _) => data.y,
-              sizeValueMapper: (BubbleChartData data, _) => data.size * (isWide ? _desktopScaleFactor : _mobileScaleFactor),
+              sizeValueMapper: (BubbleChartData data, _) =>
+                  data.size *
+                  (isWide ? _desktopScaleFactor : _mobileScaleFactor),
               name: 'Data',
               color: theme.colorScheme.primary.withValues(alpha: 0.7),
               borderColor: theme.colorScheme.primary,
@@ -129,8 +132,8 @@ class SyncfusionBubbleChartWidget extends StatelessWidget {
       final y = (item['y'] is num) ? (item['y'] as num).toDouble() : 0.0;
       // Use 'size' field if available, otherwise use a consistent default
       // Ensure minimum size for visibility
-      final rawSize = (item['size'] is num) 
-          ? (item['size'] as num).toDouble() 
+      final rawSize = (item['size'] is num)
+          ? (item['size'] as num).toDouble()
           : _defaultBubbleSize;
       final size = rawSize < _minBubbleSize ? _minBubbleSize : rawSize;
       return BubbleChartData(x, y, size);

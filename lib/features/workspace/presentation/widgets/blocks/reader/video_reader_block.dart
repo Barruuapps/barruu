@@ -31,7 +31,8 @@ class VideoReaderBlock extends ConsumerStatefulWidget {
   ConsumerState<VideoReaderBlock> createState() => _VideoReaderBlockState();
 }
 
-class _VideoReaderBlockState extends ConsumerState<VideoReaderBlock> with WidgetsBindingObserver {
+class _VideoReaderBlockState extends ConsumerState<VideoReaderBlock>
+    with WidgetsBindingObserver {
   String _videoSource = '';
   String _caption = '';
   bool _hasError = false;
@@ -72,7 +73,8 @@ class _VideoReaderBlockState extends ConsumerState<VideoReaderBlock> with Widget
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    if ((state == AppLifecycleState.paused || state == AppLifecycleState.inactive) &&
+    if ((state == AppLifecycleState.paused ||
+            state == AppLifecycleState.inactive) &&
         _isInitialized &&
         _controller != null &&
         _controller!.value.isPlaying) {
@@ -91,7 +93,9 @@ class _VideoReaderBlockState extends ConsumerState<VideoReaderBlock> with Widget
     }
 
     try {
-      content = JsonStringConverter().convertFromJsonString(widget.block.content);
+      content = JsonStringConverter().convertFromJsonString(
+        widget.block.content,
+      );
       logger.d('Successfully parsed JSON content: $content');
     } catch (e) {
       logger.e('Failed to parse JSON content: $e');
@@ -101,7 +105,7 @@ class _VideoReaderBlockState extends ConsumerState<VideoReaderBlock> with Widget
 
     final sourceTypeStr = content['sourceType'] as String? ?? 'local';
     _sourceType = _VideoSourceType.values.firstWhere(
-          (e) => e.name == sourceTypeStr,
+      (e) => e.name == sourceTypeStr,
       orElse: () {
         final pathStr = content['path'] as String? ?? '';
         final youtubeId = content['youtubeId'] as String? ?? '';
@@ -197,13 +201,17 @@ class _VideoReaderBlockState extends ConsumerState<VideoReaderBlock> with Widget
 
       await _controller!.initialize().timeout(const Duration(seconds: 30));
 
-      if (!mounted || _controller!.value.hasError || !_controller!.value.isInitialized) {
+      if (!mounted ||
+          _controller!.value.hasError ||
+          !_controller!.value.isInitialized) {
         setState(() => _hasError = true);
         return;
       }
 
       if (_startTime > 0) {
-        await _controller!.seekTo(Duration(milliseconds: (_startTime * 1000).round()));
+        await _controller!.seekTo(
+          Duration(milliseconds: (_startTime * 1000).round()),
+        );
       }
 
       _controller!
@@ -233,7 +241,9 @@ class _VideoReaderBlockState extends ConsumerState<VideoReaderBlock> with Widget
     if (_endTime > 0 && playing) {
       final pos = _controller!.value.position.inMilliseconds / 1000.0;
       if (pos >= _endTime) {
-        _controller!.seekTo(Duration(milliseconds: (_startTime * 1000).round()));
+        _controller!.seekTo(
+          Duration(milliseconds: (_startTime * 1000).round()),
+        );
       }
     }
   }
@@ -271,7 +281,8 @@ class _VideoReaderBlockState extends ConsumerState<VideoReaderBlock> with Widget
   }
 
   KeyEventResult _handleKeyEvent(FocusNode node, KeyEvent event) {
-    if (event is! KeyDownEvent || _controller == null) return KeyEventResult.ignored;
+    if (event is! KeyDownEvent || _controller == null)
+      return KeyEventResult.ignored;
 
     switch (event.logicalKey) {
       case LogicalKeyboardKey.space:
@@ -334,11 +345,13 @@ class _VideoReaderBlockState extends ConsumerState<VideoReaderBlock> with Widget
     final target = current + Duration(seconds: seconds);
     final duration = _controller!.value.duration;
 
-    _controller!.seekTo(target.inMilliseconds < 0
-        ? Duration.zero
-        : target > duration
-        ? duration
-        : target);
+    _controller!.seekTo(
+      target.inMilliseconds < 0
+          ? Duration.zero
+          : target > duration
+          ? duration
+          : target,
+    );
   }
 
   void _toggleControlsVisibility() {
@@ -390,9 +403,7 @@ class _VideoReaderBlockState extends ConsumerState<VideoReaderBlock> with Widget
               Positioned.fill(
                 child: Container(
                   color: Colors.black38,
-                  child: const Center(
-                    child: ShimmerCircularProgress(size: 40),
-                  ),
+                  child: const Center(child: ShimmerCircularProgress(size: 40)),
                 ),
               ),
 
@@ -435,12 +446,18 @@ class _VideoReaderBlockState extends ConsumerState<VideoReaderBlock> with Widget
                 left: 0,
                 right: 0,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [Colors.transparent, Colors.black.withValues(alpha: 0.7)],
+                      colors: [
+                        Colors.transparent,
+                        Colors.black.withValues(alpha: 0.7),
+                      ],
                     ),
                   ),
                   child: Column(
@@ -462,17 +479,26 @@ class _VideoReaderBlockState extends ConsumerState<VideoReaderBlock> with Widget
                           Row(
                             children: [
                               IconButton(
-                                icon: Icon(_isPlaying ? Icons.pause : Icons.play_arrow, color: Colors.white),
+                                icon: Icon(
+                                  _isPlaying ? Icons.pause : Icons.play_arrow,
+                                  color: Colors.white,
+                                ),
                                 onPressed: _togglePlayPause,
                                 tooltip: _isPlaying ? 'Pause' : 'Play',
                               ),
                               IconButton(
-                                icon: const Icon(Icons.replay_10, color: Colors.white),
+                                icon: const Icon(
+                                  Icons.replay_10,
+                                  color: Colors.white,
+                                ),
                                 onPressed: () => _seekRelative(-10),
                                 tooltip: 'Rewind 10 seconds',
                               ),
                               IconButton(
-                                icon: const Icon(Icons.forward_10, color: Colors.white),
+                                icon: const Icon(
+                                  Icons.forward_10,
+                                  color: Colors.white,
+                                ),
                                 onPressed: () => _seekRelative(10),
                                 tooltip: 'Forward 10 seconds',
                               ),
@@ -487,9 +513,18 @@ class _VideoReaderBlockState extends ConsumerState<VideoReaderBlock> with Widget
                                 ),
                                 onSelected: _changeVolume,
                                 itemBuilder: (_) => [
-                                  const PopupMenuItem(value: 1.0, child: Text('100%')),
-                                  const PopupMenuItem(value: 0.5, child: Text('50%')),
-                                  const PopupMenuItem(value: 0.0, child: Text('Mute')),
+                                  const PopupMenuItem(
+                                    value: 1.0,
+                                    child: Text('100%'),
+                                  ),
+                                  const PopupMenuItem(
+                                    value: 0.5,
+                                    child: Text('50%'),
+                                  ),
+                                  const PopupMenuItem(
+                                    value: 0.0,
+                                    child: Text('Mute'),
+                                  ),
                                 ],
                               ),
                             ],
@@ -498,10 +533,22 @@ class _VideoReaderBlockState extends ConsumerState<VideoReaderBlock> with Widget
                             icon: const Icon(Icons.speed, color: Colors.white),
                             onSelected: _changePlaybackSpeed,
                             itemBuilder: (_) => [
-                              const PopupMenuItem(value: 0.5, child: Text('0.5x')),
-                              const PopupMenuItem(value: 1.0, child: Text('Normal')),
-                              const PopupMenuItem(value: 1.5, child: Text('1.5x')),
-                              const PopupMenuItem(value: 2.0, child: Text('2.0x')),
+                              const PopupMenuItem(
+                                value: 0.5,
+                                child: Text('0.5x'),
+                              ),
+                              const PopupMenuItem(
+                                value: 1.0,
+                                child: Text('Normal'),
+                              ),
+                              const PopupMenuItem(
+                                value: 1.5,
+                                child: Text('1.5x'),
+                              ),
+                              const PopupMenuItem(
+                                value: 2.0,
+                                child: Text('2.0x'),
+                              ),
                             ],
                           ),
                         ],
@@ -525,7 +572,8 @@ class _VideoReaderBlockState extends ConsumerState<VideoReaderBlock> with Widget
     final widthPercent = widget.block.style.widthPercent ?? 0.95;
     final heightPercent = widget.block.style.heightPercent ?? 0.4;
     final displayWidth = screenWidth * widthPercent;
-    final displayHeight = (MediaQuery.of(context).size.height * heightPercent).clamp(200.0, 600.0);
+    final displayHeight = (MediaQuery.of(context).size.height * heightPercent)
+        .clamp(200.0, 600.0);
 
     final padding = ResponsiveUtils.isMobile(context)
         ? const EdgeInsets.symmetric(vertical: 8)
@@ -545,7 +593,11 @@ class _VideoReaderBlockState extends ConsumerState<VideoReaderBlock> with Widget
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.error_outline, color: theme.colorScheme.error, size: 48),
+                Icon(
+                  Icons.error_outline,
+                  color: theme.colorScheme.error,
+                  size: 48,
+                ),
                 const SizedBox(height: 8),
                 Text(
                   'Error loading video',
@@ -568,7 +620,9 @@ class _VideoReaderBlockState extends ConsumerState<VideoReaderBlock> with Widget
             color: theme.colorScheme.surfaceContainerHighest,
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Center(child: ShimmerCircularProgress(color: theme.colorScheme.primary)),
+          child: Center(
+            child: ShimmerCircularProgress(color: theme.colorScheme.primary),
+          ),
         ),
       );
     }
@@ -585,7 +639,9 @@ class _VideoReaderBlockState extends ConsumerState<VideoReaderBlock> with Widget
                 maxWidth: displayWidth,
                 maxHeight: displayHeight,
               ),
-              child: _sourceType == _VideoSourceType.youtube && _youtubeController != null
+              child:
+                  _sourceType == _VideoSourceType.youtube &&
+                      _youtubeController != null
                   ? _buildYoutubePlayer(theme)
                   : _buildVideoPlayer(theme, displayWidth, displayHeight),
             ),

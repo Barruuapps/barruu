@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:barruu/core/utils/responsive_utils.dart';
@@ -87,12 +86,16 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
     Map<String, dynamic> content = {'content': ''};
     try {
       if (widget.block.content.isNotEmpty) {
-        content =
-            JsonStringConverter().convertFromJsonString(widget.block.content);
+        content = JsonStringConverter().convertFromJsonString(
+          widget.block.content,
+        );
       }
     } catch (e, stackTrace) {
-      logger.e('Failed to parse block content',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to parse block content',
+        error: e,
+        stackTrace: stackTrace,
+      );
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error loading paragraph content: $e')),
@@ -107,12 +110,14 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
     final lineHeight = PlatformThemeHelper.isAndroid ? 1.5 : 1.29;
     final letterSpacing = PlatformThemeHelper.isAndroid ? 0.5 : -0.24;
 
-    final baseStyle = styleUtils.applyStyle(widget.block.style).copyWith(
-      fontSize: fontSize * ResponsiveUtils.getTextSizeMultiplier(context),
-      color: color,
-      height: lineHeight,
-      letterSpacing: letterSpacing,
-    );
+    final baseStyle = styleUtils
+        .applyStyle(widget.block.style)
+        .copyWith(
+          fontSize: fontSize * ResponsiveUtils.getTextSizeMultiplier(context),
+          color: color,
+          height: lineHeight,
+          letterSpacing: letterSpacing,
+        );
 
     final linkStyle = baseStyle.copyWith(
       color: theme.colorScheme.primary,
@@ -136,18 +141,29 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
       blockquote: baseStyle.copyWith(fontStyle: FontStyle.italic),
       listBullet: baseStyle,
       h1: baseStyle.copyWith(
-          fontSize: fontSize * 1.5, fontWeight: FontWeight.bold),
+        fontSize: fontSize * 1.5,
+        fontWeight: FontWeight.bold,
+      ),
       h2: baseStyle.copyWith(
-          fontSize: fontSize * 1.3, fontWeight: FontWeight.bold),
+        fontSize: fontSize * 1.3,
+        fontWeight: FontWeight.bold,
+      ),
       h3: baseStyle.copyWith(
-          fontSize: fontSize * 1.2, fontWeight: FontWeight.bold),
+        fontSize: fontSize * 1.2,
+        fontWeight: FontWeight.bold,
+      ),
       h4: baseStyle.copyWith(
-          fontSize: fontSize * 1.1, fontWeight: FontWeight.bold),
+        fontSize: fontSize * 1.1,
+        fontWeight: FontWeight.bold,
+      ),
       h5: baseStyle.copyWith(
-          fontSize: fontSize * 1.05, fontWeight: FontWeight.bold),
+        fontSize: fontSize * 1.05,
+        fontWeight: FontWeight.bold,
+      ),
       h6: baseStyle.copyWith(fontSize: fontSize, fontWeight: FontWeight.bold),
-      textAlign:
-          _getWrapAlignment(styleUtils.textAlignFromStyle(widget.block.style)),
+      textAlign: _getWrapAlignment(
+        styleUtils.textAlignFromStyle(widget.block.style),
+      ),
     );
 
     void onTapLink(String text, String? href, String title) async {
@@ -161,84 +177,184 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
     Widget body;
     switch (template) {
       case 'drop_cap':
-        body = _buildDropCap(context, theme, textContent, baseStyle,
-            markdownStyleSheet, onTapLink, padding, margin);
+        body = _buildDropCap(
+          context,
+          theme,
+          textContent,
+          baseStyle,
+          markdownStyleSheet,
+          onTapLink,
+          padding,
+          margin,
+        );
         break;
       case 'image_left':
-        body = _buildImageSide(context, theme, textContent, imagePath,
-            imageOnLeft: true,
-            baseStyle: baseStyle,
-            markdownStyleSheet: markdownStyleSheet,
-            onTapLink: onTapLink,
-            padding: padding,
-            margin: margin);
+        body = _buildImageSide(
+          context,
+          theme,
+          textContent,
+          imagePath,
+          imageOnLeft: true,
+          baseStyle: baseStyle,
+          markdownStyleSheet: markdownStyleSheet,
+          onTapLink: onTapLink,
+          padding: padding,
+          margin: margin,
+        );
         break;
       case 'image_right':
-        body = _buildImageSide(context, theme, textContent, imagePath,
-            imageOnLeft: false,
-            baseStyle: baseStyle,
-            markdownStyleSheet: markdownStyleSheet,
-            onTapLink: onTapLink,
-            padding: padding,
-            margin: margin);
+        body = _buildImageSide(
+          context,
+          theme,
+          textContent,
+          imagePath,
+          imageOnLeft: false,
+          baseStyle: baseStyle,
+          markdownStyleSheet: markdownStyleSheet,
+          onTapLink: onTapLink,
+          padding: padding,
+          margin: margin,
+        );
         break;
       case 'image_float_left':
-        body = _buildImageFloat(context, theme, textContent, imagePath,
-            imageOnLeft: true,
-            markdownStyleSheet: markdownStyleSheet,
-            onTapLink: onTapLink,
-            padding: padding,
-            margin: margin);
+        body = _buildImageFloat(
+          context,
+          theme,
+          textContent,
+          imagePath,
+          imageOnLeft: true,
+          markdownStyleSheet: markdownStyleSheet,
+          onTapLink: onTapLink,
+          padding: padding,
+          margin: margin,
+        );
         break;
       case 'image_float_right':
-        body = _buildImageFloat(context, theme, textContent, imagePath,
-            imageOnLeft: false,
-            markdownStyleSheet: markdownStyleSheet,
-            onTapLink: onTapLink,
-            padding: padding,
-            margin: margin);
+        body = _buildImageFloat(
+          context,
+          theme,
+          textContent,
+          imagePath,
+          imageOnLeft: false,
+          markdownStyleSheet: markdownStyleSheet,
+          onTapLink: onTapLink,
+          padding: padding,
+          margin: margin,
+        );
         break;
       case 'zigzag':
-        body = _buildZigzag(context, theme, textContent, baseStyle,
-            markdownStyleSheet, onTapLink, padding, margin);
+        body = _buildZigzag(
+          context,
+          theme,
+          textContent,
+          baseStyle,
+          markdownStyleSheet,
+          onTapLink,
+          padding,
+          margin,
+        );
         break;
       case 'note':
-        body = _buildNote(context, theme, textContent, baseStyle,
-            markdownStyleSheet, onTapLink, padding, margin);
+        body = _buildNote(
+          context,
+          theme,
+          textContent,
+          baseStyle,
+          markdownStyleSheet,
+          onTapLink,
+          padding,
+          margin,
+        );
         break;
       case 'warning':
-        body = _buildAdmonition(context, theme, textContent, baseStyle,
-            markdownStyleSheet, onTapLink, padding, margin,
-            icon: Icons.warning_amber_rounded,
-            label: 'Warning',
-            accentColor: const Color(0xFFF59E0B));
+        body = _buildAdmonition(
+          context,
+          theme,
+          textContent,
+          baseStyle,
+          markdownStyleSheet,
+          onTapLink,
+          padding,
+          margin,
+          icon: Icons.warning_amber_rounded,
+          label: 'Warning',
+          accentColor: const Color(0xFFF59E0B),
+        );
         break;
       case 'success':
-        body = _buildAdmonition(context, theme, textContent, baseStyle,
-            markdownStyleSheet, onTapLink, padding, margin,
-            icon: Icons.check_circle_outline_rounded,
-            label: 'Success',
-            accentColor: const Color(0xFF10B981));
+        body = _buildAdmonition(
+          context,
+          theme,
+          textContent,
+          baseStyle,
+          markdownStyleSheet,
+          onTapLink,
+          padding,
+          margin,
+          icon: Icons.check_circle_outline_rounded,
+          label: 'Success',
+          accentColor: const Color(0xFF10B981),
+        );
         break;
       case 'highlight':
-        body = _buildHighlight(context, theme, textContent, baseStyle,
-            markdownStyleSheet, onTapLink, padding, margin);
+        body = _buildHighlight(
+          context,
+          theme,
+          textContent,
+          baseStyle,
+          markdownStyleSheet,
+          onTapLink,
+          padding,
+          margin,
+        );
         break;
       case 'pull_quote':
-        body = _buildPullQuote(context, theme, textContent, baseStyle,
-            markdownStyleSheet, onTapLink, padding, margin);
+        body = _buildPullQuote(
+          context,
+          theme,
+          textContent,
+          baseStyle,
+          markdownStyleSheet,
+          onTapLink,
+          padding,
+          margin,
+        );
         break;
       case 'quote_card':
-        body = _buildQuoteCard(context, theme, textContent, baseStyle,
-            markdownStyleSheet, onTapLink, padding, margin);
+        body = _buildQuoteCard(
+          context,
+          theme,
+          textContent,
+          baseStyle,
+          markdownStyleSheet,
+          onTapLink,
+          padding,
+          margin,
+        );
         break;
       case 'centered':
-        body = _buildCentered(context, theme, textContent, baseStyle,
-            markdownStyleSheet, onTapLink, padding, margin);
+        body = _buildCentered(
+          context,
+          theme,
+          textContent,
+          baseStyle,
+          markdownStyleSheet,
+          onTapLink,
+          padding,
+          margin,
+        );
         break;
       default:
-        body = _buildDefault(context, theme, textContent, baseStyle,
-            markdownStyleSheet, onTapLink, padding, margin);
+        body = _buildDefault(
+          context,
+          theme,
+          textContent,
+          baseStyle,
+          markdownStyleSheet,
+          onTapLink,
+          padding,
+          margin,
+        );
     }
 
     return MouseRegion(
@@ -297,8 +413,16 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
   ) {
     final styleUtils = ref.read(styleUtilsProvider);
     if (textContent.isEmpty) {
-      return _buildDefault(context, theme, textContent, baseStyle, sheet,
-          onTapLink, padding, margin);
+      return _buildDefault(
+        context,
+        theme,
+        textContent,
+        baseStyle,
+        sheet,
+        onTapLink,
+        padding,
+        margin,
+      );
     }
 
     final firstChar = textContent.substring(0, 1);
@@ -402,7 +526,12 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
     required EdgeInsets margin,
   }) {
     final styleUtils = ref.read(styleUtilsProvider);
-    final imageWidget = _resolveImageSized(imagePath, theme, _floatImageWidth, _floatImageHeight);
+    final imageWidget = _resolveImageSized(
+      imagePath,
+      theme,
+      _floatImageWidth,
+      _floatImageHeight,
+    );
 
     return Container(
       margin: margin,
@@ -443,12 +572,20 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
   }
 
   Widget _resolveImage(String? imagePath, ThemeData theme) {
-    return _resolveImageSized(imagePath, theme, _sideImageWidth, _sideImageHeight);
+    return _resolveImageSized(
+      imagePath,
+      theme,
+      _sideImageWidth,
+      _sideImageHeight,
+    );
   }
 
   Widget _resolveImageSized(
-      String? imagePath, ThemeData theme, double width, double height) {
-
+    String? imagePath,
+    ThemeData theme,
+    double width,
+    double height,
+  ) {
     if (imagePath == null || imagePath.isEmpty) {
       return _imagePlaceholder(theme, width, height);
     }
@@ -461,10 +598,8 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
           width: width,
           height: height,
           fit: BoxFit.cover,
-          placeholder: (_, __) =>
-              _imagePlaceholder(theme, width, height),
-          errorWidget: (_, __, ___) =>
-              _imagePlaceholder(theme, width, height),
+          placeholder: (_, __) => _imagePlaceholder(theme, width, height),
+          errorWidget: (_, __, ___) => _imagePlaceholder(theme, width, height),
         ),
       );
     }
@@ -519,7 +654,7 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
     final styleUtils = ref.read(styleUtilsProvider);
     final borderColor =
         styleUtils.parseHex(widget.block.style.borderColor) ??
-            theme.colorScheme.primary;
+        theme.colorScheme.primary;
 
     return Container(
       margin: margin,
@@ -559,16 +694,15 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
     final styleUtils = ref.read(styleUtilsProvider);
     final accentColor =
         styleUtils.parseHex(widget.block.style.borderColor) ??
-            theme.colorScheme.primary;
+        theme.colorScheme.primary;
 
     return Container(
       margin: margin,
       decoration: BoxDecoration(
-        color: styleUtils.parseHex(widget.block.style.background) ??
+        color:
+            styleUtils.parseHex(widget.block.style.background) ??
             theme.colorScheme.primaryContainer.withValues(alpha: 0.25),
-        border: Border(
-          left: BorderSide(color: accentColor, width: 4),
-        ),
+        border: Border(left: BorderSide(color: accentColor, width: 4)),
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(8),
           bottomRight: Radius.circular(8),
@@ -662,7 +796,7 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
     final styleUtils = ref.read(styleUtilsProvider);
     final accentColor =
         styleUtils.parseHex(widget.block.style.borderColor) ??
-            theme.colorScheme.primary;
+        theme.colorScheme.primary;
 
     final quoteMarkStyle = baseStyle.copyWith(
       fontSize: (baseStyle.fontSize ?? 18.0) * 3.5,
@@ -731,11 +865,10 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
     return Container(
       margin: margin,
       decoration: BoxDecoration(
-        color: styleUtils.parseHex(widget.block.style.background) ??
+        color:
+            styleUtils.parseHex(widget.block.style.background) ??
             resolvedAccent.withValues(alpha: 0.08),
-        border: Border(
-          left: BorderSide(color: resolvedAccent, width: 4),
-        ),
+        border: Border(left: BorderSide(color: resolvedAccent, width: 4)),
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(8),
           bottomRight: Radius.circular(8),
@@ -786,12 +919,13 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
     final styleUtils = ref.read(styleUtilsProvider);
     final accentColor =
         styleUtils.parseHex(widget.block.style.borderColor) ??
-            theme.colorScheme.primary;
+        theme.colorScheme.primary;
 
     return Container(
       margin: margin,
       decoration: BoxDecoration(
-        color: styleUtils.parseHex(widget.block.style.background) ??
+        color:
+            styleUtils.parseHex(widget.block.style.background) ??
             theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(
           ResponsiveUtils.getPlatformRadius(context, baseRadius: 12.0),
@@ -823,8 +957,11 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.format_quote_rounded,
-                    size: 22, color: accentColor.withValues(alpha: 0.5)),
+                Icon(
+                  Icons.format_quote_rounded,
+                  size: 22,
+                  color: accentColor.withValues(alpha: 0.5),
+                ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: MarkdownBody(
@@ -858,7 +995,7 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
     final styleUtils = ref.read(styleUtilsProvider);
     final rulerColor =
         styleUtils.parseHex(widget.block.style.borderColor) ??
-            theme.colorScheme.primary.withValues(alpha: 0.4);
+        theme.colorScheme.primary.withValues(alpha: 0.4);
 
     final centeredSheet = MarkdownStyleSheet(
       p: baseStyle.copyWith(
@@ -886,10 +1023,13 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
               Container(width: 24, height: 1, color: rulerColor),
               const SizedBox(width: 6),
               Container(
-                  width: 6,
-                  height: 6,
-                  decoration: BoxDecoration(
-                      color: rulerColor, shape: BoxShape.circle)),
+                width: 6,
+                height: 6,
+                decoration: BoxDecoration(
+                  color: rulerColor,
+                  shape: BoxShape.circle,
+                ),
+              ),
               const SizedBox(width: 6),
               Container(width: 24, height: 1, color: rulerColor),
             ],
@@ -909,10 +1049,13 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
               Container(width: 24, height: 1, color: rulerColor),
               const SizedBox(width: 6),
               Container(
-                  width: 6,
-                  height: 6,
-                  decoration: BoxDecoration(
-                      color: rulerColor, shape: BoxShape.circle)),
+                width: 6,
+                height: 6,
+                decoration: BoxDecoration(
+                  color: rulerColor,
+                  shape: BoxShape.circle,
+                ),
+              ),
               const SizedBox(width: 6),
               Container(width: 24, height: 1, color: rulerColor),
             ],

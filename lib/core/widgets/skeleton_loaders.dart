@@ -37,9 +37,9 @@ class _ShimmerWrapper extends StatelessWidget {
 }
 
 BoxDecoration _placeholderBox(ThemeData theme) => BoxDecoration(
-      color: theme.colorScheme.surfaceContainerHighest,
-      borderRadius: BorderRadius.circular(DesignTokens.radiusSmall),
-    );
+  color: theme.colorScheme.surfaceContainerHighest,
+  borderRadius: BorderRadius.circular(DesignTokens.radiusSmall),
+);
 
 // ============================================================================
 // Dashboard / Workspace Grid Skeleton
@@ -71,8 +71,7 @@ class SkeletonDocumentGrid extends StatelessWidget {
         mainAxisSpacing: DesignTokens.spacing16,
       ),
       itemCount: itemCount,
-      itemBuilder: (_, __) =>
-          const _SkeletonDocumentGridCard(),
+      itemBuilder: (_, __) => const _SkeletonDocumentGridCard(),
     );
   }
 }
@@ -87,8 +86,7 @@ class _SkeletonDocumentGridCard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: theme.colorScheme.surfaceContainer,
-          borderRadius:
-              BorderRadius.circular(DesignTokens.radiusXLarge),
+          borderRadius: BorderRadius.circular(DesignTokens.radiusXLarge),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -114,10 +112,7 @@ class _SkeletonDocumentGridCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Title
-                    Container(
-                      height: 16,
-                      decoration: _placeholderBox(theme),
-                    ),
+                    Container(height: 16, decoration: _placeholderBox(theme)),
                     const SizedBox(height: DesignTokens.spacing8),
                     // Description
                     Container(
@@ -131,10 +126,10 @@ class _SkeletonDocumentGridCard extends StatelessWidget {
                       height: 28,
                       width: 100,
                       decoration: BoxDecoration(
-                        color:
-                            theme.colorScheme.surfaceContainerHighest,
+                        color: theme.colorScheme.surfaceContainerHighest,
                         borderRadius: BorderRadius.circular(
-                            DesignTokens.radiusSmall),
+                          DesignTokens.radiusSmall,
+                        ),
                       ),
                     ),
                   ],
@@ -156,10 +151,7 @@ class _SkeletonDocumentGridCard extends StatelessWidget {
 class SkeletonDocumentList extends StatelessWidget {
   final int itemCount;
 
-  const SkeletonDocumentList({
-    super.key,
-    this.itemCount = 6,
-  });
+  const SkeletonDocumentList({super.key, this.itemCount = 6});
 
   @override
   Widget build(BuildContext context) {
@@ -167,8 +159,7 @@ class SkeletonDocumentList extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: itemCount,
-      itemBuilder: (_, __) =>
-          const _SkeletonDocumentListItem(),
+      itemBuilder: (_, __) => const _SkeletonDocumentListItem(),
     );
   }
 }
@@ -180,16 +171,13 @@ class _SkeletonDocumentListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Padding(
-      padding: const EdgeInsets.only(
-        bottom: DesignTokens.spacing12,
-      ),
+      padding: const EdgeInsets.only(bottom: DesignTokens.spacing12),
       child: _ShimmerWrapper(
         child: Container(
           padding: const EdgeInsets.all(DesignTokens.spacing12),
           decoration: BoxDecoration(
             color: theme.colorScheme.surfaceContainer,
-            borderRadius:
-                BorderRadius.circular(DesignTokens.radiusLarge),
+            borderRadius: BorderRadius.circular(DesignTokens.radiusLarge),
           ),
           child: Row(
             children: [
@@ -211,10 +199,7 @@ class _SkeletonDocumentListItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Container(
-                      height: 15,
-                      decoration: _placeholderBox(theme),
-                    ),
+                    Container(height: 15, decoration: _placeholderBox(theme)),
                     const SizedBox(height: DesignTokens.spacing8),
                     Container(
                       height: 12,
@@ -252,10 +237,7 @@ class _SkeletonDocumentListItem extends StatelessWidget {
 class SkeletonSidebar extends StatelessWidget {
   final int itemCount;
 
-  const SkeletonSidebar({
-    super.key,
-    this.itemCount = 8,
-  });
+  const SkeletonSidebar({super.key, this.itemCount = 8});
 
   @override
   Widget build(BuildContext context) {
@@ -268,38 +250,37 @@ class SkeletonSidebar extends StatelessWidget {
             // Logo / header
             Container(
               height: 32,
-              margin: const EdgeInsets.only(
-                bottom: DesignTokens.spacing24,
-              ),
+              margin: const EdgeInsets.only(bottom: DesignTokens.spacing24),
               decoration: _placeholderBox(theme),
             ),
             // Nav items
-            ...List.generate(itemCount, (index) => Padding(
-              padding: const EdgeInsets.only(
-                bottom: DesignTokens.spacing8,
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    width: 20,
-                    height: 20,
-                    decoration: BoxDecoration(
-                      color: theme.colorScheme.surfaceContainerHighest,
-                      borderRadius: BorderRadius.circular(
-                        DesignTokens.radiusSmall,
+            ...List.generate(
+              itemCount,
+              (index) => Padding(
+                padding: const EdgeInsets.only(bottom: DesignTokens.spacing8),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                        color: theme.colorScheme.surfaceContainerHighest,
+                        borderRadius: BorderRadius.circular(
+                          DesignTokens.radiusSmall,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: DesignTokens.spacing12),
-                  Expanded(
-                    child: Container(
-                      height: 14,
-                      decoration: _placeholderBox(theme),
+                    const SizedBox(width: DesignTokens.spacing12),
+                    Expanded(
+                      child: Container(
+                        height: 14,
+                        decoration: _placeholderBox(theme),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            )),
+            ),
           ],
         ),
       ),
@@ -327,38 +308,25 @@ class SkeletonCreateDocument extends StatelessWidget {
             height: 220,
             decoration: BoxDecoration(
               color: theme.colorScheme.surfaceContainerHighest,
-              borderRadius: BorderRadius.circular(
-                DesignTokens.radiusXLarge,
-              ),
+              borderRadius: BorderRadius.circular(DesignTokens.radiusXLarge),
             ),
           ),
           const SizedBox(height: DesignTokens.spacing24),
           // Title input
-          Container(
-            height: 52,
-            decoration: _placeholderBox(theme),
-          ),
+          Container(height: 52, decoration: _placeholderBox(theme)),
           const SizedBox(height: DesignTokens.spacing16),
           // Description
-          Container(
-            height: 90,
-            decoration: _placeholderBox(theme),
-          ),
+          Container(height: 90, decoration: _placeholderBox(theme)),
           const SizedBox(height: DesignTokens.spacing16),
           // Tags
-          Container(
-            height: 44,
-            decoration: _placeholderBox(theme),
-          ),
+          Container(height: 44, decoration: _placeholderBox(theme)),
           const SizedBox(height: DesignTokens.spacing24),
           // Submit button
           Container(
             height: DesignTokens.buttonHeightLarge,
             decoration: BoxDecoration(
               color: theme.colorScheme.surfaceContainerHighest,
-              borderRadius: BorderRadius.circular(
-                DesignTokens.radiusLarge,
-              ),
+              borderRadius: BorderRadius.circular(DesignTokens.radiusLarge),
             ),
           ),
         ],

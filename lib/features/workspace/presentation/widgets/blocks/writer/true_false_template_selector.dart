@@ -33,7 +33,11 @@ class TrueFalseTemplateSelector extends StatelessWidget {
             _buildTemplateOption('banner', 'Banner', _buildBannerPreview()),
             _buildTemplateOption('minimal', 'Minimal', _buildMinimalPreview()),
             _buildTemplateOption('toggle', 'Toggle', _buildTogglePreview()),
-            _buildTemplateOption('spotlight', 'Spotlight', _buildSpotlightPreview()),
+            _buildTemplateOption(
+              'spotlight',
+              'Spotlight',
+              _buildSpotlightPreview(),
+            ),
           ],
         ),
       ),
@@ -78,7 +82,9 @@ class TrueFalseTemplateSelector extends StatelessWidget {
               decoration: BoxDecoration(
                 color: isSelected
                     ? theme.colorScheme.primary.withValues(alpha: 0.1)
-                    : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                    : theme.colorScheme.surfaceContainerHighest.withValues(
+                        alpha: 0.5,
+                      ),
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(7),
                   bottomRight: Radius.circular(7),
@@ -88,8 +94,7 @@ class TrueFalseTemplateSelector extends StatelessWidget {
                 label,
                 style: theme.textTheme.labelSmall?.copyWith(
                   fontSize: 10,
-                  fontWeight:
-                      isSelected ? FontWeight.w700 : FontWeight.normal,
+                  fontWeight: isSelected ? FontWeight.w700 : FontWeight.normal,
                   color: isSelected
                       ? theme.colorScheme.primary
                       : theme.colorScheme.onSurface,
@@ -111,27 +116,53 @@ class TrueFalseTemplateSelector extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(height: 5, color: theme.colorScheme.onSurface.withValues(alpha: 0.5), margin: const EdgeInsets.only(bottom: 8)),
+        Container(
+          height: 5,
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+          margin: const EdgeInsets.only(bottom: 8),
+        ),
         Row(
           children: [
-            Expanded(child: Container(
-              height: 20,
-              decoration: BoxDecoration(
-                color: primary.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(color: primary, width: 1.5),
+            Expanded(
+              child: Container(
+                height: 20,
+                decoration: BoxDecoration(
+                  color: primary.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(color: primary, width: 1.5),
+                ),
+                child: Center(
+                  child: Text(
+                    'T',
+                    style: TextStyle(
+                      fontSize: 9,
+                      color: primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ),
-              child: Center(child: Text('T', style: TextStyle(fontSize: 9, color: primary, fontWeight: FontWeight.bold))),
-            )),
+            ),
             const SizedBox(width: 6),
-            Expanded(child: Container(
-              height: 20,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(color: error.withValues(alpha: 0.5)),
+            Expanded(
+              child: Container(
+                height: 20,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(color: error.withValues(alpha: 0.5)),
+                ),
+                child: Center(
+                  child: Text(
+                    'F',
+                    style: TextStyle(
+                      fontSize: 9,
+                      color: error.withValues(alpha: 0.6),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ),
-              child: Center(child: Text('F', style: TextStyle(fontSize: 9, color: error.withValues(alpha: 0.6), fontWeight: FontWeight.bold))),
-            )),
+            ),
           ],
         ),
       ],
@@ -144,41 +175,79 @@ class TrueFalseTemplateSelector extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(height: 5, color: theme.colorScheme.onSurface.withValues(alpha: 0.5), margin: const EdgeInsets.only(bottom: 8)),
+        Container(
+          height: 5,
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+          margin: const EdgeInsets.only(bottom: 8),
+        ),
         Row(
           children: [
-            Expanded(child: Container(
-              height: 30,
-              decoration: BoxDecoration(
-                color: primary.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: primary, width: 1.5),
-                boxShadow: [BoxShadow(color: primary.withValues(alpha: 0.1), blurRadius: 3, offset: const Offset(0, 2))],
+            Expanded(
+              child: Container(
+                height: 30,
+                decoration: BoxDecoration(
+                  color: primary.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(color: primary, width: 1.5),
+                  boxShadow: [
+                    BoxShadow(
+                      color: primary.withValues(alpha: 0.1),
+                      blurRadius: 3,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.check_circle_outline, size: 10, color: primary),
+                    Text(
+                      'TRUE',
+                      style: TextStyle(
+                        fontSize: 7,
+                        color: primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.check_circle_outline, size: 10, color: primary),
-                  Text('TRUE', style: TextStyle(fontSize: 7, color: primary, fontWeight: FontWeight.bold)),
-                ],
-              ),
-            )),
+            ),
             const SizedBox(width: 6),
-            Expanded(child: Container(
-              height: 30,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: error.withValues(alpha: 0.4)),
-                boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.04), blurRadius: 3, offset: const Offset(0, 2))],
+            Expanded(
+              child: Container(
+                height: 30,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(color: error.withValues(alpha: 0.4)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.04),
+                      blurRadius: 3,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.cancel_outlined,
+                      size: 10,
+                      color: error.withValues(alpha: 0.6),
+                    ),
+                    Text(
+                      'FALSE',
+                      style: TextStyle(
+                        fontSize: 7,
+                        color: error.withValues(alpha: 0.7),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.cancel_outlined, size: 10, color: error.withValues(alpha: 0.6)),
-                  Text('FALSE', style: TextStyle(fontSize: 7, color: error.withValues(alpha: 0.7), fontWeight: FontWeight.bold)),
-                ],
-              ),
-            )),
+            ),
           ],
         ),
       ],
@@ -191,7 +260,11 @@ class TrueFalseTemplateSelector extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(height: 5, color: theme.colorScheme.onSurface.withValues(alpha: 0.5), margin: const EdgeInsets.only(bottom: 6)),
+        Container(
+          height: 5,
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+          margin: const EdgeInsets.only(bottom: 6),
+        ),
         Container(
           height: 14,
           decoration: BoxDecoration(
@@ -199,7 +272,16 @@ class TrueFalseTemplateSelector extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
             border: Border.all(color: primary, width: 1.5),
           ),
-          child: Center(child: Text('TRUE', style: TextStyle(fontSize: 7, color: primary, fontWeight: FontWeight.bold))),
+          child: Center(
+            child: Text(
+              'TRUE',
+              style: TextStyle(
+                fontSize: 7,
+                color: primary,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ),
         const SizedBox(height: 4),
         Container(
@@ -208,7 +290,16 @@ class TrueFalseTemplateSelector extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
             border: Border.all(color: error.withValues(alpha: 0.4)),
           ),
-          child: Center(child: Text('FALSE', style: TextStyle(fontSize: 7, color: error.withValues(alpha: 0.7), fontWeight: FontWeight.bold))),
+          child: Center(
+            child: Text(
+              'FALSE',
+              style: TextStyle(
+                fontSize: 7,
+                color: error.withValues(alpha: 0.7),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ),
       ],
     );
@@ -220,20 +311,48 @@ class TrueFalseTemplateSelector extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(height: 5, color: theme.colorScheme.onSurface.withValues(alpha: 0.5), margin: const EdgeInsets.only(bottom: 8)),
+        Container(
+          height: 5,
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+          margin: const EdgeInsets.only(bottom: 8),
+        ),
         Row(
           children: [
-            Container(width: 7, height: 7, decoration: BoxDecoration(shape: BoxShape.circle, color: primary)),
+            Container(
+              width: 7,
+              height: 7,
+              decoration: BoxDecoration(shape: BoxShape.circle, color: primary),
+            ),
             const SizedBox(width: 5),
-            Text('True', style: TextStyle(fontSize: 9, color: primary, fontWeight: FontWeight.bold)),
+            Text(
+              'True',
+              style: TextStyle(
+                fontSize: 9,
+                color: primary,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 6),
         Row(
           children: [
-            Container(width: 7, height: 7, decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: dotColor))),
+            Container(
+              width: 7,
+              height: 7,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: dotColor),
+              ),
+            ),
             const SizedBox(width: 5),
-            Text('False', style: TextStyle(fontSize: 9, color: theme.colorScheme.onSurface.withValues(alpha: 0.5))),
+            Text(
+              'False',
+              style: TextStyle(
+                fontSize: 9,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+              ),
+            ),
           ],
         ),
       ],
@@ -245,7 +364,11 @@ class TrueFalseTemplateSelector extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(height: 5, color: theme.colorScheme.onSurface.withValues(alpha: 0.5), margin: const EdgeInsets.only(bottom: 8)),
+        Container(
+          height: 5,
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+          margin: const EdgeInsets.only(bottom: 8),
+        ),
         Container(
           height: 22,
           decoration: BoxDecoration(
@@ -257,12 +380,32 @@ class TrueFalseTemplateSelector extends StatelessWidget {
               Expanded(
                 child: Container(
                   margin: const EdgeInsets.all(2),
-                  decoration: BoxDecoration(color: primary, borderRadius: BorderRadius.circular(9)),
-                  child: Center(child: Text('T', style: TextStyle(fontSize: 8, color: Colors.white, fontWeight: FontWeight.bold))),
+                  decoration: BoxDecoration(
+                    color: primary,
+                    borderRadius: BorderRadius.circular(9),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'T',
+                      style: TextStyle(
+                        fontSize: 8,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
               ),
               Expanded(
-                child: Center(child: Text('F', style: TextStyle(fontSize: 8, color: theme.colorScheme.onSurface.withValues(alpha: 0.5)))),
+                child: Center(
+                  child: Text(
+                    'F',
+                    style: TextStyle(
+                      fontSize: 8,
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
@@ -276,29 +419,66 @@ class TrueFalseTemplateSelector extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(height: 5, color: theme.colorScheme.onSurface.withValues(alpha: 0.5), margin: const EdgeInsets.only(bottom: 8)),
+        Container(
+          height: 5,
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+          margin: const EdgeInsets.only(bottom: 8),
+        ),
         Row(
           children: [
-            Expanded(child: Container(
-              height: 20,
-              decoration: BoxDecoration(
-                color: primary.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(color: primary, width: 2),
-                boxShadow: [BoxShadow(color: primary.withValues(alpha: 0.3), blurRadius: 6, spreadRadius: 1)],
+            Expanded(
+              child: Container(
+                height: 20,
+                decoration: BoxDecoration(
+                  color: primary.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(color: primary, width: 2),
+                  boxShadow: [
+                    BoxShadow(
+                      color: primary.withValues(alpha: 0.3),
+                      blurRadius: 6,
+                      spreadRadius: 1,
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: Text(
+                    'T',
+                    style: TextStyle(
+                      fontSize: 9,
+                      color: primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ),
-              child: Center(child: Text('T', style: TextStyle(fontSize: 9, color: primary, fontWeight: FontWeight.bold))),
-            )),
+            ),
             const SizedBox(width: 6),
-            Expanded(child: Container(
-              height: 20,
-              decoration: BoxDecoration(
-                color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.2)),
+            Expanded(
+              child: Container(
+                height: 20,
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.surfaceContainerHighest.withValues(
+                    alpha: 0.3,
+                  ),
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(
+                    color: theme.colorScheme.outline.withValues(alpha: 0.2),
+                  ),
+                ),
+                child: Center(
+                  child: Text(
+                    'F',
+                    style: TextStyle(
+                      fontSize: 9,
+                      color: theme.colorScheme.onSurface.withValues(
+                        alpha: 0.25,
+                      ),
+                    ),
+                  ),
+                ),
               ),
-              child: Center(child: Text('F', style: TextStyle(fontSize: 9, color: theme.colorScheme.onSurface.withValues(alpha: 0.25)))),
-            )),
+            ),
           ],
         ),
       ],

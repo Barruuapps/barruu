@@ -45,7 +45,10 @@ class StringUtils {
   /// final safe = StringUtils.sanitizeFileName('My Document: Draft #1');
   /// // Returns: 'My Document_ Draft _1'
   /// ```
-  static String sanitizeFileName(String fileName, {int maxLength = defaultMaxLength}) {
+  static String sanitizeFileName(
+    String fileName, {
+    int maxLength = defaultMaxLength,
+  }) {
     final sanitized = fileName.replaceAll(RegExp(r'[<>:"/\\|?*]'), '_');
     return limitLength(sanitized, maxLength: maxLength);
   }

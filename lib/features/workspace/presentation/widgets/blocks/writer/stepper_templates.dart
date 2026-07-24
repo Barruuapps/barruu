@@ -1,5 +1,5 @@
 /// Stepper template constants for consistent styling across the app
-/// 
+///
 /// This file contains template definitions for stepper blocks, providing
 /// various visual styles for displaying step-by-step content.
 library;

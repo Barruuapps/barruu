@@ -80,7 +80,11 @@ class UserService {
       }
       return Result.error('User not found');
     } catch (e, stackTrace) {
-      logger.e('Error getting user by username', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Error getting user by username',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return Result.error('Failed to load profile: ${e.toString()}');
     }
   }
@@ -98,7 +102,10 @@ class UserService {
     return Result.success([]);
   }
 
-  Future<Result<List<UserProfile>>> searchUsers(String query, {int limit = 20}) async {
+  Future<Result<List<UserProfile>>> searchUsers(
+    String query, {
+    int limit = 20,
+  }) async {
     return Result.success([]);
   }
 

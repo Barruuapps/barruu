@@ -18,11 +18,7 @@ class PageReaderBlock extends ConsumerStatefulWidget {
   final Block block;
   final Directory docDir;
 
-  const PageReaderBlock({
-    super.key,
-    required this.block,
-    required this.docDir,
-  });
+  const PageReaderBlock({super.key, required this.block, required this.docDir});
 
   @override
   ConsumerState<PageReaderBlock> createState() => _PageReaderBlockState();
@@ -40,10 +36,16 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
   void _parseContent() {
     try {
       if (widget.block.content.isNotEmpty) {
-        content = JsonStringConverter().convertFromJsonString(widget.block.content);
+        content = JsonStringConverter().convertFromJsonString(
+          widget.block.content,
+        );
       }
     } catch (e, stackTrace) {
-      logger.e('Failed to parse page block content', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to parse page block content',
+        error: e,
+        stackTrace: stackTrace,
+      );
       content = {'pageId': '', 'title': ''};
     }
   }
@@ -62,16 +64,20 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
 
     final currentPageId = ref.read(currentPageIdProvider(widget.docDir.path));
     final stack = ref.read(pageNavigationStackProvider(widget.docDir.path));
-    ref.read(pageNavigationStackProvider(widget.docDir.path).notifier).state =
-        [...stack, currentPageId];
+    ref.read(pageNavigationStackProvider(widget.docDir.path).notifier).state = [
+      ...stack,
+      currentPageId,
+    ];
     ref.read(currentPageIdProvider(widget.docDir.path).notifier).state = pageId;
   }
 
   /// Build [TextDecoration] from the block style's underline / strikethrough flags.
   TextDecoration? _buildDecoration(BlockStyle blockStyle) {
     if (blockStyle.underline && blockStyle.strikethrough) {
-      return TextDecoration.combine(
-          [TextDecoration.underline, TextDecoration.lineThrough]);
+      return TextDecoration.combine([
+        TextDecoration.underline,
+        TextDecoration.lineThrough,
+      ]);
     } else if (blockStyle.underline) {
       return TextDecoration.underline;
     } else if (blockStyle.strikethrough) {
@@ -92,26 +98,96 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
 
     switch (displayStyle) {
       case 'button':
-        return _buildButtonStyle(theme, styleUtils, blockStyle, pageTitle, hasLink, showIcon);
+        return _buildButtonStyle(
+          theme,
+          styleUtils,
+          blockStyle,
+          pageTitle,
+          hasLink,
+          showIcon,
+        );
       case 'compact':
-        return _buildCompactStyle(theme, styleUtils, blockStyle, pageTitle, hasLink, showIcon);
+        return _buildCompactStyle(
+          theme,
+          styleUtils,
+          blockStyle,
+          pageTitle,
+          hasLink,
+          showIcon,
+        );
       case 'minimal':
-        return _buildMinimalStyle(theme, styleUtils, blockStyle, pageTitle, hasLink, showIcon);
+        return _buildMinimalStyle(
+          theme,
+          styleUtils,
+          blockStyle,
+          pageTitle,
+          hasLink,
+          showIcon,
+        );
       case 'banner':
-        return _buildBannerStyle(theme, styleUtils, blockStyle, pageTitle, hasLink, showIcon);
+        return _buildBannerStyle(
+          theme,
+          styleUtils,
+          blockStyle,
+          pageTitle,
+          hasLink,
+          showIcon,
+        );
       case 'sidebar':
-        return _buildSidebarStyle(theme, styleUtils, blockStyle, pageTitle, hasLink, showIcon);
+        return _buildSidebarStyle(
+          theme,
+          styleUtils,
+          blockStyle,
+          pageTitle,
+          hasLink,
+          showIcon,
+        );
       case 'floating':
-        return _buildFloatingStyle(theme, styleUtils, blockStyle, pageTitle, hasLink, showIcon);
+        return _buildFloatingStyle(
+          theme,
+          styleUtils,
+          blockStyle,
+          pageTitle,
+          hasLink,
+          showIcon,
+        );
       case 'gradient':
-        return _buildGradientStyle(theme, styleUtils, blockStyle, pageTitle, hasLink, showIcon);
+        return _buildGradientStyle(
+          theme,
+          styleUtils,
+          blockStyle,
+          pageTitle,
+          hasLink,
+          showIcon,
+        );
       case 'outlined':
-        return _buildOutlinedStyle(theme, styleUtils, blockStyle, pageTitle, hasLink, showIcon);
+        return _buildOutlinedStyle(
+          theme,
+          styleUtils,
+          blockStyle,
+          pageTitle,
+          hasLink,
+          showIcon,
+        );
       case 'hero':
-        return _buildHeroStyle(theme, styleUtils, blockStyle, pageTitle, hasLink, showIcon);
+        return _buildHeroStyle(
+          theme,
+          styleUtils,
+          blockStyle,
+          pageTitle,
+          hasLink,
+          showIcon,
+        );
       case 'card':
       default:
-        return _buildCardStyle(theme, styleUtils, blockStyle, pageTitle, hasLink, showIcon);
+        return _buildCardStyle(
+          theme,
+          styleUtils,
+          blockStyle,
+          pageTitle,
+          hasLink,
+          showIcon,
+        );
     }
   }
 
@@ -119,14 +195,21 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
   // Card
   // ---------------------------------------------------------------------------
 
-  Widget _buildCardStyle(ThemeData theme, dynamic styleUtils, BlockStyle blockStyle,
-      String pageTitle, bool hasLink, bool showIcon) {
+  Widget _buildCardStyle(
+    ThemeData theme,
+    dynamic styleUtils,
+    BlockStyle blockStyle,
+    String pageTitle,
+    bool hasLink,
+    bool showIcon,
+  ) {
     final textAlign = styleUtils.textAlignFromStyle(blockStyle);
     final titleStyle = theme.textTheme.bodyLarge?.copyWith(
       fontWeight: blockStyle.bold ? FontWeight.bold : FontWeight.w600,
       fontStyle: blockStyle.italic ? FontStyle.italic : FontStyle.normal,
       color: hasLink
-          ? (styleUtils.parseHex(blockStyle.color) ?? theme.colorScheme.onSurface)
+          ? (styleUtils.parseHex(blockStyle.color) ??
+                theme.colorScheme.onSurface)
           : theme.colorScheme.onSurface.withValues(alpha: 0.5),
       fontSize: blockStyle.fontSize,
       fontFamily: blockStyle.fontFamily,
@@ -146,18 +229,26 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
               colors: [
                 // Use full opacity when user sets an explicit background color
                 (styleUtils.parseHex(blockStyle.background) != null)
-                    ? styleUtils.parseHex(blockStyle.background)!.withOpacity(hasLink ? 0.85 : 0.5)
-                    : theme.colorScheme.primaryContainer.withValues(alpha: hasLink ? 0.2 : 0.08),
+                    ? styleUtils
+                          .parseHex(blockStyle.background)!
+                          .withOpacity(hasLink ? 0.85 : 0.5)
+                    : theme.colorScheme.primaryContainer.withValues(
+                        alpha: hasLink ? 0.2 : 0.08,
+                      ),
                 (styleUtils.parseHex(blockStyle.background) != null)
-                    ? styleUtils.parseHex(blockStyle.background)!.withOpacity(hasLink ? 0.65 : 0.3)
-                    : theme.colorScheme.primaryContainer.withValues(alpha: hasLink ? 0.05 : 0.02),
+                    ? styleUtils
+                          .parseHex(blockStyle.background)!
+                          .withOpacity(hasLink ? 0.65 : 0.3)
+                    : theme.colorScheme.primaryContainer.withValues(
+                        alpha: hasLink ? 0.05 : 0.02,
+                      ),
               ],
             ),
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
               color: hasLink
                   ? (styleUtils.parseHex(blockStyle.borderColor) ??
-                      theme.colorScheme.primary.withValues(alpha: 0.4))
+                        theme.colorScheme.primary.withValues(alpha: 0.4))
                   : theme.colorScheme.outline.withValues(alpha: 0.3),
               width: 2,
             ),
@@ -169,7 +260,9 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.primary.withValues(alpha: hasLink ? 0.15 : 0.06),
+                    color: theme.colorScheme.primary.withValues(
+                      alpha: hasLink ? 0.15 : 0.06,
+                    ),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Icon(
@@ -188,16 +281,14 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      pageTitle,
-                      style: titleStyle,
-                      textAlign: textAlign,
-                    ),
+                    Text(pageTitle, style: titleStyle, textAlign: textAlign),
                     if (!hasLink)
                       Text(
                         'Page not linked',
                         style: theme.textTheme.bodySmall?.copyWith(
-                          color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+                          color: theme.colorScheme.onSurface.withValues(
+                            alpha: 0.4,
+                          ),
                           fontSize: 11,
                           fontStyle: FontStyle.italic,
                         ),
@@ -222,8 +313,14 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
   // Button
   // ---------------------------------------------------------------------------
 
-  Widget _buildButtonStyle(ThemeData theme, dynamic styleUtils, BlockStyle blockStyle,
-      String pageTitle, bool hasLink, bool showIcon) {
+  Widget _buildButtonStyle(
+    ThemeData theme,
+    dynamic styleUtils,
+    BlockStyle blockStyle,
+    String pageTitle,
+    bool hasLink,
+    bool showIcon,
+  ) {
     final titleStyle = TextStyle(
       fontSize: blockStyle.fontSize,
       fontFamily: blockStyle.fontFamily,
@@ -243,11 +340,11 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
         style: ElevatedButton.styleFrom(
           backgroundColor: hasLink
               ? (styleUtils.parseHex(blockStyle.background) ??
-                  theme.colorScheme.primary)
+                    theme.colorScheme.primary)
               : theme.colorScheme.surfaceContainerHighest,
           foregroundColor: hasLink
               ? (styleUtils.parseHex(blockStyle.color) ??
-                  theme.colorScheme.onPrimary)
+                    theme.colorScheme.onPrimary)
               : theme.colorScheme.onSurface.withValues(alpha: 0.5),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           shape: RoundedRectangleBorder(
@@ -263,12 +360,19 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
   // Compact
   // ---------------------------------------------------------------------------
 
-  Widget _buildCompactStyle(ThemeData theme, dynamic styleUtils, BlockStyle blockStyle,
-      String pageTitle, bool hasLink, bool showIcon) {
+  Widget _buildCompactStyle(
+    ThemeData theme,
+    dynamic styleUtils,
+    BlockStyle blockStyle,
+    String pageTitle,
+    bool hasLink,
+    bool showIcon,
+  ) {
     final textAlign = styleUtils.textAlignFromStyle(blockStyle);
     final titleStyle = theme.textTheme.bodyMedium?.copyWith(
       color: hasLink
-          ? (styleUtils.parseHex(blockStyle.color) ?? theme.colorScheme.onSurface)
+          ? (styleUtils.parseHex(blockStyle.color) ??
+                theme.colorScheme.onSurface)
           : theme.colorScheme.onSurface.withValues(alpha: 0.5),
       fontWeight: blockStyle.bold ? FontWeight.bold : FontWeight.w500,
       fontStyle: blockStyle.italic ? FontStyle.italic : FontStyle.normal,
@@ -286,13 +390,17 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
           decoration: BoxDecoration(
             color: hasLink
                 ? (styleUtils.parseHex(blockStyle.background) ??
-                    theme.colorScheme.primaryContainer.withValues(alpha: 0.15))
-                : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.2),
+                      theme.colorScheme.primaryContainer.withValues(
+                        alpha: 0.15,
+                      ))
+                : theme.colorScheme.surfaceContainerHighest.withValues(
+                    alpha: 0.2,
+                  ),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
               color: hasLink
                   ? (styleUtils.parseHex(blockStyle.borderColor) ??
-                      theme.colorScheme.primary.withValues(alpha: 0.4))
+                        theme.colorScheme.primary.withValues(alpha: 0.4))
                   : theme.colorScheme.outline.withValues(alpha: 0.2),
             ),
           ),
@@ -329,13 +437,21 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
   // Minimal
   // ---------------------------------------------------------------------------
 
-  Widget _buildMinimalStyle(ThemeData theme, dynamic styleUtils, BlockStyle blockStyle,
-      String pageTitle, bool hasLink, bool showIcon) {
+  Widget _buildMinimalStyle(
+    ThemeData theme,
+    dynamic styleUtils,
+    BlockStyle blockStyle,
+    String pageTitle,
+    bool hasLink,
+    bool showIcon,
+  ) {
     final textAlign = styleUtils.textAlignFromStyle(blockStyle);
     // Minimal always shows underline; add strikethrough if also set
     final TextDecoration decoration = blockStyle.strikethrough
-        ? TextDecoration.combine(
-            [TextDecoration.underline, TextDecoration.lineThrough])
+        ? TextDecoration.combine([
+            TextDecoration.underline,
+            TextDecoration.lineThrough,
+          ])
         : TextDecoration.underline;
 
     final titleStyle = theme.textTheme.bodyMedium?.copyWith(
@@ -363,7 +479,7 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
                   getPageIcon(blockStyle.customIcon),
                   color: hasLink
                       ? (styleUtils.parseHex(blockStyle.color) ??
-                          theme.colorScheme.primary)
+                            theme.colorScheme.primary)
                       : theme.colorScheme.onSurface.withValues(alpha: 0.4),
                   size: 16,
                 ),
@@ -375,7 +491,8 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
               if (hasLink)
                 Icon(
                   IconsaxPlusLinear.arrow_right_3,
-                  color: styleUtils.parseHex(blockStyle.color) ??
+                  color:
+                      styleUtils.parseHex(blockStyle.color) ??
                       theme.colorScheme.primary,
                   size: 14,
                 ),
@@ -390,11 +507,19 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
   // Banner
   // ---------------------------------------------------------------------------
 
-  Widget _buildBannerStyle(ThemeData theme, dynamic styleUtils, BlockStyle blockStyle,
-      String pageTitle, bool hasLink, bool showIcon) {
+  Widget _buildBannerStyle(
+    ThemeData theme,
+    dynamic styleUtils,
+    BlockStyle blockStyle,
+    String pageTitle,
+    bool hasLink,
+    bool showIcon,
+  ) {
     final textAlign = styleUtils.textAlignFromStyle(blockStyle);
-    final bg = styleUtils.parseHex(blockStyle.background) ?? theme.colorScheme.primary;
-    final fg = styleUtils.parseHex(blockStyle.color) ?? theme.colorScheme.onPrimary;
+    final bg =
+        styleUtils.parseHex(blockStyle.background) ?? theme.colorScheme.primary;
+    final fg =
+        styleUtils.parseHex(blockStyle.color) ?? theme.colorScheme.onPrimary;
 
     final titleStyle = theme.textTheme.titleMedium?.copyWith(
       color: hasLink ? fg : fg.withOpacity(0.5),
@@ -442,14 +567,22 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
   // Sidebar
   // ---------------------------------------------------------------------------
 
-  Widget _buildSidebarStyle(ThemeData theme, dynamic styleUtils, BlockStyle blockStyle,
-      String pageTitle, bool hasLink, bool showIcon) {
+  Widget _buildSidebarStyle(
+    ThemeData theme,
+    dynamic styleUtils,
+    BlockStyle blockStyle,
+    String pageTitle,
+    bool hasLink,
+    bool showIcon,
+  ) {
     final textAlign = styleUtils.textAlignFromStyle(blockStyle);
-    final accentColor = styleUtils.parseHex(blockStyle.borderColor) ??
+    final accentColor =
+        styleUtils.parseHex(blockStyle.borderColor) ??
         theme.colorScheme.primary;
     final titleStyle = theme.textTheme.bodyLarge?.copyWith(
       color: hasLink
-          ? (styleUtils.parseHex(blockStyle.color) ?? theme.colorScheme.onSurface)
+          ? (styleUtils.parseHex(blockStyle.color) ??
+                theme.colorScheme.onSurface)
           : theme.colorScheme.onSurface.withValues(alpha: 0.5),
       fontWeight: blockStyle.bold ? FontWeight.bold : FontWeight.w600,
       fontStyle: blockStyle.italic ? FontStyle.italic : FontStyle.normal,
@@ -481,16 +614,26 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
                   child: Row(
                     children: [
                       if (showIcon) ...[
-                        Icon(getPageIcon(blockStyle.customIcon),
-                            color: accentColor, size: 18),
+                        Icon(
+                          getPageIcon(blockStyle.customIcon),
+                          color: accentColor,
+                          size: 18,
+                        ),
                         const SizedBox(width: 8),
                       ],
                       Expanded(
-                        child: Text(pageTitle, style: titleStyle, textAlign: textAlign),
+                        child: Text(
+                          pageTitle,
+                          style: titleStyle,
+                          textAlign: textAlign,
+                        ),
                       ),
                       if (hasLink)
-                        Icon(IconsaxPlusLinear.arrow_right_3,
-                            color: accentColor, size: 16),
+                        Icon(
+                          IconsaxPlusLinear.arrow_right_3,
+                          color: accentColor,
+                          size: 16,
+                        ),
                     ],
                   ),
                 ),
@@ -506,14 +649,21 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
   // Floating
   // ---------------------------------------------------------------------------
 
-  Widget _buildFloatingStyle(ThemeData theme, dynamic styleUtils, BlockStyle blockStyle,
-      String pageTitle, bool hasLink, bool showIcon) {
+  Widget _buildFloatingStyle(
+    ThemeData theme,
+    dynamic styleUtils,
+    BlockStyle blockStyle,
+    String pageTitle,
+    bool hasLink,
+    bool showIcon,
+  ) {
     final textAlign = styleUtils.textAlignFromStyle(blockStyle);
     final titleStyle = theme.textTheme.bodyLarge?.copyWith(
       fontWeight: blockStyle.bold ? FontWeight.bold : FontWeight.w600,
       fontStyle: blockStyle.italic ? FontStyle.italic : FontStyle.normal,
       color: hasLink
-          ? (styleUtils.parseHex(blockStyle.color) ?? theme.colorScheme.onSurface)
+          ? (styleUtils.parseHex(blockStyle.color) ??
+                theme.colorScheme.onSurface)
           : theme.colorScheme.onSurface.withValues(alpha: 0.5),
       fontSize: blockStyle.fontSize,
       fontFamily: blockStyle.fontFamily,
@@ -527,7 +677,8 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
         borderRadius: BorderRadius.circular(14),
         child: Container(
           decoration: BoxDecoration(
-            color: styleUtils.parseHex(blockStyle.background) ??
+            color:
+                styleUtils.parseHex(blockStyle.background) ??
                 theme.colorScheme.surface,
             borderRadius: BorderRadius.circular(14),
             boxShadow: [
@@ -545,11 +696,16 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
                 Container(
                   padding: const EdgeInsets.all(9),
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.primaryContainer.withValues(alpha: 0.4),
+                    color: theme.colorScheme.primaryContainer.withValues(
+                      alpha: 0.4,
+                    ),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Icon(getPageIcon(blockStyle.customIcon),
-                      color: theme.colorScheme.primary, size: 20),
+                  child: Icon(
+                    getPageIcon(blockStyle.customIcon),
+                    color: theme.colorScheme.primary,
+                    size: 20,
+                  ),
                 ),
                 const SizedBox(width: 12),
               ],
@@ -557,8 +713,11 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
                 child: Text(pageTitle, style: titleStyle, textAlign: textAlign),
               ),
               if (hasLink)
-                Icon(IconsaxPlusLinear.arrow_right_3,
-                    color: theme.colorScheme.primary, size: 18),
+                Icon(
+                  IconsaxPlusLinear.arrow_right_3,
+                  color: theme.colorScheme.primary,
+                  size: 18,
+                ),
             ],
           ),
         ),
@@ -570,16 +729,25 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
   // Gradient
   // ---------------------------------------------------------------------------
 
-  Widget _buildGradientStyle(ThemeData theme, dynamic styleUtils, BlockStyle blockStyle,
-      String pageTitle, bool hasLink, bool showIcon) {
+  Widget _buildGradientStyle(
+    ThemeData theme,
+    dynamic styleUtils,
+    BlockStyle blockStyle,
+    String pageTitle,
+    bool hasLink,
+    bool showIcon,
+  ) {
     final textAlign = styleUtils.textAlignFromStyle(blockStyle);
     final List<Color> gradientColors =
         (blockStyle.gradientColors?.isNotEmpty == true)
-            ? blockStyle.gradientColors!
-                .map((h) =>
-                    styleUtils.parseHex(h) as Color? ?? theme.colorScheme.primary)
-                .toList()
-            : [theme.colorScheme.primary, theme.colorScheme.tertiary];
+        ? blockStyle.gradientColors!
+              .map(
+                (h) =>
+                    styleUtils.parseHex(h) as Color? ??
+                    theme.colorScheme.primary,
+              )
+              .toList()
+        : [theme.colorScheme.primary, theme.colorScheme.tertiary];
 
     const fg = Colors.white;
     final fgColor = styleUtils.parseHex(blockStyle.color) ?? fg;
@@ -606,8 +774,8 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
               colors: hasLink
                   ? gradientColors
                   : gradientColors
-                      .map((c) => c.withValues(alpha: 0.4))
-                      .toList(),
+                        .map((c) => c.withValues(alpha: 0.4))
+                        .toList(),
             ),
             borderRadius: BorderRadius.circular(14),
           ),
@@ -621,8 +789,11 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
                     color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Icon(getPageIcon(blockStyle.customIcon),
-                      color: fgColor, size: 20),
+                  child: Icon(
+                    getPageIcon(blockStyle.customIcon),
+                    color: fgColor,
+                    size: 20,
+                  ),
                 ),
                 const SizedBox(width: 12),
               ],
@@ -642,10 +813,17 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
   // Outlined
   // ---------------------------------------------------------------------------
 
-  Widget _buildOutlinedStyle(ThemeData theme, dynamic styleUtils, BlockStyle blockStyle,
-      String pageTitle, bool hasLink, bool showIcon) {
+  Widget _buildOutlinedStyle(
+    ThemeData theme,
+    dynamic styleUtils,
+    BlockStyle blockStyle,
+    String pageTitle,
+    bool hasLink,
+    bool showIcon,
+  ) {
     final textAlign = styleUtils.textAlignFromStyle(blockStyle);
-    final borderColor = styleUtils.parseHex(blockStyle.borderColor) ??
+    final borderColor =
+        styleUtils.parseHex(blockStyle.borderColor) ??
         theme.colorScheme.primary.withValues(alpha: 0.6);
     final titleStyle = theme.textTheme.bodyLarge?.copyWith(
       color: hasLink
@@ -666,25 +844,31 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(
-                color: hasLink ? borderColor : borderColor.withOpacity(0.4),
-                width: 1.5),
+              color: hasLink ? borderColor : borderColor.withOpacity(0.4),
+              width: 1.5,
+            ),
             borderRadius: BorderRadius.circular(12),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Row(
             children: [
               if (showIcon) ...[
-                Icon(getPageIcon(blockStyle.customIcon),
-                    color: hasLink ? borderColor : borderColor.withOpacity(0.4),
-                    size: 18),
+                Icon(
+                  getPageIcon(blockStyle.customIcon),
+                  color: hasLink ? borderColor : borderColor.withOpacity(0.4),
+                  size: 18,
+                ),
                 const SizedBox(width: 8),
               ],
               Expanded(
                 child: Text(pageTitle, style: titleStyle, textAlign: textAlign),
               ),
               if (hasLink)
-                Icon(IconsaxPlusLinear.arrow_right_3,
-                    color: borderColor, size: 16),
+                Icon(
+                  IconsaxPlusLinear.arrow_right_3,
+                  color: borderColor,
+                  size: 16,
+                ),
             ],
           ),
         ),
@@ -696,8 +880,14 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
   // Hero
   // ---------------------------------------------------------------------------
 
-  Widget _buildHeroStyle(ThemeData theme, dynamic styleUtils, BlockStyle blockStyle,
-      String pageTitle, bool hasLink, bool showIcon) {
+  Widget _buildHeroStyle(
+    ThemeData theme,
+    dynamic styleUtils,
+    BlockStyle blockStyle,
+    String pageTitle,
+    bool hasLink,
+    bool showIcon,
+  ) {
     final textAlign = styleUtils.textAlignFromStyle(blockStyle);
     final accentColor =
         styleUtils.parseHex(blockStyle.color) ?? theme.colorScheme.primary;
@@ -717,7 +907,8 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
         borderRadius: BorderRadius.circular(16),
         child: Container(
           decoration: BoxDecoration(
-            color: styleUtils.parseHex(blockStyle.background) ??
+            color:
+                styleUtils.parseHex(blockStyle.background) ??
                 theme.colorScheme.primaryContainer.withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(16),
           ),
@@ -731,9 +922,11 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
                     color: accentColor.withOpacity(hasLink ? 0.12 : 0.06),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(getPageIcon(blockStyle.customIcon),
-                      color: hasLink ? accentColor : accentColor.withOpacity(0.4),
-                      size: 36),
+                  child: Icon(
+                    getPageIcon(blockStyle.customIcon),
+                    color: hasLink ? accentColor : accentColor.withOpacity(0.4),
+                    size: 36,
+                  ),
                 ),
                 const SizedBox(height: 16),
               ],

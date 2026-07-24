@@ -74,7 +74,10 @@ class VideoEditControls extends StatelessWidget {
             if (hasVideo && onRotateTap != null) ...[
               const SizedBox(width: 8),
               IconButton(
-                icon: Icon(Icons.rotate_right, color: theme.colorScheme.primary),
+                icon: Icon(
+                  Icons.rotate_right,
+                  color: theme.colorScheme.primary,
+                ),
                 style: IconButton.styleFrom(
                   backgroundColor: Colors.black87,
                   padding: const EdgeInsets.all(12),

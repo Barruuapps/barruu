@@ -1,5 +1,5 @@
 /// Tab template constants for consistent styling across the app
-/// 
+///
 /// This file contains template definitions for tab blocks, providing
 /// various visual styles for displaying tabbed content.
 library;

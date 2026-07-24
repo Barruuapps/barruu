@@ -107,11 +107,13 @@ class GraphLineChartWidget extends StatelessWidget {
             scaledMaxX,
           );
           if (r.spots.isNotEmpty) {
-            results.add(_EvaluatedExpression(
-              expression: expressions[i],
-              result: r,
-              color: getEquationColor(i, theme),
-            ));
+            results.add(
+              _EvaluatedExpression(
+                expression: expressions[i],
+                result: r,
+                color: getEquationColor(i, theme),
+              ),
+            );
           }
         } catch (e) {
           // Invalid expression – silently skip so other curves still render.
@@ -124,8 +126,9 @@ class GraphLineChartWidget extends StatelessWidget {
       }
 
       // Deliver key-points from the first valid expression.
-      final keyPoints =
-          GraphExpressionEvaluator.calculateKeyPoints(results.first.result.spots);
+      final keyPoints = GraphExpressionEvaluator.calculateKeyPoints(
+        results.first.result.spots,
+      );
       if (onKeyPointsCalculated != null) {
         onKeyPointsCalculated!(keyPoints);
       }

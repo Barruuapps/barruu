@@ -144,10 +144,8 @@ class _ProfessionSelectionScreenState extends State<ProfessionSelectionScreen> {
                       )
                     : ListView.separated(
                         itemCount: _filteredProfessions.length,
-                        separatorBuilder: (context, index) => const Divider(
-                          height: 1,
-                          color: AppColors.border,
-                        ),
+                        separatorBuilder: (context, index) =>
+                            const Divider(height: 1, color: AppColors.border),
                         itemBuilder: (context, index) {
                           final profession = _filteredProfessions[index];
                           final isSelected =
@@ -159,7 +157,8 @@ class _ProfessionSelectionScreenState extends State<ProfessionSelectionScreen> {
                             isSelected: isSelected,
                             onTap: () {
                               setState(() {
-                                _selectedProfession = profession['id'] as String;
+                                _selectedProfession =
+                                    profession['id'] as String;
                               });
                             },
                           );
@@ -237,8 +236,7 @@ class _ProfessionListItem extends StatelessWidget {
                 label,
                 style: TextStyle(
                   fontSize: AppTypography.bodyMedium,
-                  fontWeight:
-                      isSelected ? FontWeight.w600 : FontWeight.w400,
+                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                   color: isSelected ? AppColors.primary : AppColors.textPrimary,
                 ),
               ),

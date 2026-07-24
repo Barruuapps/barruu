@@ -67,8 +67,7 @@ class DividerPainter extends CustomPainter {
         );
         break;
       case DividerStyle.threeDot:
-        final dotRadius =
-            thickness * 1.5;
+        final dotRadius = thickness * 1.5;
         final centerX = size.width / 2;
         const dotSpacing = 10.0;
         canvas.drawCircle(

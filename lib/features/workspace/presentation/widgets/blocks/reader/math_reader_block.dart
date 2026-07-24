@@ -1,4 +1,3 @@
-
 import 'package:barruu/core/utils/responsive_utils.dart';
 import 'package:barruu/features/workspace/domain/entities/block.dart';
 import 'package:barruu/features/workspace/utils/json_string_converter.dart';
@@ -11,16 +10,14 @@ import 'package:flutter_math_fork/flutter_math.dart';
 class MathReaderBlock extends ConsumerWidget {
   final Block block;
 
-  const MathReaderBlock({
-    super.key,
-    required this.block,
-  });
+  const MathReaderBlock({super.key, required this.block});
 
   List<String> _parseEquations(String latex) {
     if (latex.isEmpty) return [];
 
     // Split by newlines and filter out empty lines
-    return latex.split('\n')
+    return latex
+        .split('\n')
         .map((line) => line.trim())
         .where((line) => line.isNotEmpty)
         .toList();
@@ -33,9 +30,13 @@ class MathReaderBlock extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
+          border: Border.all(
+            color: theme.colorScheme.outline.withValues(alpha: 0.3),
+          ),
           borderRadius: BorderRadius.circular(8),
-          color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.1),
+          color: theme.colorScheme.surfaceContainerHighest.withValues(
+            alpha: 0.1,
+          ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -62,7 +63,9 @@ class MathReaderBlock extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          border: Border.all(color: theme.colorScheme.error.withValues(alpha: 0.3)),
+          border: Border.all(
+            color: theme.colorScheme.error.withValues(alpha: 0.3),
+          ),
           borderRadius: BorderRadius.circular(6),
           color: theme.colorScheme.error.withValues(alpha: 0.05),
         ),
@@ -73,10 +76,7 @@ class MathReaderBlock extends ConsumerWidget {
             Expanded(
               child: Text(
                 'Invalid LaTeX: ${equation.length > 50 ? '${equation.substring(0, 50)}...' : equation}',
-                style: TextStyle(
-                  color: theme.colorScheme.error,
-                  fontSize: 12,
-                ),
+                style: TextStyle(color: theme.colorScheme.error, fontSize: 12),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -88,14 +88,14 @@ class MathReaderBlock extends ConsumerWidget {
   }
 
   Widget _buildMathEquation(
-      String equation,
-      TextStyle textStyle,
-      Color color,
-      Color background,
-      TextAlign textAlign,
-      WidgetRef ref,
-      BuildContext context,
-      ) {
+    String equation,
+    TextStyle textStyle,
+    Color color,
+    Color background,
+    TextAlign textAlign,
+    WidgetRef ref,
+    BuildContext context,
+  ) {
     if (equation.isEmpty) return const SizedBox.shrink();
 
     return Container(
@@ -119,7 +119,8 @@ class MathReaderBlock extends ConsumerWidget {
                 fontSize: (textStyle.fontSize ?? 16) * 1.2,
                 fontWeight: FontWeight.w400,
               ),
-              onErrorFallback: (FlutterMathException e) => _buildErrorMath(context, ref, equation),
+              onErrorFallback: (FlutterMathException e) =>
+                  _buildErrorMath(context, ref, equation),
             ),
           ),
         ),
@@ -138,21 +139,28 @@ class MathReaderBlock extends ConsumerWidget {
     final theme = Theme.of(context);
     final styleUtils = ref.read(styleUtilsProvider);
 
-    final background = styleUtils.parseHex(block.style.background) ?? theme.colorScheme.surface;
-    final color = styleUtils.parseHex(block.style.color) ?? theme.colorScheme.onSurface;
-    final textAlign = _getTextAlignFromStyle(styleUtils.applyStyle(block.style), context);
+    final background =
+        styleUtils.parseHex(block.style.background) ??
+        theme.colorScheme.surface;
+    final color =
+        styleUtils.parseHex(block.style.color) ?? theme.colorScheme.onSurface;
+    final textAlign = _getTextAlignFromStyle(
+      styleUtils.applyStyle(block.style),
+      context,
+    );
 
-    Map<String, dynamic> content = {
-      'latex': '',
-      'caption': '',
-    };
+    Map<String, dynamic> content = {'latex': '', 'caption': ''};
 
     try {
       if (block.content.isNotEmpty) {
         content = JsonStringConverter().convertFromJsonString(block.content);
       }
     } catch (e, stackTrace) {
-      logger.e('Failed to parse JSON block content', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to parse JSON block content',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return _buildErrorMath(context, ref, 'Content parsing error');
     }
 
@@ -170,7 +178,10 @@ class MathReaderBlock extends ConsumerWidget {
       final isDesktop = ResponsiveUtils.isDesktop(context);
       final horizontalPadding = isDesktop ? 24.0 : (isWide ? 16.0 : 12.0);
       final verticalPadding = isDesktop ? 16.0 : (isWide ? 12.0 : 8.0);
-      final padding = EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding);
+      final padding = EdgeInsets.symmetric(
+        horizontal: horizontalPadding,
+        vertical: verticalPadding,
+      );
       final verticalMargin = ResponsiveUtils.getBlockSpacing(context);
       final margin = EdgeInsets.symmetric(vertical: verticalMargin);
 
@@ -181,15 +192,17 @@ class MathReaderBlock extends ConsumerWidget {
           crossAxisAlignment: _getCrossAxisAlignment(textAlign),
           children: [
             if (equations.isNotEmpty)
-              ...equations.map((equation) => _buildMathEquation(
-                equation,
-                styleUtils.applyStyle(block.style),
-                color,
-                background,
-                textAlign,
-                ref,
-                context,
-              )),
+              ...equations.map(
+                (equation) => _buildMathEquation(
+                  equation,
+                  styleUtils.applyStyle(block.style),
+                  color,
+                  background,
+                  textAlign,
+                  ref,
+                  context,
+                ),
+              ),
             if (equations.isEmpty)
               _buildMathEquation(
                 r'\text{[Empty math block]}',
@@ -204,7 +217,10 @@ class MathReaderBlock extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 16.0),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
                     border: Border(
                       left: BorderSide(
@@ -215,11 +231,18 @@ class MathReaderBlock extends ConsumerWidget {
                   ),
                   child: Text(
                     caption,
-                    style: styleUtils.applyStyle(block.style).copyWith(
-                      fontSize: (styleUtils.applyStyle(block.style).fontSize ?? 14) * 0.9,
-                      fontStyle: FontStyle.italic,
-                      color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
-                    ),
+                    style: styleUtils
+                        .applyStyle(block.style)
+                        .copyWith(
+                          fontSize:
+                              (styleUtils.applyStyle(block.style).fontSize ??
+                                  14) *
+                              0.9,
+                          fontStyle: FontStyle.italic,
+                          color: theme.colorScheme.onSurface.withValues(
+                            alpha: 0.7,
+                          ),
+                        ),
                     textAlign: textAlign,
                   ),
                 ),
@@ -228,7 +251,11 @@ class MathReaderBlock extends ConsumerWidget {
         ),
       );
     } catch (e, stackTrace) {
-      logger.e('Unexpected error in MathReaderBlock', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Unexpected error in MathReaderBlock',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return _buildErrorMath(context, ref, 'Rendering error: $e');
     }
   }

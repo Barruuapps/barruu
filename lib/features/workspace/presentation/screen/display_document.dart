@@ -434,7 +434,6 @@ class _DisplayDocumentScreenState extends ConsumerState<DisplayDocument>
                 )
               : LayoutBuilder(
                   builder: (context, constraints) {
-                    final isLargeScreen = ResponsiveUtils.isDesktop(context);
                     final maxContentWidth = ResponsiveUtils.getReadingMaxWidth(
                       context,
                     );

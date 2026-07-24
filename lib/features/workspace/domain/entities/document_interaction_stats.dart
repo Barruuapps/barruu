@@ -1,4 +1,3 @@
-
 /// Statistics for a specific topic within a document
 class TopicPerformance {
   final String topicId;
@@ -186,10 +185,10 @@ class DocumentInteractionStats {
     DateTime? firstOpened,
     DateTime? lastAccessed,
     this.totalSessions = 0,
-  })  : topicPerformances = topicPerformances ?? {},
-        dailyInteractions = dailyInteractions ?? [],
-        firstOpened = firstOpened ?? DateTime.now(),
-        lastAccessed = lastAccessed ?? DateTime.now();
+  }) : topicPerformances = topicPerformances ?? {},
+       dailyInteractions = dailyInteractions ?? [],
+       firstOpened = firstOpened ?? DateTime.now(),
+       lastAccessed = lastAccessed ?? DateTime.now();
 
   /// Calculate overall accuracy
   double get overallAccuracy {
@@ -223,9 +222,11 @@ class DocumentInteractionStats {
   List<TopicPerformance> get topicsNeedingPractice {
     final now = DateTime.now();
     return topicPerformances.values
-        .where((topic) =>
-            now.difference(topic.lastPracticed).inDays >= 7 &&
-            topic.masteryLevel < 3)
+        .where(
+          (topic) =>
+              now.difference(topic.lastPracticed).inDays >= 7 &&
+              topic.masteryLevel < 3,
+        )
         .toList()
       ..sort((a, b) => a.lastPracticed.compareTo(b.lastPracticed));
   }
@@ -237,10 +238,10 @@ class DocumentInteractionStats {
       'totalQuestionsAttempted': totalQuestionsAttempted,
       'totalQuestionsCorrect': totalQuestionsCorrect,
       'totalQuestionsIncorrect': totalQuestionsIncorrect,
-      'topicPerformances':
-          topicPerformances.map((key, value) => MapEntry(key, value.toJson())),
-      'dailyInteractions':
-          dailyInteractions.map((e) => e.toJson()).toList(),
+      'topicPerformances': topicPerformances.map(
+        (key, value) => MapEntry(key, value.toJson()),
+      ),
+      'dailyInteractions': dailyInteractions.map((e) => e.toJson()).toList(),
       'firstOpened': firstOpened.toIso8601String(),
       'lastAccessed': lastAccessed.toIso8601String(),
       'totalSessions': totalSessions,
@@ -262,7 +263,8 @@ class DocumentInteractionStats {
       totalQuestionsCorrect: json['totalQuestionsCorrect'] ?? 0,
       totalQuestionsIncorrect: json['totalQuestionsIncorrect'] ?? 0,
       topicPerformances: topics,
-      dailyInteractions: (json['dailyInteractions'] as List<dynamic>?)
+      dailyInteractions:
+          (json['dailyInteractions'] as List<dynamic>?)
               ?.map((e) => DailyDocumentInteraction.fromJson(e))
               .toList() ??
           [],

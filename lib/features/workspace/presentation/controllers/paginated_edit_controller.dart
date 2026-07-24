@@ -49,7 +49,7 @@ class PaginatedBlocksState {
 }
 
 /// Controller for paginated block loading in EditDocumentScreen
-/// 
+///
 /// This controller manages incremental loading of blocks for better performance
 /// with large documents. It uses the pagination infrastructure from Phase 4 Week 13.
 class PaginatedEditController extends StateNotifier<PaginatedBlocksState> {
@@ -63,27 +63,27 @@ class PaginatedEditController extends StateNotifier<PaginatedBlocksState> {
     required GetBlocksPaginatedUseCase getPaginatedUseCase,
     required GetBlocksCountUseCase getCountUseCase,
     this.pageSize = 30,
-  })  : _getPaginatedUseCase = getPaginatedUseCase,
-        _getCountUseCase = getCountUseCase,
-        super(const PaginatedBlocksState()) {
+  }) : _getPaginatedUseCase = getPaginatedUseCase,
+       _getCountUseCase = getCountUseCase,
+       super(const PaginatedBlocksState()) {
     _initialize();
   }
 
   /// Initialize by loading total count and first page
   Future<void> _initialize() async {
     if (!mounted) return;
-    
+
     try {
       // Get total count first (don't set isLoading yet)
       final countResult = await _getCountUseCase.execute();
-      
+
       if (!mounted) return;
-      
+
       // Handle the result
       if (countResult.isSuccess) {
         final count = (countResult as Success<int>).value;
         state = state.copyWith(totalCount: count, hasMore: count > 0);
-        
+
         // Load first page if there are blocks
         // loadNextPage() will manage its own isLoading state
         if (count > 0) {
@@ -93,13 +93,14 @@ class PaginatedEditController extends StateNotifier<PaginatedBlocksState> {
       } else {
         final message = (countResult as Error<int>).message;
         logger.e('Failed to get blocks count: $message');
-        state = state.copyWith(
-          isLoading: false,
-          error: message,
-        );
+        state = state.copyWith(isLoading: false, error: message);
       }
     } catch (e, stackTrace) {
-      logger.e('Error initializing paginated controller', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Error initializing paginated controller',
+        error: e,
+        stackTrace: stackTrace,
+      );
       if (mounted) {
         state = state.copyWith(
           isLoading: false,
@@ -161,7 +162,9 @@ class PaginatedEditController extends StateNotifier<PaginatedBlocksState> {
           hasMore: hasMore,
         );
 
-        logger.i('Loaded ${newBlocks.length} blocks, total: ${allBlocks.length}/${state.totalCount}');
+        logger.i(
+          'Loaded ${newBlocks.length} blocks, total: ${allBlocks.length}/${state.totalCount}',
+        );
       } else {
         final message = (result as Error<List<Block>>).message;
         logger.e('Failed to load blocks: $message');
@@ -199,7 +202,7 @@ class PaginatedEditController extends StateNotifier<PaginatedBlocksState> {
     try {
       final json = jsonDecode(block.content) as Map<String, dynamic>;
       final relativePath = json['path'] as String? ?? '';
-      
+
       if (relativePath.isEmpty) {
         return true; // Empty path is valid (no media selected yet)
       }
@@ -220,17 +223,21 @@ class PaginatedEditController extends StateNotifier<PaginatedBlocksState> {
 
     try {
       final json = jsonDecode(block.content) as Map<String, dynamic>;
-      
+
       // Ensure path is relative
       final path = json['path'] as String? ?? '';
       if (path.isNotEmpty && path.startsWith(docDir.path)) {
         json['path'] = path.replaceFirst('${docDir.path}/', '');
       }
-      
+
       return block.copyWith(content: jsonEncode(json));
     } catch (e, stackTrace) {
-      logger.w('Invalid JSON content for block ${block.id}', error: e, stackTrace: stackTrace);
-      
+      logger.w(
+        'Invalid JSON content for block ${block.id}',
+        error: e,
+        stackTrace: stackTrace,
+      );
+
       // Return block with default empty content based on type
       final defaultContent = _getDefaultMediaContent(block.type);
       return block.copyWith(content: jsonEncode(defaultContent));
@@ -246,20 +253,12 @@ class PaginatedEditController extends StateNotifier<PaginatedBlocksState> {
           'cropTop': 0.0,
           'cropBottom': 0.0,
           'fit': 'cover',
-          'fileName': ''
+          'fileName': '',
         };
       case BlockType.audio:
-        return {
-          'path': '',
-          'caption': '',
-          'autoPlay': false,
-        };
+        return {'path': '', 'caption': '', 'autoPlay': false};
       case BlockType.video:
-        return {
-          'path': '',
-          'caption': '',
-          'autoPlay': false,
-        };
+        return {'path': '', 'caption': '', 'autoPlay': false};
       default:
         return {'path': '', 'caption': ''};
     }

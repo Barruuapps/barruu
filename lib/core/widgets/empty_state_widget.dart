@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:barruu/core/widgets/shimmer_loading.dart';
 
 /// Empty state widget for displaying when there's no content
-/// 
+///
 /// Provides a consistent, user-friendly UI for empty states with
 /// actionable CTAs to help users get started.
 class EmptyStateWidget extends StatelessWidget {
@@ -54,7 +54,8 @@ class EmptyStateWidget extends StatelessWidget {
     return EmptyStateWidget(
       icon: Icons.description_outlined,
       title: 'No Documents Yet',
-      description: 'Create your first document or import an existing .bipy file to get started.',
+      description:
+          'Create your first document or import an existing .bipy file to get started.',
       actionText: 'Create Document',
       onAction: onCreateDocument,
       secondaryActionText: 'Import .bipy File',
@@ -63,9 +64,7 @@ class EmptyStateWidget extends StatelessWidget {
   }
 
   /// Factory for "No Blocks" empty state
-  factory EmptyStateWidget.noBlocks({
-    VoidCallback? onAddBlock,
-  }) {
+  factory EmptyStateWidget.noBlocks({VoidCallback? onAddBlock}) {
     return EmptyStateWidget(
       icon: Icons.add_box_outlined,
       title: 'Add a block',
@@ -77,9 +76,7 @@ class EmptyStateWidget extends StatelessWidget {
   }
 
   /// Factory for "No Search Results" empty state
-  factory EmptyStateWidget.noSearchResults({
-    VoidCallback? onClearSearch,
-  }) {
+  factory EmptyStateWidget.noSearchResults({VoidCallback? onClearSearch}) {
     return EmptyStateWidget(
       icon: Icons.search_off_outlined,
       title: 'No Results Found',
@@ -91,14 +88,12 @@ class EmptyStateWidget extends StatelessWidget {
   }
 
   /// Factory for "Error" empty state
-  factory EmptyStateWidget.error({
-    String? message,
-    VoidCallback? onRetry,
-  }) {
+  factory EmptyStateWidget.error({String? message, VoidCallback? onRetry}) {
     return EmptyStateWidget(
       icon: Icons.error_outline_rounded,
       title: 'Something Went Wrong',
-      description: message ?? 'We couldn\'t load the content. Please try again.',
+      description:
+          message ?? 'We couldn\'t load the content. Please try again.',
       actionText: 'Retry',
       onAction: onRetry,
       compact: true,
@@ -106,9 +101,7 @@ class EmptyStateWidget extends StatelessWidget {
   }
 
   /// Factory for "Network Error" empty state
-  factory EmptyStateWidget.networkError({
-    VoidCallback? onRetry,
-  }) {
+  factory EmptyStateWidget.networkError({VoidCallback? onRetry}) {
     return EmptyStateWidget(
       icon: Icons.wifi_off_outlined,
       title: 'No Internet Connection',
@@ -139,7 +132,9 @@ class EmptyStateWidget extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
+                  color: theme.colorScheme.primaryContainer.withValues(
+                    alpha: 0.3,
+                  ),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -154,10 +149,14 @@ class EmptyStateWidget extends StatelessWidget {
             // Title
             Text(
               title,
-              style: (compact ? theme.textTheme.titleLarge : theme.textTheme.headlineSmall)?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: theme.colorScheme.onSurface,
-              ),
+              style:
+                  (compact
+                          ? theme.textTheme.titleLarge
+                          : theme.textTheme.headlineSmall)
+                      ?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: theme.colorScheme.onSurface,
+                      ),
               textAlign: TextAlign.center,
             ),
 
@@ -168,10 +167,16 @@ class EmptyStateWidget extends StatelessWidget {
               constraints: const BoxConstraints(maxWidth: 400),
               child: Text(
                 description,
-                style: (compact ? theme.textTheme.bodyMedium : theme.textTheme.bodyLarge)?.copyWith(
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
-                  height: 1.5,
-                ),
+                style:
+                    (compact
+                            ? theme.textTheme.bodyMedium
+                            : theme.textTheme.bodyLarge)
+                        ?.copyWith(
+                          color: theme.colorScheme.onSurface.withValues(
+                            alpha: 0.7,
+                          ),
+                          height: 1.5,
+                        ),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -201,7 +206,8 @@ class EmptyStateWidget extends StatelessWidget {
                       ),
 
                     // Secondary action
-                    if (onSecondaryAction != null && secondaryActionText != null) ...[
+                    if (onSecondaryAction != null &&
+                        secondaryActionText != null) ...[
                       const SizedBox(height: 12),
                       OutlinedButton.icon(
                         onPressed: onSecondaryAction,
@@ -233,11 +239,7 @@ class LoadingStateWidget extends StatelessWidget {
   /// Whether to show in compact mode
   final bool compact;
 
-  const LoadingStateWidget({
-    super.key,
-    this.message,
-    this.compact = false,
-  });
+  const LoadingStateWidget({super.key, this.message, this.compact = false});
 
   @override
   Widget build(BuildContext context) {
@@ -262,9 +264,15 @@ class LoadingStateWidget extends StatelessWidget {
               SizedBox(height: compact ? 16 : 24),
               Text(
                 message!,
-                style: (compact ? theme.textTheme.bodyMedium : theme.textTheme.bodyLarge)?.copyWith(
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
-                ),
+                style:
+                    (compact
+                            ? theme.textTheme.bodyMedium
+                            : theme.textTheme.bodyLarge)
+                        ?.copyWith(
+                          color: theme.colorScheme.onSurface.withValues(
+                            alpha: 0.7,
+                          ),
+                        ),
                 textAlign: TextAlign.center,
               ),
             ],

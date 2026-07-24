@@ -29,7 +29,7 @@ class VideoSourceDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -39,14 +39,14 @@ class VideoSourceDialog extends StatelessWidget {
           children: [
             const Text(
               'Add Video',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             ListTile(
-              leading: Icon(Icons.video_library, color: theme.colorScheme.primary),
+              leading: Icon(
+                Icons.video_library,
+                color: theme.colorScheme.primary,
+              ),
               title: const Text('Choose from Gallery'),
               subtitle: const Text('Select a video from your device'),
               onTap: () {

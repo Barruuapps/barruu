@@ -795,10 +795,11 @@ class _FillBlankReaderBlockState extends ConsumerState<FillBlankReaderBlock> {
         ),
         tilePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
         childrenPadding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
-        backgroundColor: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.35),
-        collapsedBackgroundColor: theme.colorScheme.surfaceContainerHighest.withValues(
-          alpha: 0.18,
+        backgroundColor: theme.colorScheme.surfaceContainerHighest.withValues(
+          alpha: 0.35,
         ),
+        collapsedBackgroundColor: theme.colorScheme.surfaceContainerHighest
+            .withValues(alpha: 0.18),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         collapsedShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -815,7 +816,6 @@ class _FillBlankReaderBlockState extends ConsumerState<FillBlankReaderBlock> {
       ),
     );
   }
-
 
   /// Shows a card for each wrong blank revealing the accepted answer(s).
   List<Widget> _buildCorrectAnswerCards(TextStyle baseStyle, ThemeData theme) {
@@ -842,7 +842,9 @@ class _FillBlankReaderBlockState extends ConsumerState<FillBlankReaderBlock> {
                   vertical: 8,
                 ),
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.errorContainer.withValues(alpha: 0.15),
+                  color: theme.colorScheme.errorContainer.withValues(
+                    alpha: 0.15,
+                  ),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
                     color: theme.colorScheme.error.withValues(alpha: 0.25),

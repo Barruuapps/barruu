@@ -174,12 +174,16 @@ class _CompactInterestsSelector extends StatelessWidget {
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(
-                  color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
+                  color: theme.colorScheme.outlineVariant.withValues(
+                    alpha: 0.5,
+                  ),
                 ),
               ),
               suffixIcon: const Icon(Icons.arrow_drop_down),
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 12,
+              ),
             ),
             child: selectedInterests.isEmpty
                 ? Text(
@@ -197,8 +201,8 @@ class _CompactInterestsSelector extends StatelessWidget {
                         padding: EdgeInsets.zero,
                         visualDensity: VisualDensity.compact,
                         onDeleted: () {
-                          final updated =
-                              List<String>.from(selectedInterests)..remove(i);
+                          final updated = List<String>.from(selectedInterests)
+                            ..remove(i);
                           onInterestsChanged(updated);
                         },
                       );
@@ -212,9 +216,7 @@ class _CompactInterestsSelector extends StatelessWidget {
               ? '${selectedInterests.length}/$maxSelection selected'
               : 'Select at least $minSelection (${selectedInterests.length}/$maxSelection)',
           style: theme.textTheme.bodySmall?.copyWith(
-            color: hasMin
-                ? theme.colorScheme.primary
-                : theme.colorScheme.error,
+            color: hasMin ? theme.colorScheme.primary : theme.colorScheme.error,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -308,8 +310,9 @@ class _InterestsPickerSheetState extends State<_InterestsPickerSheet> {
                   Expanded(
                     child: Text(
                       'Select Interests',
-                      style: theme.textTheme.titleLarge
-                          ?.copyWith(fontWeight: FontWeight.bold),
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   Text(
@@ -342,7 +345,11 @@ class _InterestsPickerSheetState extends State<_InterestsPickerSheet> {
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(
-                  24, 8, 24, MediaQuery.of(context).padding.bottom + 16),
+                24,
+                8,
+                24,
+                MediaQuery.of(context).padding.bottom + 16,
+              ),
               child: FilledButton(
                 onPressed: () => Navigator.pop(context, _selected),
                 style: FilledButton.styleFrom(

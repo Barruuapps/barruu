@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:barruu/core/widgets/blocks/base_editable_block.dart';
-import 'package:barruu/features/workspace/domain/entities/block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/blocks/block_empty_state.dart';
 import 'package:barruu/features/workspace/presentation/widgets/blocks/reader/cards_reader_block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/utils/toolbar.dart';
@@ -68,7 +67,7 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
 
     _cardStyle = content['cardStyle']?.toString() ?? 'elevated';
     _cardTemplate = content['cardTemplate']?.toString() ?? 'standard';
-    
+
     // Initialize controllers for existing cards
     _initializeCardControllers();
   }
@@ -77,7 +76,7 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
   void onContentChanged() {
     _cardStyle = content['cardStyle']?.toString() ?? 'elevated';
     _cardTemplate = content['cardTemplate']?.toString() ?? 'standard';
-    
+
     // Update controllers when content changes externally
     _updateCardControllers();
   }
@@ -87,7 +86,7 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
     _debouncer.dispose();
     _disposeCardControllers();
   }
-  
+
   void _initializeCardControllers() {
     final cards = content['cards'] as List;
     for (int i = 0; i < cards.length; i++) {
@@ -95,16 +94,20 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
         final card = cards[i] as Map<String, dynamic>;
         _cardControllers[i] = {
           'title': TextEditingController(text: card['title']?.toString() ?? ''),
-          'description': TextEditingController(text: card['description']?.toString() ?? ''),
-          'emoji': TextEditingController(text: card['emoji']?.toString() ?? '📝'),
+          'description': TextEditingController(
+            text: card['description']?.toString() ?? '',
+          ),
+          'emoji': TextEditingController(
+            text: card['emoji']?.toString() ?? '📝',
+          ),
         };
       }
     }
   }
-  
+
   void _updateCardControllers() {
     final cards = content['cards'] as List;
-    
+
     // Remove controllers for cards that no longer exist
     _cardControllers.removeWhere((key, controllers) {
       if (key >= cards.length) {
@@ -115,23 +118,23 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
       }
       return false;
     });
-    
+
     // Update existing controllers and create new ones
     for (int i = 0; i < cards.length; i++) {
       final card = cards[i] as Map<String, dynamic>;
-      
+
       if (_cardControllers.containsKey(i)) {
         // Only update if text is different to avoid cursor reset
         final titleText = card['title']?.toString() ?? '';
         if (_cardControllers[i]!['title']!.text != titleText) {
           _cardControllers[i]!['title']!.text = titleText;
         }
-        
+
         final descText = card['description']?.toString() ?? '';
         if (_cardControllers[i]!['description']!.text != descText) {
           _cardControllers[i]!['description']!.text = descText;
         }
-        
+
         final emojiText = card['emoji']?.toString() ?? '📝';
         if (_cardControllers[i]!['emoji']!.text != emojiText) {
           _cardControllers[i]!['emoji']!.text = emojiText;
@@ -139,13 +142,17 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
       } else {
         _cardControllers[i] = {
           'title': TextEditingController(text: card['title']?.toString() ?? ''),
-          'description': TextEditingController(text: card['description']?.toString() ?? ''),
-          'emoji': TextEditingController(text: card['emoji']?.toString() ?? '📝'),
+          'description': TextEditingController(
+            text: card['description']?.toString() ?? '',
+          ),
+          'emoji': TextEditingController(
+            text: card['emoji']?.toString() ?? '📝',
+          ),
         };
       }
     }
   }
-  
+
   void _disposeCardControllers() {
     for (var controllers in _cardControllers.values) {
       for (var controller in controllers.values) {
@@ -167,14 +174,14 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
     });
 
     content['cards'] = cards;
-    
+
     // Create controllers for new card
     _cardControllers[newIndex] = {
       'title': TextEditingController(text: ''),
       'description': TextEditingController(text: ''),
       'emoji': TextEditingController(text: '📝'),
     };
-    
+
     saveContent();
   }
 
@@ -210,7 +217,9 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
     // Now pick a new image
     final images = await _imageFileService.pickAndSaveImages(widget.docDir);
     if (images != null && images.isNotEmpty) {
-      final updatedCards = List<Map<String, dynamic>>.from(content['cards'] as List);
+      final updatedCards = List<Map<String, dynamic>>.from(
+        content['cards'] as List,
+      );
       if (cardIndex < updatedCards.length) {
         updatedCards[cardIndex]['imagePath'] = images[0]['path'];
         updatedCards[cardIndex]['imageType'] = images[0]['type'];
@@ -246,7 +255,7 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
     final removedCard = Map<String, dynamic>.from(cards[index]);
     cards.removeAt(index);
     content['cards'] = cards;
-    
+
     // Dispose and remove controllers for removed card
     if (_cardControllers.containsKey(index)) {
       for (var controller in _cardControllers[index]!.values) {
@@ -254,7 +263,7 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
       }
       _cardControllers.remove(index);
     }
-    
+
     // Reindex remaining controllers
     final newControllers = <int, Map<String, TextEditingController>>{};
     for (var entry in _cardControllers.entries) {
@@ -266,7 +275,7 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
     }
     _cardControllers.clear();
     _cardControllers.addAll(newControllers);
-    
+
     setState(() {});
     saveContent();
 
@@ -278,7 +287,9 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
         action: SnackBarAction(
           label: 'Undo',
           onPressed: () {
-            final currentCards = List<Map<String, dynamic>>.from(content['cards'] as List);
+            final currentCards = List<Map<String, dynamic>>.from(
+              content['cards'] as List,
+            );
             currentCards.insert(index, removedCard);
             content['cards'] = currentCards;
 
@@ -309,7 +320,8 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
     // Reindex controllers without disposing to preserve text/focus state
     final n = cards.length;
     final controllerList = List<Map<String, TextEditingController>?>.generate(
-      n, (i) => _cardControllers[i],
+      n,
+      (i) => _cardControllers[i],
     );
     final movedCtrl = controllerList.removeAt(oldIndex);
     controllerList.insert(newIndex, movedCtrl);
@@ -383,10 +395,7 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
 
   @override
   Widget buildReader(BuildContext context) {
-    return CardsReaderBlock(
-      block: widget.block,
-      docDir: widget.docDir,
-    );
+    return CardsReaderBlock(block: widget.block, docDir: widget.docDir);
   }
 
   @override
@@ -405,7 +414,9 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
+            border: Border.all(
+              color: theme.colorScheme.outline.withValues(alpha: 0.3),
+            ),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
@@ -440,7 +451,10 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
                         icon: const Icon(IconsaxPlusLinear.gallery, size: 16),
                         label: Text(_getTemplateDisplayName(_cardTemplate)),
                         style: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 8,
+                          ),
                           minimumSize: const Size(0, 32),
                         ),
                       ),
@@ -450,9 +464,18 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
                         value: _cardStyle,
                         hint: const Text('Style'),
                         items: const [
-                          DropdownMenuItem(value: 'elevated', child: Text('Elevated')),
-                          DropdownMenuItem(value: 'outlined', child: Text('Outlined')),
-                          DropdownMenuItem(value: 'filled', child: Text('Filled')),
+                          DropdownMenuItem(
+                            value: 'elevated',
+                            child: Text('Elevated'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'outlined',
+                            child: Text('Outlined'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'filled',
+                            child: Text('Filled'),
+                          ),
                         ],
                         onChanged: (value) {
                           if (value != null) {
@@ -504,15 +527,21 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
     );
   }
 
-  Widget _buildCardEditor(ThemeData theme, Map<String, dynamic> card, int index) {
+  Widget _buildCardEditor(
+    ThemeData theme,
+    Map<String, dynamic> card,
+    int index,
+  ) {
     final imagePath = card['imagePath'] as String?;
     final hasImage = imagePath != null && imagePath.isNotEmpty;
-    
+
     // Ensure controllers exist for this card
     if (!_cardControllers.containsKey(index)) {
       _cardControllers[index] = {
         'title': TextEditingController(text: card['title']?.toString() ?? ''),
-        'description': TextEditingController(text: card['description']?.toString() ?? ''),
+        'description': TextEditingController(
+          text: card['description']?.toString() ?? '',
+        ),
         'emoji': TextEditingController(text: card['emoji']?.toString() ?? '📝'),
       };
     }
@@ -538,7 +567,9 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
                 // Image or gradient header
                 if (hasImage)
                   ClipRRect(
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(12),
+                    ),
                     child: Image.file(
                       File('${widget.docDir.path}/$imagePath'),
                       width: double.infinity,
@@ -559,12 +590,14 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
                           theme.colorScheme.secondaryContainer,
                         ],
                       ),
-                      borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(12),
+                      ),
                     ),
                     child: Center(
                       child: Text(
-                        _cardControllers[index]!['emoji']!.text.isEmpty 
-                            ? '📝' 
+                        _cardControllers[index]!['emoji']!.text.isEmpty
+                            ? '📝'
                             : _cardControllers[index]!['emoji']!.text,
                         style: const TextStyle(fontSize: 40),
                       ),
@@ -581,7 +614,9 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
                       if (hasImage) ...[
                         Container(
                           decoration: BoxDecoration(
-                            color: theme.colorScheme.surface.withValues(alpha: 0.9),
+                            color: theme.colorScheme.surface.withValues(
+                              alpha: 0.9,
+                            ),
                             shape: BoxShape.circle,
                           ),
                           child: IconButton(
@@ -599,7 +634,9 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
                         const SizedBox(width: 4),
                         Container(
                           decoration: BoxDecoration(
-                            color: theme.colorScheme.surface.withValues(alpha: 0.9),
+                            color: theme.colorScheme.surface.withValues(
+                              alpha: 0.9,
+                            ),
                             shape: BoxShape.circle,
                           ),
                           child: IconButton(
@@ -618,7 +655,9 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
                       const SizedBox(width: 4),
                       Container(
                         decoration: BoxDecoration(
-                          color: theme.colorScheme.surface.withValues(alpha: 0.9),
+                          color: theme.colorScheme.surface.withValues(
+                            alpha: 0.9,
+                          ),
                           shape: BoxShape.circle,
                         ),
                         child: IconButton(
@@ -648,10 +687,19 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
                       width: double.infinity,
                       child: OutlinedButton.icon(
                         onPressed: () => _addImageToCard(index),
-                        icon: const Icon(IconsaxPlusLinear.gallery_add, size: 16),
-                        label: const Text('Add Image', style: TextStyle(fontSize: 12)),
+                        icon: const Icon(
+                          IconsaxPlusLinear.gallery_add,
+                          size: 16,
+                        ),
+                        label: const Text(
+                          'Add Image',
+                          style: TextStyle(fontSize: 12),
+                        ),
                         style: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 6,
+                          ),
                           minimumSize: const Size(0, 32),
                         ),
                       ),
@@ -671,7 +719,10 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 6,
+                        ),
                         isDense: true,
                       ),
                       maxLines: 1,
@@ -690,11 +741,16 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
                     decoration: InputDecoration(
                       hintText: 'Card Title',
                       labelText: 'Title',
-                      labelStyle: theme.textTheme.labelSmall?.copyWith(fontSize: 11),
+                      labelStyle: theme.textTheme.labelSmall?.copyWith(
+                        fontSize: 11,
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 6,
+                      ),
                       isDense: true,
                     ),
                     maxLines: 2,
@@ -710,16 +766,22 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
                     decoration: InputDecoration(
                       hintText: 'Description...',
                       labelText: 'Description',
-                      labelStyle: theme.textTheme.labelSmall?.copyWith(fontSize: 11),
+                      labelStyle: theme.textTheme.labelSmall?.copyWith(
+                        fontSize: 11,
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 6,
+                      ),
                       isDense: true,
                     ),
                     maxLines: 3,
                     minLines: 1,
-                    onChanged: (value) => _updateCard(index, 'description', value),
+                    onChanged: (value) =>
+                        _updateCard(index, 'description', value),
                   ),
                 ],
               ),

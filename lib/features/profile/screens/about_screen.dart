@@ -29,7 +29,7 @@ class AboutScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 32),
-            
+
             // App Logo
             ClipRRect(
               borderRadius: BorderRadius.circular(24),
@@ -56,9 +56,9 @@ class AboutScreen extends StatelessWidget {
                 },
               ),
             ),
-            
+
             const SizedBox(height: 24),
-            
+
             // App Name
             Text(
               'Barruu',
@@ -66,9 +66,9 @@ class AboutScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            
+
             const SizedBox(height: 8),
-            
+
             // Version
             Text(
               'Version 1.0.0',
@@ -76,18 +76,18 @@ class AboutScreen extends StatelessWidget {
                 color: theme.colorScheme.onSurfaceVariant,
               ),
             ),
-            
+
             const SizedBox(height: 32),
-            
+
             // Description
             Text(
               'A professional social media platform for sharing articles, insights, and media with advanced formatting.',
               style: theme.textTheme.bodyLarge,
               textAlign: TextAlign.center,
             ),
-            
+
             const SizedBox(height: 32),
-            
+
             // Copyright
             Text(
               '© 2024 Barruu. All rights reserved.',
@@ -96,7 +96,7 @@ class AboutScreen extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            
+
             const SizedBox(height: 48),
           ],
         ),

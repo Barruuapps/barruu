@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:barruu/core/widgets/blocks/base_editable_block.dart';
-import 'package:barruu/features/workspace/domain/entities/block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/blocks/block_empty_state.dart';
 import 'package:barruu/features/workspace/presentation/widgets/blocks/reader/rows_reader_block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/utils/toolbar.dart';
@@ -13,7 +12,7 @@ import 'package:barruu/features/workspace/presentation/widgets/blocks/writer/row
 import 'package:barruu/features/workspace/constants/block_dimension_constants.dart';
 
 /// Rows block for horizontal layout with image support.
-/// 
+///
 /// Content format:
 /// ```json
 /// {
@@ -65,16 +64,16 @@ class _RowsBlockState extends BaseEditableBlockState<RowsBlock> {
   void initializeBlockSpecifics() {
     _debouncer = Debouncer(delay: const Duration(milliseconds: 500));
     _imageFileService = ImageFileService();
-    
+
     // Ensure rows is a list
     if (content['rows'] is! List) {
       content['rows'] = [];
     }
-    
+
     _gap = (content['gap'] as num?)?.toDouble() ?? 16.0;
     _rowStyle = content['rowStyle']?.toString() ?? 'elevated';
     _rowTemplate = content['rowTemplate']?.toString() ?? 'standard';
-    
+
     // Initialize controllers for existing rows
     _initializeRowControllers();
   }
@@ -84,7 +83,7 @@ class _RowsBlockState extends BaseEditableBlockState<RowsBlock> {
     _gap = (content['gap'] as num?)?.toDouble() ?? 16.0;
     _rowStyle = content['rowStyle']?.toString() ?? 'elevated';
     _rowTemplate = content['rowTemplate']?.toString() ?? 'standard';
-    
+
     // Update controllers when content changes externally
     _updateRowControllers();
   }
@@ -94,20 +93,22 @@ class _RowsBlockState extends BaseEditableBlockState<RowsBlock> {
     _debouncer.dispose();
     _disposeRowControllers();
   }
-  
+
   void _initializeRowControllers() {
     final rows = content['rows'] as List;
     for (int i = 0; i < rows.length; i++) {
       if (!_rowControllers.containsKey(i)) {
         final row = rows[i] as Map<String, dynamic>;
-        _rowControllers[i] = TextEditingController(text: row['content']?.toString() ?? '');
+        _rowControllers[i] = TextEditingController(
+          text: row['content']?.toString() ?? '',
+        );
       }
     }
   }
-  
+
   void _updateRowControllers() {
     final rows = content['rows'] as List;
-    
+
     // Remove controllers for rows that no longer exist
     _rowControllers.removeWhere((key, controller) {
       if (key >= rows.length) {
@@ -116,12 +117,12 @@ class _RowsBlockState extends BaseEditableBlockState<RowsBlock> {
       }
       return false;
     });
-    
+
     // Update existing controllers and create new ones
     for (int i = 0; i < rows.length; i++) {
       final row = rows[i] as Map<String, dynamic>;
       final text = row['content']?.toString() ?? '';
-      
+
       if (_rowControllers.containsKey(i)) {
         // Only update if text is different to avoid cursor reset
         if (_rowControllers[i]!.text != text) {
@@ -132,7 +133,7 @@ class _RowsBlockState extends BaseEditableBlockState<RowsBlock> {
       }
     }
   }
-  
+
   void _disposeRowControllers() {
     for (var controller in _rowControllers.values) {
       controller.dispose();
@@ -144,17 +145,13 @@ class _RowsBlockState extends BaseEditableBlockState<RowsBlock> {
     final rows = List<Map<String, dynamic>>.from(content['rows'] as List);
     if (rows.length < 6) {
       final newIndex = rows.length;
-      rows.add({
-        'height': 100.0,
-        'content': '',
-        'imagePath': '',
-      });
-      
+      rows.add({'height': 100.0, 'content': '', 'imagePath': ''});
+
       content['rows'] = rows;
-      
+
       // Create controller for new row
       _rowControllers[newIndex] = TextEditingController(text: '');
-      
+
       saveContent();
     }
   }
@@ -171,14 +168,14 @@ class _RowsBlockState extends BaseEditableBlockState<RowsBlock> {
         file.deleteSync();
       }
     }
-    
+
     rows.removeAt(index);
     content['rows'] = rows;
-    
+
     // Dispose and remove controller for removed row
     _rowControllers[index]?.dispose();
     _rowControllers.remove(index);
-    
+
     // Reindex remaining controllers
     final newControllers = <int, TextEditingController>{};
     for (var entry in _rowControllers.entries) {
@@ -190,7 +187,7 @@ class _RowsBlockState extends BaseEditableBlockState<RowsBlock> {
     }
     _rowControllers.clear();
     _rowControllers.addAll(newControllers);
-    
+
     setState(() {});
     saveContent();
 
@@ -202,7 +199,9 @@ class _RowsBlockState extends BaseEditableBlockState<RowsBlock> {
         action: SnackBarAction(
           label: 'Undo',
           onPressed: () {
-            final currentRows = List<Map<String, dynamic>>.from(content['rows'] as List);
+            final currentRows = List<Map<String, dynamic>>.from(
+              content['rows'] as List,
+            );
             currentRows.insert(index, removedRow);
             content['rows'] = currentRows;
 
@@ -231,7 +230,8 @@ class _RowsBlockState extends BaseEditableBlockState<RowsBlock> {
     // Reindex controllers without disposing to preserve text/focus state
     final n = rows.length;
     final controllerList = List<TextEditingController?>.generate(
-      n, (i) => _rowControllers[i],
+      n,
+      (i) => _rowControllers[i],
     );
     final movedCtrl = controllerList.removeAt(oldIndex);
     controllerList.insert(newIndex, movedCtrl);
@@ -318,7 +318,7 @@ class _RowsBlockState extends BaseEditableBlockState<RowsBlock> {
           file.deleteSync();
         }
       }
-      
+
       rows[rowIndex]['imagePath'] = '';
       content['rows'] = rows;
       saveContent();
@@ -342,11 +342,13 @@ class _RowsBlockState extends BaseEditableBlockState<RowsBlock> {
           opacity: toolbarOpacity,
           child: Toolbar(block: widget.block, docDir: widget.docDir),
         ),
-        
+
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
+            border: Border.all(
+              color: theme.colorScheme.outline.withValues(alpha: 0.3),
+            ),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
@@ -381,7 +383,10 @@ class _RowsBlockState extends BaseEditableBlockState<RowsBlock> {
                         icon: const Icon(IconsaxPlusLinear.gallery, size: 16),
                         label: Text(_getTemplateDisplayName(_rowTemplate)),
                         style: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 8,
+                          ),
                           minimumSize: const Size(0, 32),
                         ),
                       ),
@@ -391,9 +396,18 @@ class _RowsBlockState extends BaseEditableBlockState<RowsBlock> {
                         value: _rowStyle,
                         hint: const Text('Style'),
                         items: const [
-                          DropdownMenuItem(value: 'elevated', child: Text('Elevated')),
-                          DropdownMenuItem(value: 'outlined', child: Text('Outlined')),
-                          DropdownMenuItem(value: 'filled', child: Text('Filled')),
+                          DropdownMenuItem(
+                            value: 'elevated',
+                            child: Text('Elevated'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'outlined',
+                            child: Text('Outlined'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'filled',
+                            child: Text('Filled'),
+                          ),
                         ],
                         onChanged: (value) {
                           if (value != null) {
@@ -406,7 +420,7 @@ class _RowsBlockState extends BaseEditableBlockState<RowsBlock> {
                 ],
               ),
               const SizedBox(height: 12),
-              
+
               // Gap slider
               Row(
                 children: [
@@ -425,9 +439,9 @@ class _RowsBlockState extends BaseEditableBlockState<RowsBlock> {
                   ),
                 ],
               ),
-              
+
               const SizedBox(height: 12),
-              
+
               // Rows editors - horizontal scrollable list
               if (rows.isEmpty)
                 BlockEmptyState(
@@ -450,9 +464,9 @@ class _RowsBlockState extends BaseEditableBlockState<RowsBlock> {
                     );
                   },
                 ),
-              
+
               const SizedBox(height: 12),
-              
+
               // Add/Remove buttons
               Row(
                 children: [
@@ -463,7 +477,9 @@ class _RowsBlockState extends BaseEditableBlockState<RowsBlock> {
                   ),
                   const SizedBox(width: 8),
                   OutlinedButton.icon(
-                    onPressed: rows.length > 1 ? () => _removeRow(rows.length - 1) : null,
+                    onPressed: rows.length > 1
+                        ? () => _removeRow(rows.length - 1)
+                        : null,
                     icon: const Icon(IconsaxPlusLinear.minus),
                     label: const Text('Remove'),
                   ),
@@ -480,12 +496,14 @@ class _RowsBlockState extends BaseEditableBlockState<RowsBlock> {
     final imagePath = row['imagePath'] as String?;
     final hasImage = imagePath != null && imagePath.isNotEmpty;
     final rows = content['rows'] as List;
-    
+
     // Ensure controller exists for this row
     if (!_rowControllers.containsKey(index)) {
-      _rowControllers[index] = TextEditingController(text: row['content']?.toString() ?? '');
+      _rowControllers[index] = TextEditingController(
+        text: row['content']?.toString() ?? '',
+      );
     }
-    
+
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(12),
@@ -521,7 +539,7 @@ class _RowsBlockState extends BaseEditableBlockState<RowsBlock> {
             ],
           ),
           const SizedBox(height: 12),
-          
+
           // Image section
           if (hasImage)
             Stack(
@@ -566,13 +584,16 @@ class _RowsBlockState extends BaseEditableBlockState<RowsBlock> {
                 icon: const Icon(IconsaxPlusLinear.gallery_add, size: 18),
                 label: const Text('Add Image'),
                 style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                 ),
               ),
             ),
-          
+
           if (hasImage) const SizedBox(height: 12),
-          
+
           // Content field
           TextField(
             controller: _rowControllers[index],

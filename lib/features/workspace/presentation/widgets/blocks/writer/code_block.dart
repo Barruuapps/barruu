@@ -1,4 +1,3 @@
-
 import 'package:barruu/core/widgets/blocks/base_editable_block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/blocks/reader/code_reader_block.dart';
 import 'package:barruu/features/workspace/utils/style_utils.dart';
@@ -68,7 +67,7 @@ class _CodeBlockState extends BaseEditableBlockState<CodeBlock> {
   @override
   void didUpdateWidget(CodeBlock oldWidget) {
     super.didUpdateWidget(oldWidget);
-    
+
     // Sync language updates
     if (oldWidget.block.style.language != widget.block.style.language) {
       _codeController.language = _getMode(widget.block.style.language);
@@ -103,14 +102,19 @@ class _CodeBlockState extends BaseEditableBlockState<CodeBlock> {
     final brightness = theme.brightness;
     final styleUtils = ref.read(styleUtilsProvider);
     final supportedLanguages = ref.watch(supportedLanguagesProvider);
-    final controller = ref.read(editDocumentControllerProvider(widget.docDir).notifier);
+    final controller = ref.read(
+      editDocumentControllerProvider(widget.docDir).notifier,
+    );
 
     final backgroundColor =
-        styleUtils.parseHex(widget.block.style.background) ?? CodeBlockStyle.background(brightness);
+        styleUtils.parseHex(widget.block.style.background) ??
+        CodeBlockStyle.background(brightness);
     final headerBackground = CodeBlockStyle.header(brightness);
     final borderColor = CodeBlockStyle.border(brightness);
 
-    final langDisplay = getLanguageDisplayName(widget.block.style.language ?? 'text');
+    final langDisplay = getLanguageDisplayName(
+      widget.block.style.language ?? 'text',
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -130,7 +134,10 @@ class _CodeBlockState extends BaseEditableBlockState<CodeBlock> {
               // Header bar: language selector + copy button
               Container(
                 color: headerBackground,
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 4,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -142,11 +149,18 @@ class _CodeBlockState extends BaseEditableBlockState<CodeBlock> {
                       ),
                       borderRadius: BorderRadius.circular(4),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 4,
+                        ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.code, color: theme.colorScheme.onSurfaceVariant, size: 14),
+                            Icon(
+                              Icons.code,
+                              color: theme.colorScheme.onSurfaceVariant,
+                              size: 14,
+                            ),
                             const SizedBox(width: 6),
                             Text(
                               langDisplay,
@@ -158,13 +172,21 @@ class _CodeBlockState extends BaseEditableBlockState<CodeBlock> {
                               ),
                             ),
                             const SizedBox(width: 4),
-                            Icon(Icons.arrow_drop_down, color: theme.colorScheme.onSurfaceVariant, size: 16),
+                            Icon(
+                              Icons.arrow_drop_down,
+                              color: theme.colorScheme.onSurfaceVariant,
+                              size: 16,
+                            ),
                           ],
                         ),
                       ),
                     ),
                     IconButton(
-                      icon: Icon(Icons.copy_outlined, color: theme.colorScheme.onSurfaceVariant, size: 16),
+                      icon: Icon(
+                        Icons.copy_outlined,
+                        color: theme.colorScheme.onSurfaceVariant,
+                        size: 16,
+                      ),
                       tooltip: 'Copy code',
                       onPressed: () => _copyToClipboard(context),
                       padding: const EdgeInsets.all(4),
@@ -178,7 +200,9 @@ class _CodeBlockState extends BaseEditableBlockState<CodeBlock> {
               // Code editor area
               CodeTheme(
                 data: CodeThemeData(
-                  styles: brightness == Brightness.dark ? atomOneDarkTheme : atomOneLightTheme,
+                  styles: brightness == Brightness.dark
+                      ? atomOneDarkTheme
+                      : atomOneLightTheme,
                 ),
                 child: CodeField(
                   controller: _codeController,
@@ -213,7 +237,9 @@ class _CodeBlockState extends BaseEditableBlockState<CodeBlock> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Text(
           'Select Language',
-          style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+          style: theme.textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
         ),
         content: ConstrainedBox(
           constraints: const BoxConstraints(maxHeight: 400, maxWidth: 300),
@@ -226,12 +252,17 @@ class _CodeBlockState extends BaseEditableBlockState<CodeBlock> {
                   title: Text(
                     getLanguageDisplayName(lang),
                     style: TextStyle(
-                      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                      fontWeight: isSelected
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                       color: isSelected ? theme.colorScheme.primary : null,
                     ),
                   ),
                   leading: isSelected
-                      ? Icon(Icons.check_circle, color: theme.colorScheme.primary)
+                      ? Icon(
+                          Icons.check_circle,
+                          color: theme.colorScheme.primary,
+                        )
                       : null,
                   onTap: () async {
                     try {

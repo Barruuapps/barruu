@@ -25,22 +25,22 @@ import 'package:flutter/material.dart';
 class GraphInfoPanelWidget extends StatelessWidget {
   /// The y-intercept point (where x = 0), or null if not found
   final FlSpot? yIntercept;
-  
+
   /// List of x-intercept points (where y = 0)
   final List<FlSpot> xIntercepts;
-  
+
   /// The critical point (vertex/extremum), or null if not found
   final FlSpot? vertex;
-  
+
   /// Minimum x value in the visible domain
   final double minX;
-  
+
   /// Maximum x value in the visible domain
   final double maxX;
-  
+
   /// Current zoom level (1.0 = 100%)
   final double zoomLevel;
-  
+
   /// Function to format numbers for display
   final String Function(double) formatNumber;
 
@@ -58,7 +58,7 @@ class GraphInfoPanelWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Container(
       margin: const EdgeInsets.only(top: 8),
       padding: const EdgeInsets.all(12),
@@ -87,7 +87,7 @@ class GraphInfoPanelWidget extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          
+
           // Y-intercept
           if (yIntercept != null)
             _buildInfoRow(
@@ -96,7 +96,7 @@ class GraphInfoPanelWidget extends StatelessWidget {
               theme,
               color: Colors.green,
             ),
-          
+
           // X-intercepts
           if (xIntercepts.isNotEmpty)
             ...xIntercepts.asMap().entries.map((entry) {
@@ -109,7 +109,7 @@ class GraphInfoPanelWidget extends StatelessWidget {
                 color: Colors.red,
               );
             }),
-          
+
           // Critical point/vertex
           if (vertex != null)
             _buildInfoRow(
@@ -118,7 +118,7 @@ class GraphInfoPanelWidget extends StatelessWidget {
               theme,
               color: Colors.blue,
             ),
-          
+
           // Empty state message
           if (yIntercept == null && xIntercepts.isEmpty && vertex == null)
             Text(
@@ -128,18 +128,18 @@ class GraphInfoPanelWidget extends StatelessWidget {
                 fontStyle: FontStyle.italic,
               ),
             ),
-          
+
           const SizedBox(height: 8),
           Divider(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
           const SizedBox(height: 8),
-          
+
           // Domain
           _buildInfoRow(
             'Domain:',
             '[${formatNumber(minX)}, ${formatNumber(maxX)}]',
             theme,
           ),
-          
+
           // Zoom level
           _buildInfoRow(
             'Zoom:',
@@ -168,10 +168,7 @@ class GraphInfoPanelWidget extends StatelessWidget {
               width: 12,
               height: 12,
               margin: const EdgeInsets.only(right: 8),
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
             ),
           // Label
           Text(

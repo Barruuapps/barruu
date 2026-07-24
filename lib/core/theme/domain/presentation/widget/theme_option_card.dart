@@ -74,10 +74,7 @@ class ThemeOptionCard extends ConsumerWidget {
                       gradient: LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
-                        colors: [
-                          colors.primary,
-                          colors.secondary,
-                        ],
+                        colors: [colors.primary, colors.secondary],
                       ),
                     ),
                     child: Stack(
@@ -207,7 +204,6 @@ class ThemeOptionCard extends ConsumerWidget {
                 const SizedBox(height: 12),
               ],
             ),
-
           ],
         ),
       ),
@@ -228,11 +224,7 @@ class ThemeOptionCard extends ConsumerWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            icon,
-            size: 12,
-            color: color,
-          ),
+          Icon(icon, size: 12, color: color),
           const SizedBox(width: 4),
           Text(
             label,
@@ -256,9 +248,7 @@ class ThemeOptionCard extends ConsumerWidget {
         content: Text('Switched to ${themeOption.name} minibook theme'),
         duration: const Duration(seconds: 1),
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       );
 
       ScaffoldMessenger.of(context).showSnackBar(snackBar);

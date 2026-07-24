@@ -7,11 +7,7 @@ class ShimmerLoading extends StatelessWidget {
   final Widget child;
   final bool enabled;
 
-  const ShimmerLoading({
-    super.key,
-    required this.child,
-    this.enabled = true,
-  });
+  const ShimmerLoading({super.key, required this.child, this.enabled = true});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +15,7 @@ class ShimmerLoading extends StatelessWidget {
 
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    
+
     // Check for reduced motion accessibility setting
     final disableAnimations = MediaQuery.of(context).disableAnimations;
 
@@ -184,20 +180,16 @@ class ShimmerGridCardLoading extends StatelessWidget {
 }
 
 /// A professional shimmer progress indicator for dialogs and overlays.
-/// 
+///
 /// Uses a pulsing shimmer effect with multiple circular layers.
 /// **Use for**: Document/page loading, initial data loading, centered loading states.
-/// 
+///
 /// Example: PDF document loading, full-screen loading overlays
 class ShimmerCircularProgress extends StatelessWidget {
   final double size;
   final Color? color;
 
-  const ShimmerCircularProgress({
-    super.key,
-    this.size = 40,
-    this.color,
-  });
+  const ShimmerCircularProgress({super.key, this.size = 40, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -248,20 +240,16 @@ class ShimmerCircularProgress extends StatelessWidget {
 }
 
 /// Inline shimmer for button loading states.
-/// 
+///
 /// Small, rectangular shimmer bar designed for inline use within buttons.
 /// **Use for**: Button loading indicators, small inline actions
-/// 
+///
 /// Example: Login button, submit button loading states
 class ShimmerButtonLoading extends StatelessWidget {
   final double width;
   final double height;
 
-  const ShimmerButtonLoading({
-    super.key,
-    this.width = 20,
-    this.height = 20,
-  });
+  const ShimmerButtonLoading({super.key, this.width = 20, this.height = 20});
 
   @override
   Widget build(BuildContext context) {
@@ -279,26 +267,23 @@ class ShimmerButtonLoading extends StatelessWidget {
 }
 
 /// Inline shimmer for small loading indicators.
-/// 
+///
 /// Circular shimmer suitable for small, inline loading states like pagination.
 /// **Use for**: Page/item loading within lists, smaller loading contexts than ShimmerCircularProgress.
-/// 
+///
 /// Example: Paginating list items, loading individual PDF pages
 class ShimmerInlineLoading extends StatelessWidget {
   final double size;
   final Color? color;
 
-  const ShimmerInlineLoading({
-    super.key,
-    this.size = 20,
-    this.color,
-  });
+  const ShimmerInlineLoading({super.key, this.size = 20, this.color});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final shimmerColor = color ?? theme.colorScheme.primary.withValues(alpha: 0.3);
-    
+    final shimmerColor =
+        color ?? theme.colorScheme.primary.withValues(alpha: 0.3);
+
     return SizedBox(
       width: size,
       height: size,
@@ -411,11 +396,11 @@ class ShimmerDocumentLoading extends StatelessWidget {
                 width: double.infinity,
                 margin: const EdgeInsets.only(bottom: 24),
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: theme.colorScheme.outlineVariant,
+                  color: theme.colorScheme.surfaceContainerHighest.withValues(
+                    alpha: 0.5,
                   ),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: theme.colorScheme.outlineVariant),
                 ),
               ),
             ],

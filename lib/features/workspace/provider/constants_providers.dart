@@ -23,24 +23,7 @@ final fontFamiliesProvider = Provider<List<String>>((ref) {
 
 // Font sizes with provider
 final fontSizesProvider = Provider<List<double>>((ref) {
-  return const [
-    6,
-    8,
-    9,
-    10,
-    11,
-    12,
-    14,
-    16,
-    18,
-    20,
-    24,
-    28,
-    32,
-    36,
-    48,
-    64,
-  ];
+  return const [6, 8, 9, 10, 11, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48, 64];
 });
 
 // Supported programming languages for code blocks
@@ -71,7 +54,7 @@ final supportedLanguagesProvider = Provider<List<String>>((ref) {
     'matlab',
     'objectivec',
     'shell',
-    'sql'
+    'sql',
   ];
 });
 
@@ -118,7 +101,7 @@ String getLanguageDisplayName(String languageCode) {
     'matlab': 'MATLAB',
     'objectivec': 'Objective-C',
     'shell': 'Shell',
-    'sql': 'SQL'
+    'sql': 'SQL',
   };
 
   return languageMap[languageCode] ?? languageCode;

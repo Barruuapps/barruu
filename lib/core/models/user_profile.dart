@@ -37,64 +37,64 @@ abstract class UserProfile with _$UserProfile {
   const factory UserProfile({
     /// Unique user identifier (Firebase Auth UID)
     required String uid,
-    
+
     /// Unique username for the user (e.g., @username)
     /// Must be unique across the platform
     required String username,
-    
+
     /// Display name shown on profile and posts
     required String displayName,
-    
+
     /// User bio/description (max 500 characters)
     String? bio,
-    
+
     /// Profile avatar URL (stored in R2)
     String? avatarUrl,
-    
+
     /// Profile cover image URL (stored in R2)
     String? coverImageUrl,
-    
+
     /// Professional title or role
     String? professionalTitle,
-    
+
     /// Organization or company affiliation
     String? organization,
-    
+
     /// Website URL
     String? websiteUrl,
-    
+
     /// Social media links
     Map<String, String>? socialLinks,
-    
+
     /// Number of followers
     @Default(0) int followersCount,
-    
+
     /// Number of users being followed
     @Default(0) int followingCount,
-    
+
     /// Number of published posts
     @Default(0) int postsCount,
-    
+
     /// Verification status (for verified accounts)
     @Default(false) bool isVerified,
-    
+
     /// Account type: 'regular' (read-only consumer), 'professional' (expert with knowledge), 'organization' (company/news outlet)
     @Default('regular') String accountType,
-    
+
     /// Profession/field of expertise (required for professional accounts)
     /// Examples: "Doctor", "Scientist", "Engineer", "Journalist", etc.
     String? profession,
-    
+
     /// User interests for personalized content feed
     /// Examples: ["Science", "Technology", "Medicine", "Sports"]
     @Default([]) List<String> interests,
-    
+
     /// Active subscription tier: 'free', 'pro', 'premium'
     @Default('free') String subscriptionTier,
-    
+
     /// Account creation timestamp
     @TimestampConverter() required DateTime createdAt,
-    
+
     /// Last profile update timestamp
     @TimestampConverter() required DateTime updatedAt,
   }) = _UserProfile;

@@ -298,7 +298,9 @@ class _MathWorkpadReaderBlockState
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
+        border: Border.all(
+          color: theme.colorScheme.outline.withValues(alpha: 0.3),
+        ),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.02),
@@ -368,8 +370,12 @@ class _MathWorkpadReaderBlockState
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             color: _placedStepIndices.isNotEmpty
-                ? theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4)
-                : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.15),
+                ? theme.colorScheme.surfaceContainerHighest.withValues(
+                    alpha: 0.4,
+                  )
+                : theme.colorScheme.surfaceContainerHighest.withValues(
+                    alpha: 0.15,
+                  ),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               color: _placedStepIndices.isNotEmpty
@@ -439,7 +445,9 @@ class _MathWorkpadReaderBlockState
                   decoration: BoxDecoration(
                     color: _kCorrectColor.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: _kCorrectColor.withValues(alpha: 0.3)),
+                    border: Border.all(
+                      color: _kCorrectColor.withValues(alpha: 0.3),
+                    ),
                   ),
                   child: const Text(
                     'All steps placed!',

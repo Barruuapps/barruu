@@ -103,7 +103,8 @@ class BlockAiService {
       case BlockType.list:
         try {
           final json = jsonDecode(block.content) as Map<String, dynamic>;
-          final items = (json['items'] as List<dynamic>?)
+          final items =
+              (json['items'] as List<dynamic>?)
                   ?.map((e) => '- $e')
                   .join('\n') ??
               block.content;
@@ -115,8 +116,10 @@ class BlockAiService {
       case BlockType.table:
         try {
           final json = jsonDecode(block.content) as Map<String, dynamic>;
-          final headers = (json['headers'] as List<dynamic>?)?.join(' | ') ?? '';
-          final rows = (json['rows'] as List<dynamic>?)
+          final headers =
+              (json['headers'] as List<dynamic>?)?.join(' | ') ?? '';
+          final rows =
+              (json['rows'] as List<dynamic>?)
                   ?.map((r) => (r as List<dynamic>).join(' | '))
                   .join('\n') ??
               '';
@@ -149,7 +152,9 @@ class BlockAiService {
 
       default:
         // Fall back to raw content for unsupported types
-        return block.content.isNotEmpty ? block.content : '(${block.type.name} block)';
+        return block.content.isNotEmpty
+            ? block.content
+            : '(${block.type.name} block)';
     }
   }
 }

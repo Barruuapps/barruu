@@ -339,8 +339,8 @@ class _BarruuAppState extends ConsumerState<BarruuApp> {
 
     return CallbackShortcuts(
       bindings: {
-        const SingleActivator(LogicalKeyboardKey.keyK, control: true):
-            () => _showCommandPalette(),
+        const SingleActivator(LogicalKeyboardKey.keyK, control: true): () =>
+            _showCommandPalette(),
       },
       child: MaterialApp.router(
         routerConfig: router,

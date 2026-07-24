@@ -330,7 +330,9 @@ class _GraphReaderBlockState extends ConsumerState<GraphReaderBlock>
       decoration: BoxDecoration(
         color: theme.colorScheme.surfaceContainerLowest,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.2)),
+        border: Border.all(
+          color: theme.colorScheme.outline.withValues(alpha: 0.2),
+        ),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8),

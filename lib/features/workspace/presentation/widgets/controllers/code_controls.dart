@@ -41,7 +41,11 @@ class CodeControls extends ConsumerWidget {
                   Navigator.of(context).pop();
                 }
               } catch (e, stackTrace) {
-                logger.e('Failed to update code template', error: e, stackTrace: stackTrace);
+                logger.e(
+                  'Failed to update code template',
+                  error: e,
+                  stackTrace: stackTrace,
+                );
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Error updating code template: $e')),

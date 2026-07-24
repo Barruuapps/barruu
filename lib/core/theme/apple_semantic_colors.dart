@@ -194,14 +194,7 @@ extension MaterialSemanticColors on ColorScheme {
     AlignmentGeometry begin = Alignment.topLeft,
     AlignmentGeometry end = Alignment.bottomRight,
   }) {
-    return LinearGradient(
-      begin: begin,
-      end: end,
-      colors: [
-        primary,
-        tertiary,
-      ],
-    );
+    return LinearGradient(begin: begin, end: end, colors: [primary, tertiary]);
   }
 
   /// Returns ripple color with appropriate opacity for Material Design.

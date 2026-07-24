@@ -26,8 +26,10 @@ class QuoteTypeConfig {
     required this.darkIconColor,
   });
 
-  Color getBorderColor(bool isDark) => isDark ? darkBorderColor : lightBorderColor;
-  Color getBackgroundColor(bool isDark) => isDark ? darkBackgroundColor : lightBackgroundColor;
+  Color getBorderColor(bool isDark) =>
+      isDark ? darkBorderColor : lightBorderColor;
+  Color getBackgroundColor(bool isDark) =>
+      isDark ? darkBackgroundColor : lightBackgroundColor;
   Color getIconColor(bool isDark) => isDark ? darkIconColor : lightIconColor;
 }
 

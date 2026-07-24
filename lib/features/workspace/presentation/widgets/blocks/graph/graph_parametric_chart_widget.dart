@@ -5,10 +5,10 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 /// A widget that renders a parametric graph from parametric equations
-/// 
+///
 /// This widget evaluates parametric equations x(t) and y(t) and displays
 /// them as a curve with support for zoom, pan, and grid.
-/// 
+///
 /// Example usage:
 /// ```dart
 /// GraphParametricChartWidget(
@@ -24,22 +24,22 @@ import 'package:flutter/material.dart';
 class GraphParametricChartWidget extends StatelessWidget {
   /// The parametric equations (e.g., "x(t)=cos(t), y(t)=sin(t)")
   final String expression;
-  
+
   /// Minimum parameter value
   final double tMin;
-  
+
   /// Maximum parameter value
   final double tMax;
-  
+
   /// Current zoom level (1.0 = normal, >1.0 = zoomed in)
   final double zoomLevel;
-  
+
   /// Pan offset for navigation
   final Offset panOffset;
-  
+
   /// Whether to show grid lines
   final bool showGrid;
-  
+
   /// App theme for styling
   final ThemeData theme;
 
@@ -75,7 +75,7 @@ class GraphParametricChartWidget extends StatelessWidget {
       // Calculate scaled bounds with padding
       final paddingX = (result.maxX - result.minX) * 0.1;
       final paddingY = (result.maxY - result.minY) * 0.1;
-      
+
       final scaledXBounds = GraphUtilities.calculateScaledBounds(
         minValue: result.minX,
         maxValue: result.maxX,
@@ -83,7 +83,7 @@ class GraphParametricChartWidget extends StatelessWidget {
         panOffset: panOffset.dx,
         padding: paddingX / (result.maxX - result.minX),
       );
-      
+
       final scaledYBounds = GraphUtilities.calculateScaledBounds(
         minValue: result.minY,
         maxValue: result.maxY,
@@ -97,7 +97,7 @@ class GraphParametricChartWidget extends StatelessWidget {
 
       return LineChart(
         LineChartData(
-          gridData: showGrid 
+          gridData: showGrid
               ? GraphUtilities.buildGridData(theme, hInterval, vInterval)
               : const FlGridData(show: false),
           titlesData: GraphUtilities.buildTitlesData(theme),
@@ -129,7 +129,11 @@ class GraphParametricChartWidget extends StatelessWidget {
       logger.e('Invalid parametric expression format', error: e);
       return _buildEmptyState('Invalid parametric equation');
     } catch (e, stackTrace) {
-      logger.e('Error generating parametric graph', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Error generating parametric graph',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return _buildEmptyState('Error generating graph');
     }
   }

@@ -160,7 +160,9 @@ class _InlineChartDataEditorState extends State<InlineChartDataEditor> {
                 color: widget.theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(isWide ? 8 : 6),
                 border: Border.all(
-                  color: widget.theme.colorScheme.outline.withValues(alpha: 0.3),
+                  color: widget.theme.colorScheme.outline.withValues(
+                    alpha: 0.3,
+                  ),
                 ),
               ),
               padding: EdgeInsets.all(isWide ? 12 : 10),

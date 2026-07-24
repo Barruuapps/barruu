@@ -55,7 +55,9 @@ class DocumentMetadataService {
 
       final appDir = await getApplicationDocumentsDirectory();
       if (!isValidDocumentDirectory(doc, appDir)) {
-        logger.e('Attempt to access directory outside app boundaries: ${doc.path}');
+        logger.e(
+          'Attempt to access directory outside app boundaries: ${doc.path}',
+        );
         return null;
       }
 
@@ -70,8 +72,11 @@ class DocumentMetadataService {
       logger.i('Retrieved metadata for: ${doc.path}');
       return result;
     } catch (e, stackTrace) {
-      logger.e('Failed to retrieve metadata: ${doc.path}',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to retrieve metadata: ${doc.path}',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return null;
     }
   }
@@ -87,7 +92,8 @@ class DocumentMetadataService {
   /// Returns a map from directory to metadata. Documents that fail
   /// to load are excluded from the result.
   Future<Map<Directory, Map<String, dynamic>>> batchGetDocumentMetadata(
-      List<Directory> docs) async {
+    List<Directory> docs,
+  ) async {
     final results = <Directory, Map<String, dynamic>>{};
 
     if (kIsWeb) {
@@ -119,13 +125,13 @@ class DocumentMetadataService {
             // Also get last modified timestamp
             final lastModified = await doc.stat().then((stat) => stat.modified);
 
-            results[doc] = {
-              ...metadata,
-              'lastModified': lastModified,
-            };
+            results[doc] = {...metadata, 'lastModified': lastModified};
           } catch (e, stackTrace) {
-            logger.e('Failed to load metadata for: ${doc.path}',
-                error: e, stackTrace: stackTrace);
+            logger.e(
+              'Failed to load metadata for: ${doc.path}',
+              error: e,
+              stackTrace: stackTrace,
+            );
           }
         }),
       );
@@ -133,7 +139,11 @@ class DocumentMetadataService {
       logger.i('Batch loaded metadata for ${results.length} documents');
       return results;
     } catch (e, stackTrace) {
-      logger.e('Failed to batch load metadata', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to batch load metadata',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return results;
     }
   }
@@ -168,7 +178,9 @@ class DocumentMetadataService {
 
       final appDir = await getApplicationDocumentsDirectory();
       if (!isValidDocumentDirectory(doc, appDir)) {
-        logger.e('Attempt to update directory outside app boundaries: ${doc.path}');
+        logger.e(
+          'Attempt to update directory outside app boundaries: ${doc.path}',
+        );
         return false;
       }
 
@@ -190,21 +202,27 @@ class DocumentMetadataService {
         MetaFile.descriptionKey: StringUtils.limitLength(description),
         MetaFile.tagsKey: StringUtils.limitLength(tags),
         MetaFile.coverKey: coverPath,
-        MetaFile.coverOriginalNameKey:
-            StringUtils.limitLength(coverOriginalName),
+        MetaFile.coverOriginalNameKey: StringUtils.limitLength(
+          coverOriginalName,
+        ),
         MetaFile.updatedAtKey: DateTime.now().toIso8601String(),
         MetaFile.authorKey: existingMeta?[MetaFile.authorKey] ?? 'Barruu',
-        MetaFile.createdAtKey: existingMeta?[MetaFile.createdAtKey] ??
+        MetaFile.createdAtKey:
+            existingMeta?[MetaFile.createdAtKey] ??
             DateTime.now().toIso8601String(),
       };
 
-      await File('${doc.path}/${MetaFile.fileName}')
-          .writeAsString(jsonEncode(metaJson));
+      await File(
+        '${doc.path}/${MetaFile.fileName}',
+      ).writeAsString(jsonEncode(metaJson));
       logger.i('Updated document info: ${doc.path}');
       return true;
     } catch (e, stackTrace) {
-      logger.e('Failed to update document info: ${doc.path}',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to update document info: ${doc.path}',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return false;
     }
   }
@@ -224,13 +242,17 @@ class DocumentMetadataService {
     Map<String, dynamic> metadata,
   ) async {
     try {
-      await File('${doc.path}/${MetaFile.fileName}')
-          .writeAsString(jsonEncode(metadata));
+      await File(
+        '${doc.path}/${MetaFile.fileName}',
+      ).writeAsString(jsonEncode(metadata));
       logger.i('Wrote metadata for: ${doc.path}');
       return true;
     } catch (e, stackTrace) {
-      logger.e('Failed to write metadata: ${doc.path}',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to write metadata: ${doc.path}',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return false;
     }
   }

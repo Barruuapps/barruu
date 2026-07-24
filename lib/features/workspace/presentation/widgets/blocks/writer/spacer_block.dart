@@ -53,7 +53,9 @@ class _SpacerBlockState extends BaseEditableBlockState<SpacerBlock> {
     await saveContent();
     final updatedStyle = widget.block.style.copyWith(height: value);
     final updatedBlock = widget.block.copyWith(style: updatedStyle);
-    await ref.read(editDocumentControllerProvider(widget.docDir).notifier).saveBlock(updatedBlock);
+    await ref
+        .read(editDocumentControllerProvider(widget.docDir).notifier)
+        .saveBlock(updatedBlock);
   }
 
   @override
@@ -77,7 +79,9 @@ class _SpacerBlockState extends BaseEditableBlockState<SpacerBlock> {
           decoration: BoxDecoration(
             color: theme.colorScheme.surfaceContainerLow,
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
+            border: Border.all(
+              color: theme.colorScheme.outline.withValues(alpha: 0.3),
+            ),
           ),
           child: Column(
             children: [

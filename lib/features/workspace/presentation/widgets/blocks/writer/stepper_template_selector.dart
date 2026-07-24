@@ -28,14 +28,46 @@ class StepperTemplateSelector extends StatelessWidget {
           crossAxisSpacing: 12,
           childAspectRatio: 0.75,
           children: [
-            _buildTemplateOption(kStepperTemplateStandard, kStepperTemplateNames[kStepperTemplateStandard]!, _buildStandardPreview()),
-            _buildTemplateOption(kStepperTemplateNumbered, kStepperTemplateNames[kStepperTemplateNumbered]!, _buildNumberedPreview()),
-            _buildTemplateOption(kStepperTemplateProgress, kStepperTemplateNames[kStepperTemplateProgress]!, _buildProgressPreview()),
-            _buildTemplateOption(kStepperTemplateTimeline, kStepperTemplateNames[kStepperTemplateTimeline]!, _buildTimelinePreview()),
-            _buildTemplateOption(kStepperTemplateMinimal, kStepperTemplateNames[kStepperTemplateMinimal]!, _buildMinimalPreview()),
-            _buildTemplateOption(kStepperTemplateCards, kStepperTemplateNames[kStepperTemplateCards]!, _buildCardsPreview()),
-            _buildTemplateOption(kStepperTemplateChecklist, kStepperTemplateNames[kStepperTemplateChecklist]!, _buildChecklistPreview()),
-            _buildTemplateOption(kStepperTemplateDots, kStepperTemplateNames[kStepperTemplateDots]!, _buildDotsPreview()),
+            _buildTemplateOption(
+              kStepperTemplateStandard,
+              kStepperTemplateNames[kStepperTemplateStandard]!,
+              _buildStandardPreview(),
+            ),
+            _buildTemplateOption(
+              kStepperTemplateNumbered,
+              kStepperTemplateNames[kStepperTemplateNumbered]!,
+              _buildNumberedPreview(),
+            ),
+            _buildTemplateOption(
+              kStepperTemplateProgress,
+              kStepperTemplateNames[kStepperTemplateProgress]!,
+              _buildProgressPreview(),
+            ),
+            _buildTemplateOption(
+              kStepperTemplateTimeline,
+              kStepperTemplateNames[kStepperTemplateTimeline]!,
+              _buildTimelinePreview(),
+            ),
+            _buildTemplateOption(
+              kStepperTemplateMinimal,
+              kStepperTemplateNames[kStepperTemplateMinimal]!,
+              _buildMinimalPreview(),
+            ),
+            _buildTemplateOption(
+              kStepperTemplateCards,
+              kStepperTemplateNames[kStepperTemplateCards]!,
+              _buildCardsPreview(),
+            ),
+            _buildTemplateOption(
+              kStepperTemplateChecklist,
+              kStepperTemplateNames[kStepperTemplateChecklist]!,
+              _buildChecklistPreview(),
+            ),
+            _buildTemplateOption(
+              kStepperTemplateDots,
+              kStepperTemplateNames[kStepperTemplateDots]!,
+              _buildDotsPreview(),
+            ),
           ],
         ),
       ),
@@ -55,11 +87,13 @@ class StepperTemplateSelector extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(
-            color: isSelected ? theme.colorScheme.primary : theme.colorScheme.outline.withValues(alpha: 0.3),
+            color: isSelected
+                ? theme.colorScheme.primary
+                : theme.colorScheme.outline.withValues(alpha: 0.3),
             width: isSelected ? 2.5 : 1,
           ),
           borderRadius: BorderRadius.circular(8),
-          color: isSelected 
+          color: isSelected
               ? theme.colorScheme.primaryContainer.withValues(alpha: 0.2)
               : null,
         ),
@@ -75,9 +109,11 @@ class StepperTemplateSelector extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
               decoration: BoxDecoration(
-                color: isSelected 
+                color: isSelected
                     ? theme.colorScheme.primary.withValues(alpha: 0.1)
-                    : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                    : theme.colorScheme.surfaceContainerHighest.withValues(
+                        alpha: 0.5,
+                      ),
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(7),
                   bottomRight: Radius.circular(7),
@@ -114,14 +150,22 @@ class StepperTemplateSelector extends StatelessWidget {
               height: 16,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: isCompleted ? theme.colorScheme.primary : theme.colorScheme.surfaceContainerHighest,
+                color: isCompleted
+                    ? theme.colorScheme.primary
+                    : theme.colorScheme.surfaceContainerHighest,
                 border: Border.all(
-                  color: isCompleted ? theme.colorScheme.primary : theme.colorScheme.outline.withValues(alpha: 0.5),
+                  color: isCompleted
+                      ? theme.colorScheme.primary
+                      : theme.colorScheme.outline.withValues(alpha: 0.5),
                   width: 2,
                 ),
               ),
-              child: isCompleted 
-                  ? Icon(Icons.check, size: 10, color: theme.colorScheme.onPrimary)
+              child: isCompleted
+                  ? Icon(
+                      Icons.check,
+                      size: 10,
+                      color: theme.colorScheme.onPrimary,
+                    )
                   : null,
             ),
             const SizedBox(width: 4),
@@ -211,8 +255,8 @@ class StepperTemplateSelector extends StatelessWidget {
             return Container(
               width: 3,
               height: 8,
-              color: index == 0 
-                  ? theme.colorScheme.primary 
+              color: index == 0
+                  ? theme.colorScheme.primary
                   : theme.colorScheme.onSurface.withValues(alpha: 0.3),
             );
           }),
@@ -330,8 +374,8 @@ class StepperTemplateSelector extends StatelessWidget {
             color: theme.colorScheme.surface,
             borderRadius: BorderRadius.circular(4),
             border: Border.all(
-              color: isActive 
-                  ? theme.colorScheme.primary 
+              color: isActive
+                  ? theme.colorScheme.primary
                   : theme.colorScheme.outline.withValues(alpha: 0.2),
               width: isActive ? 1.5 : 1,
             ),
@@ -345,7 +389,7 @@ class StepperTemplateSelector extends StatelessWidget {
                   height: 10,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: isActive 
+                    color: isActive
                         ? theme.colorScheme.primary.withValues(alpha: 0.3)
                         : theme.colorScheme.surfaceContainerHighest,
                   ),
@@ -376,17 +420,23 @@ class StepperTemplateSelector extends StatelessWidget {
               width: 16,
               height: 16,
               decoration: BoxDecoration(
-                color: isChecked ? theme.colorScheme.primary : theme.colorScheme.surface,
+                color: isChecked
+                    ? theme.colorScheme.primary
+                    : theme.colorScheme.surface,
                 border: Border.all(
-                  color: isChecked 
-                      ? theme.colorScheme.primary 
+                  color: isChecked
+                      ? theme.colorScheme.primary
                       : theme.colorScheme.outline.withValues(alpha: 0.5),
                   width: 2,
                 ),
                 borderRadius: BorderRadius.circular(3),
               ),
-              child: isChecked 
-                  ? Icon(Icons.check, size: 10, color: theme.colorScheme.onPrimary)
+              child: isChecked
+                  ? Icon(
+                      Icons.check,
+                      size: 10,
+                      color: theme.colorScheme.onPrimary,
+                    )
                   : null,
             ),
             const SizedBox(width: 4),
@@ -415,11 +465,11 @@ class StepperTemplateSelector extends StatelessWidget {
           height: 8,
           margin: const EdgeInsets.symmetric(horizontal: 2),
           decoration: BoxDecoration(
-            color: isCompleted 
-                ? theme.colorScheme.primary 
-                : isActive 
-                    ? theme.colorScheme.primary.withValues(alpha: 0.5)
-                    : theme.colorScheme.surfaceContainerHighest,
+            color: isCompleted
+                ? theme.colorScheme.primary
+                : isActive
+                ? theme.colorScheme.primary.withValues(alpha: 0.5)
+                : theme.colorScheme.surfaceContainerHighest,
             borderRadius: BorderRadius.circular(4),
           ),
         );

@@ -36,8 +36,11 @@ class ReorderControls extends ConsumerWidget {
               Navigator.of(context).pop();
             }
           } catch (e, stackTrace) {
-            logger.e('Failed to update reorder question template',
-                error: e, stackTrace: stackTrace);
+            logger.e(
+              'Failed to update reorder question template',
+              error: e,
+              stackTrace: stackTrace,
+            );
           }
         },
         theme: theme,

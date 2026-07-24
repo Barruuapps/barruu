@@ -20,6 +20,7 @@ class AppStorageService {
   final EncryptionService _encryptionService;
 
   AppStorageService(this._encryptionService);
+
   /// Gets the directory where installed apps (.bipy files) are stored
   Future<Directory> getAppsDirectory() async {
     if (kIsWeb) {
@@ -60,7 +61,11 @@ class AppStorageService {
 
       return bipyFiles;
     } catch (e, stackTrace) {
-      logger.e('Failed to get installed apps', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to get installed apps',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return [];
     }
   }
@@ -89,7 +94,8 @@ class AppStorageService {
       var counter = 1;
       while (await File(finalPath).exists()) {
         final nameWithoutExt = fileName.replaceAll('.${AppFile.extension}', '');
-        finalPath = '${appsDir.path}/${nameWithoutExt}_$counter.${AppFile.extension}';
+        finalPath =
+            '${appsDir.path}/${nameWithoutExt}_$counter.${AppFile.extension}';
         counter++;
         if (counter > 100) {
           logger.e('Too many attempts to find unique filename');
@@ -115,7 +121,9 @@ class AppStorageService {
 
       // Verify the file is in the apps directory for safety
       if (!appFile.path.startsWith(appsDir.path)) {
-        logger.w('Attempt to delete file outside apps directory: ${appFile.path}');
+        logger.w(
+          'Attempt to delete file outside apps directory: ${appFile.path}',
+        );
         return false;
       }
 
@@ -126,7 +134,7 @@ class AppStorageService {
 
       // Delete the app file
       await appFile.delete();
-      
+
       // Delete associated metadata file if it exists
       try {
         final metadataPath = _getAppMetadataFilePath(appFile);
@@ -138,7 +146,7 @@ class AppStorageService {
       } catch (e) {
         logger.w('Failed to delete metadata file', error: e);
       }
-      
+
       logger.i('App uninstalled successfully: ${appFile.path}');
 
       return true;
@@ -180,10 +188,7 @@ class AppStorageService {
   String getAppDisplayName(File appFile) {
     final fileName = path.basenameWithoutExtension(appFile.path);
     // Format the name
-    return fileName
-        .replaceAll('_', ' ')
-        .replaceAll('-', ' ')
-        .trim();
+    return fileName.replaceAll('_', ' ').replaceAll('-', ' ').trim();
   }
 
   /// Extracts metadata from a .bipy file without fully extracting it
@@ -196,21 +201,27 @@ class AppStorageService {
       }
 
       final allBytes = await appFile.readAsBytes();
-      
+
       // Try decrypting with app-wide key first, fallback to device-specific key
       List<int> decrypted;
       try {
         decrypted = await _encryptionService.decryptBipyBytes(allBytes);
         logger.i('Successfully decrypted .bipy file with app-wide key');
       } catch (e) {
-        logger.w('Failed to decrypt with app-wide key, trying device-specific key');
+        logger.w(
+          'Failed to decrypt with app-wide key, trying device-specific key',
+        );
         // Try legacy decryption
         try {
           decrypted = await _encryptionService.decryptBytes(allBytes);
-          logger.i('Successfully decrypted .bipy file with device-specific key');
+          logger.i(
+            'Successfully decrypted .bipy file with device-specific key',
+          );
         } catch (e2) {
           logger.e('Failed to decrypt .bipy file with both keys', error: e2);
-          throw Exception('Failed to decrypt .bipy file. File may be corrupted or from an incompatible source.');
+          throw Exception(
+            'Failed to decrypt .bipy file. File may be corrupted or from an incompatible source.',
+          );
         }
       }
 
@@ -219,7 +230,10 @@ class AppStorageService {
       try {
         archive = ZipDecoder().decodeBytes(Uint8List.fromList(decrypted));
       } catch (e) {
-        logger.e('Failed to load .bipy file - not a valid ZIP archive', error: e);
+        logger.e(
+          'Failed to load .bipy file - not a valid ZIP archive',
+          error: e,
+        );
         return null;
       }
 
@@ -234,11 +248,12 @@ class AppStorageService {
 
       // Find and parse meta.json
       for (final file in archive.files) {
-        if (file.name.endsWith('/${MetaFile.fileName}') || file.name == MetaFile.fileName) {
+        if (file.name.endsWith('/${MetaFile.fileName}') ||
+            file.name == MetaFile.fileName) {
           try {
             final metaContent = utf8.decode(file.content as List<int>);
             final metaData = jsonDecode(metaContent) as Map<String, dynamic>;
-            
+
             // Extract cover image path from archive using the file map
             String? coverImagePath;
             final coverKey = metaData[MetaFile.coverKey] as String?;
@@ -249,9 +264,10 @@ class AppStorageService {
                 // Use app documents directory for persistent cache
                 final appDocsDir = await getApplicationDocumentsDirectory();
                 final appId = path.basenameWithoutExtension(appFile.path);
-                final coverCachePath = '${appDocsDir.path}/app_covers/$appId/$coverFileName';
+                final coverCachePath =
+                    '${appDocsDir.path}/app_covers/$appId/$coverFileName';
                 final coverFile = File(coverCachePath);
-                
+
                 // Only write if not already cached
                 if (!await coverFile.exists()) {
                   await coverFile.parent.create(recursive: true);
@@ -260,9 +276,10 @@ class AppStorageService {
                 coverImagePath = coverCachePath;
               }
             }
-            
+
             return {
-              MetaFile.nameKey: metaData[MetaFile.nameKey] ?? getAppDisplayName(appFile),
+              MetaFile.nameKey:
+                  metaData[MetaFile.nameKey] ?? getAppDisplayName(appFile),
               MetaFile.descriptionKey: metaData[MetaFile.descriptionKey] ?? '',
               MetaFile.coverKey: coverImagePath,
               MetaFile.authorKey: metaData[MetaFile.authorKey] ?? 'Unknown',
@@ -283,7 +300,11 @@ class AppStorageService {
         MetaFile.authorKey: 'Unknown',
       };
     } catch (e, stackTrace) {
-      logger.e('Failed to extract app metadata', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to extract app metadata',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return null;
     }
   }
@@ -297,7 +318,7 @@ class AppStorageService {
     if (_metadataCache.containsKey(cacheKey)) {
       return _metadataCache[cacheKey];
     }
-    
+
     final metadata = await extractAppMetadata(appFile);
     if (metadata != null) {
       _metadataCache[cacheKey] = metadata;
@@ -313,16 +334,25 @@ class AppStorageService {
   /// Gets the metadata file path for an app
   String _getAppMetadataFilePath(File appFile) {
     final appPath = appFile.path;
-    final metadataPath = appPath.replaceAll('.${AppFile.extension}', '.meta.json');
+    final metadataPath = appPath.replaceAll(
+      '.${AppFile.extension}',
+      '.meta.json',
+    );
     return metadataPath;
   }
 
   /// Saves additional app metadata (like icon URL and app name)
-  Future<void> saveAppMetadata(File appFile, {String? iconUrl, String? appName, String? version, String? storeAppId}) async {
+  Future<void> saveAppMetadata(
+    File appFile, {
+    String? iconUrl,
+    String? appName,
+    String? version,
+    String? storeAppId,
+  }) async {
     try {
       final metadataPath = _getAppMetadataFilePath(appFile);
       final metadataFile = File(metadataPath);
-      
+
       // Load existing metadata if it exists
       Map<String, dynamic> metadata = {};
       if (await metadataFile.exists()) {
@@ -333,7 +363,7 @@ class AppStorageService {
           logger.w('Failed to read existing metadata, creating new', error: e);
         }
       }
-      
+
       // Update metadata
       if (iconUrl != null) {
         metadata['icon_url'] = iconUrl;
@@ -348,7 +378,7 @@ class AppStorageService {
         metadata['store_app_id'] = storeAppId;
       }
       metadata['updated_at'] = DateTime.now().toIso8601String();
-      
+
       // Save metadata
       await metadataFile.writeAsString(jsonEncode(metadata));
       logger.i('Saved app metadata: $metadataPath');
@@ -362,11 +392,11 @@ class AppStorageService {
     try {
       final metadataPath = _getAppMetadataFilePath(appFile);
       final metadataFile = File(metadataPath);
-      
+
       if (!await metadataFile.exists()) {
         return null;
       }
-      
+
       final content = await metadataFile.readAsString();
       return jsonDecode(content) as Map<String, dynamic>;
     } catch (e, stackTrace) {
@@ -424,13 +454,14 @@ class AppStorageService {
   Future<File?> findInstalledAppByName(String appName) async {
     try {
       final installedApps = await getInstalledApps();
-      
+
       for (final appFile in installedApps) {
         // 1. Check sidecar .meta.json app_name (fast, written at install time)
         try {
           final sidecar = await loadAppMetadata(appFile);
           final sidecarName = sidecar?['app_name'] as String?;
-          if (sidecarName != null && sidecarName.isNotEmpty &&
+          if (sidecarName != null &&
+              sidecarName.isNotEmpty &&
               sidecarName.toLowerCase() == appName.toLowerCase()) {
             return appFile;
           }
@@ -444,17 +475,21 @@ class AppStorageService {
             return appFile;
           }
         }
-        
+
         // 3. Fall back to filename-derived display name
         final fileName = getAppDisplayName(appFile);
         if (fileName.toLowerCase() == appName.toLowerCase()) {
           return appFile;
         }
       }
-      
+
       return null;
     } catch (e, stackTrace) {
-      logger.e('Failed to check if app is installed', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to check if app is installed',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return null;
     }
   }
@@ -488,16 +523,18 @@ class AppStorageService {
 
       // Verify the existing file is in the apps directory for safety
       if (!existingApp.path.startsWith(appsDir.path)) {
-        logger.w('Attempt to update file outside apps directory: ${existingApp.path}');
+        logger.w(
+          'Attempt to update file outside apps directory: ${existingApp.path}',
+        );
         return null;
       }
 
       // Delete the old app file
       await existingApp.delete();
-      
+
       // Clear metadata cache for the old file
       _metadataCache.remove(existingApp.path);
-      
+
       // Copy the new version to the same location
       final updatedFile = await sourceFile.copy(existingApp.path);
       logger.i('App updated successfully: ${existingApp.path}');

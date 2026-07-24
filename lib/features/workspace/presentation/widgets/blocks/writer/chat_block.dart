@@ -111,7 +111,9 @@ class _ChatBlockState extends BaseEditableBlockState<ChatBlock> {
           child: Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(
+                alpha: 0.5,
+              ),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
                 color: theme.colorScheme.outline.withValues(alpha: 0.2),
@@ -137,7 +139,9 @@ class _ChatBlockState extends BaseEditableBlockState<ChatBlock> {
                       hintText: 'Profile name (optional)',
                       hintStyle: TextStyle(
                         fontSize: 13,
-                        color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.5,
+                        ),
                       ),
                       filled: true,
                       fillColor: theme.colorScheme.surface,
@@ -194,7 +198,9 @@ class _ChatBlockState extends BaseEditableBlockState<ChatBlock> {
               border: Border.all(
                 color: isRight
                     ? theme.colorScheme.primary.withValues(alpha: 0.3)
-                    : theme.colorScheme.secondaryContainer.withValues(alpha: 0.5),
+                    : theme.colorScheme.secondaryContainer.withValues(
+                        alpha: 0.5,
+                      ),
                 width: 1.5,
               ),
             ),

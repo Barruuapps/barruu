@@ -81,8 +81,8 @@ abstract class BaseEditableBlock extends ConsumerStatefulWidget {
 /// - [getAnimationDuration] - Customize animation duration
 /// - [getAnimationCurve] - Customize animation curve
 abstract class BaseEditableBlockState<T extends BaseEditableBlock>
-    extends ConsumerState<T> with SingleTickerProviderStateMixin {
-  
+    extends ConsumerState<T>
+    with SingleTickerProviderStateMixin {
   // ============================================================================
   // STATE
   // ============================================================================
@@ -265,10 +265,7 @@ abstract class BaseEditableBlockState<T extends BaseEditableBlock>
 
   /// Initializes content from block JSON or uses default.
   void _initializeContent() {
-    content = parseJsonContent(
-      widget.block.content,
-      getDefaultContent(),
-    );
+    content = parseJsonContent(widget.block.content, getDefaultContent());
   }
 
   /// Sets up animation controller and toolbar opacity animation.
@@ -278,10 +275,7 @@ abstract class BaseEditableBlockState<T extends BaseEditableBlock>
       duration: getAnimationDuration(),
     );
     toolbarOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: getAnimationCurve(),
-      ),
+      CurvedAnimation(parent: animationController, curve: getAnimationCurve()),
     );
     if (widget.isEditing) {
       animationController.forward();
@@ -363,7 +357,6 @@ abstract class BaseEditableBlockState<T extends BaseEditableBlock>
   /// ```
   @protected
   Future<void> saveContent() async {
-    final currentContext = context;
     try {
       final jsonString = jsonConverter.convertToJsonString(content);
       final updatedBlock = widget.block.copyWith(content: jsonString);
@@ -379,7 +372,7 @@ abstract class BaseEditableBlockState<T extends BaseEditableBlock>
       ErrorHandler.handle(
         e,
         stackTrace,
-        context: currentContext,
+        context: context,
         userMessage: 'Error saving block content',
       );
     }

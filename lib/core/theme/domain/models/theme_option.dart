@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 enum ThemeCategory {
   /// Light themes for daytime use
   light,
+
   /// Dark themes for nighttime or low-light use
   dark,
+
   /// Themes optimized for studying and reading
   study,
 }
@@ -47,15 +49,16 @@ class ThemeOption {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is ThemeOption &&
-              runtimeType == other.runtimeType &&
-              id == other.id &&
-              name == other.name &&
-              theme == other.theme &&
-              description == other.description &&
-              category == other.category &&
-              isDark == other.isDark;
+      other is ThemeOption &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          name == other.name &&
+          theme == other.theme &&
+          description == other.description &&
+          category == other.category &&
+          isDark == other.isDark;
 
   @override
-  int get hashCode => Object.hash(id, name, theme, description, category, isDark);
+  int get hashCode =>
+      Object.hash(id, name, theme, description, category, isDark);
 }

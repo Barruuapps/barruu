@@ -25,7 +25,7 @@ class AudioRecorderService {
   /// Returns true if permission is granted, false otherwise.
   static Future<bool> requestMicrophonePermission(BuildContext context) async {
     final status = await Permission.microphone.status;
-    
+
     if (status.isGranted) {
       return true;
     }
@@ -105,12 +105,7 @@ class AudioRecorderService {
 
     // Start recording
     try {
-      await recorder.start(
-        const RecordConfig(
-          
-        ),
-        path: filePath,
-      );
+      await recorder.start(const RecordConfig(), path: filePath);
     } catch (e) {
       await recorder.dispose();
       return null;
@@ -142,10 +137,7 @@ class AudioRecorderService {
     }
 
     // Return the recorded file info
-    return {
-      'path': 'media/audios/$uniqueName',
-      'fileName': uniqueName,
-    };
+    return {'path': 'media/audios/$uniqueName', 'fileName': uniqueName};
   }
 }
 
@@ -191,7 +183,7 @@ class _RecordingDialogState extends State<_RecordingDialog> {
 
   Future<void> _stopRecording() async {
     if (_isStopping) return;
-    
+
     _timer?.cancel();
     setState(() {
       _isStopping = true;
@@ -256,7 +248,7 @@ class _RecordingDialogState extends State<_RecordingDialog> {
             ),
           ),
           const SizedBox(height: 24),
-          
+
           // Duration display
           Text(
             _formatDuration(_recordingDuration),
@@ -267,14 +259,14 @@ class _RecordingDialogState extends State<_RecordingDialog> {
             ),
           ),
           const SizedBox(height: 8),
-          
+
           // Status text
           Text(
-            _isStopping 
-                ? 'Saving...' 
-                : _isRecording 
-                    ? 'Recording in progress...' 
-                    : 'Recording stopped',
+            _isStopping
+                ? 'Saving...'
+                : _isRecording
+                ? 'Recording in progress...'
+                : 'Recording stopped',
             style: TextStyle(
               color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
             ),

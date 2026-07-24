@@ -109,26 +109,26 @@ class ContextMenu extends StatelessWidget {
                   constraints: BoxConstraints(maxHeight: maxHeight),
                   decoration: BoxDecoration(
                     color: theme.colorScheme.surface,
-                    borderRadius:
-                        BorderRadius.circular(DesignTokens.radiusLarge),
+                    borderRadius: BorderRadius.circular(
+                      DesignTokens.radiusLarge,
+                    ),
                     boxShadow: [
                       BoxShadow(
-                        color: theme.colorScheme.shadow
-                            .withValues(alpha: 0.15),
+                        color: theme.colorScheme.shadow.withValues(alpha: 0.15),
                         blurRadius: 16,
                         offset: const Offset(0, 4),
                       ),
                       BoxShadow(
-                        color: theme.colorScheme.shadow
-                            .withValues(alpha: 0.08),
+                        color: theme.colorScheme.shadow.withValues(alpha: 0.08),
                         blurRadius: 4,
                         offset: const Offset(0, 2),
                       ),
                     ],
                   ),
                   child: ClipRRect(
-                    borderRadius:
-                        BorderRadius.circular(DesignTokens.radiusLarge),
+                    borderRadius: BorderRadius.circular(
+                      DesignTokens.radiusLarge,
+                    ),
                     child: SingleChildScrollView(
                       padding: const EdgeInsets.symmetric(
                         vertical: DesignTokens.spacing4,
@@ -194,9 +194,7 @@ class _ContextMenuTileState extends State<_ContextMenuTile> {
         behavior: HitTestBehavior.opaque,
         child: AnimatedContainer(
           duration: DesignTokens.durationHover,
-          margin: const EdgeInsets.symmetric(
-            horizontal: DesignTokens.spacing4,
-          ),
+          margin: const EdgeInsets.symmetric(horizontal: DesignTokens.spacing4),
           padding: const EdgeInsets.symmetric(
             horizontal: DesignTokens.spacing12,
             vertical: DesignTokens.spacing8,
@@ -205,8 +203,7 @@ class _ContextMenuTileState extends State<_ContextMenuTile> {
             color: _isHovered
                 ? theme.colorScheme.surfaceContainerHighest
                 : Colors.transparent,
-            borderRadius:
-                BorderRadius.circular(DesignTokens.radiusMedium),
+            borderRadius: BorderRadius.circular(DesignTokens.radiusMedium),
           ),
           child: Row(
             children: [
@@ -243,10 +240,10 @@ class _ContextMenuTileState extends State<_ContextMenuTile> {
                   ),
                   decoration: BoxDecoration(
                     color: theme.colorScheme.surfaceContainerHighest,
-                    borderRadius:
-                        BorderRadius.circular(DesignTokens.radiusSmall),
-                    border: Border.all(
-                        color: theme.colorScheme.outlineVariant),
+                    borderRadius: BorderRadius.circular(
+                      DesignTokens.radiusSmall,
+                    ),
+                    border: Border.all(color: theme.colorScheme.outlineVariant),
                   ),
                   child: Text(
                     widget.item.shortcutLabel!,

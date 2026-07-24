@@ -1,4 +1,3 @@
-
 import 'package:barruu/core/utils/responsive_utils.dart';
 import 'package:barruu/core/theme/platform_theme_helper.dart';
 import 'package:barruu/features/workspace/domain/entities/block.dart';
@@ -16,10 +15,7 @@ enum DividerStyle { solid, dashed, dotted, double, threeDot }
 class DividerReaderBlock extends ConsumerWidget {
   final Block block;
 
-  const DividerReaderBlock({
-    super.key,
-    required this.block,
-  });
+  const DividerReaderBlock({super.key, required this.block});
 
   Widget _buildErrorDivider(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
@@ -45,17 +41,18 @@ class DividerReaderBlock extends ConsumerWidget {
     final theme = Theme.of(context);
     final styleUtils = ref.read(styleUtilsProvider);
 
-    Map<String, dynamic> content = {
-      'style': 'solid',
-      'thickness': 2.0,
-    };
+    Map<String, dynamic> content = {'style': 'solid', 'thickness': 2.0};
 
     try {
       if (block.content.isNotEmpty) {
         content = JsonStringConverter().convertFromJsonString(block.content);
       }
     } catch (e, stackTrace) {
-      logger.e('Failed to parse JSON block content', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to parse JSON block content',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return _buildErrorDivider(context, ref);
     }
 
@@ -63,7 +60,7 @@ class DividerReaderBlock extends ConsumerWidget {
     final DividerStyle dividerStyle;
     try {
       dividerStyle = DividerStyle.values.firstWhere(
-            (e) => e.toString().split('.').last == content['style'],
+        (e) => e.toString().split('.').last == content['style'],
         orElse: () => DividerStyle.solid,
       );
     } catch (e) {
@@ -77,8 +74,8 @@ class DividerReaderBlock extends ConsumerWidget {
       final baseThickness = (content['thickness'] as num?)?.toDouble() ?? 2.0;
       // Apple HIG: Thinner dividers (0.5-1pt)
       // Android: Standard thickness (1-2dp)
-      thickness = PlatformThemeHelper.isAndroid 
-          ? baseThickness 
+      thickness = PlatformThemeHelper.isAndroid
+          ? baseThickness
           : baseThickness * 0.75; // 25% thinner on Apple platforms
     } catch (e) {
       logger.e('Error parsing thickness, defaulting to 2.0: $e');
@@ -86,15 +83,16 @@ class DividerReaderBlock extends ConsumerWidget {
     }
 
     final backgroundColor = styleUtils.parseHex(block.style.background);
-    final color = styleUtils.parseHex(block.style.color) ?? theme.colorScheme.primary;
+    final color =
+        styleUtils.parseHex(block.style.color) ?? theme.colorScheme.primary;
     final align = block.style.align;
 
     final isWide = MediaQuery.of(context).size.width > 600;
-    final padding = isWide 
-        ? EdgeInsets.symmetric(vertical: ResponsiveUtils.spacing16) 
+    final padding = isWide
+        ? EdgeInsets.symmetric(vertical: ResponsiveUtils.spacing16)
         : EdgeInsets.symmetric(vertical: ResponsiveUtils.spacing4);
     final margin = EdgeInsets.symmetric(vertical: ResponsiveUtils.spacing8);
-    
+
     return Container(
       padding: padding,
       margin: margin,
@@ -105,27 +103,34 @@ class DividerReaderBlock extends ConsumerWidget {
             : _getAlignment(align),
         child: dividerStyle == DividerStyle.threeDot
             ? Row(
-          mainAxisSize: MainAxisSize.min,
-          children: List.generate(3, (index) => Container(
-            margin: EdgeInsets.symmetric(horizontal: ResponsiveUtils.spacing8),
-            // Platform-specific dot size
-            width: PlatformThemeHelper.isAndroid ? 8.0 : 6.0,
-            height: PlatformThemeHelper.isAndroid ? 8.0 : 6.0,
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-            ),
-          )),
-        )
+                mainAxisSize: MainAxisSize.min,
+                children: List.generate(
+                  3,
+                  (index) => Container(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: ResponsiveUtils.spacing8,
+                    ),
+                    // Platform-specific dot size
+                    width: PlatformThemeHelper.isAndroid ? 8.0 : 6.0,
+                    height: PlatformThemeHelper.isAndroid ? 8.0 : 6.0,
+                    decoration: BoxDecoration(
+                      color: color,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+              )
             : CustomPaint(
-          size: Size(double.infinity, thickness),
-          painter: DividerPainter(
-            style: dividerStyle,
-            // Platform-specific opacity (Apple: more subtle)
-            color: color.withValues(alpha: PlatformThemeHelper.isAndroid ? 0.6 : 0.4),
-            thickness: thickness,
-          ),
-        ),
+                size: Size(double.infinity, thickness),
+                painter: DividerPainter(
+                  style: dividerStyle,
+                  // Platform-specific opacity (Apple: more subtle)
+                  color: color.withValues(
+                    alpha: PlatformThemeHelper.isAndroid ? 0.6 : 0.4,
+                  ),
+                  thickness: thickness,
+                ),
+              ),
       ),
     );
   }

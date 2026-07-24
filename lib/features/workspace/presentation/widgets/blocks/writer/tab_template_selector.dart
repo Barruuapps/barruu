@@ -28,15 +28,51 @@ class TabTemplateSelector extends StatelessWidget {
           crossAxisSpacing: 12,
           childAspectRatio: 0.75,
           children: [
-            _buildTemplateOption(kTabTemplateStandard, kTabTemplateNames[kTabTemplateStandard]!, _buildStandardPreview()),
-            _buildTemplateOption(kTabTemplatePills, kTabTemplateNames[kTabTemplatePills]!, _buildPillsPreview()),
-            _buildTemplateOption(kTabTemplateUnderline, kTabTemplateNames[kTabTemplateUnderline]!, _buildUnderlinePreview()),
-            _buildTemplateOption(kTabTemplateBoxed, kTabTemplateNames[kTabTemplateBoxed]!, _buildBoxedPreview()),
-            _buildTemplateOption(kTabTemplateMinimal, kTabTemplateNames[kTabTemplateMinimal]!, _buildMinimalPreview()),
-            _buildTemplateOption(kTabTemplateSidebar, kTabTemplateNames[kTabTemplateSidebar]!, _buildSidebarPreview()),
-            _buildTemplateOption(kTabTemplateVertical, kTabTemplateNames[kTabTemplateVertical]!, _buildVerticalPreview()),
-            _buildTemplateOption(kTabTemplateSegmented, kTabTemplateNames[kTabTemplateSegmented]!, _buildSegmentedPreview()),
-            _buildTemplateOption(kTabTemplateCards, kTabTemplateNames[kTabTemplateCards]!, _buildCardsPreview()),
+            _buildTemplateOption(
+              kTabTemplateStandard,
+              kTabTemplateNames[kTabTemplateStandard]!,
+              _buildStandardPreview(),
+            ),
+            _buildTemplateOption(
+              kTabTemplatePills,
+              kTabTemplateNames[kTabTemplatePills]!,
+              _buildPillsPreview(),
+            ),
+            _buildTemplateOption(
+              kTabTemplateUnderline,
+              kTabTemplateNames[kTabTemplateUnderline]!,
+              _buildUnderlinePreview(),
+            ),
+            _buildTemplateOption(
+              kTabTemplateBoxed,
+              kTabTemplateNames[kTabTemplateBoxed]!,
+              _buildBoxedPreview(),
+            ),
+            _buildTemplateOption(
+              kTabTemplateMinimal,
+              kTabTemplateNames[kTabTemplateMinimal]!,
+              _buildMinimalPreview(),
+            ),
+            _buildTemplateOption(
+              kTabTemplateSidebar,
+              kTabTemplateNames[kTabTemplateSidebar]!,
+              _buildSidebarPreview(),
+            ),
+            _buildTemplateOption(
+              kTabTemplateVertical,
+              kTabTemplateNames[kTabTemplateVertical]!,
+              _buildVerticalPreview(),
+            ),
+            _buildTemplateOption(
+              kTabTemplateSegmented,
+              kTabTemplateNames[kTabTemplateSegmented]!,
+              _buildSegmentedPreview(),
+            ),
+            _buildTemplateOption(
+              kTabTemplateCards,
+              kTabTemplateNames[kTabTemplateCards]!,
+              _buildCardsPreview(),
+            ),
           ],
         ),
       ),
@@ -56,11 +92,13 @@ class TabTemplateSelector extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(
-            color: isSelected ? theme.colorScheme.primary : theme.colorScheme.outline.withValues(alpha: 0.3),
+            color: isSelected
+                ? theme.colorScheme.primary
+                : theme.colorScheme.outline.withValues(alpha: 0.3),
             width: isSelected ? 2.5 : 1,
           ),
           borderRadius: BorderRadius.circular(8),
-          color: isSelected 
+          color: isSelected
               ? theme.colorScheme.primaryContainer.withValues(alpha: 0.2)
               : null,
         ),
@@ -76,9 +114,11 @@ class TabTemplateSelector extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
               decoration: BoxDecoration(
-                color: isSelected 
+                color: isSelected
                     ? theme.colorScheme.primary.withValues(alpha: 0.1)
-                    : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                    : theme.colorScheme.surfaceContainerHighest.withValues(
+                        alpha: 0.5,
+                      ),
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(7),
                   bottomRight: Radius.circular(7),
@@ -111,8 +151,12 @@ class TabTemplateSelector extends StatelessWidget {
           flex: 1,
           child: Container(
             decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(
+                alpha: 0.5,
+              ),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(4),
+              ),
             ),
             child: Row(
               children: [
@@ -139,7 +183,9 @@ class TabTemplateSelector extends StatelessWidget {
                       child: Container(
                         height: 2,
                         width: 12,
-                        color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.3,
+                        ),
                       ),
                     ),
                   ),
@@ -154,15 +200,25 @@ class TabTemplateSelector extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               color: theme.colorScheme.surface,
-              borderRadius: const BorderRadius.vertical(bottom: Radius.circular(4)),
+              borderRadius: const BorderRadius.vertical(
+                bottom: Radius.circular(4),
+              ),
             ),
             padding: const EdgeInsets.all(6),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.3)),
+                Container(
+                  height: 2,
+                  width: double.infinity,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                ),
                 const SizedBox(height: 2),
-                Container(height: 2, width: 30, color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
+                Container(
+                  height: 2,
+                  width: 30,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                ),
               ],
             ),
           ),
@@ -212,9 +268,17 @@ class TabTemplateSelector extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.3)),
+                Container(
+                  height: 2,
+                  width: double.infinity,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                ),
                 const SizedBox(height: 2),
-                Container(height: 2, width: 30, color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
+                Container(
+                  height: 2,
+                  width: 30,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                ),
               ],
             ),
           ),
@@ -247,13 +311,12 @@ class TabTemplateSelector extends StatelessWidget {
                       Container(
                         height: 2,
                         width: 12,
-                        color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.5,
+                        ),
                       ),
                       const SizedBox(height: 2),
-                      Container(
-                        height: 2,
-                        color: theme.colorScheme.primary,
-                      ),
+                      Container(height: 2, color: theme.colorScheme.primary),
                     ],
                   ),
                 ),
@@ -264,7 +327,9 @@ class TabTemplateSelector extends StatelessWidget {
                       Container(
                         height: 2,
                         width: 12,
-                        color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.3,
+                        ),
                       ),
                       const SizedBox(height: 4),
                     ],
@@ -283,9 +348,17 @@ class TabTemplateSelector extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.3)),
+                Container(
+                  height: 2,
+                  width: double.infinity,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                ),
                 const SizedBox(height: 2),
-                Container(height: 2, width: 30, color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
+                Container(
+                  height: 2,
+                  width: 30,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                ),
               ],
             ),
           ),
@@ -303,7 +376,9 @@ class TabTemplateSelector extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(2),
             decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(
+                alpha: 0.3,
+              ),
               borderRadius: BorderRadius.circular(4),
             ),
             child: Row(
@@ -334,7 +409,9 @@ class TabTemplateSelector extends StatelessWidget {
                       child: Container(
                         height: 2,
                         width: 10,
-                        color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.3,
+                        ),
                       ),
                     ),
                   ),
@@ -359,9 +436,17 @@ class TabTemplateSelector extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.3)),
+                Container(
+                  height: 2,
+                  width: double.infinity,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                ),
                 const SizedBox(height: 2),
-                Container(height: 2, width: 30, color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
+                Container(
+                  height: 2,
+                  width: 30,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                ),
               ],
             ),
           ),
@@ -404,9 +489,17 @@ class TabTemplateSelector extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.3)),
+                Container(
+                  height: 2,
+                  width: double.infinity,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                ),
                 const SizedBox(height: 2),
-                Container(height: 2, width: 30, color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
+                Container(
+                  height: 2,
+                  width: 30,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                ),
               ],
             ),
           ),
@@ -423,8 +516,12 @@ class TabTemplateSelector extends StatelessWidget {
           flex: 2,
           child: Container(
             decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-              borderRadius: const BorderRadius.horizontal(left: Radius.circular(4)),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(
+                alpha: 0.5,
+              ),
+              borderRadius: const BorderRadius.horizontal(
+                left: Radius.circular(4),
+              ),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -455,17 +552,31 @@ class TabTemplateSelector extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               color: theme.colorScheme.surface,
-              borderRadius: const BorderRadius.horizontal(right: Radius.circular(4)),
+              borderRadius: const BorderRadius.horizontal(
+                right: Radius.circular(4),
+              ),
             ),
             padding: const EdgeInsets.all(6),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.3)),
+                Container(
+                  height: 2,
+                  width: double.infinity,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                ),
                 const SizedBox(height: 2),
-                Container(height: 2, width: 30, color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
+                Container(
+                  height: 2,
+                  width: 30,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                ),
                 const SizedBox(height: 2),
-                Container(height: 2, width: 25, color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
+                Container(
+                  height: 2,
+                  width: 25,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                ),
               ],
             ),
           ),
@@ -505,7 +616,9 @@ class TabTemplateSelector extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 4),
             padding: const EdgeInsets.all(3),
             decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(
+                alpha: 0.3,
+              ),
               borderRadius: BorderRadius.circular(3),
             ),
             child: Center(
@@ -522,16 +635,26 @@ class TabTemplateSelector extends StatelessWidget {
             child: Container(
               margin: const EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.2),
+                color: theme.colorScheme.surfaceContainerHighest.withValues(
+                  alpha: 0.2,
+                ),
                 borderRadius: BorderRadius.circular(3),
               ),
               padding: const EdgeInsets.all(4),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.3)),
+                  Container(
+                    height: 2,
+                    width: double.infinity,
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                  ),
                   const SizedBox(height: 2),
-                  Container(height: 2, width: 25, color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
+                  Container(
+                    height: 2,
+                    width: 25,
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                  ),
                 ],
               ),
             ),
@@ -551,7 +674,9 @@ class TabTemplateSelector extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 8),
             padding: const EdgeInsets.all(2),
             decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(
+                alpha: 0.5,
+              ),
               borderRadius: BorderRadius.circular(4),
               border: Border.all(
                 color: theme.colorScheme.outline.withValues(alpha: 0.3),
@@ -601,9 +726,17 @@ class TabTemplateSelector extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.3)),
+                Container(
+                  height: 2,
+                  width: double.infinity,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                ),
                 const SizedBox(height: 2),
-                Container(height: 2, width: 30, color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
+                Container(
+                  height: 2,
+                  width: 30,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                ),
               ],
             ),
           ),
@@ -621,10 +754,7 @@ class TabTemplateSelector extends StatelessWidget {
             decoration: BoxDecoration(
               color: theme.colorScheme.surface,
               borderRadius: BorderRadius.circular(4),
-              border: Border.all(
-                color: theme.colorScheme.primary,
-                width: 1.5,
-              ),
+              border: Border.all(color: theme.colorScheme.primary, width: 1.5),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -638,7 +768,11 @@ class TabTemplateSelector extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 2),
-                Container(height: 2, width: 18, color: theme.colorScheme.onSurface.withValues(alpha: 0.3)),
+                Container(
+                  height: 2,
+                  width: 18,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                ),
               ],
             ),
           ),
@@ -665,7 +799,11 @@ class TabTemplateSelector extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 2),
-                Container(height: 2, width: 18, color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
+                Container(
+                  height: 2,
+                  width: 18,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                ),
               ],
             ),
           ),

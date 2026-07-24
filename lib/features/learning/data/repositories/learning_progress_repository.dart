@@ -45,9 +45,11 @@ class LearningProgressRepository {
       )
     ''');
     await db.execute(
-        'CREATE INDEX IF NOT EXISTS idx_lp_doc ON $_tableName (document_id)');
+      'CREATE INDEX IF NOT EXISTS idx_lp_doc ON $_tableName (document_id)',
+    );
     await db.execute(
-        'CREATE INDEX IF NOT EXISTS idx_lp_review ON $_tableName (next_review_at)');
+      'CREATE INDEX IF NOT EXISTS idx_lp_review ON $_tableName (next_review_at)',
+    );
   }
 
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
@@ -88,7 +90,8 @@ class LearningProgressRepository {
       } else {
         final row = existing.first;
         final attempts = (row['attempt_count'] as int? ?? 0) + 1;
-        final correct = (row['correct_count'] as int? ?? 0) + (isCorrect ? 1 : 0);
+        final correct =
+            (row['correct_count'] as int? ?? 0) + (isCorrect ? 1 : 0);
         await db.update(
           _tableName,
           {
@@ -101,13 +104,18 @@ class LearningProgressRepository {
         );
       }
     } catch (e, st) {
-      logger.e('LearningProgressRepository.recordAttempt failed', error: e, stackTrace: st);
+      logger.e(
+        'LearningProgressRepository.recordAttempt failed',
+        error: e,
+        stackTrace: st,
+      );
     }
   }
 
   /// Returns all progress rows for [documentId], ordered by [block_id].
   Future<List<LearningProgressEntry>> getProgressForDocument(
-      String documentId) async {
+    String documentId,
+  ) async {
     try {
       final db = await _database();
       final rows = await db.query(
@@ -118,8 +126,11 @@ class LearningProgressRepository {
       );
       return rows.map(LearningProgressEntry.fromMap).toList();
     } catch (e, st) {
-      logger.e('LearningProgressRepository.getProgressForDocument failed',
-          error: e, stackTrace: st);
+      logger.e(
+        'LearningProgressRepository.getProgressForDocument failed',
+        error: e,
+        stackTrace: st,
+      );
       return [];
     }
   }
@@ -128,11 +139,17 @@ class LearningProgressRepository {
   Future<void> deleteProgressForDocument(String documentId) async {
     try {
       final db = await _database();
-      await db.delete(_tableName,
-          where: 'document_id = ?', whereArgs: [documentId]);
+      await db.delete(
+        _tableName,
+        where: 'document_id = ?',
+        whereArgs: [documentId],
+      );
     } catch (e, st) {
-      logger.e('LearningProgressRepository.deleteProgressForDocument failed',
-          error: e, stackTrace: st);
+      logger.e(
+        'LearningProgressRepository.deleteProgressForDocument failed',
+        error: e,
+        stackTrace: st,
+      );
     }
   }
 

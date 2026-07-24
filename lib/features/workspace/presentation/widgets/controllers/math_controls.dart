@@ -1,4 +1,3 @@
-
 import 'package:barruu/features/workspace/utils/json_string_converter.dart';
 import 'package:barruu/features/workspace/data/repositories/workspace_repository_impl.dart';
 import 'package:barruu/features/workspace/domain/entities/block.dart';
@@ -57,10 +56,19 @@ class _MathSymbolsMenu extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     return PopupMenuButton<String>(
-      icon: Icon(Icons.functions_rounded, color: theme.colorScheme.primary, size: 24),
+      icon: Icon(
+        Icons.functions_rounded,
+        color: theme.colorScheme.primary,
+        size: 24,
+      ),
       tooltip: 'Insert Math Symbols',
       itemBuilder: (_) => _getMathSymbolMenuItems(),
-      onSelected: (latex) => _insertLatexExpression(latex, controller, block, latexController), // Pass controller
+      onSelected: (latex) => _insertLatexExpression(
+        latex,
+        controller,
+        block,
+        latexController,
+      ), // Pass controller
       elevation: 0.0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       padding: EdgeInsets.zero,
@@ -192,14 +200,21 @@ class _MathSymbolsMenu extends ConsumerWidget {
             ),
             child: Text(
               symbol,
-              style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
           const SizedBox(width: 12.0),
           Expanded(
             child: Text(
               latex,
-              style: TextStyle(fontSize: 12.0, color: Colors.grey[700], fontFamily: 'monospace'),
+              style: TextStyle(
+                fontSize: 12.0,
+                color: Colors.grey[700],
+                fontFamily: 'monospace',
+              ),
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -249,10 +264,19 @@ class _CommonEquationsMenu extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     return PopupMenuButton<String>(
-      icon: Icon(Icons.menu_book_rounded, color: theme.colorScheme.primary, size: 24),
+      icon: Icon(
+        Icons.menu_book_rounded,
+        color: theme.colorScheme.primary,
+        size: 24,
+      ),
       tooltip: 'Insert Common Equations',
       itemBuilder: (_) => _getCommonEquationsMenuItems(),
-      onSelected: (latex) => _insertLatexExpression(latex, controller, block, latexController), // Pass controller
+      onSelected: (latex) => _insertLatexExpression(
+        latex,
+        controller,
+        block,
+        latexController,
+      ), // Pass controller
       elevation: 0.0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       padding: EdgeInsets.zero,
@@ -268,7 +292,11 @@ class _CommonEquationsMenu extends ConsumerWidget {
         'Quadratic Formula',
         'x = (-b ± √(b²-4ac))/2a',
       ),
-      _buildEquationItem(r'a^2 + b^2 = c^2', 'Pythagorean Theorem', 'a² + b² = c²'),
+      _buildEquationItem(
+        r'a^2 + b^2 = c^2',
+        'Pythagorean Theorem',
+        'a² + b² = c²',
+      ),
       _buildEquationItem(
         r'(a+b)^2 = a^2 + 2ab + b^2',
         'Binomial Expansion (Square)',
@@ -294,20 +322,52 @@ class _CommonEquationsMenu extends ConsumerWidget {
         'Binomial Expansion (Cube)',
         '(a+b)³ = a³ + 3a²b + 3ab² + b³',
       ),
-      _buildEquationItem(r'\log_b (xy) = \log_b x + \log_b y', 'Log Product Rule', 'log_b(xy) = log_b x + log_b y'),
-      _buildEquationItem(r'\log_b (x/y) = \log_b x - \log_b y', 'Log Quotient Rule', 'log_b(x/y) = log_b x - log_b y'),
-      _buildEquationItem(r'\log_b (x^y) = y \log_b x', 'Log Power Rule', 'log_b(x^y) = y log_b x'),
+      _buildEquationItem(
+        r'\log_b (xy) = \log_b x + \log_b y',
+        'Log Product Rule',
+        'log_b(xy) = log_b x + log_b y',
+      ),
+      _buildEquationItem(
+        r'\log_b (x/y) = \log_b x - \log_b y',
+        'Log Quotient Rule',
+        'log_b(x/y) = log_b x - log_b y',
+      ),
+      _buildEquationItem(
+        r'\log_b (x^y) = y \log_b x',
+        'Log Power Rule',
+        'log_b(x^y) = y log_b x',
+      ),
       const PopupMenuDivider(),
       _buildCategoryHeader('Geometry'),
       _buildEquationItem(r'A = \pi r^2', 'Area of Circle', 'A = πr²'),
       _buildEquationItem(r'C = 2\pi r', 'Circumference of Circle', 'C = 2πr'),
-      _buildEquationItem(r'V = \frac{4}{3} \pi r^3', 'Volume of Sphere', 'V = (4/3)πr³'),
-      _buildEquationItem(r'S = 4 \pi r^2', 'Surface Area of Sphere', 'S = 4πr²'),
-      _buildEquationItem(r'A = \frac{1}{2} b h', 'Area of Triangle', 'A = (1/2)bh'),
+      _buildEquationItem(
+        r'V = \frac{4}{3} \pi r^3',
+        'Volume of Sphere',
+        'V = (4/3)πr³',
+      ),
+      _buildEquationItem(
+        r'S = 4 \pi r^2',
+        'Surface Area of Sphere',
+        'S = 4πr²',
+      ),
+      _buildEquationItem(
+        r'A = \frac{1}{2} b h',
+        'Area of Triangle',
+        'A = (1/2)bh',
+      ),
       _buildEquationItem(r'A = l w', 'Area of Rectangle', 'A = lw'),
-      _buildEquationItem(r'V = l w h', 'Volume of Rectangular Prism', 'V = lwh'),
+      _buildEquationItem(
+        r'V = l w h',
+        'Volume of Rectangular Prism',
+        'V = lwh',
+      ),
       _buildEquationItem(r'A = b h', 'Area of Parallelogram', 'A = bh'),
-      _buildEquationItem(r'V = \frac{1}{3} \pi r^2 h', 'Volume of Cone', 'V = (1/3)πr²h'),
+      _buildEquationItem(
+        r'V = \frac{1}{3} \pi r^2 h',
+        'Volume of Cone',
+        'V = (1/3)πr²h',
+      ),
       const PopupMenuDivider(),
       _buildCategoryHeader('Trigonometry'),
       _buildEquationItem(
@@ -340,9 +400,21 @@ class _CommonEquationsMenu extends ConsumerWidget {
         'Cosine Addition/Subtraction',
         'cos(α ± β) = cosα cosβ ∓ sinα sinβ',
       ),
-      _buildEquationItem(r'\csc \theta = \frac{1}{\sin \theta}', 'Cosecant Identity', 'cscθ = 1 / sinθ'),
-      _buildEquationItem(r'\sec \theta = \frac{1}{\cos \theta}', 'Secant Identity', 'secθ = 1 / cosθ'),
-      _buildEquationItem(r'\cot \theta = \frac{1}{\tan \theta}', 'Cotangent Identity', 'cotθ = 1 / tanθ'),
+      _buildEquationItem(
+        r'\csc \theta = \frac{1}{\sin \theta}',
+        'Cosecant Identity',
+        'cscθ = 1 / sinθ',
+      ),
+      _buildEquationItem(
+        r'\sec \theta = \frac{1}{\cos \theta}',
+        'Secant Identity',
+        'secθ = 1 / cosθ',
+      ),
+      _buildEquationItem(
+        r'\cot \theta = \frac{1}{\tan \theta}',
+        'Cotangent Identity',
+        'cotθ = 1 / tanθ',
+      ),
       const PopupMenuDivider(),
       _buildCategoryHeader('Calculus'),
       _buildEquationItem(
@@ -405,11 +477,27 @@ class _CommonEquationsMenu extends ConsumerWidget {
         'Equation of Motion (Displacement)',
         's = ut + (1/2)at²',
       ),
-      _buildEquationItem(r'v = u + a t', 'Equation of Motion (Velocity)', 'v = u + at'),
-      _buildEquationItem(r'v^2 = u^2 + 2 a s', 'Equation of Motion (Velocity Squared)', 'v² = u² + 2as'),
+      _buildEquationItem(
+        r'v = u + a t',
+        'Equation of Motion (Velocity)',
+        'v = u + at',
+      ),
+      _buildEquationItem(
+        r'v^2 = u^2 + 2 a s',
+        'Equation of Motion (Velocity Squared)',
+        'v² = u² + 2as',
+      ),
       _buildEquationItem(r'p = m v', 'Momentum', 'p = mv'),
-      _buildEquationItem(r'KE = \frac{1}{2} m v^2', 'Kinetic Energy', 'KE = (1/2)mv²'),
-      _buildEquationItem(r'PE = m g h', 'Gravitational Potential Energy', 'PE = mgh'),
+      _buildEquationItem(
+        r'KE = \frac{1}{2} m v^2',
+        'Kinetic Energy',
+        'KE = (1/2)mv²',
+      ),
+      _buildEquationItem(
+        r'PE = m g h',
+        'Gravitational Potential Energy',
+        'PE = mgh',
+      ),
       _buildEquationItem(r'P = \frac{W}{t}', 'Power', 'P = W/t'),
       const PopupMenuDivider(),
       _buildCategoryHeader('Statistics'),
@@ -468,7 +556,11 @@ class _CommonEquationsMenu extends ConsumerWidget {
     ];
   }
 
-  PopupMenuItem<String> _buildEquationItem(String latex, String name, String preview) {
+  PopupMenuItem<String> _buildEquationItem(
+    String latex,
+    String name,
+    String preview,
+  ) {
     return PopupMenuItem<String>(
       value: latex,
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
@@ -539,7 +631,12 @@ class _CommonEquationsMenu extends ConsumerWidget {
 }
 
 /// Inserts the selected LaTeX expression into the block's content at the cursor position.
-void _insertLatexExpression(String latex, EditDocumentController controller, Block block, TextEditingController latexController,) {
+void _insertLatexExpression(
+  String latex,
+  EditDocumentController controller,
+  Block block,
+  TextEditingController latexController,
+) {
   Map<String, dynamic> content = {'latex': '', 'caption': ''};
 
   if (block.content.isNotEmpty) {
@@ -561,7 +658,8 @@ void _insertLatexExpression(String latex, EditDocumentController controller, Blo
   // Insert the LaTeX at the cursor position
   String newLatex;
   if (cursorPosition >= 0 && cursorPosition <= currentLatex.length) {
-    newLatex = currentLatex.substring(0, cursorPosition) +
+    newLatex =
+        currentLatex.substring(0, cursorPosition) +
         latex +
         (cursorPosition < currentLatex.length ? ' ' : '') +
         currentLatex.substring(cursorPosition);
@@ -573,7 +671,10 @@ void _insertLatexExpression(String latex, EditDocumentController controller, Blo
   // Update the controller's text and move cursor after the inserted LaTeX
   latexController.text = newLatex;
   latexController.selection = TextSelection.collapsed(
-    offset: cursorPosition + latex.length + (cursorPosition < currentLatex.length ? 1 : 0),
+    offset:
+        cursorPosition +
+        latex.length +
+        (cursorPosition < currentLatex.length ? 1 : 0),
   );
 
   // Update the block content

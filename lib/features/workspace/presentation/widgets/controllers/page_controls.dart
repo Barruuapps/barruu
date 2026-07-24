@@ -1,4 +1,3 @@
-
 import 'package:barruu/features/workspace/constants/block_styles_constants.dart';
 import 'package:barruu/features/workspace/data/repositories/workspace_repository_impl.dart';
 import 'package:barruu/features/workspace/domain/entities/block.dart';
@@ -43,7 +42,11 @@ class PageControls extends ConsumerWidget {
       children: [
         // Template Selector
         IconButton(
-          icon: Icon(IconsaxPlusLinear.gallery, color: theme.colorScheme.onSurface, size: 20),
+          icon: Icon(
+            IconsaxPlusLinear.gallery,
+            color: theme.colorScheme.onSurface,
+            size: 20,
+          ),
           tooltip: 'Choose Template',
           onPressed: () {
             showDialog(
@@ -52,7 +55,9 @@ class PageControls extends ConsumerWidget {
                 selectedTemplate: currentStyle,
                 onTemplateSelected: (style) {
                   controller.saveBlock(
-                    block.copyWith(style: block.style.copyWith(displayStyle: style)),
+                    block.copyWith(
+                      style: block.style.copyWith(displayStyle: style),
+                    ),
                   );
                   Navigator.of(context).pop();
                 },
@@ -76,7 +81,8 @@ class PageControls extends ConsumerWidget {
               final updatedBlock = block.copyWith(style: updatedStyle);
               controller.saveBlock(updatedBlock);
             },
-            itemBuilder: (context) => BlockStylesConstants.pageDisplayStyleValues
+            itemBuilder: (context) => BlockStylesConstants
+                .pageDisplayStyleValues
                 .map(
                   (style) => PopupMenuItem<String>(
                     value: style,
@@ -134,8 +140,10 @@ class PageControls extends ConsumerWidget {
                           Icon(
                             iconOption['icon'] as IconData,
                             size: 18,
-                            color: (iconOption['name'] == customIcon || 
-                                   (customIcon == null && iconOption['name'] == 'document'))
+                            color:
+                                (iconOption['name'] == customIcon ||
+                                    (customIcon == null &&
+                                        iconOption['name'] == 'document'))
                                 ? theme.colorScheme.primary
                                 : theme.colorScheme.onSurface,
                           ),
@@ -143,12 +151,16 @@ class PageControls extends ConsumerWidget {
                           Text(
                             _capitalize(iconOption['name'] as String),
                             style: TextStyle(
-                              color: (iconOption['name'] == customIcon || 
-                                     (customIcon == null && iconOption['name'] == 'document'))
+                              color:
+                                  (iconOption['name'] == customIcon ||
+                                      (customIcon == null &&
+                                          iconOption['name'] == 'document'))
                                   ? theme.colorScheme.primary
                                   : theme.colorScheme.onSurface,
-                              fontWeight: (iconOption['name'] == customIcon || 
-                                          (customIcon == null && iconOption['name'] == 'document'))
+                              fontWeight:
+                                  (iconOption['name'] == customIcon ||
+                                      (customIcon == null &&
+                                          iconOption['name'] == 'document'))
                                   ? FontWeight.bold
                                   : FontWeight.normal,
                             ),
@@ -186,7 +198,9 @@ class PageControls extends ConsumerWidget {
                   ),
                 ),
                 child: Icon(
-                  showIcon ? IconsaxPlusLinear.eye : IconsaxPlusLinear.eye_slash,
+                  showIcon
+                      ? IconsaxPlusLinear.eye
+                      : IconsaxPlusLinear.eye_slash,
                   color: showIcon
                       ? theme.colorScheme.primary
                       : theme.colorScheme.onSurface.withValues(alpha: 0.6),
@@ -207,7 +221,8 @@ class PageControls extends ConsumerWidget {
       case 'compact':
         return IconsaxPlusLinear.row_horizontal;
       case 'minimal':
-        return IconsaxPlusLinear.minus_cirlce; // Note: 'cirlce' typo exists in the iconsax_plus package itself
+        return IconsaxPlusLinear
+            .minus_cirlce; // Note: 'cirlce' typo exists in the iconsax_plus package itself
       case 'banner':
         return IconsaxPlusLinear.flag;
       case 'sidebar':
@@ -254,7 +269,7 @@ class PageControls extends ConsumerWidget {
 
   IconData _getCustomIcon(String? iconName) {
     if (iconName == null) return IconsaxPlusLinear.document_text;
-    
+
     final iconOption = pageIconOptions.firstWhere(
       (option) => option['name'] == iconName,
       orElse: () => pageIconOptions[0],

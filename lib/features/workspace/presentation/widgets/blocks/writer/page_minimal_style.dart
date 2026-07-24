@@ -22,8 +22,10 @@ Widget buildPageBlockMinimalStyle({
   // Build decoration: always underline for minimal style, combine with strikethrough if needed
   TextDecoration decoration;
   if (blockStyle.strikethrough) {
-    decoration = TextDecoration.combine(
-        [TextDecoration.underline, TextDecoration.lineThrough]);
+    decoration = TextDecoration.combine([
+      TextDecoration.underline,
+      TextDecoration.lineThrough,
+    ]);
   } else {
     decoration = TextDecoration.underline;
   }
@@ -45,7 +47,8 @@ Widget buildPageBlockMinimalStyle({
           if (showIcon) ...[
             Icon(
               getPageIcon(blockStyle.customIcon),
-              color: styleUtils.parseHex(blockStyle.color) ??
+              color:
+                  styleUtils.parseHex(blockStyle.color) ??
                   theme.colorScheme.primary,
               size: 16,
             ),
@@ -65,12 +68,17 @@ Widget buildPageBlockMinimalStyle({
                       contentPadding: EdgeInsets.zero,
                     ),
                   )
-                : Text(title, style: titleStyle, textAlign: styleUtils.textAlignFromStyle(blockStyle)),
+                : Text(
+                    title,
+                    style: titleStyle,
+                    textAlign: styleUtils.textAlignFromStyle(blockStyle),
+                  ),
           ),
           if (!isEditing && hasPage)
             Icon(
               IconsaxPlusLinear.arrow_right_3,
-              color: styleUtils.parseHex(blockStyle.color) ??
+              color:
+                  styleUtils.parseHex(blockStyle.color) ??
                   theme.colorScheme.primary,
               size: 14,
             ),
@@ -124,4 +132,3 @@ Widget buildPageBlockMinimalStyle({
   }
   return contentWidget;
 }
-

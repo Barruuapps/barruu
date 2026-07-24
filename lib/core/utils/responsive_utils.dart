@@ -2,57 +2,57 @@ import 'package:flutter/material.dart';
 import 'package:barruu/core/theme/platform_theme_helper.dart';
 
 /// Utility class for responsive design across mobile, tablet, and desktop platforms.
-/// 
+///
 /// This class provides helpers to determine the current device type and adapt
 /// UI elements accordingly for optimal user experience on all platforms.
-/// 
-/// Now includes platform-specific design helpers for Apple (iOS/macOS) and 
+///
+/// Now includes platform-specific design helpers for Apple (iOS/macOS) and
 /// Android Material Design following their respective design guidelines.
 class ResponsiveUtils {
   // Private constructor to prevent instantiation
   ResponsiveUtils._();
 
   // MARK: - Apple Design System Spacing Constants (8pt Grid)
-  
+
   /// 2pt spacing - Minimal gap
   static const double spacing2 = 2.0;
-  
+
   /// 4pt spacing - Tiny gap
   static const double spacing4 = 4.0;
-  
+
   /// 8pt spacing - Small gap, base unit
   static const double spacing8 = 8.0;
-  
+
   /// 12pt spacing - Medium-small gap
   static const double spacing12 = 12.0;
-  
+
   /// 16pt spacing - Standard gap (minimum edge padding for Apple HIG)
   static const double spacing16 = 16.0;
-  
+
   /// 20pt spacing - Medium gap
   static const double spacing20 = 20.0;
-  
+
   /// 24pt spacing - Large gap
   static const double spacing24 = 24.0;
-  
+
   /// 32pt spacing - Extra large gap
   static const double spacing32 = 32.0;
-  
+
   /// 44pt - Apple minimum touch target size (iOS/macOS)
   static const double minTouchTargetApple = 44.0;
-  
+
   /// 48dp - Material minimum touch target size (Android)
   static const double minTouchTargetMaterial = 48.0;
 
   /// Breakpoint for small devices (phones)
   static const double mobileBreakpoint = 600.0;
-  
+
   /// Breakpoint for medium devices (tablets)
   static const double tabletBreakpoint = 900.0;
-  
+
   /// Breakpoint for large devices (small desktops)
   static const double desktopBreakpoint = 1200.0;
-  
+
   /// Breakpoint for extra large devices (large desktops)
   static const double largeDesktopBreakpoint = 1536.0;
 
@@ -153,10 +153,12 @@ class ResponsiveUtils {
   static double getIconSize(BuildContext context, {double baseSize = 24.0}) {
     if (isLargeDesktop(context)) return baseSize * 1.3;
     if (isDesktop(context)) return baseSize * 1.15;
-    if (isMobile(context)) return baseSize * 1.1; // Increased from 0.9 to 1.1 for better mobile visibility
+    if (isMobile(context))
+      return baseSize *
+          1.1; // Increased from 0.9 to 1.1 for better mobile visibility
     return baseSize;
   }
-  
+
   /// Returns whether to use compact layout (useful for mobile)
   static bool useCompactLayout(BuildContext context) {
     return isMobile(context);
@@ -184,14 +186,20 @@ class ResponsiveUtils {
   }
 
   /// Returns the appropriate border radius for components
-  static double getBorderRadius(BuildContext context, {double baseRadius = 12.0}) {
+  static double getBorderRadius(
+    BuildContext context, {
+    double baseRadius = 12.0,
+  }) {
     if (isLargeDesktop(context)) return baseRadius * 1.2;
     if (isDesktop(context)) return baseRadius * 1.1;
     return baseRadius;
   }
 
   /// Returns the appropriate elevation for cards and surfaces
-  static double getElevation(BuildContext context, {double baseElevation = 2.0}) {
+  static double getElevation(
+    BuildContext context, {
+    double baseElevation = 2.0,
+  }) {
     if (isLargeDesktop(context)) return baseElevation * 1.5;
     if (isDesktop(context)) return baseElevation * 1.2;
     return baseElevation;
@@ -205,7 +213,10 @@ class ResponsiveUtils {
   }
 
   /// Returns the appropriate letter spacing for text based on screen size
-  static double getLetterSpacing(BuildContext context, {double baseSpacing = 0.2}) {
+  static double getLetterSpacing(
+    BuildContext context, {
+    double baseSpacing = 0.2,
+  }) {
     if (isLargeDesktop(context)) return baseSpacing * 1.2;
     if (isDesktop(context)) return baseSpacing * 1.1;
     return baseSpacing;
@@ -254,12 +265,15 @@ class ResponsiveUtils {
   ///
   /// - Apple platforms: Subtle shadows (0.12 opacity, no spread)
   /// - Android/Material: Pronounced shadows (0.2 opacity, with spread)
-  /// 
+  ///
   /// [level] Shadow intensity (1-3):
   /// - 1: Small shadow (cards, chips)
   /// - 2: Medium shadow (FAB, navigation)
   /// - 3: Large shadow (dialogs, modals)
-  static List<BoxShadow> getPlatformShadow(BuildContext context, {int level = 1}) {
+  static List<BoxShadow> getPlatformShadow(
+    BuildContext context, {
+    int level = 1,
+  }) {
     return PlatformThemeHelper.getPlatformShadows(context, level: level);
   }
 
@@ -267,17 +281,17 @@ class ResponsiveUtils {
   ///
   /// - Apple: 44pt minimum (iOS/macOS Human Interface Guidelines)
   /// - Android: 48dp minimum (Material Design Guidelines)
-  /// 
+  ///
   /// Returns a widget wrapped in ConstrainedBox with minimum dimensions.
   static Widget ensureTouchTarget(
     Widget child, {
     double? minWidth,
     double? minHeight,
   }) {
-    final targetSize = PlatformThemeHelper.isAndroid 
-        ? minTouchTargetMaterial 
+    final targetSize = PlatformThemeHelper.isAndroid
+        ? minTouchTargetMaterial
         : minTouchTargetApple;
-    
+
     return ConstrainedBox(
       constraints: BoxConstraints(
         minWidth: minWidth ?? targetSize,
@@ -291,7 +305,10 @@ class ResponsiveUtils {
   ///
   /// - Apple: Smaller, subtle radius (8-12pt)
   /// - Android: Larger, dramatic radius (12-20pt)
-  static double getPlatformRadius(BuildContext context, {double baseRadius = 12.0}) {
+  static double getPlatformRadius(
+    BuildContext context, {
+    double baseRadius = 12.0,
+  }) {
     return PlatformThemeHelper.getScaledPlatformRadius(
       baseRadius: baseRadius,
       context: context,
@@ -310,17 +327,15 @@ class ResponsiveUtils {
   ///
   /// - Apple: Quick, subtle (200ms standard, 300ms complex)
   /// - Android: More dramatic (300ms standard, 500-700ms emphasized)
-  static Duration getPlatformAnimationDuration({
-    bool isComplex = false,
-  }) {
+  static Duration getPlatformAnimationDuration({bool isComplex = false}) {
     if (PlatformThemeHelper.isAndroid) {
-      return isComplex 
-          ? const Duration(milliseconds: 500) 
+      return isComplex
+          ? const Duration(milliseconds: 500)
           : const Duration(milliseconds: 300);
     } else {
       // Apple platforms
-      return isComplex 
-          ? const Duration(milliseconds: 300) 
+      return isComplex
+          ? const Duration(milliseconds: 300)
           : const Duration(milliseconds: 200);
     }
   }

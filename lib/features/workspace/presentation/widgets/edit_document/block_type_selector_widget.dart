@@ -50,7 +50,11 @@ class BlockTypeSelectorWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
           color: theme.colorScheme.surface.withValues(alpha: 0.95),
-          border: Border(top: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.3))),
+          border: Border(
+            top: BorderSide(
+              color: theme.colorScheme.outline.withValues(alpha: 0.3),
+            ),
+          ),
         ),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -69,7 +73,11 @@ class BlockTypeSelectorWidget extends StatelessWidget {
       width: sidebarWidth,
       decoration: BoxDecoration(
         color: theme.colorScheme.surface.withValues(alpha: 0.95),
-        border: Border(right: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.3))),
+        border: Border(
+          right: BorderSide(
+            color: theme.colorScheme.outline.withValues(alpha: 0.3),
+          ),
+        ),
       ),
       child: Column(
         children: [
@@ -94,7 +102,11 @@ class BlockTypeSelectorWidget extends StatelessWidget {
   /// [context] is the build context.
   /// [type] is the block type this button represents.
   /// [isSidebar] indicates whether this button is in the sidebar (true) or horizontal list (false).
-  Widget _buildBlockButton(BuildContext context, BlockType type, bool isSidebar) {
+  Widget _buildBlockButton(
+    BuildContext context,
+    BlockType type,
+    bool isSidebar,
+  ) {
     final isMobileOrTablet = !ResponsiveUtils.isDesktop(context);
     // Enhanced icon sizes for better visibility on mobile/tablet
     final iconSize = ResponsiveUtils.getIconSize(

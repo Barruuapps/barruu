@@ -29,10 +29,7 @@ class DocumentImportExportService {
   final EncryptionService _encryptionService;
   final DocumentMetadataService _metadataService;
 
-  DocumentImportExportService(
-    this._encryptionService,
-    this._metadataService,
-  );
+  DocumentImportExportService(this._encryptionService, this._metadataService);
 
   /// Validates if a directory is within the app's document directory.
   bool _isValidDocumentDirectory(Directory dir, Directory appDocDir) {
@@ -54,10 +51,14 @@ class DocumentImportExportService {
       MetaFile.tagsKey: originalMetaData?[MetaFile.tagsKey] ?? '',
       MetaFile.coverKey: '',
       MetaFile.coverOriginalNameKey: '',
-      MetaFile.createdAtKey: originalMetaData?[MetaFile.createdAtKey] ?? DateTime.now().toIso8601String(),
+      MetaFile.createdAtKey:
+          originalMetaData?[MetaFile.createdAtKey] ??
+          DateTime.now().toIso8601String(),
       MetaFile.updatedAtKey: DateTime.now().toIso8601String(),
       MetaFile.authorKey: originalMetaData?[MetaFile.authorKey] ?? 'Barruu',
-      MetaFile.currentPageIdKey: originalMetaData?[MetaFile.currentPageIdKey] ?? PageConstants.defaultPageId,
+      MetaFile.currentPageIdKey:
+          originalMetaData?[MetaFile.currentPageIdKey] ??
+          PageConstants.defaultPageId,
     };
   }
 
@@ -83,12 +84,17 @@ class DocumentImportExportService {
         return false;
       }
 
-      await Share.shareXFiles([XFile(filePath)], text: AppFile.shareMessage);
+      await SharePlus.instance.share(
+        ShareParams(files: [XFile(filePath)], text: AppFile.shareMessage),
+      );
       logger.i('Shared file: $filePath');
       return true;
     } catch (e, stackTrace) {
-      logger.e('Failed to share file: $filePath',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to share file: $filePath',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return false;
     }
   }
@@ -108,8 +114,10 @@ class DocumentImportExportService {
   /// - Document doesn't exist
   /// - Document is empty
   /// - An error occurs
-  Future<String?> exportDocumentEncrypted(Directory docDir,
-      {bool shareAfter = true}) async {
+  Future<String?> exportDocumentEncrypted(
+    Directory docDir, {
+    bool shareAfter = true,
+  }) async {
     try {
       if (kIsWeb) {
         logger.w('Document export not supported on web');
@@ -118,7 +126,9 @@ class DocumentImportExportService {
 
       final appDir = await getApplicationDocumentsDirectory();
       if (!_isValidDocumentDirectory(docDir, appDir)) {
-        logger.e('Attempt to export directory outside app boundaries: ${docDir.path}');
+        logger.e(
+          'Attempt to export directory outside app boundaries: ${docDir.path}',
+        );
         return null;
       }
 
@@ -159,7 +169,8 @@ class DocumentImportExportService {
       final tempDir = await getTemporaryDirectory();
       final metadata = await _metadataService.getDocumentMetadata(docDir);
       final docName = metadata?[MetaFile.nameKey] as String? ?? 'document';
-      final fileName = '${StringUtils.limitLength(docName)}.${AppFile.extension}';
+      final fileName =
+          '${StringUtils.limitLength(docName)}.${AppFile.extension}';
       final tempFile = File('${tempDir.path}/$fileName');
 
       await tempFile.writeAsBytes(finalBytes, flush: true);
@@ -171,8 +182,11 @@ class DocumentImportExportService {
       logger.i('Exported document: ${tempFile.path}');
       return tempFile.path;
     } catch (e, stackTrace) {
-      logger.e('Failed to export document: ${docDir.path}',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to export document: ${docDir.path}',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return null;
     }
   }
@@ -223,8 +237,10 @@ class DocumentImportExportService {
         logger.w('Invalid file path: ${file.path}');
         return null;
       }
-      final fileName =
-          result.files.single.name.replaceAll('.${AppFile.extension}', '');
+      final fileName = result.files.single.name.replaceAll(
+        '.${AppFile.extension}',
+        '',
+      );
       return await importDocumentFromBipyFile(
         file,
         fileName,
@@ -295,13 +311,19 @@ class DocumentImportExportService {
         decrypted = await _encryptionService.decryptBipyBytes(allBytes);
         logger.i('Successfully decrypted .bipy file with app-wide key');
       } catch (e) {
-        logger.w('Failed to decrypt with app-wide key, trying device-specific key for backward compatibility');
+        logger.w(
+          'Failed to decrypt with app-wide key, trying device-specific key for backward compatibility',
+        );
         try {
           decrypted = await _encryptionService.decryptBytes(allBytes);
-          logger.i('Successfully decrypted .bipy file with device-specific key (legacy format)');
+          logger.i(
+            'Successfully decrypted .bipy file with device-specific key (legacy format)',
+          );
         } catch (e2) {
           logger.e('Failed to decrypt .bipy file with both keys', error: e2);
-          throw Exception('Failed to decrypt .bipy file. File may be corrupted or from an incompatible source.');
+          throw Exception(
+            'Failed to decrypt .bipy file. File may be corrupted or from an incompatible source.',
+          );
         }
       }
 
@@ -310,11 +332,13 @@ class DocumentImportExportService {
       try {
         archive = ZipDecoder().decodeBytes(Uint8List.fromList(decrypted));
       } catch (e) {
-        logger.e('Failed to load .bipy file - not a valid ZIP archive', error: e);
+        logger.e(
+          'Failed to load .bipy file - not a valid ZIP archive',
+          error: e,
+        );
         rethrow;
       }
 
-      String? originalDocumentId;
       String documentName = StringUtils.limitLength(suggestedName);
       Map<String, dynamic>? originalMetaData;
 
@@ -325,9 +349,9 @@ class DocumentImportExportService {
           try {
             final metaContent = utf8.decode(file.content as List<int>);
             originalMetaData = jsonDecode(metaContent) as Map<String, dynamic>;
-            originalDocumentId = originalMetaData[MetaFile.idKey] as String?;
             documentName = StringUtils.limitLength(
-                originalMetaData[MetaFile.nameKey] as String? ?? suggestedName);
+              originalMetaData[MetaFile.nameKey] as String? ?? suggestedName,
+            );
             break;
           } catch (e) {
             logger.w('Failed to parse metadata from archive: $e');
@@ -373,9 +397,13 @@ class DocumentImportExportService {
       for (final f in archive.files) {
         if (f.name.endsWith('/${MetaFile.fileName}') &&
             f.name != MetaFile.fileName) {
-          archivePrefix =
-              f.name.substring(0, f.name.length - MetaFile.fileName.length);
-          logger.i('Detected archive prefix: "$archivePrefix" — will be stripped during extraction');
+          archivePrefix = f.name.substring(
+            0,
+            f.name.length - MetaFile.fileName.length,
+          );
+          logger.i(
+            'Detected archive prefix: "$archivePrefix" — will be stripped during extraction',
+          );
           break;
         }
       }
@@ -387,8 +415,7 @@ class DocumentImportExportService {
             String relativeName = file.name;
             if (archivePrefix != null &&
                 relativeName.startsWith(archivePrefix)) {
-              relativeName =
-                  relativeName.substring(archivePrefix.length);
+              relativeName = relativeName.substring(archivePrefix.length);
             }
             if (relativeName.isEmpty) continue;
             final filePath = '${outDir.path}/$relativeName';
@@ -415,7 +442,9 @@ class DocumentImportExportService {
           }
           if (contentStr.startsWith('/data/user/0')) {
             // Extract relative path from legacy absolute path
-            final relativePath = contentStr.substring(contentStr.indexOf('media/'));
+            final relativePath = contentStr.substring(
+              contentStr.indexOf('media/'),
+            );
             final jsonMap = <String, dynamic>{'path': relativePath};
             if (block.type == BlockType.image) {
               jsonMap.addAll({
@@ -436,14 +465,18 @@ class DocumentImportExportService {
                 'caption': '',
                 'fileName': path.basename(relativePath),
               });
-              logger.d('Updated block content for block ID: ${block.id}, new content: ${jsonEncode(jsonMap)}');
+              logger.d(
+                'Updated block content for block ID: ${block.id}, new content: ${jsonEncode(jsonMap)}',
+              );
             }
             return block.copyWith(content: jsonEncode(jsonMap));
           } else {
             try {
               jsonDecode(contentStr);
             } catch (e) {
-              logger.w('Invalid JSON in imported block ${block.id}: $contentStr');
+              logger.w(
+                'Invalid JSON in imported block ${block.id}: $contentStr',
+              );
               final jsonMap = <String, dynamic>{'path': ''};
               if (block.type == BlockType.image) {
                 jsonMap.addAll({
@@ -454,10 +487,7 @@ class DocumentImportExportService {
                   'fileName': '',
                 });
               } else if (block.type == BlockType.video) {
-                jsonMap.addAll({
-                  'caption': '',
-                  'fileName': '',
-                });
+                jsonMap.addAll({'caption': '', 'fileName': ''});
               } else if (block.type == BlockType.audio) {
                 jsonMap.addAll({
                   'customTitle': '',
@@ -482,33 +512,45 @@ class DocumentImportExportService {
           metaData[MetaFile.idKey] = newDocumentId;
           metaData[MetaFile.nameKey] = documentName;
           metaData[MetaFile.coverKey] =
-              metaData[MetaFile.coverKey] != null && metaData[MetaFile.coverKey].isNotEmpty
-                  ? '${outDir.path}/${AppFile.imageFolder}/${metaData[MetaFile.coverKey].split('/').last}'
-                  : '';
+              metaData[MetaFile.coverKey] != null &&
+                  metaData[MetaFile.coverKey].isNotEmpty
+              ? '${outDir.path}/${AppFile.imageFolder}/${metaData[MetaFile.coverKey].split('/').last}'
+              : '';
           metaData[MetaFile.coverOriginalNameKey] =
               metaData[MetaFile.coverOriginalNameKey] ?? '';
           metaData[MetaFile.updatedAtKey] = DateTime.now().toIso8601String();
           metaData[MetaFile.createdAtKey] =
               originalMetaData?[MetaFile.createdAtKey] ??
-                  DateTime.now().toIso8601String();
+              DateTime.now().toIso8601String();
           await metaFile.writeAsString(jsonEncode(metaData));
         } catch (e) {
           logger.w('Failed to update metadata during import: $e');
-          final basicMeta = _createBasicMetadata(newDocumentId, documentName, originalMetaData);
+          final basicMeta = _createBasicMetadata(
+            newDocumentId,
+            documentName,
+            originalMetaData,
+          );
           await metaFile.writeAsString(jsonEncode(basicMeta));
         }
       } else {
         // Create metadata file if it doesn't exist
         logger.i('Creating metadata file for imported document');
-        final basicMeta = _createBasicMetadata(newDocumentId, documentName, originalMetaData);
+        final basicMeta = _createBasicMetadata(
+          newDocumentId,
+          documentName,
+          originalMetaData,
+        );
         await metaFile.writeAsString(jsonEncode(basicMeta));
       }
 
       logger.i('Imported document: $documentName with ID: $newDocumentId');
       return outDir;
     } catch (e, stackTrace) {
-      logger.e('Failed to import document: $suggestedName',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to import document: $suggestedName',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return null;
     }
   }

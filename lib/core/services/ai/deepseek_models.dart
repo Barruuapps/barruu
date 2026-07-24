@@ -1,19 +1,12 @@
-
 /// Model for DeepSeek chat message
 class DeepSeekMessage {
   final String role;
   final String content;
 
-  const DeepSeekMessage({
-    required this.role,
-    required this.content,
-  });
+  const DeepSeekMessage({required this.role, required this.content});
 
   Map<String, dynamic> toJson() {
-    return {
-      'role': role,
-      'content': content,
-    };
+    return {'role': role, 'content': content};
   }
 
   factory DeepSeekMessage.fromJson(Map<String, dynamic> json) {
@@ -108,7 +101,9 @@ class DeepSeekChoice {
   factory DeepSeekChoice.fromJson(Map<String, dynamic> json) {
     return DeepSeekChoice(
       index: json['index'] as int? ?? 0,
-      message: DeepSeekMessage.fromJson(json['message'] as Map<String, dynamic>),
+      message: DeepSeekMessage.fromJson(
+        json['message'] as Map<String, dynamic>,
+      ),
       finishReason: json['finish_reason'] as String?,
     );
   }
@@ -138,12 +133,14 @@ class DeepSeekChatResponse {
       object: json['object'] as String? ?? '',
       created: json['created'] as int? ?? 0,
       model: json['model'] as String? ?? '',
-      choices: (json['choices'] as List<dynamic>?)
+      choices:
+          (json['choices'] as List<dynamic>?)
               ?.map((c) => DeepSeekChoice.fromJson(c as Map<String, dynamic>))
               .toList() ??
           [],
       usage: DeepSeekUsage.fromJson(
-          json['usage'] as Map<String, dynamic>? ?? {}),
+        json['usage'] as Map<String, dynamic>? ?? {},
+      ),
     );
   }
 
@@ -160,11 +157,7 @@ class DeepSeekError {
   final String? type;
   final String? code;
 
-  const DeepSeekError({
-    required this.message,
-    this.type,
-    this.code,
-  });
+  const DeepSeekError({required this.message, this.type, this.code});
 
   factory DeepSeekError.fromJson(Map<String, dynamic> json) {
     final error = json['error'] as Map<String, dynamic>?;
@@ -192,11 +185,7 @@ class DeepSeekException implements Exception {
   final int? statusCode;
   final DeepSeekError? error;
 
-  const DeepSeekException({
-    required this.message,
-    this.statusCode,
-    this.error,
-  });
+  const DeepSeekException({required this.message, this.statusCode, this.error});
 
   @override
   String toString() => 'DeepSeekException: $message (statusCode: $statusCode)';

@@ -40,7 +40,7 @@ class SyncfusionLineChartWidget extends StatelessWidget {
         final axisFontSize = isWide ? 13.0 : 11.0;
         final labelFontSize = isWide ? 12.0 : 10.0;
         final legendFontSize = isWide ? 12.0 : 10.0;
-        
+
         return SfCartesianChart(
           title: title.isNotEmpty
               ? ChartTitle(

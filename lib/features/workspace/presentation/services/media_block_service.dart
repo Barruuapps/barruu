@@ -38,7 +38,9 @@ class MediaBlockService {
     Directory docDir,
     BlockType type,
   ) async {
-    final controller = ref.read(editDocumentControllerProvider(docDir).notifier);
+    final controller = ref.read(
+      editDocumentControllerProvider(docDir).notifier,
+    );
 
     String dialogTitle;
     String? cameraLabel;

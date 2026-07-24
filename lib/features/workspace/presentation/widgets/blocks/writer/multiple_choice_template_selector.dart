@@ -33,8 +33,16 @@ class MultipleChoiceTemplateSelector extends StatelessWidget {
             _buildTemplateOption('grid', 'Grid', _buildGridPreview()),
             _buildTemplateOption('minimal', 'Minimal', _buildMinimalPreview()),
             _buildTemplateOption('pill', 'Pill', _buildPillPreview()),
-            _buildTemplateOption('numbered', 'Numbered', _buildNumberedPreview()),
-            _buildTemplateOption('highlight', 'Highlight', _buildHighlightPreview()),
+            _buildTemplateOption(
+              'numbered',
+              'Numbered',
+              _buildNumberedPreview(),
+            ),
+            _buildTemplateOption(
+              'highlight',
+              'Highlight',
+              _buildHighlightPreview(),
+            ),
           ],
         ),
       ),
@@ -79,7 +87,9 @@ class MultipleChoiceTemplateSelector extends StatelessWidget {
               decoration: BoxDecoration(
                 color: isSelected
                     ? theme.colorScheme.primary.withValues(alpha: 0.1)
-                    : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                    : theme.colorScheme.surfaceContainerHighest.withValues(
+                        alpha: 0.5,
+                      ),
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(7),
                   bottomRight: Radius.circular(7),
@@ -89,8 +99,7 @@ class MultipleChoiceTemplateSelector extends StatelessWidget {
                 label,
                 style: theme.textTheme.labelSmall?.copyWith(
                   fontSize: 10,
-                  fontWeight:
-                      isSelected ? FontWeight.w700 : FontWeight.normal,
+                  fontWeight: isSelected ? FontWeight.w700 : FontWeight.normal,
                   color: isSelected
                       ? theme.colorScheme.primary
                       : theme.colorScheme.onSurface,
@@ -114,30 +123,41 @@ class MultipleChoiceTemplateSelector extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Question line
-        Container(height: 5, color: theme.colorScheme.onSurface.withValues(alpha: 0.5), margin: const EdgeInsets.only(bottom: 6)),
+        Container(
+          height: 5,
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+          margin: const EdgeInsets.only(bottom: 6),
+        ),
         // Options with circle indicator
-        ...List.generate(3, (i) => Container(
-          margin: const EdgeInsets.only(bottom: 4),
-          height: 10,
-          decoration: BoxDecoration(
-            border: Border.all(color: i == 0 ? primary : color, width: i == 0 ? 1.5 : 1),
-            borderRadius: BorderRadius.circular(4),
-            color: i == 0 ? primary.withValues(alpha: 0.1) : null,
-          ),
-          child: Row(
-            children: [
-              const SizedBox(width: 4),
-              Container(
-                width: 6, height: 6,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: i == 0 ? primary : color),
-                  color: i == 0 ? primary : null,
-                ),
+        ...List.generate(
+          3,
+          (i) => Container(
+            margin: const EdgeInsets.only(bottom: 4),
+            height: 10,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: i == 0 ? primary : color,
+                width: i == 0 ? 1.5 : 1,
               ),
-            ],
+              borderRadius: BorderRadius.circular(4),
+              color: i == 0 ? primary.withValues(alpha: 0.1) : null,
+            ),
+            child: Row(
+              children: [
+                const SizedBox(width: 4),
+                Container(
+                  width: 6,
+                  height: 6,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: i == 0 ? primary : color),
+                    color: i == 0 ? primary : null,
+                  ),
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
       ],
     );
   }
@@ -149,7 +169,11 @@ class MultipleChoiceTemplateSelector extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(height: 5, color: theme.colorScheme.onSurface.withValues(alpha: 0.5), margin: const EdgeInsets.only(bottom: 5)),
+        Container(
+          height: 5,
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+          margin: const EdgeInsets.only(bottom: 5),
+        ),
         ...List.generate(3, (i) {
           final letters = ['A', 'B', 'C'];
           return Container(
@@ -158,19 +182,36 @@ class MultipleChoiceTemplateSelector extends StatelessWidget {
             decoration: BoxDecoration(
               color: i == 0 ? primary.withValues(alpha: 0.12) : surface,
               borderRadius: BorderRadius.circular(5),
-              border: Border.all(color: i == 0 ? primary : Colors.transparent, width: 1.5),
+              border: Border.all(
+                color: i == 0 ? primary : Colors.transparent,
+                width: 1.5,
+              ),
             ),
             child: Row(
               children: [
                 const SizedBox(width: 3),
                 Container(
-                  width: 8, height: 8,
+                  width: 8,
+                  height: 8,
                   decoration: BoxDecoration(
-                    color: i == 0 ? primary : theme.colorScheme.outline.withValues(alpha: 0.4),
+                    color: i == 0
+                        ? primary
+                        : theme.colorScheme.outline.withValues(alpha: 0.4),
                     borderRadius: BorderRadius.circular(2),
                   ),
                   child: Center(
-                    child: Text(letters[i], style: TextStyle(fontSize: 5, color: i == 0 ? Colors.white : theme.colorScheme.onSurface.withValues(alpha: 0.6), fontWeight: FontWeight.bold)),
+                    child: Text(
+                      letters[i],
+                      style: TextStyle(
+                        fontSize: 5,
+                        color: i == 0
+                            ? Colors.white
+                            : theme.colorScheme.onSurface.withValues(
+                                alpha: 0.6,
+                              ),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -187,33 +228,58 @@ class MultipleChoiceTemplateSelector extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(height: 5, color: theme.colorScheme.onSurface.withValues(alpha: 0.5), margin: const EdgeInsets.only(bottom: 6)),
+        Container(
+          height: 5,
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+          margin: const EdgeInsets.only(bottom: 6),
+        ),
         // 2x2 grid
         Row(
           children: [
-            Expanded(child: Container(
-              height: 18, margin: const EdgeInsets.only(right: 3, bottom: 3),
-              decoration: BoxDecoration(
-                color: primary.withValues(alpha: 0.12), borderRadius: BorderRadius.circular(4),
-                border: Border.all(color: primary, width: 1.5),
+            Expanded(
+              child: Container(
+                height: 18,
+                margin: const EdgeInsets.only(right: 3, bottom: 3),
+                decoration: BoxDecoration(
+                  color: primary.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(color: primary, width: 1.5),
+                ),
               ),
-            )),
-            Expanded(child: Container(
-              height: 18, margin: const EdgeInsets.only(bottom: 3),
-              decoration: BoxDecoration(color: surface, borderRadius: BorderRadius.circular(4)),
-            )),
+            ),
+            Expanded(
+              child: Container(
+                height: 18,
+                margin: const EdgeInsets.only(bottom: 3),
+                decoration: BoxDecoration(
+                  color: surface,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+            ),
           ],
         ),
         Row(
           children: [
-            Expanded(child: Container(
-              height: 18, margin: const EdgeInsets.only(right: 3),
-              decoration: BoxDecoration(color: surface, borderRadius: BorderRadius.circular(4)),
-            )),
-            Expanded(child: Container(
-              height: 18,
-              decoration: BoxDecoration(color: surface, borderRadius: BorderRadius.circular(4)),
-            )),
+            Expanded(
+              child: Container(
+                height: 18,
+                margin: const EdgeInsets.only(right: 3),
+                decoration: BoxDecoration(
+                  color: surface,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                height: 18,
+                decoration: BoxDecoration(
+                  color: surface,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+            ),
           ],
         ),
       ],
@@ -227,23 +293,43 @@ class MultipleChoiceTemplateSelector extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(height: 5, color: theme.colorScheme.onSurface.withValues(alpha: 0.5), margin: const EdgeInsets.only(bottom: 6)),
-        ...List.generate(3, (i) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(width: 5, height: 5, decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: i == 0 ? primary : theme.colorScheme.outline.withValues(alpha: 0.4),
-                )),
-                const SizedBox(width: 4),
-                Expanded(child: Container(height: 4, color: i == 0 ? primary.withValues(alpha: 0.5) : theme.colorScheme.onSurface.withValues(alpha: 0.25))),
-              ],
-            ),
-            if (i < 2) Divider(height: 6, thickness: 0.5, color: divColor),
-          ],
-        )),
+        Container(
+          height: 5,
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+          margin: const EdgeInsets.only(bottom: 6),
+        ),
+        ...List.generate(
+          3,
+          (i) => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 5,
+                    height: 5,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: i == 0
+                          ? primary
+                          : theme.colorScheme.outline.withValues(alpha: 0.4),
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  Expanded(
+                    child: Container(
+                      height: 4,
+                      color: i == 0
+                          ? primary.withValues(alpha: 0.5)
+                          : theme.colorScheme.onSurface.withValues(alpha: 0.25),
+                    ),
+                  ),
+                ],
+              ),
+              if (i < 2) Divider(height: 6, thickness: 0.5, color: divColor),
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -254,19 +340,28 @@ class MultipleChoiceTemplateSelector extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Container(height: 5, color: theme.colorScheme.onSurface.withValues(alpha: 0.5), margin: const EdgeInsets.only(bottom: 6)),
-        ...List.generate(3, (i) => Container(
-          margin: const EdgeInsets.only(bottom: 5),
-          height: 11,
-          decoration: BoxDecoration(
-            color: i == 0 ? primary.withValues(alpha: 0.12) : null,
-            borderRadius: BorderRadius.circular(18),
-            border: Border.all(
-              color: i == 0 ? primary : theme.colorScheme.outline.withValues(alpha: 0.4),
-              width: i == 0 ? 1.5 : 1,
+        Container(
+          height: 5,
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+          margin: const EdgeInsets.only(bottom: 6),
+        ),
+        ...List.generate(
+          3,
+          (i) => Container(
+            margin: const EdgeInsets.only(bottom: 5),
+            height: 11,
+            decoration: BoxDecoration(
+              color: i == 0 ? primary.withValues(alpha: 0.12) : null,
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(
+                color: i == 0
+                    ? primary
+                    : theme.colorScheme.outline.withValues(alpha: 0.4),
+                width: i == 0 ? 1.5 : 1,
+              ),
             ),
           ),
-        )),
+        ),
       ],
     );
   }
@@ -277,48 +372,85 @@ class MultipleChoiceTemplateSelector extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(height: 5, color: theme.colorScheme.onSurface.withValues(alpha: 0.5), margin: const EdgeInsets.only(bottom: 5)),
-        ...List.generate(3, (i) => Container(
-          margin: const EdgeInsets.only(bottom: 4),
-          height: 12,
-          decoration: BoxDecoration(
-            border: Border.all(color: i == 0 ? primary : theme.colorScheme.outline.withValues(alpha: 0.3), width: i == 0 ? 1.5 : 1),
-            borderRadius: BorderRadius.circular(5),
-            color: i == 0 ? primary.withValues(alpha: 0.07) : null,
-          ),
-          child: Row(
-            children: [
-              const SizedBox(width: 3),
-              Container(
-                width: 8, height: 8,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: i == 0 ? primary : theme.colorScheme.outline.withValues(alpha: 0.35),
-                ),
-                child: Center(child: Text('${i + 1}', style: TextStyle(fontSize: 5, color: Colors.white, fontWeight: FontWeight.bold))),
+        Container(
+          height: 5,
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+          margin: const EdgeInsets.only(bottom: 5),
+        ),
+        ...List.generate(
+          3,
+          (i) => Container(
+            margin: const EdgeInsets.only(bottom: 4),
+            height: 12,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: i == 0
+                    ? primary
+                    : theme.colorScheme.outline.withValues(alpha: 0.3),
+                width: i == 0 ? 1.5 : 1,
               ),
-            ],
+              borderRadius: BorderRadius.circular(5),
+              color: i == 0 ? primary.withValues(alpha: 0.07) : null,
+            ),
+            child: Row(
+              children: [
+                const SizedBox(width: 3),
+                Container(
+                  width: 8,
+                  height: 8,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: i == 0
+                        ? primary
+                        : theme.colorScheme.outline.withValues(alpha: 0.35),
+                  ),
+                  child: Center(
+                    child: Text(
+                      '${i + 1}',
+                      style: TextStyle(
+                        fontSize: 5,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
       ],
     );
   }
 
   Widget _buildHighlightPreview() {
-    final colors = [theme.colorScheme.primary, theme.colorScheme.secondary, theme.colorScheme.tertiary];
+    final colors = [
+      theme.colorScheme.primary,
+      theme.colorScheme.secondary,
+      theme.colorScheme.tertiary,
+    ];
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Container(height: 5, color: theme.colorScheme.onSurface.withValues(alpha: 0.5), margin: const EdgeInsets.only(bottom: 5)),
-        ...List.generate(3, (i) => Container(
-          margin: const EdgeInsets.only(bottom: 4),
-          height: 12,
-          decoration: BoxDecoration(
-            color: i == 0 ? colors[i % colors.length].withValues(alpha: 0.85) : theme.colorScheme.surfaceContainerHighest,
-            borderRadius: BorderRadius.circular(5),
+        Container(
+          height: 5,
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+          margin: const EdgeInsets.only(bottom: 5),
+        ),
+        ...List.generate(
+          3,
+          (i) => Container(
+            margin: const EdgeInsets.only(bottom: 4),
+            height: 12,
+            decoration: BoxDecoration(
+              color: i == 0
+                  ? colors[i % colors.length].withValues(alpha: 0.85)
+                  : theme.colorScheme.surfaceContainerHighest,
+              borderRadius: BorderRadius.circular(5),
+            ),
           ),
-        )),
+        ),
       ],
     );
   }

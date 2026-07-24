@@ -16,10 +16,13 @@ class AnswerValidationService {
   }
 
   // Validation thresholds
-  static const double multipleChoicePassingScore = 0.7; // 70% correct selections required
-  static const double matchingPassingScore = 0.6; // 60% correct matches required
-  static const double rearrangementPassingScore = 0.7; // 70% items in correct position
-  
+  static const double multipleChoicePassingScore =
+      0.7; // 70% correct selections required
+  static const double matchingPassingScore =
+      0.6; // 60% correct matches required
+  static const double rearrangementPassingScore =
+      0.7; // 70% items in correct position
+
   /// Validate multiple choice answer
   ValidationResult validateMultipleChoice({
     required List<String> userAnswers,
@@ -31,14 +34,14 @@ class AnswerValidationService {
           .where((opt) => opt['isCorrect'] == true)
           .map((opt) => opt['id'] as String)
           .toSet();
-      
+
       final userSet = userAnswers.toSet();
-      
+
       if (allowMultiple) {
         final correctSelections = userSet.intersection(correctIds).length;
         final wrongSelections = userSet.difference(correctIds).length;
         final totalCorrect = correctIds.length;
-        
+
         if (correctSelections == 0) {
           return ValidationResult(
             isCorrect: false,
@@ -46,10 +49,10 @@ class AnswerValidationService {
             feedback: 'No correct options selected.',
           );
         }
-        
+
         final score = ((correctSelections - wrongSelections) / totalCorrect)
             .clamp(0.0, 1.0);
-        
+
         return ValidationResult(
           isCorrect: score >= multipleChoicePassingScore,
           score: score,
@@ -58,9 +61,9 @@ class AnswerValidationService {
               : 'Not quite. You have some incorrect selections.',
         );
       } else {
-        final isCorrect = userSet.length == 1 && 
-                         correctIds.contains(userAnswers.first);
-        
+        final isCorrect =
+            userSet.length == 1 && correctIds.contains(userAnswers.first);
+
         return ValidationResult(
           isCorrect: isCorrect,
           score: isCorrect ? 1.0 : 0.0,
@@ -68,7 +71,11 @@ class AnswerValidationService {
         );
       }
     } catch (e, stackTrace) {
-      logger.e('Error validating multiple choice', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Error validating multiple choice',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return ValidationResult(
         isCorrect: false,
         score: 0.0,
@@ -76,7 +83,7 @@ class AnswerValidationService {
       );
     }
   }
-  
+
   /// Validate true/false answer
   ValidationResult validateTrueFalse({
     required bool userAnswer,
@@ -89,7 +96,7 @@ class AnswerValidationService {
       feedback: isCorrect ? 'Correct!' : 'Incorrect.',
     );
   }
-  
+
   /// Validate fill-in-blank answer
   ValidationResult validateFillInBlank({
     required Map<String, String> userAnswers,
@@ -99,7 +106,7 @@ class AnswerValidationService {
       int correctCount = 0;
       final totalBlanks = blanks.length;
       final Map<String, bool> blankResults = {};
-      
+
       for (final blank in blanks) {
         final blankId = blank['id'] as String;
         final userAnswer = userAnswers[blankId]?.trim() ?? '';
@@ -109,17 +116,15 @@ class AnswerValidationService {
         final caseSensitive = blank['caseSensitive'] as bool? ?? false;
         final acceptTypos = blank['acceptTypos'] as bool? ?? false;
         final maxDistance = blank['maxLevenshteinDistance'] as int? ?? 2;
-        
+
         bool isBlankCorrect = false;
-        
+
         for (final correctAnswer in correctAnswers) {
-          final target = caseSensitive 
-              ? correctAnswer 
+          final target = caseSensitive
+              ? correctAnswer
               : correctAnswer.toLowerCase();
-          final answer = caseSensitive 
-              ? userAnswer 
-              : userAnswer.toLowerCase();
-          
+          final answer = caseSensitive ? userAnswer : userAnswer.toLowerCase();
+
           if (acceptTypos) {
             final distance = _levenshteinDistance(answer, target);
             if (distance <= maxDistance) {
@@ -149,14 +154,14 @@ class AnswerValidationService {
             }
           }
         }
-        
+
         blankResults[blankId] = isBlankCorrect;
         if (isBlankCorrect) correctCount++;
       }
-      
+
       final score = correctCount / totalBlanks;
       final isCorrect = correctCount == totalBlanks;
-      
+
       return ValidationResult(
         isCorrect: isCorrect,
         score: score,
@@ -166,7 +171,11 @@ class AnswerValidationService {
         detailedFeedback: blankResults,
       );
     } catch (e, stackTrace) {
-      logger.e('Error validating fill in blank', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Error validating fill in blank',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return ValidationResult(
         isCorrect: false,
         score: 0.0,
@@ -174,14 +183,16 @@ class AnswerValidationService {
       );
     }
   }
-  
+
   /// Returns the text of a right-column item by its ID, or null if not found.
   ///
   /// [rightColumn] is the list of right-column items, each expected to be a
   /// map with at least `'id'` (String) and `'text'` (String) keys.
   /// [rightId] is the ID of the item whose text should be retrieved.
   String? _getRightTextById(
-      List<Map<String, dynamic>> rightColumn, String rightId) {
+    List<Map<String, dynamic>> rightColumn,
+    String rightId,
+  ) {
     for (final item in rightColumn) {
       if (item['id'] == rightId) return item['text'] as String?;
     }
@@ -228,7 +239,7 @@ class AnswerValidationService {
     try {
       int correctMatches = 0;
       final Map<String, bool> pairResults = {};
-      
+
       for (final pair in correctPairs) {
         final leftId = pair['left'] as String;
         final rightId = pair['right'] as String;
@@ -251,15 +262,16 @@ class AnswerValidationService {
         pairResults[leftId] = isCorrect;
         if (isCorrect) correctMatches++;
       }
-      
+
       final totalPairs = correctPairs.length;
       final score = correctMatches / totalPairs;
-      
+
       if (allowPartialCredit) {
         return ValidationResult(
           isCorrect: score >= matchingPassingScore,
           score: score,
-          feedback: 'You matched $correctMatches out of $totalPairs pairs correctly.',
+          feedback:
+              'You matched $correctMatches out of $totalPairs pairs correctly.',
           detailedFeedback: pairResults,
         );
       } else {
@@ -267,8 +279,8 @@ class AnswerValidationService {
         return ValidationResult(
           isCorrect: isCorrect,
           score: isCorrect ? 1.0 : 0.0,
-          feedback: isCorrect 
-              ? 'Perfect! All pairs matched correctly.' 
+          feedback: isCorrect
+              ? 'Perfect! All pairs matched correctly.'
               : 'Not all pairs are correct. Try again.',
           detailedFeedback: pairResults,
         );
@@ -282,7 +294,7 @@ class AnswerValidationService {
       );
     }
   }
-  
+
   /// Validate rearrangement answer
   ValidationResult validateRearrangement({
     required List<String> userOrder,
@@ -297,34 +309,39 @@ class AnswerValidationService {
           feedback: 'Incomplete arrangement.',
         );
       }
-      
+
       int correctPositions = 0;
       for (int i = 0; i < userOrder.length; i++) {
         if (userOrder[i] == correctOrder[i]) {
           correctPositions++;
         }
       }
-      
+
       final score = correctPositions / correctOrder.length;
-      
+
       if (allowPartialCredit) {
         return ValidationResult(
           isCorrect: score >= rearrangementPassingScore,
           score: score,
-          feedback: '$correctPositions out of ${correctOrder.length} items in correct position.',
+          feedback:
+              '$correctPositions out of ${correctOrder.length} items in correct position.',
         );
       } else {
         final isCorrect = score == 1.0;
         return ValidationResult(
           isCorrect: isCorrect,
           score: isCorrect ? 1.0 : 0.0,
-          feedback: isCorrect 
-              ? 'Perfect arrangement!' 
+          feedback: isCorrect
+              ? 'Perfect arrangement!'
               : 'Not all items are in the correct order.',
         );
       }
     } catch (e, stackTrace) {
-      logger.e('Error validating rearrangement', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Error validating rearrangement',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return ValidationResult(
         isCorrect: false,
         score: 0.0,
@@ -332,30 +349,31 @@ class AnswerValidationService {
       );
     }
   }
-  
+
   /// Calculate Levenshtein distance between two strings
   int _levenshteinDistance(String s1, String s2) {
     if (s1 == s2) return 0;
     if (s1.isEmpty) return s2.length;
     if (s2.isEmpty) return s1.length;
-    
+
     List<int> previousRow = List.generate(s2.length + 1, (i) => i);
-    
+
     for (int i = 0; i < s1.length; i++) {
       List<int> currentRow = [i + 1];
-      
+
       for (int j = 0; j < s2.length; j++) {
         int insertCost = currentRow[j] + 1;
         int deleteCost = previousRow[j + 1] + 1;
         int replaceCost = previousRow[j] + (s1[i] != s2[j] ? 1 : 0);
-        
-        currentRow.add([insertCost, deleteCost, replaceCost]
-            .reduce((a, b) => a < b ? a : b));
+
+        currentRow.add(
+          [insertCost, deleteCost, replaceCost].reduce((a, b) => a < b ? a : b),
+        );
       }
-      
+
       previousRow = currentRow;
     }
-    
+
     return previousRow[s2.length];
   }
 }
@@ -368,7 +386,7 @@ class ValidationResult {
   final Map<String, dynamic>? detailedFeedback;
   final List<String>? hints;
   final String? explanation;
-  
+
   const ValidationResult({
     required this.isCorrect,
     required this.score,
@@ -377,7 +395,7 @@ class ValidationResult {
     this.hints,
     this.explanation,
   });
-  
+
   Map<String, dynamic> toJson() {
     return {
       'isCorrect': isCorrect,
@@ -436,7 +454,8 @@ class _MathParser {
       final op = _src[_pos++];
       final right = _parseFactor();
       if (op == '/') {
-        if (right == 0) throw FormatException('Division by zero at position $_pos');
+        if (right == 0)
+          throw FormatException('Division by zero at position $_pos');
         value /= right;
       } else {
         value *= right;
@@ -446,7 +465,8 @@ class _MathParser {
   }
 
   double _parseFactor() {
-    if (_pos >= _src.length) throw const FormatException('Unexpected end of expression');
+    if (_pos >= _src.length)
+      throw const FormatException('Unexpected end of expression');
 
     // Parenthesised sub-expression
     if (_src[_pos] == '(') {
@@ -471,7 +491,9 @@ class _MathParser {
       _pos++;
     }
     if (_pos == start) {
-      throw FormatException('Expected number at position $_pos, got "${_src[_pos]}"');
+      throw FormatException(
+        'Expected number at position $_pos, got "${_src[_pos]}"',
+      );
     }
     return double.parse(_src.substring(start, _pos));
   }

@@ -26,7 +26,14 @@ class AudioFileService {
 
   /// Valid audio file extensions supported by the application
   static const List<String> validAudioExtensions = [
-    'mp3', 'wav', 'ogg', 'aac', 'm4a', 'flac', 'wma', 'opus'
+    'mp3',
+    'wav',
+    'ogg',
+    'aac',
+    'm4a',
+    'flac',
+    'wma',
+    'opus',
   ];
 
   /// Maximum allowed audio file size in bytes (100 MB)
@@ -42,8 +49,6 @@ class AudioFileService {
     required VoidCallback onFileSelected,
     required VoidCallback onRecordAudio,
   }) async {
-    final theme = Theme.of(context);
-    
     await showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -56,10 +61,7 @@ class AudioFileService {
               children: [
                 const Text(
                   'Add Audio',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 16),
                 ListTile(
@@ -75,7 +77,9 @@ class AudioFileService {
                 ListTile(
                   leading: Icon(Icons.audio_file),
                   title: const Text('Choose from Device'),
-                  subtitle: const Text('Select an audio file from your device storage'),
+                  subtitle: const Text(
+                    'Select an audio file from your device storage',
+                  ),
                   onTap: () {
                     Navigator.pop(context);
                     onFileSelected();
@@ -137,7 +141,9 @@ class AudioFileService {
       );
 
       // Get audio duration
-      final duration = await _getAudioDuration('${docDir.path}/${result['path']}');
+      final duration = await _getAudioDuration(
+        '${docDir.path}/${result['path']}',
+      );
 
       showSuccess('Audio recorded successfully');
 
@@ -147,7 +153,9 @@ class AudioFileService {
         'duration': duration,
       };
     } catch (e) {
-      showError('Error recording audio: ${e.toString().replaceAll('Exception: ', '')}');
+      showError(
+        'Error recording audio: ${e.toString().replaceAll('Exception: ', '')}',
+      );
       return null;
     }
   }
@@ -190,7 +198,9 @@ class AudioFileService {
         dialogTitle: 'Select an Audio File',
       );
 
-      if (result == null || result.files.isEmpty || result.files.first.path == null) {
+      if (result == null ||
+          result.files.isEmpty ||
+          result.files.first.path == null) {
         return null;
       }
 
@@ -200,14 +210,18 @@ class AudioFileService {
 
       // Reject system ringtone paths (common on Android)
       if (_isSystemAudioPath(filePath)) {
-        showError('System ringtones and notification sounds cannot be used. Please select music or voice recordings from your device storage.');
+        showError(
+          'System ringtones and notification sounds cannot be used. Please select music or voice recordings from your device storage.',
+        );
         return null;
       }
 
       // Validate audio file type by extension
       final extension = fileName.split('.').last.toLowerCase();
       if (!validAudioExtensions.contains(extension)) {
-        showError('Invalid audio format. Supported formats: ${validAudioExtensions.join(", ")}');
+        showError(
+          'Invalid audio format. Supported formats: ${validAudioExtensions.join(", ")}',
+        );
         return null;
       }
 
@@ -215,7 +229,9 @@ class AudioFileService {
       final file = File(filePath);
       final fileSize = await file.length();
       if (fileSize > maxFileSizeBytes) {
-        showError('Audio file is too large (${(fileSize / 1024 / 1024).toStringAsFixed(1)}MB). Maximum size is 100MB');
+        showError(
+          'Audio file is too large (${(fileSize / 1024 / 1024).toStringAsFixed(1)}MB). Maximum size is 100MB',
+        );
         return null;
       }
 
@@ -231,7 +247,9 @@ class AudioFileService {
                   child: ShimmerInlineLoading(size: 20),
                 ),
                 const SizedBox(width: 12),
-                Text('Uploading audio (${(fileSize / 1024 / 1024).toStringAsFixed(1)}MB)...'),
+                Text(
+                  'Uploading audio (${(fileSize / 1024 / 1024).toStringAsFixed(1)}MB)...',
+                ),
               ],
             ),
             duration: const Duration(hours: 1), // Will be dismissed manually
@@ -279,7 +297,9 @@ class AudioFileService {
       if (context.mounted) {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
       }
-      showError('Error uploading audio: ${e.toString().replaceAll('Exception: ', '')}');
+      showError(
+        'Error uploading audio: ${e.toString().replaceAll('Exception: ', '')}',
+      );
       return null;
     }
   }
@@ -337,12 +357,11 @@ class AudioFileService {
     String filePath,
     Block currentBlock,
   ) {
-    final controller = ref.read(editDocumentControllerProvider(docDir).notifier);
-    final allBlocks = controller.state;
+    final allBlocks = ref.read(editDocumentControllerProvider(docDir));
 
     return allBlocks.any((block) {
       if (block.id == currentBlock.id) return false; // Skip current block
-      
+
       // Only check media blocks
       final mediaTypes = ['video', 'audio', 'image'];
       if (!mediaTypes.contains(block.type.name)) return false;
@@ -365,12 +384,14 @@ class AudioFileService {
     AudioPlayer? player;
     try {
       player = AudioPlayer();
-      await player.setFilePath(absolutePath).timeout(
-        const Duration(seconds: 30),
-        onTimeout: () {
-          throw Exception('Audio initialization timed out');
-        },
-      );
+      await player
+          .setFilePath(absolutePath)
+          .timeout(
+            const Duration(seconds: 30),
+            onTimeout: () {
+              throw Exception('Audio initialization timed out');
+            },
+          );
 
       final duration = player.duration;
       if (duration != null) {

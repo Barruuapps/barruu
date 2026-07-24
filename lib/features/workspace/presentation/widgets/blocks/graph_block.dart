@@ -1,4 +1,3 @@
-
 import 'package:barruu/core/widgets/blocks/base_editable_block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/blocks/reader/graph_reader_block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/blocks/graph/enhanced_graph_editor.dart';
@@ -10,13 +9,7 @@ import 'package:barruu/features/workspace/data/repositories/workspace_repository
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-enum GraphType {
-  line,
-  parametric,
-  polar,
-  bar,
-  scatter,
-}
+enum GraphType { line, parametric, polar, bar, scatter }
 
 /// Maximum number of simultaneous equations allowed on a line graph.
 const int kMaxEquations = 6;
@@ -131,8 +124,10 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
     if (_equationControllers.isEmpty) {
       _equationControllers.add(TextEditingController());
     }
-    _activeEquationIndex =
-        _activeEquationIndex.clamp(0, _equationControllers.length - 1);
+    _activeEquationIndex = _activeEquationIndex.clamp(
+      0,
+      _equationControllers.length - 1,
+    );
   }
 
   /// Reconciles existing controllers with a new expression string without
@@ -157,7 +152,11 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
       WidgetsBinding.instance.addPostFrameCallback((_) => ctrl.dispose());
     }
     // Sync text
-    for (int i = 0; i < desired.length && i < _equationControllers.length; i++) {
+    for (
+      int i = 0;
+      i < desired.length && i < _equationControllers.length;
+      i++
+    ) {
       if (_equationControllers[i].text != desired[i]) {
         _equationControllers[i].text = desired[i];
       }
@@ -165,8 +164,10 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
     if (_equationControllers.isEmpty) {
       _equationControllers.add(TextEditingController());
     }
-    _activeEquationIndex =
-        _activeEquationIndex.clamp(0, _equationControllers.length - 1);
+    _activeEquationIndex = _activeEquationIndex.clamp(
+      0,
+      _equationControllers.length - 1,
+    );
   }
 
   /// Splits a raw expression on `;` into trimmed non-empty parts.
@@ -206,8 +207,10 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
     final removed = _equationControllers[index];
     setState(() {
       _equationControllers.removeAt(index);
-      _activeEquationIndex =
-          _activeEquationIndex.clamp(0, _equationControllers.length - 1);
+      _activeEquationIndex = _activeEquationIndex.clamp(
+        0,
+        _equationControllers.length - 1,
+      );
     });
     // Dispose after the frame so the old TextField can unmount cleanly.
     WidgetsBinding.instance.addPostFrameCallback((_) => removed.dispose());
@@ -254,8 +257,9 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
 
     // Return false silently when all fields are still empty – the user may be
     // in the middle of typing their first equation.
-    final hasExpression =
-        _equationControllers.any((c) => c.text.trim().isNotEmpty);
+    final hasExpression = _equationControllers.any(
+      (c) => c.text.trim().isNotEmpty,
+    );
     if (!hasExpression) return false;
 
     return true;
@@ -285,7 +289,8 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
 
     final textAlign = styleUtils.textAlignFromStyle(widget.block.style);
     final color =
-        styleUtils.parseHex(widget.block.style.color) ?? theme.colorScheme.onSurface;
+        styleUtils.parseHex(widget.block.style.color) ??
+        theme.colorScheme.onSurface;
     return _buildEditingMode(styleUtils, color, textAlign, theme);
   }
 
@@ -297,17 +302,15 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
     final textStyle = styleUtils.applyStyle(widget.block.style);
     final textAlign = styleUtils.textAlignFromStyle(widget.block.style);
     final color =
-        styleUtils.parseHex(widget.block.style.color) ?? theme.colorScheme.onSurface;
+        styleUtils.parseHex(widget.block.style.color) ??
+        theme.colorScheme.onSurface;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         FadeTransition(
           opacity: toolbarOpacity,
-          child: Toolbar(
-            block: widget.block,
-            docDir: widget.docDir,
-          ),
+          child: Toolbar(block: widget.block, docDir: widget.docDir),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -341,7 +344,9 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
                     fontStyle: FontStyle.italic,
                   ),
                   contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 12, vertical: 10),
+                    horizontal: 12,
+                    vertical: 10,
+                  ),
                 ),
                 onChanged: (value) => _saveContentLocal(),
               ),
@@ -369,11 +374,11 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
             block: widget.block,
             docDir: widget.docDir,
             child: GraphControls(
-              controller:
-                  ref.read(editDocumentControllerProvider(widget.docDir).notifier),
+              controller: ref.read(
+                editDocumentControllerProvider(widget.docDir).notifier,
+              ),
               block: widget.block,
-              expressionController:
-                  _equationControllers[_activeEquationIndex],
+              expressionController: _equationControllers[_activeEquationIndex],
               onExpressionSaved: _saveContentLocal,
             ),
           ),
@@ -419,7 +424,9 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
                     fontStyle: FontStyle.italic,
                   ),
                   contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 12, vertical: 10),
+                    horizontal: 12,
+                    vertical: 10,
+                  ),
                 ),
                 onChanged: (_) => _saveContentLocal(),
               ),
@@ -493,8 +500,9 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide:
-                            BorderSide(color: theme.colorScheme.outline),
+                        borderSide: BorderSide(
+                          color: theme.colorScheme.outline,
+                        ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -504,17 +512,21 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide:
-                            BorderSide(color: equationColor, width: 2),
+                        borderSide: BorderSide(color: equationColor, width: 2),
                       ),
                       contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 12),
+                        horizontal: 12,
+                        vertical: 12,
+                      ),
                       suffixIcon: _equationControllers.length > 1
                           ? IconButton(
                               icon: const Icon(
-                                  Icons.remove_circle_outline,
-                                  size: 20),
-                              color: theme.colorScheme.error.withValues(alpha: 0.7),
+                                Icons.remove_circle_outline,
+                                size: 20,
+                              ),
+                              color: theme.colorScheme.error.withValues(
+                                alpha: 0.7,
+                              ),
                               tooltip: 'Remove equation',
                               onPressed: () => _removeEquation(i),
                               padding: EdgeInsets.zero,
@@ -541,8 +553,7 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
             icon: const Icon(Icons.add_circle_outline, size: 18),
             label: const Text('Add equation'),
             style: TextButton.styleFrom(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               minimumSize: const Size(0, 44),
             ),
           ),
@@ -584,8 +595,10 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: theme.colorScheme.outline),
         ),
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 12,
+        ),
       ),
       onChanged: (_) => _saveContentLocal(),
     );
@@ -606,8 +619,7 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
         borderRadius: BorderRadius.circular(8),
         borderSide: BorderSide(color: theme.colorScheme.outline),
       ),
-      contentPadding:
-          const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
     );
 
     return Row(
@@ -618,23 +630,28 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
           child: TextField(
             controller: _minXController,
             keyboardType: const TextInputType.numberWithOptions(
-                decimal: true, signed: true),
+              decimal: true,
+              signed: true,
+            ),
             style: textStyle.copyWith(color: color, fontSize: 13),
-            decoration:
-                fieldDecoration.copyWith(hintText: '-10'),
+            decoration: fieldDecoration.copyWith(hintText: '-10'),
             onChanged: (_) => _saveContentLocal(),
           ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Text('to',
-              style: textStyle.copyWith(color: color, fontSize: 13)),
+          child: Text(
+            'to',
+            style: textStyle.copyWith(color: color, fontSize: 13),
+          ),
         ),
         Expanded(
           child: TextField(
             controller: _maxXController,
             keyboardType: const TextInputType.numberWithOptions(
-                decimal: true, signed: true),
+              decimal: true,
+              signed: true,
+            ),
             style: textStyle.copyWith(color: color, fontSize: 13),
             decoration: fieldDecoration.copyWith(hintText: '10'),
             onChanged: (_) => _saveContentLocal(),
@@ -651,16 +668,16 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
   Widget _buildGraphTypeSelector(ThemeData theme) {
     // Legacy blocks may store parametric/polar/scatter; map them to 'line'
     // for the writer UI so the user can still edit the expression.
-    final editorType =
-        _selectedGraphType == GraphType.bar ? GraphType.bar : GraphType.line;
+    final editorType = _selectedGraphType == GraphType.bar
+        ? GraphType.bar
+        : GraphType.line;
 
     return SegmentedButton<GraphType>(
       showSelectedIcon: false,
       segments: const [
         ButtonSegment<GraphType>(
           value: GraphType.line,
-          label: Text('Function y = f(x)',
-              overflow: TextOverflow.ellipsis),
+          label: Text('Function y = f(x)', overflow: TextOverflow.ellipsis),
           icon: Icon(Icons.show_chart, size: 16),
         ),
         ButtonSegment<GraphType>(

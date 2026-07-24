@@ -2,7 +2,6 @@ import 'package:barruu/core/utils/app_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-
 class ErrorApp extends StatelessWidget {
   const ErrorApp({super.key});
 

@@ -28,19 +28,20 @@ class EnhancedGraphRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     try {
-      final content = JsonStringConverter().convertFromJsonString(block.content);
+      final content = JsonStringConverter().convertFromJsonString(
+        block.content,
+      );
       final typeString = content['type']?.toString() ?? 'line';
-      
+
       // Check if this is a new enhanced graph type
       final enhancedType = _getEnhancedGraphType(typeString);
-      
+
       if (enhancedType != null) {
         return _renderEnhancedGraph(content, enhancedType);
       }
-      
+
       // Fallback to original graph rendering for backward compatibility
       return _buildLegacyGraphPlaceholder(typeString);
-      
     } catch (e) {
       return _buildErrorWidget('Error loading graph: $e');
     }
@@ -56,34 +57,39 @@ class EnhancedGraphRenderer extends StatelessWidget {
     }
   }
 
-  Widget _renderEnhancedGraph(Map<String, dynamic> content, EnhancedGraphType type) {
+  Widget _renderEnhancedGraph(
+    Map<String, dynamic> content,
+    EnhancedGraphType type,
+  ) {
     final caption = content['caption']?.toString() ?? '';
-    
+
     Widget chart;
-    
+
     switch (type.category) {
       case GraphCategory.mathematical:
         // Legacy mathematical graphs - will be handled by existing widgets
         chart = _buildLegacyGraphPlaceholder(type.name);
         break;
-        
+
       case GraphCategory.business:
         chart = _renderSyncfusionChart(content, type);
         break;
-        
+
       case GraphCategory.diagram:
         chart = _renderGraphViewDiagram(content, type);
         break;
     }
-    
+
     return LayoutBuilder(
       builder: (context, constraints) {
         final isWide = constraints.maxWidth > 600;
         // More aggressive height reduction for mobile
-        final containerHeight = isWide ? 300.0 : (constraints.maxWidth < 400 ? 220.0 : 250.0);
+        final containerHeight = isWide
+            ? 300.0
+            : (constraints.maxWidth < 400 ? 220.0 : 250.0);
         final padding = isWide ? 8.0 : 6.0;
         final verticalSpacing = isWide ? 8.0 : 6.0;
-        
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -111,18 +117,22 @@ class EnhancedGraphRenderer extends StatelessWidget {
     );
   }
 
-  Widget _renderSyncfusionChart(Map<String, dynamic> content, EnhancedGraphType type) {
-    final data = (content['data'] as List<dynamic>?)?.cast<Map<String, dynamic>>() ?? [];
+  Widget _renderSyncfusionChart(
+    Map<String, dynamic> content,
+    EnhancedGraphType type,
+  ) {
+    final data =
+        (content['data'] as List<dynamic>?)?.cast<Map<String, dynamic>>() ?? [];
     final xAxisLabel = content['xAxisLabel']?.toString() ?? 'X Axis';
     final yAxisLabel = content['yAxisLabel']?.toString() ?? 'Y Axis';
     final title = content['title']?.toString() ?? '';
     final showLegend = content['showLegend'] as bool? ?? true;
     final showDataLabels = content['showDataLabels'] as bool? ?? false;
-    
+
     if (data.isEmpty) {
       return _buildDataInputPrompt('Add data points to display the chart');
     }
-    
+
     switch (type) {
       case EnhancedGraphType.sfLine:
         return SyncfusionLineChartWidget(
@@ -134,7 +144,7 @@ class EnhancedGraphRenderer extends StatelessWidget {
           showDataLabels: showDataLabels,
           theme: theme,
         );
-        
+
       case EnhancedGraphType.sfSpline:
         return SyncfusionSplineChartWidget(
           data: data,
@@ -145,7 +155,7 @@ class EnhancedGraphRenderer extends StatelessWidget {
           showDataLabels: showDataLabels,
           theme: theme,
         );
-        
+
       case EnhancedGraphType.sfStepLine:
         return SyncfusionStepLineChartWidget(
           data: data,
@@ -156,7 +166,7 @@ class EnhancedGraphRenderer extends StatelessWidget {
           showDataLabels: showDataLabels,
           theme: theme,
         );
-        
+
       case EnhancedGraphType.sfBar:
         return SyncfusionBarChartWidget(
           data: data,
@@ -167,7 +177,7 @@ class EnhancedGraphRenderer extends StatelessWidget {
           showDataLabels: showDataLabels,
           theme: theme,
         );
-        
+
       case EnhancedGraphType.sfColumn:
         return SyncfusionColumnChartWidget(
           data: data,
@@ -178,7 +188,7 @@ class EnhancedGraphRenderer extends StatelessWidget {
           showDataLabels: showDataLabels,
           theme: theme,
         );
-        
+
       case EnhancedGraphType.sfArea:
         return SyncfusionAreaChartWidget(
           data: data,
@@ -189,7 +199,7 @@ class EnhancedGraphRenderer extends StatelessWidget {
           showDataLabels: showDataLabels,
           theme: theme,
         );
-        
+
       case EnhancedGraphType.sfPie:
         return SyncfusionPieChartWidget(
           data: data,
@@ -198,7 +208,7 @@ class EnhancedGraphRenderer extends StatelessWidget {
           showDataLabels: showDataLabels,
           theme: theme,
         );
-        
+
       case EnhancedGraphType.sfDoughnut:
         return SyncfusionPieChartWidget(
           data: data,
@@ -208,7 +218,7 @@ class EnhancedGraphRenderer extends StatelessWidget {
           theme: theme,
           isDoughnut: true,
         );
-        
+
       case EnhancedGraphType.sfBubble:
         return SyncfusionBubbleChartWidget(
           data: data,
@@ -219,7 +229,7 @@ class EnhancedGraphRenderer extends StatelessWidget {
           showDataLabels: showDataLabels,
           theme: theme,
         );
-        
+
       case EnhancedGraphType.sfScatter:
         return SyncfusionScatterChartWidget(
           data: data,
@@ -230,22 +240,31 @@ class EnhancedGraphRenderer extends StatelessWidget {
           showDataLabels: showDataLabels,
           theme: theme,
         );
-        
+
       default:
         // All chart types are now implemented
         return _buildErrorWidget('Unknown chart type: ${type.displayName}');
     }
   }
 
-  Widget _renderGraphViewDiagram(Map<String, dynamic> content, EnhancedGraphType type) {
-    final nodes = (content['nodes'] as List<dynamic>?)?.cast<Map<String, dynamic>>() ?? [];
-    final edges = (content['edges'] as List<dynamic>?)?.cast<Map<String, dynamic>>() ?? [];
+  Widget _renderGraphViewDiagram(
+    Map<String, dynamic> content,
+    EnhancedGraphType type,
+  ) {
+    final nodes =
+        (content['nodes'] as List<dynamic>?)?.cast<Map<String, dynamic>>() ??
+        [];
+    final edges =
+        (content['edges'] as List<dynamic>?)?.cast<Map<String, dynamic>>() ??
+        [];
     final layoutType = content['layoutType']?.toString() ?? 'hierarchical';
-    
+
     if (nodes.isEmpty) {
-      return _buildDataInputPrompt('Add nodes and connections to create your diagram');
+      return _buildDataInputPrompt(
+        'Add nodes and connections to create your diagram',
+      );
     }
-    
+
     return GraphViewDiagramWidget(
       nodes: nodes,
       edges: edges,

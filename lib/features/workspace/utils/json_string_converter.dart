@@ -33,7 +33,8 @@ class JsonStringConverter {
       final result = jsonDecode(jsonString);
       if (result is! Map<String, dynamic>) {
         throw const FormatException(
-            'JSON string must represent a map with string keys');
+          'JSON string must represent a map with string keys',
+        );
       }
       return result;
     } on FormatException catch (e) {

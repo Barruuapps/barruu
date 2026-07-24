@@ -236,7 +236,9 @@ class ListReaderBlock extends ConsumerWidget {
               theme.colorScheme.secondaryContainer.withValues(alpha: 0.4),
             ],
           ),
-          border: Border.all(color: theme.colorScheme.primary.withValues(alpha: 0.3)),
+          border: Border.all(
+            color: theme.colorScheme.primary.withValues(alpha: 0.3),
+          ),
         );
         break;
       case 'modern':
@@ -288,7 +290,9 @@ class ListReaderBlock extends ConsumerWidget {
         case 'numbered_card':
           return BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+            color: theme.colorScheme.surfaceContainerHighest.withValues(
+              alpha: 0.3,
+            ),
             border: Border.all(
               color: theme.colorScheme.outline.withValues(alpha: 0.15),
             ),
@@ -417,8 +421,9 @@ class ListReaderBlock extends ConsumerWidget {
                                 Expanded(
                                   child: Container(
                                     width: 2,
-                                    color: theme.colorScheme.primary
-                                        .withValues(alpha: 0.25),
+                                    color: theme.colorScheme.primary.withValues(
+                                      alpha: 0.25,
+                                    ),
                                   ),
                                 ),
                             ],

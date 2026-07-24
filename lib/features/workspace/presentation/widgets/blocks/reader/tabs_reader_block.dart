@@ -14,7 +14,7 @@ class TabsReaderBlock extends ConsumerStatefulWidget {
   final Block block;
   final Directory docDir;
   final bool allowSelection;
-  
+
   const TabsReaderBlock({
     required this.block,
     required this.docDir,
@@ -26,7 +26,8 @@ class TabsReaderBlock extends ConsumerStatefulWidget {
   ConsumerState<TabsReaderBlock> createState() => _TabsReaderBlockState();
 }
 
-class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTickerProviderStateMixin {
+class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock>
+    with SingleTickerProviderStateMixin {
   int _activeTab = 0;
   late TabController _tabController;
 
@@ -54,7 +55,12 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
     try {
       return converter.convertFromJsonString(widget.block.content);
     } catch (e) {
-      return {'tabs': [], 'activeTab': 0, 'tabTemplate': kDefaultTabTemplate, 'contentHeight': 400.0};
+      return {
+        'tabs': [],
+        'activeTab': 0,
+        'tabTemplate': kDefaultTabTemplate,
+        'contentHeight': 400.0,
+      };
     }
   }
 
@@ -63,8 +69,10 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
     final theme = Theme.of(context);
     final content = _parseContent();
     final tabs = content['tabs'] as List? ?? [];
-    final tabTemplate = content['tabTemplate']?.toString() ?? kDefaultTabTemplate;
-    final contentHeight = (content['contentHeight'] as num?)?.toDouble() ?? 400.0;
+    final tabTemplate =
+        content['tabTemplate']?.toString() ?? kDefaultTabTemplate;
+    final contentHeight =
+        (content['contentHeight'] as num?)?.toDouble() ?? 400.0;
 
     if (tabs.isEmpty) {
       return Container(
@@ -78,10 +86,22 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
       );
     }
 
-    return _buildTabsWithTemplate(context, theme, tabs, tabTemplate, contentHeight);
+    return _buildTabsWithTemplate(
+      context,
+      theme,
+      tabs,
+      tabTemplate,
+      contentHeight,
+    );
   }
 
-  Widget _buildTabsWithTemplate(BuildContext context, ThemeData theme, List tabs, String template, double contentHeight) {
+  Widget _buildTabsWithTemplate(
+    BuildContext context,
+    ThemeData theme,
+    List tabs,
+    String template,
+    double contentHeight,
+  ) {
     switch (template) {
       case kTabTemplatePills:
         return _buildPillsTabs(context, theme, tabs, contentHeight);
@@ -105,7 +125,12 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
     }
   }
 
-  Widget _buildStandardTabs(BuildContext context, ThemeData theme, List tabs, double contentHeight) {
+  Widget _buildStandardTabs(
+    BuildContext context,
+    ThemeData theme,
+    List tabs,
+    double contentHeight,
+  ) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 16),
       decoration: BoxDecoration(
@@ -121,7 +146,9 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
           // TabBar at the top with improved styling
           Container(
             decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(
+                alpha: 0.5,
+              ),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(16),
                 topRight: Radius.circular(16),
@@ -150,7 +177,9 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0.2,
               ),
-              unselectedLabelColor: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+              unselectedLabelColor: theme.colorScheme.onSurface.withValues(
+                alpha: 0.7,
+              ),
               unselectedLabelStyle: theme.textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.w500,
               ),
@@ -162,7 +191,7 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
               tabs: List.generate(tabs.length, (index) {
                 final tab = tabs[index] as Map<String, dynamic>;
                 final icon = getDrawerPageIcon(tab['icon']?.toString());
-                
+
                 return Tab(
                   height: 48,
                   child: Padding(
@@ -190,7 +219,7 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
               children: List.generate(tabs.length, (index) {
                 final tab = tabs[index] as Map<String, dynamic>;
                 final tabContent = tab['content']?.toString() ?? '';
-                
+
                 return Container(
                   padding: const EdgeInsets.all(24),
                   child: SingleChildScrollView(
@@ -205,7 +234,11 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
     );
   }
 
-  Widget _buildMarkdownContent(BuildContext context, ThemeData theme, String content) {
+  Widget _buildMarkdownContent(
+    BuildContext context,
+    ThemeData theme,
+    String content,
+  ) {
     if (content.isEmpty) {
       return Center(
         child: Padding(
@@ -238,10 +271,9 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
       );
     }
 
-    final baseStyle = theme.textTheme.bodyLarge?.copyWith(
-      height: 1.6,
-      letterSpacing: 0.15,
-    ) ?? const TextStyle();
+    final baseStyle =
+        theme.textTheme.bodyLarge?.copyWith(height: 1.6, letterSpacing: 0.15) ??
+        const TextStyle();
 
     return MarkdownBody(
       data: content,
@@ -272,10 +304,7 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
         ),
         blockquoteDecoration: BoxDecoration(
           border: Border(
-            left: BorderSide(
-              color: theme.colorScheme.primary,
-              width: 4,
-            ),
+            left: BorderSide(color: theme.colorScheme.primary, width: 4),
           ),
         ),
         blockquotePadding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
@@ -329,7 +358,12 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
   }
 
   // Pills template - Rounded pill-shaped tabs
-  Widget _buildPillsTabs(BuildContext context, ThemeData theme, List tabs, double contentHeight) {
+  Widget _buildPillsTabs(
+    BuildContext context,
+    ThemeData theme,
+    List tabs,
+    double contentHeight,
+  ) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
@@ -347,20 +381,25 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                   onTap: () => _tabController.animateTo(index),
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
                     decoration: BoxDecoration(
-                      color: isSelected 
-                          ? theme.colorScheme.primary 
+                      color: isSelected
+                          ? theme.colorScheme.primary
                           : theme.colorScheme.surfaceContainerHighest,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
                       tab['title'] ?? 'Untitled',
                       style: theme.textTheme.labelLarge?.copyWith(
-                        color: isSelected 
-                            ? theme.colorScheme.onPrimary 
+                        color: isSelected
+                            ? theme.colorScheme.onPrimary
                             : theme.colorScheme.onSurfaceVariant,
-                        fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                        fontWeight: isSelected
+                            ? FontWeight.w600
+                            : FontWeight.normal,
                       ),
                     ),
                   ),
@@ -391,7 +430,12 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
   }
 
   // Underline template - Minimal underlined tabs
-  Widget _buildUnderlineTabs(BuildContext context, ThemeData theme, List tabs, double contentHeight) {
+  Widget _buildUnderlineTabs(
+    BuildContext context,
+    ThemeData theme,
+    List tabs,
+    double contentHeight,
+  ) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
@@ -417,7 +461,9 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                 ),
               ),
               labelColor: theme.colorScheme.primary,
-              unselectedLabelColor: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+              unselectedLabelColor: theme.colorScheme.onSurface.withValues(
+                alpha: 0.6,
+              ),
               tabs: List.generate(tabs.length, (index) {
                 final tab = tabs[index] as Map<String, dynamic>;
                 return Tab(
@@ -451,7 +497,12 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
   }
 
   // Boxed template - Tabs with background boxes
-  Widget _buildBoxedTabs(BuildContext context, ThemeData theme, List tabs, double contentHeight) {
+  Widget _buildBoxedTabs(
+    BuildContext context,
+    ThemeData theme,
+    List tabs,
+    double contentHeight,
+  ) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 16),
       decoration: BoxDecoration(
@@ -466,7 +517,9 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(
+                alpha: 0.5,
+              ),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(16),
                 topRight: Radius.circular(16),
@@ -482,15 +535,20 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                     borderRadius: BorderRadius.circular(8),
                     child: Container(
                       margin: const EdgeInsets.all(4),
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 10,
+                      ),
                       decoration: BoxDecoration(
-                        color: isSelected 
+                        color: isSelected
                             ? theme.colorScheme.primary.withValues(alpha: 0.2)
                             : Colors.transparent,
                         borderRadius: BorderRadius.circular(8),
-                        border: isSelected 
+                        border: isSelected
                             ? Border.all(
-                                color: theme.colorScheme.primary.withValues(alpha: 0.5),
+                                color: theme.colorScheme.primary.withValues(
+                                  alpha: 0.5,
+                                ),
                               )
                             : null,
                       ),
@@ -498,10 +556,12 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                         child: Text(
                           tab['title'] ?? 'Untitled',
                           style: theme.textTheme.labelMedium?.copyWith(
-                            color: isSelected 
-                                ? theme.colorScheme.primary 
+                            color: isSelected
+                                ? theme.colorScheme.primary
                                 : theme.colorScheme.onSurfaceVariant,
-                            fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                            fontWeight: isSelected
+                                ? FontWeight.w600
+                                : FontWeight.normal,
                           ),
                         ),
                       ),
@@ -533,7 +593,12 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
   }
 
   // Minimal template - Clean minimal design
-  Widget _buildMinimalTabs(BuildContext context, ThemeData theme, List tabs, double contentHeight) {
+  Widget _buildMinimalTabs(
+    BuildContext context,
+    ThemeData theme,
+    List tabs,
+    double contentHeight,
+  ) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
@@ -549,9 +614,12 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                   onTap: () => _tabController.animateTo(index),
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 8),
-                    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 4,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
-                      border: isSelected 
+                      border: isSelected
                           ? Border(
                               bottom: BorderSide(
                                 color: theme.colorScheme.primary,
@@ -563,10 +631,14 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                     child: Text(
                       tab['title'] ?? 'Untitled',
                       style: theme.textTheme.labelMedium?.copyWith(
-                        color: isSelected 
-                            ? theme.colorScheme.primary 
-                            : theme.colorScheme.onSurface.withValues(alpha: 0.6),
-                        fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                        color: isSelected
+                            ? theme.colorScheme.primary
+                            : theme.colorScheme.onSurface.withValues(
+                                alpha: 0.6,
+                              ),
+                        fontWeight: isSelected
+                            ? FontWeight.w600
+                            : FontWeight.normal,
                       ),
                     ),
                   ),
@@ -596,7 +668,12 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
   }
 
   // Sidebar template - Sidebar navigation style
-  Widget _buildSidebarTabs(BuildContext context, ThemeData theme, List tabs, double contentHeight) {
+  Widget _buildSidebarTabs(
+    BuildContext context,
+    ThemeData theme,
+    List tabs,
+    double contentHeight,
+  ) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 16),
       height: contentHeight,
@@ -612,7 +689,9 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
           Container(
             width: 200,
             decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(
+                alpha: 0.5,
+              ),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(16),
                 bottomLeft: Radius.circular(16),
@@ -626,10 +705,13 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                 return InkWell(
                   onTap: () => _tabController.animateTo(index),
                   child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: isSelected 
+                      color: isSelected
                           ? theme.colorScheme.primary.withValues(alpha: 0.15)
                           : Colors.transparent,
                       borderRadius: BorderRadius.circular(8),
@@ -637,10 +719,12 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                     child: Text(
                       tab['title'] ?? 'Untitled',
                       style: theme.textTheme.labelMedium?.copyWith(
-                        color: isSelected 
-                            ? theme.colorScheme.primary 
+                        color: isSelected
+                            ? theme.colorScheme.primary
                             : theme.colorScheme.onSurfaceVariant,
-                        fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                        fontWeight: isSelected
+                            ? FontWeight.w600
+                            : FontWeight.normal,
                       ),
                     ),
                   ),
@@ -669,7 +753,12 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
   }
 
   // Vertical template - Vertically stacked tabs
-  Widget _buildVerticalTabs(BuildContext context, ThemeData theme, List tabs, double contentHeight) {
+  Widget _buildVerticalTabs(
+    BuildContext context,
+    ThemeData theme,
+    List tabs,
+    double contentHeight,
+  ) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 16),
       decoration: BoxDecoration(
@@ -693,23 +782,28 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                     margin: const EdgeInsets.symmetric(vertical: 4),
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: isSelected 
+                      color: isSelected
                           ? theme.colorScheme.primary.withValues(alpha: 0.15)
-                          : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+                          : theme.colorScheme.surfaceContainerHighest
+                                .withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(8),
-                      border: isSelected 
+                      border: isSelected
                           ? Border.all(
-                              color: theme.colorScheme.primary.withValues(alpha: 0.5),
+                              color: theme.colorScheme.primary.withValues(
+                                alpha: 0.5,
+                              ),
                             )
                           : null,
                     ),
                     child: Text(
                       tab['title'] ?? 'Untitled',
                       style: theme.textTheme.labelMedium?.copyWith(
-                        color: isSelected 
-                            ? theme.colorScheme.primary 
+                        color: isSelected
+                            ? theme.colorScheme.primary
                             : theme.colorScheme.onSurfaceVariant,
-                        fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                        fontWeight: isSelected
+                            ? FontWeight.w600
+                            : FontWeight.normal,
                       ),
                     ),
                   ),
@@ -739,7 +833,12 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
   }
 
   // Segmented template - iOS-style segmented control
-  Widget _buildSegmentedTabs(BuildContext context, ThemeData theme, List tabs, double contentHeight) {
+  Widget _buildSegmentedTabs(
+    BuildContext context,
+    ThemeData theme,
+    List tabs,
+    double contentHeight,
+  ) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
@@ -748,7 +847,9 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
             margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(
+                alpha: 0.5,
+              ),
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
                 color: theme.colorScheme.outline.withValues(alpha: 0.3),
@@ -763,10 +864,13 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                     onTap: () => _tabController.animateTo(index),
                     borderRadius: BorderRadius.circular(8),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
                       decoration: BoxDecoration(
-                        color: isSelected 
-                            ? theme.colorScheme.primary 
+                        color: isSelected
+                            ? theme.colorScheme.primary
                             : Colors.transparent,
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -774,10 +878,12 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                         child: Text(
                           tab['title'] ?? 'Untitled',
                           style: theme.textTheme.labelMedium?.copyWith(
-                            color: isSelected 
-                                ? theme.colorScheme.onPrimary 
+                            color: isSelected
+                                ? theme.colorScheme.onPrimary
                                 : theme.colorScheme.onSurfaceVariant,
-                            fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                            fontWeight: isSelected
+                                ? FontWeight.w600
+                                : FontWeight.normal,
                           ),
                         ),
                       ),
@@ -809,7 +915,12 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
   }
 
   // Cards template - Card-based tab selection
-  Widget _buildCardsTabs(BuildContext context, ThemeData theme, List tabs, double contentHeight) {
+  Widget _buildCardsTabs(
+    BuildContext context,
+    ThemeData theme,
+    List tabs,
+    double contentHeight,
+  ) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
@@ -834,8 +945,8 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                       color: theme.colorScheme.surface,
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: isSelected 
-                            ? theme.colorScheme.primary 
+                        color: isSelected
+                            ? theme.colorScheme.primary
                             : theme.colorScheme.outline.withValues(alpha: 0.2),
                         width: isSelected ? 2 : 1,
                       ),
@@ -847,15 +958,15 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                           Container(
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: isSelected 
-                                  ? theme.colorScheme.primaryContainer 
+                              color: isSelected
+                                  ? theme.colorScheme.primaryContainer
                                   : theme.colorScheme.surfaceContainerHighest,
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Icon(
                               icon,
-                              color: isSelected 
-                                  ? theme.colorScheme.onPrimaryContainer 
+                              color: isSelected
+                                  ? theme.colorScheme.onPrimaryContainer
                                   : theme.colorScheme.onSurfaceVariant,
                             ),
                           ),
@@ -864,10 +975,12 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                         Text(
                           tab['title'] ?? 'Untitled',
                           style: theme.textTheme.labelMedium?.copyWith(
-                            color: isSelected 
-                                ? theme.colorScheme.primary 
+                            color: isSelected
+                                ? theme.colorScheme.primary
                                 : theme.colorScheme.onSurface,
-                            fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                            fontWeight: isSelected
+                                ? FontWeight.w600
+                                : FontWeight.normal,
                           ),
                           textAlign: TextAlign.center,
                           maxLines: 2,

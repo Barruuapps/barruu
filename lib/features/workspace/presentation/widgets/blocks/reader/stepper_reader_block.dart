@@ -197,7 +197,9 @@ class _StepperReaderBlockState extends ConsumerState<StepperReaderBlock> {
               child: LinearProgressIndicator(
                 value: total > 0 ? completed / total : 0,
                 minHeight: 4,
-                backgroundColor: theme.colorScheme.outline.withValues(alpha: 0.2),
+                backgroundColor: theme.colorScheme.outline.withValues(
+                  alpha: 0.2,
+                ),
                 color: theme.colorScheme.primary,
               ),
             ),
@@ -280,12 +282,16 @@ class _StepperReaderBlockState extends ConsumerState<StepperReaderBlock> {
                           colors: [
                             isCompleted
                                 ? theme.colorScheme.primary
-                                : theme.colorScheme.outline.withValues(alpha: 0.3),
+                                : theme.colorScheme.outline.withValues(
+                                    alpha: 0.3,
+                                  ),
                             isCompleted &&
                                     (steps[index + 1]['isCompleted'] ??
                                         _completedSteps.contains(index + 1))
                                 ? theme.colorScheme.primary
-                                : theme.colorScheme.outline.withValues(alpha: 0.3),
+                                : theme.colorScheme.outline.withValues(
+                                    alpha: 0.3,
+                                  ),
                           ],
                         ),
                         borderRadius: BorderRadius.circular(2),
@@ -436,7 +442,9 @@ class _StepperReaderBlockState extends ConsumerState<StepperReaderBlock> {
                     data: step['description'].toString(),
                     styleSheet: MarkdownStyleSheet(
                       p: TextStyle(
-                        color: isCompleted ? color.withValues(alpha: 0.5) : color,
+                        color: isCompleted
+                            ? color.withValues(alpha: 0.5)
+                            : color,
                         height: 1.4,
                       ),
                       strong: TextStyle(
@@ -542,7 +550,9 @@ class _StepperReaderBlockState extends ConsumerState<StepperReaderBlock> {
                         data: step['description'].toString(),
                         styleSheet: MarkdownStyleSheet(
                           p: TextStyle(
-                            color: color.withValues(alpha: isCompleted ? 0.5 : 0.8),
+                            color: color.withValues(
+                              alpha: isCompleted ? 0.5 : 0.8,
+                            ),
                           ),
                           strong: TextStyle(fontWeight: FontWeight.bold),
                           em: TextStyle(fontStyle: FontStyle.italic),
@@ -624,7 +634,9 @@ class _StepperReaderBlockState extends ConsumerState<StepperReaderBlock> {
             margin: const EdgeInsets.only(bottom: 12),
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(
+                alpha: 0.3,
+              ),
               borderRadius: BorderRadius.circular(8),
               border: isCompleted
                   ? Border.all(color: theme.colorScheme.primary, width: 2)
@@ -736,11 +748,15 @@ class _StepperReaderBlockState extends ConsumerState<StepperReaderBlock> {
                 margin: const EdgeInsets.only(bottom: 16),
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+                  color: theme.colorScheme.surfaceContainerHighest.withValues(
+                    alpha: 0.3,
+                  ),
                   borderRadius: BorderRadius.circular(12),
                   border: isCompleted
                       ? Border.all(
-                          color: theme.colorScheme.primary.withValues(alpha: 0.5),
+                          color: theme.colorScheme.primary.withValues(
+                            alpha: 0.5,
+                          ),
                         )
                       : null,
                 ),
@@ -763,7 +779,9 @@ class _StepperReaderBlockState extends ConsumerState<StepperReaderBlock> {
                         data: step['description'].toString(),
                         styleSheet: MarkdownStyleSheet(
                           p: TextStyle(
-                            color: color.withValues(alpha: isCompleted ? 0.5 : 0.8),
+                            color: color.withValues(
+                              alpha: isCompleted ? 0.5 : 0.8,
+                            ),
                           ),
                           strong: TextStyle(fontWeight: FontWeight.bold),
                           em: TextStyle(fontStyle: FontStyle.italic),
@@ -907,7 +925,9 @@ class _StepperReaderBlockState extends ConsumerState<StepperReaderBlock> {
                           data: step['description'].toString(),
                           styleSheet: MarkdownStyleSheet(
                             p: TextStyle(
-                              color: color.withValues(alpha: isCompleted ? 0.5 : 0.7),
+                              color: color.withValues(
+                                alpha: isCompleted ? 0.5 : 0.7,
+                              ),
                             ),
                             strong: TextStyle(fontWeight: FontWeight.bold),
                             em: TextStyle(fontStyle: FontStyle.italic),

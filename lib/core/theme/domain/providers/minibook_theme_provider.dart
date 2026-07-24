@@ -8,9 +8,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// Minibook themes are used for content reading and can be selected by
 /// content creators when writing and by users when reading.
 /// This is separate from the app system theme (light/dark/system).
-final minibookThemeProvider = StateNotifierProvider.autoDispose<MinibookThemeNotifier, AppThemeType>(
+final minibookThemeProvider =
+    StateNotifierProvider.autoDispose<MinibookThemeNotifier, AppThemeType>(
       (ref) => MinibookThemeNotifier(),
-);
+    );
 
 /// Manages the minibook theme state and persists theme selection.
 ///
@@ -72,9 +73,11 @@ class MinibookThemeNotifier extends StateNotifier<AppThemeType> {
     }
     try {
       return AppThemeType.values.firstWhere(
-            (type) => type.name == themeName,
+        (type) => type.name == themeName,
         orElse: () {
-          logger.w('Invalid theme name in preferences: $themeName, using default');
+          logger.w(
+            'Invalid theme name in preferences: $themeName, using default',
+          );
           return AppThemeType.professionalTeal;
         },
       );

@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 
 /// A reusable widget for picking and displaying avatar images
-/// 
+///
 /// Features:
 /// - Camera and gallery options
 /// - Image preview with loading states
@@ -14,16 +14,16 @@ import 'package:iconsax_plus/iconsax_plus.dart';
 class AvatarPicker extends StatefulWidget {
   /// Current avatar URL (if any)
   final String? currentAvatarUrl;
-  
+
   /// Callback when an image is selected
   final Function(File imageFile) onImageSelected;
-  
+
   /// Avatar radius (default: 60)
   final double radius;
-  
+
   /// Whether to show the edit button
   final bool showEditButton;
-  
+
   /// Loading state
   final bool isLoading;
 
@@ -47,20 +47,16 @@ class _AvatarPickerState extends State<AvatarPicker> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Stack(
       children: [
         // Avatar display
         _buildAvatar(theme),
-        
+
         // Edit button
         if (widget.showEditButton)
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: _buildEditButton(theme),
-          ),
-          
+          Positioned(bottom: 0, right: 0, child: _buildEditButton(theme)),
+
         // Loading overlay
         if (widget.isLoading)
           Positioned.fill(
@@ -80,7 +76,7 @@ class _AvatarPickerState extends State<AvatarPicker> {
 
   Widget _buildAvatar(ThemeData theme) {
     final avatarRadius = widget.radius;
-    
+
     return Container(
       width: avatarRadius * 2,
       height: avatarRadius * 2,
@@ -103,9 +99,7 @@ class _AvatarPickerState extends State<AvatarPicker> {
           color: theme.colorScheme.surface,
         ),
         padding: const EdgeInsets.all(3),
-        child: ClipOval(
-          child: _buildAvatarContent(theme),
-        ),
+        child: ClipOval(child: _buildAvatarContent(theme)),
       ),
     );
   }
@@ -113,14 +107,12 @@ class _AvatarPickerState extends State<AvatarPicker> {
   Widget _buildAvatarContent(ThemeData theme) {
     // Show selected image if available
     if (_selectedImage != null) {
-      return Image.file(
-        _selectedImage!,
-        fit: BoxFit.cover,
-      );
+      return Image.file(_selectedImage!, fit: BoxFit.cover);
     }
-    
+
     // Show current avatar from URL
-    if (widget.currentAvatarUrl != null && widget.currentAvatarUrl!.isNotEmpty) {
+    if (widget.currentAvatarUrl != null &&
+        widget.currentAvatarUrl!.isNotEmpty) {
       return Image.network(
         widget.currentAvatarUrl!,
         fit: BoxFit.cover,
@@ -138,7 +130,7 @@ class _AvatarPickerState extends State<AvatarPicker> {
         errorBuilder: (context, error, stackTrace) => _buildFallbackIcon(theme),
       );
     }
-    
+
     // Show fallback icon
     return _buildFallbackIcon(theme);
   }
@@ -178,10 +170,7 @@ class _AvatarPickerState extends State<AvatarPicker> {
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.all(
-              color: theme.colorScheme.surface,
-              width: 3,
-            ),
+            border: Border.all(color: theme.colorScheme.surface, width: 3),
           ),
           child: Icon(
             IconsaxPlusLinear.camera,
@@ -195,7 +184,7 @@ class _AvatarPickerState extends State<AvatarPicker> {
 
   void _showImageSourceDialog() {
     final theme = Theme.of(context);
-    
+
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -218,7 +207,7 @@ class _AvatarPickerState extends State<AvatarPicker> {
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
-              
+
               // Title
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -246,10 +235,10 @@ class _AvatarPickerState extends State<AvatarPicker> {
                   ],
                 ),
               ),
-              
+
               const SizedBox(height: 16),
               const Divider(height: 1),
-              
+
               // Camera option
               _ImageSourceOption(
                 icon: IconsaxPlusLinear.camera,
@@ -260,7 +249,7 @@ class _AvatarPickerState extends State<AvatarPicker> {
                   _pickImage(ImageSource.camera);
                 },
               ),
-              
+
               // Gallery option
               _ImageSourceOption(
                 icon: IconsaxPlusLinear.gallery,
@@ -271,7 +260,7 @@ class _AvatarPickerState extends State<AvatarPicker> {
                   _pickImage(ImageSource.gallery);
                 },
               ),
-              
+
               // Remove option (if avatar exists)
               if (widget.currentAvatarUrl != null || _selectedImage != null)
                 _ImageSourceOption(
@@ -284,7 +273,7 @@ class _AvatarPickerState extends State<AvatarPicker> {
                     _removeAvatar();
                   },
                 ),
-              
+
               const SizedBox(height: 16),
             ],
           ),
@@ -305,11 +294,11 @@ class _AvatarPickerState extends State<AvatarPicker> {
       if (image == null) return;
 
       final file = File(image.path);
-      
+
       setState(() {
         _selectedImage = file;
       });
-      
+
       widget.onImageSelected(file);
     } catch (e) {
       if (mounted) {
@@ -350,7 +339,9 @@ class _ImageSourceOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final color = isDestructive ? theme.colorScheme.error : theme.colorScheme.primary;
+    final color = isDestructive
+        ? theme.colorScheme.error
+        : theme.colorScheme.primary;
 
     return InkWell(
       onTap: onTap,
@@ -361,16 +352,12 @@ class _ImageSourceOption extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: isDestructive 
+                color: isDestructive
                     ? theme.colorScheme.errorContainer.withValues(alpha: 0.5)
                     : theme.colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Icon(
-                icon,
-                size: 22,
-                color: color,
-              ),
+              child: Icon(icon, size: 22, color: color),
             ),
             const SizedBox(width: 16),
             Expanded(

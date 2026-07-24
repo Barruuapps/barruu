@@ -15,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:path/path.dart' as path;
 
-
 /// Audio block widget for displaying audio files
 /// Supports local audio files with playback controls
 /// Extends BaseEditableBlock for consistent behavior.
@@ -41,7 +40,7 @@ class _AudioBlockState extends BaseEditableBlockState<AudioBlock> {
   late TextEditingController _titleController;
   late TextEditingController _captionController;
   late Debouncer _saveDebouncer;
-  
+
   // Audio player state for trimming
   AudioPlayer? _audioPlayer;
   bool _isAudioInitialized = false;
@@ -63,8 +62,9 @@ class _AudioBlockState extends BaseEditableBlockState<AudioBlock> {
     final styleUtils = ref.read(styleUtilsProvider);
     _width = widget.block.style.width;
     _height = widget.block.style.height;
-    _backgroundColor = styleUtils.parseHex(widget.block.style.background) ?? Colors.grey;
-    
+    _backgroundColor =
+        styleUtils.parseHex(widget.block.style.background) ?? Colors.grey;
+
     // Ensure startTime and endTime exist in content
     content['startTime'] = content['startTime'] ?? 0.0;
     content['endTime'] = content['endTime'] ?? 0.0;
@@ -72,7 +72,9 @@ class _AudioBlockState extends BaseEditableBlockState<AudioBlock> {
     // Extract file name
     try {
       final relativePath = content['path'] as String;
-      final absolutePath = relativePath.isNotEmpty ? '${widget.docDir.path}/$relativePath' : '';
+      final absolutePath = relativePath.isNotEmpty
+          ? '${widget.docDir.path}/$relativePath'
+          : '';
       final file = File(absolutePath);
       if (file.existsSync()) {
         _fileName = path.basename(file.path);
@@ -93,7 +95,7 @@ class _AudioBlockState extends BaseEditableBlockState<AudioBlock> {
     _titleController = TextEditingController(text: _customTitle);
     _captionController = TextEditingController(text: _caption);
     _saveDebouncer = Debouncer(delay: const Duration(milliseconds: 500));
-    
+
     // Initialize audio player if path exists
     final audioPath = content['path'] as String? ?? '';
     if (audioPath.isNotEmpty) {
@@ -118,7 +120,7 @@ class _AudioBlockState extends BaseEditableBlockState<AudioBlock> {
     if (_customTitle != customTitle) {
       _customTitle = customTitle;
     }
-    
+
     final caption = content['caption'] ?? '';
     if (_captionController.text != caption) {
       _captionController.text = caption;
@@ -133,16 +135,16 @@ class _AudioBlockState extends BaseEditableBlockState<AudioBlock> {
     content['caption'] = _caption;
     _saveDebouncer.call(() => saveContent());
   }
-  
+
   Future<void> _initializeAudioController() async {
     if (!mounted) return;
-    
+
     final relativePath = content['path'] as String? ?? '';
     if (relativePath.isEmpty) return;
-    
+
     final absolutePath = '${widget.docDir.path}/$relativePath';
     final file = File(absolutePath);
-    
+
     if (!file.existsSync()) {
       if (mounted) {
         setState(() {
@@ -152,55 +154,60 @@ class _AudioBlockState extends BaseEditableBlockState<AudioBlock> {
       }
       return;
     }
-    
+
     try {
       // Dispose existing player if any
       if (_audioPlayer != null) {
         await _audioPlayer!.dispose();
         _audioPlayer = null;
       }
-      
+
       _audioPlayer = AudioPlayer();
-      
+
       // Add timeout to prevent indefinite hanging
-      await _audioPlayer!.setFilePath(file.path).timeout(
-        const Duration(seconds: 30),
-        onTimeout: () {
-          throw Exception('Audio initialization timed out after 30 seconds');
-        },
-      );
-      
+      await _audioPlayer!
+          .setFilePath(file.path)
+          .timeout(
+            const Duration(seconds: 30),
+            onTimeout: () {
+              throw Exception(
+                'Audio initialization timed out after 30 seconds',
+              );
+            },
+          );
+
       if (!mounted) {
         _audioPlayer?.dispose();
         return;
       }
-      
+
       final duration = _audioPlayer!.duration;
       if (duration != null) {
         setState(() {
           _isAudioInitialized = true;
           _audioDuration = duration.inMilliseconds / 1000.0;
-          
+
           // Validate and fix trim times
           final startTime = content['startTime'] as double? ?? 0.0;
           final endTime = content['endTime'] as double? ?? 0.0;
-          
+
           // If endTime is 0 or greater than duration, set it to duration
           if (endTime == 0.0 || endTime > _audioDuration) {
             content['endTime'] = _audioDuration;
           }
-          
+
           // If startTime is invalid, reset to 0
           if (startTime < 0 || startTime >= _audioDuration) {
             content['startTime'] = 0.0;
           }
-          
+
           // Ensure startTime < endTime
-          if ((content['startTime'] as double) >= (content['endTime'] as double)) {
+          if ((content['startTime'] as double) >=
+              (content['endTime'] as double)) {
             content['startTime'] = 0.0;
             content['endTime'] = _audioDuration;
           }
-          
+
           _saveAudioContent();
         });
       }
@@ -214,7 +221,7 @@ class _AudioBlockState extends BaseEditableBlockState<AudioBlock> {
       }
     }
   }
-  
+
   /// Handles audio file selection and upload using the AudioFileService
   Future<void> _changeAudio() async {
     // Show dialog to choose between recording and file selection
@@ -271,7 +278,9 @@ class _AudioBlockState extends BaseEditableBlockState<AudioBlock> {
   }
 
   void _updateStyle() {
-    final controller = ref.read(editDocumentControllerProvider(widget.docDir).notifier);
+    final controller = ref.read(
+      editDocumentControllerProvider(widget.docDir).notifier,
+    );
     final styleUtils = ref.read(styleUtilsProvider);
 
     // Convert Color to hex string
@@ -296,7 +305,9 @@ class _AudioBlockState extends BaseEditableBlockState<AudioBlock> {
   @override
   Widget buildEditor(BuildContext context) {
     final relativePath = content['path'] as String? ?? '';
-    final absolutePath = relativePath.isNotEmpty ? '${widget.docDir.path}/$relativePath' : '';
+    final absolutePath = relativePath.isNotEmpty
+        ? '${widget.docDir.path}/$relativePath'
+        : '';
 
     return Column(
       children: [
@@ -309,7 +320,9 @@ class _AudioBlockState extends BaseEditableBlockState<AudioBlock> {
   Widget _buildEditor({required WidgetRef ref, required String audioPath}) {
     final theme = Theme.of(context);
     final styleUtils = ref.read(styleUtilsProvider);
-    final color = styleUtils.parseHex(widget.block.style.color) ?? theme.colorScheme.primary;
+    final color =
+        styleUtils.parseHex(widget.block.style.color) ??
+        theme.colorScheme.primary;
 
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8),
@@ -325,7 +338,9 @@ class _AudioBlockState extends BaseEditableBlockState<AudioBlock> {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    _fileName.isEmpty ? 'No audio selected' : 'Audio: $_fileName',
+                    _fileName.isEmpty
+                        ? 'No audio selected'
+                        : 'Audio: $_fileName',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -336,7 +351,9 @@ class _AudioBlockState extends BaseEditableBlockState<AudioBlock> {
                   ),
                 ),
                 ElevatedButton.icon(
-                  icon: Icon(_fileName.isEmpty ? Icons.add : Icons.change_circle),
+                  icon: Icon(
+                    _fileName.isEmpty ? Icons.add : Icons.change_circle,
+                  ),
                   label: Text(_fileName.isEmpty ? 'Select Audio' : 'Change'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.colorScheme.primary,
@@ -350,9 +367,11 @@ class _AudioBlockState extends BaseEditableBlockState<AudioBlock> {
 
             // Audio Player Widget - maintains state during edits
             AudioPlayerWidget(audioPath: audioPath),
-            
+
             // Audio trimming controls
-            if (_isAudioInitialized && _audioDuration > 0 && _audioPlayer != null) ...[
+            if (_isAudioInitialized &&
+                _audioDuration > 0 &&
+                _audioPlayer != null) ...[
               const SizedBox(height: 16),
               AudioTrimmingWidget(
                 audioPlayer: _audioPlayer!,
@@ -399,7 +418,7 @@ class _AudioBlockState extends BaseEditableBlockState<AudioBlock> {
               },
             ),
             const SizedBox(height: 16),
-            
+
             // Appearance controls
             AudioAppearanceWidget(
               width: _width,

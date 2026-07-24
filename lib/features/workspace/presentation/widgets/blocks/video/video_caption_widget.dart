@@ -52,18 +52,18 @@ class VideoCaptionWidget extends StatelessWidget {
               onChanged: onChanged,
             )
           : caption.isNotEmpty
-              ? Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text(
-                    caption,
-                    style: TextStyle(
-                      fontStyle: FontStyle.italic,
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                )
-              : const SizedBox.shrink(),
+          ? Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                caption,
+                style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            )
+          : const SizedBox.shrink(),
     );
   }
 }

@@ -38,10 +38,7 @@ class ChatMessage {
 class AIChatPage extends ConsumerStatefulWidget {
   final Directory? docDir;
 
-  const AIChatPage({
-    super.key,
-    this.docDir,
-  });
+  const AIChatPage({super.key, this.docDir});
 
   @override
   ConsumerState<AIChatPage> createState() => _AIChatPageState();
@@ -55,17 +52,19 @@ class _AIChatPageState extends ConsumerState<AIChatPage> {
   final FileExtractionService _fileExtractionService = FileExtractionService();
   bool _isLoading = false;
   AIGenerationType _selectedType = AIGenerationType.page;
-  File? _uploadedFile;
   String? _extractedText;
 
   @override
   void initState() {
     super.initState();
     // Add welcome message
-    _messages.add(ChatMessage(
-      role: 'assistant',
-      content: "Hi! I'm your AI assistant. Select a mode below, then describe what you want to create.",
-    ));
+    _messages.add(
+      ChatMessage(
+        role: 'assistant',
+        content:
+            "Hi! I'm your AI assistant. Select a mode below, then describe what you want to create.",
+      ),
+    );
   }
 
   @override
@@ -100,7 +99,9 @@ class _AIChatPageState extends ConsumerState<AIChatPage> {
         withReadStream: false,
       );
 
-      if (result == null || result.files.isEmpty || result.files.single.path == null) {
+      if (result == null ||
+          result.files.isEmpty ||
+          result.files.single.path == null) {
         logger.i('No file selected for upload');
         return;
       }
@@ -110,41 +111,42 @@ class _AIChatPageState extends ConsumerState<AIChatPage> {
 
       // Add user message showing file upload
       setState(() {
-        _messages.add(ChatMessage(
-          role: 'user',
-          content: '📎 Uploaded file: **$fileName**',
-        ));
+        _messages.add(
+          ChatMessage(role: 'user', content: '📎 Uploaded file: **$fileName**'),
+        );
         _isLoading = true;
       });
       _scrollToBottom();
 
       // Add loading message for extraction
       setState(() {
-        _messages.add(ChatMessage(
-          role: 'assistant',
-          content: '',
-          isLoading: true,
-        ));
+        _messages.add(
+          ChatMessage(role: 'assistant', content: '', isLoading: true),
+        );
       });
       _scrollToBottom();
 
       // Extract text from file
-      final extractedText = await _fileExtractionService.extractTextFromFile(file);
+      final extractedText = await _fileExtractionService.extractTextFromFile(
+        file,
+      );
 
       if (extractedText == null || extractedText.isEmpty) {
         setState(() {
           _messages.removeLast();
-          _messages.add(ChatMessage(
-            role: 'assistant',
-            content: '❌ **Extraction Failed**\n\nCould not extract text from the file. Please make sure:\n• The file is not empty\n• The file is a valid text file\n• The file is not corrupted',
-          ));
+          _messages.add(
+            ChatMessage(
+              role: 'assistant',
+              content:
+                  '❌ **Extraction Failed**\n\nCould not extract text from the file. Please make sure:\n• The file is not empty\n• The file is a valid text file\n• The file is not corrupted',
+            ),
+          );
           _isLoading = false;
         });
         return;
       }
 
-      // Store extracted text and file
-      _uploadedFile = file;
+      // Store extracted text
       _extractedText = extractedText;
 
       final wordCount = extractedText.split(RegExp(r'\s+')).length;
@@ -152,9 +154,11 @@ class _AIChatPageState extends ConsumerState<AIChatPage> {
 
       setState(() {
         _messages.removeLast();
-        _messages.add(ChatMessage(
-          role: 'assistant',
-          content: '''✅ **File Processed Successfully!**
+        _messages.add(
+          ChatMessage(
+            role: 'assistant',
+            content:
+                '''✅ **File Processed Successfully!**
 
 📊 **Extracted Content:**
 • Characters: $charCount
@@ -162,25 +166,27 @@ class _AIChatPageState extends ConsumerState<AIChatPage> {
 
 🤖 **Processing with AI...**
 Extracting questions, adding answers and explanations...''',
-        ));
+          ),
+        );
       });
       _scrollToBottom();
 
       // Automatically process the document with AI
       await _processUploadedDocument();
-      
     } catch (e, stackTrace) {
       logger.e('File upload error', error: e, stackTrace: stackTrace);
       final errorMessage = _fileExtractionService.getErrorMessage(e);
-      
+
       setState(() {
         if (_messages.isNotEmpty && _messages.last.isLoading) {
           _messages.removeLast();
         }
-        _messages.add(ChatMessage(
-          role: 'assistant',
-          content: '❌ **File Upload Failed**\n\n$errorMessage',
-        ));
+        _messages.add(
+          ChatMessage(
+            role: 'assistant',
+            content: '❌ **File Upload Failed**\n\n$errorMessage',
+          ),
+        );
         _isLoading = false;
       });
     }
@@ -189,16 +195,18 @@ Extracting questions, adding answers and explanations...''',
   /// Clear uploaded document and extracted text
   void _clearUploadedDocument() {
     setState(() {
-      _uploadedFile = null;
       _extractedText = null;
     });
-    
+
     // Add feedback message
     setState(() {
-      _messages.add(ChatMessage(
-        role: 'assistant',
-        content: '🗑️ **Uploaded document cleared**\n\nYou can upload a new file or continue with other tasks.',
-      ));
+      _messages.add(
+        ChatMessage(
+          role: 'assistant',
+          content:
+              '🗑️ **Uploaded document cleared**\n\nYou can upload a new file or continue with other tasks.',
+        ),
+      );
     });
     _scrollToBottom();
   }
@@ -213,10 +221,13 @@ Extracting questions, adding answers and explanations...''',
       // Check if API is configured
       if (!DeepSeekConfig.isConfigured) {
         setState(() {
-          _messages.add(ChatMessage(
-            role: 'assistant',
-            content: '❌ API Key Not Configured\n\nPlease add your AI API key to the .env file:\n\nDEEP_SEEK_API_KEY=your_api_key_here',
-          ));
+          _messages.add(
+            ChatMessage(
+              role: 'assistant',
+              content:
+                  '❌ API Key Not Configured\n\nPlease add your AI API key to the .env file:\n\nDEEP_SEEK_API_KEY=your_api_key_here',
+            ),
+          );
           _isLoading = false;
         });
         return;
@@ -224,37 +235,44 @@ Extracting questions, adding answers and explanations...''',
 
       // Add loading message
       setState(() {
-        _messages.add(ChatMessage(
-          role: 'assistant',
-          content: '',
-          isLoading: true,
-        ));
+        _messages.add(
+          ChatMessage(role: 'assistant', content: '', isLoading: true),
+        );
       });
       _scrollToBottom();
 
       final aiService = ref.read(aiContentServiceProvider);
-      
+
       // Default prompt for exam processing
-      const defaultPrompt = 'Extract all questions from this document, provide correct answers, and add detailed explanations for each. Format it beautifully with proper structure, emojis, and interactive elements where appropriate.';
-      
-      final result = await aiService.generate(AIGenerationRequest(
-        type: AIGenerationType.fromDocument,
-        prompt: defaultPrompt,
-        documentContent: _extractedText,
-      ));
+      const defaultPrompt =
+          'Extract all questions from this document, provide correct answers, and add detailed explanations for each. Format it beautifully with proper structure, emojis, and interactive elements where appropriate.';
+
+      final result = await aiService.generate(
+        AIGenerationRequest(
+          type: AIGenerationType.fromDocument,
+          prompt: defaultPrompt,
+          documentContent: _extractedText,
+        ),
+      );
 
       setState(() {
         _messages.removeLast(); // Remove loading message
-        
+
         if (result.success) {
-          final blocksCount = result.blocks?.length ?? 
-              (result.pages?.fold<int>(0, (sum, page) => sum + page.blocks.length) ?? 0);
+          final blocksCount =
+              result.blocks?.length ??
+              (result.pages?.fold<int>(
+                    0,
+                    (sum, page) => sum + page.blocks.length,
+                  ) ??
+                  0);
           final pagesCount = result.pages?.length ?? 0;
-          
+
           String responseContent = '✅ **Content Generated Successfully!**\n\n';
-          
+
           if (pagesCount > 0) {
-            responseContent += '📄 Generated **$pagesCount page(s)** with **$blocksCount block(s)**\n\n';
+            responseContent +=
+                '📄 Generated **$pagesCount page(s)** with **$blocksCount block(s)**\n\n';
             for (int i = 0; i < result.pages!.length; i++) {
               final page = result.pages![i];
               responseContent += '**Page ${i + 1}: ${page.title}**\n';
@@ -263,23 +281,29 @@ Extracting questions, adding answers and explanations...''',
           } else {
             responseContent += '📦 Generated **$blocksCount block(s)**\n';
           }
-          
+
           if (result.tokensUsed != null) {
             responseContent += '\n_Tokens used: ${result.tokensUsed}_';
           }
-          
-          responseContent += '\n\n💡 You can ask follow-up questions about this content!';
-          
-          _messages.add(ChatMessage(
-            role: 'assistant',
-            content: responseContent,
-            generatedContent: result,
-          ));
+
+          responseContent +=
+              '\n\n💡 You can ask follow-up questions about this content!';
+
+          _messages.add(
+            ChatMessage(
+              role: 'assistant',
+              content: responseContent,
+              generatedContent: result,
+            ),
+          );
         } else {
-          _messages.add(ChatMessage(
-            role: 'assistant',
-            content: '❌ **Generation Failed**\n\n${result.error ?? "Unknown error occurred"}',
-          ));
+          _messages.add(
+            ChatMessage(
+              role: 'assistant',
+              content:
+                  '❌ **Generation Failed**\n\n${result.error ?? "Unknown error occurred"}',
+            ),
+          );
         }
         _isLoading = false;
       });
@@ -288,10 +312,12 @@ Extracting questions, adding answers and explanations...''',
       logger.e('AI processing error', error: e, stackTrace: stackTrace);
       setState(() {
         _messages.removeLast();
-        _messages.add(ChatMessage(
-          role: 'assistant',
-          content: '❌ **Error Processing Document**\n\n$e',
-        ));
+        _messages.add(
+          ChatMessage(
+            role: 'assistant',
+            content: '❌ **Error Processing Document**\n\n$e',
+          ),
+        );
         _isLoading = false;
       });
       _scrollToBottom();
@@ -312,11 +338,9 @@ Extracting questions, adding answers and explanations...''',
 
     // Add loading message
     setState(() {
-      _messages.add(ChatMessage(
-        role: 'assistant',
-        content: '',
-        isLoading: true,
-      ));
+      _messages.add(
+        ChatMessage(role: 'assistant', content: '', isLoading: true),
+      );
     });
     _scrollToBottom();
 
@@ -325,64 +349,84 @@ Extracting questions, adding answers and explanations...''',
       if (!DeepSeekConfig.isConfigured) {
         setState(() {
           _messages.removeLast();
-          _messages.add(ChatMessage(
-            role: 'assistant',
-            content: '❌ API Key Not Configured\n\nPlease add your AI API key to the .env file:\n\nDEEP_SEEK_API_KEY=your_api_key_here',
-          ));
+          _messages.add(
+            ChatMessage(
+              role: 'assistant',
+              content:
+                  '❌ API Key Not Configured\n\nPlease add your AI API key to the .env file:\n\nDEEP_SEEK_API_KEY=your_api_key_here',
+            ),
+          );
           _isLoading = false;
         });
         return;
       }
 
       final aiService = ref.read(aiContentServiceProvider);
-      
+
       // Get existing blocks from current page for context (to avoid content mixing)
       List<Block>? existingBlocks;
       String? contextInfo;
-      
-      if (widget.docDir != null && (_selectedType == AIGenerationType.page || _selectedType == AIGenerationType.block)) {
+
+      if (widget.docDir != null &&
+          (_selectedType == AIGenerationType.page ||
+              _selectedType == AIGenerationType.block)) {
         try {
           // Read the state from StateNotifierProvider which gives us List<Block>
-          existingBlocks = ref.read(editDocumentControllerProvider(widget.docDir!));
-          
+          existingBlocks = ref.read(
+            editDocumentControllerProvider(widget.docDir!),
+          );
+
           if (existingBlocks != null && existingBlocks.isNotEmpty) {
             // Create summary of existing content to avoid duplication
-            final blockTypes = existingBlocks.map((b) => b.type.displayName).toSet().join(', ');
-            contextInfo = 'This page already has ${existingBlocks.length} blocks: $blockTypes. Please generate NEW content that complements (not duplicates) the existing content.';
+            final blockTypes = existingBlocks
+                .map((b) => b.type.displayName)
+                .toSet()
+                .join(', ');
+            contextInfo =
+                'This page already has ${existingBlocks.length} blocks: $blockTypes. Please generate NEW content that complements (not duplicates) the existing content.';
           }
         } catch (e) {
           logger.w('Could not get existing blocks for context', error: e);
         }
       }
-      
+
       // Determine if we should use fromDocument type (when we have extracted text)
-      final effectiveType = (_extractedText != null && _extractedText!.isNotEmpty)
+      final effectiveType =
+          (_extractedText != null && _extractedText!.isNotEmpty)
           ? AIGenerationType.fromDocument
           : _selectedType;
-      
-      final result = await aiService.generate(AIGenerationRequest(
-        type: effectiveType,
-        prompt: message,
-        existingBlocks: existingBlocks,
-        context: contextInfo,
-        documentContent: _extractedText,
-      ));
+
+      final result = await aiService.generate(
+        AIGenerationRequest(
+          type: effectiveType,
+          prompt: message,
+          existingBlocks: existingBlocks,
+          context: contextInfo,
+          documentContent: _extractedText,
+        ),
+      );
 
       // Keep extracted text for follow-up questions
       // Don't clear it automatically - let user upload a new file to replace it
 
       setState(() {
         _messages.removeLast(); // Remove loading message
-        
+
         if (result.success) {
-          final blocksCount = result.blocks?.length ?? 
-              (result.pages?.fold<int>(0, (sum, page) => sum + page.blocks.length) ?? 0);
+          final blocksCount =
+              result.blocks?.length ??
+              (result.pages?.fold<int>(
+                    0,
+                    (sum, page) => sum + page.blocks.length,
+                  ) ??
+                  0);
           final pagesCount = result.pages?.length ?? 0;
-          
+
           String responseContent = '✅ **Content Generated Successfully!**\n\n';
-          
+
           if (pagesCount > 0) {
-            responseContent += '📄 Generated **$pagesCount page(s)** with **$blocksCount block(s)**\n\n';
+            responseContent +=
+                '📄 Generated **$pagesCount page(s)** with **$blocksCount block(s)**\n\n';
             for (int i = 0; i < result.pages!.length; i++) {
               final page = result.pages![i];
               responseContent += '**Page ${i + 1}: ${page.title}**\n';
@@ -391,21 +435,26 @@ Extracting questions, adding answers and explanations...''',
           } else {
             responseContent += '📦 Generated **$blocksCount block(s)**\n';
           }
-          
+
           if (result.tokensUsed != null) {
             responseContent += '\n_Tokens used: ${result.tokensUsed}_';
           }
-          
-          _messages.add(ChatMessage(
-            role: 'assistant',
-            content: responseContent,
-            generatedContent: result,
-          ));
+
+          _messages.add(
+            ChatMessage(
+              role: 'assistant',
+              content: responseContent,
+              generatedContent: result,
+            ),
+          );
         } else {
-          _messages.add(ChatMessage(
-            role: 'assistant',
-            content: '❌ **Generation Failed**\n\n${result.error ?? "Unknown error occurred"}',
-          ));
+          _messages.add(
+            ChatMessage(
+              role: 'assistant',
+              content:
+                  '❌ **Generation Failed**\n\n${result.error ?? "Unknown error occurred"}',
+            ),
+          );
         }
         _isLoading = false;
       });
@@ -413,20 +462,26 @@ Extracting questions, adding answers and explanations...''',
       logger.e('AI chat error', error: e, stackTrace: stackTrace);
       setState(() {
         _messages.removeLast();
-        
+
         // Extract user-friendly error message
         String errorMessage = e.toString();
         // Remove common exception prefixes for cleaner error messages
         if (errorMessage.contains('DeepSeekException:')) {
           errorMessage = errorMessage.replaceFirst('DeepSeekException: ', '');
         } else if (errorMessage.contains('Exception: ')) {
-          errorMessage = errorMessage.replaceFirst(RegExp(r'\b\w+Exception:\s+'), '');
+          errorMessage = errorMessage.replaceFirst(
+            RegExp(r'\b\w+Exception:\s+'),
+            '',
+          );
         }
-        
-        _messages.add(ChatMessage(
-          role: 'assistant',
-          content: '❌ Error\n\n$errorMessage\n\nPlease try again or use a simpler prompt.',
-        ));
+
+        _messages.add(
+          ChatMessage(
+            role: 'assistant',
+            content:
+                '❌ Error\n\n$errorMessage\n\nPlease try again or use a simpler prompt.',
+          ),
+        );
         _isLoading = false;
       });
     }
@@ -435,7 +490,11 @@ Extracting questions, adding answers and explanations...''',
 
   Future<void> _addToDocument(AIGenerationResult result) async {
     if (widget.docDir == null) {
-      UIUtils.showSnackBar(context, 'No document selected. Please open a document first.', isError: true);
+      UIUtils.showSnackBar(
+        context,
+        'No document selected. Please open a document first.',
+        isError: true,
+      );
       return;
     }
 
@@ -444,20 +503,24 @@ Extracting questions, adding answers and explanations...''',
       int pagesCreated = 0;
       List<String> pageNames = [];
       String? firstCreatedPageId; // Track first created page ID
-      
+
       if (result.blocks != null && result.blocks!.isNotEmpty) {
         // Single page with blocks - add to current page
-        final controller = ref.read(editDocumentControllerProvider(widget.docDir!).notifier);
+        final controller = ref.read(
+          editDocumentControllerProvider(widget.docDir!).notifier,
+        );
         for (final block in result.blocks!) {
           await controller.addBlockFromAI(block);
           addedCount++;
         }
       } else if (result.pages != null && result.pages!.isNotEmpty) {
         final documentService = ref.read(documentServiceProvider);
-        
+
         if (result.pages!.length == 1) {
           // Single page - add to current page
-          final controller = ref.read(editDocumentControllerProvider(widget.docDir!).notifier);
+          final controller = ref.read(
+            editDocumentControllerProvider(widget.docDir!).notifier,
+          );
           final page = result.pages!.first;
           for (final block in page.blocks) {
             await controller.addBlockFromAI(block);
@@ -465,37 +528,44 @@ Extracting questions, adding answers and explanations...''',
           }
         } else {
           // Multiple pages - create new pages and add blocks
-          final currentPageNotifier = ref.read(currentPageIdProvider(widget.docDir!.path).notifier);
-          
+          final currentPageNotifier = ref.read(
+            currentPageIdProvider(widget.docDir!.path).notifier,
+          );
+
           for (int i = 0; i < result.pages!.length; i++) {
             final aiPage = result.pages![i];
-            
+
             // Create new page
-            final newPage = await documentService.createPage(widget.docDir!, aiPage.title);
+            final newPage = await documentService.createPage(
+              widget.docDir!,
+              aiPage.title,
+            );
             if (newPage == null) {
               logger.w('Failed to create page: ${aiPage.title}');
               continue;
             }
-            
+
             pagesCreated++;
             pageNames.add(aiPage.title);
-            
+
             // Remember the first created page ID
             firstCreatedPageId ??= newPage.id;
-            
+
             // Switch to the new page temporarily to add blocks
             currentPageNotifier.state = newPage.id;
-            
+
             // Get controller for the new page
-            final controller = ref.read(editDocumentControllerProvider(widget.docDir!).notifier);
-            
+            final controller = ref.read(
+              editDocumentControllerProvider(widget.docDir!).notifier,
+            );
+
             // Add blocks to the new page
             for (final block in aiPage.blocks) {
               await controller.addBlockFromAI(block);
               addedCount++;
             }
           }
-          
+
           // Switch back to first created page so user can see it
           if (firstCreatedPageId != null) {
             currentPageNotifier.state = firstCreatedPageId;
@@ -506,7 +576,8 @@ Extracting questions, adding answers and explanations...''',
       if (mounted) {
         String message;
         if (pagesCreated > 0) {
-          message = 'Created **$pagesCreated page(s)** with **$addedCount blocks** total';
+          message =
+              'Created **$pagesCreated page(s)** with **$addedCount blocks** total';
           if (pageNames.isNotEmpty) {
             final pageList = pageNames.map((name) => '• $name').join('\n');
             message = '$message:\n\n$pageList';
@@ -514,28 +585,35 @@ Extracting questions, adding answers and explanations...''',
         } else {
           message = 'Added **$addedCount blocks** to current page';
         }
-        
+
         UIUtils.showSnackBar(context, 'Content added successfully');
-        
+
         // Add confirmation message
         setState(() {
-          _messages.add(ChatMessage(
-            role: 'assistant',
-            content: '✅ $message',
-          ));
+          _messages.add(ChatMessage(role: 'assistant', content: '✅ $message'));
         });
         _scrollToBottom();
       }
     } catch (e, stackTrace) {
-      logger.e('Failed to add content to document', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to add content to document',
+        error: e,
+        stackTrace: stackTrace,
+      );
       if (mounted) {
-        UIUtils.showSnackBar(context, 'Failed to add content: $e', isError: true);
-        
+        UIUtils.showSnackBar(
+          context,
+          'Failed to add content: $e',
+          isError: true,
+        );
+
         setState(() {
-          _messages.add(ChatMessage(
-            role: 'assistant',
-            content: '❌ Failed to add content: ${e.toString()}',
-          ));
+          _messages.add(
+            ChatMessage(
+              role: 'assistant',
+              content: '❌ Failed to add content: ${e.toString()}',
+            ),
+          );
         });
         _scrollToBottom();
       }
@@ -594,7 +672,13 @@ Extracting questions, adding answers and explanations...''',
     );
   }
 
-  Widget _buildTypeChip(AIGenerationType type, String label, IconData icon, String tooltip, ThemeData theme) {
+  Widget _buildTypeChip(
+    AIGenerationType type,
+    String label,
+    IconData icon,
+    String tooltip,
+    ThemeData theme,
+  ) {
     final isSelected = _selectedType == type;
     return Tooltip(
       message: tooltip,
@@ -604,13 +688,17 @@ Extracting questions, adding answers and explanations...''',
         avatar: Icon(
           icon,
           size: 16,
-          color: isSelected ? theme.colorScheme.onPrimary : theme.colorScheme.onSurfaceVariant,
+          color: isSelected
+              ? theme.colorScheme.onPrimary
+              : theme.colorScheme.onSurfaceVariant,
         ),
         label: Text(
           label,
           style: TextStyle(
             fontSize: 13,
-            color: isSelected ? theme.colorScheme.onPrimary : theme.colorScheme.onSurface,
+            color: isSelected
+                ? theme.colorScheme.onPrimary
+                : theme.colorScheme.onSurface,
             fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
           ),
         ),
@@ -652,7 +740,9 @@ Extracting questions, adding answers and explanations...''',
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
-        mainAxisAlignment: isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment: isUser
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (!isUser) ...[
@@ -759,8 +849,12 @@ Extracting questions, adding answers and explanations...''',
                         ),
                         tableBorder: TableBorder.all(
                           color: isUser
-                              ? theme.colorScheme.onPrimary.withValues(alpha: 0.3)
-                              : theme.colorScheme.outline.withValues(alpha: 0.5),
+                              ? theme.colorScheme.onPrimary.withValues(
+                                  alpha: 0.3,
+                                )
+                              : theme.colorScheme.outline.withValues(
+                                  alpha: 0.5,
+                                ),
                           width: 1,
                         ),
                         tableColumnWidth: const FlexColumnWidth(),
@@ -819,13 +913,21 @@ Extracting questions, adding answers and explanations...''',
                           border: Border(
                             left: BorderSide(
                               color: isUser
-                                  ? theme.colorScheme.onPrimary.withValues(alpha: 0.5)
-                                  : theme.colorScheme.primary.withValues(alpha: 0.5),
+                                  ? theme.colorScheme.onPrimary.withValues(
+                                      alpha: 0.5,
+                                    )
+                                  : theme.colorScheme.primary.withValues(
+                                      alpha: 0.5,
+                                    ),
                               width: 4,
                             ),
                           ),
                         ),
-                        blockquotePadding: const EdgeInsets.only(left: 12, top: 4, bottom: 4),
+                        blockquotePadding: const EdgeInsets.only(
+                          left: 12,
+                          top: 4,
+                          bottom: 4,
+                        ),
                       ),
                       selectable: true,
                       onTapLink: (text, href, title) async {
@@ -834,10 +936,12 @@ Extracting questions, adding answers and explanations...''',
                         }
                       },
                     ),
-                  if (message.generatedContent != null && widget.docDir != null) ...[
+                  if (message.generatedContent != null &&
+                      widget.docDir != null) ...[
                     const SizedBox(height: 12),
                     FilledButton.icon(
-                      onPressed: () => _addToDocument(message.generatedContent!),
+                      onPressed: () =>
+                          _addToDocument(message.generatedContent!),
                       icon: const Icon(IconsaxPlusLinear.add, size: 18),
                       label: const Text('Add to Document'),
                       style: FilledButton.styleFrom(
@@ -900,17 +1004,18 @@ Extracting questions, adding answers and explanations...''',
                       _extractedText != null && _extractedText!.isNotEmpty
                           ? IconsaxPlusLinear.document_text_1
                           : IconsaxPlusLinear.document_upload,
-                      color: _extractedText != null && _extractedText!.isNotEmpty
+                      color:
+                          _extractedText != null && _extractedText!.isNotEmpty
                           ? theme.colorScheme.primary
                           : theme.colorScheme.onSurfaceVariant,
                     ),
                     style: IconButton.styleFrom(
-                      backgroundColor: theme.colorScheme.surfaceContainerHighest,
-                      side: BorderSide(
-                        color: theme.colorScheme.outlineVariant,
-                      ),
+                      backgroundColor:
+                          theme.colorScheme.surfaceContainerHighest,
+                      side: BorderSide(color: theme.colorScheme.outlineVariant),
                     ),
-                    tooltip: _extractedText != null && _extractedText!.isNotEmpty
+                    tooltip:
+                        _extractedText != null && _extractedText!.isNotEmpty
                         ? 'File uploaded — upload another'
                         : 'Upload text file (.txt)',
                   ),
@@ -923,7 +1028,8 @@ Extracting questions, adding answers and explanations...''',
                         color: theme.colorScheme.error,
                       ),
                       style: IconButton.styleFrom(
-                        backgroundColor: theme.colorScheme.errorContainer.withValues(alpha: 0.3),
+                        backgroundColor: theme.colorScheme.errorContainer
+                            .withValues(alpha: 0.3),
                         side: BorderSide(
                           color: theme.colorScheme.error.withValues(alpha: 0.3),
                         ),
@@ -950,37 +1056,39 @@ Extracting questions, adding answers and explanations...''',
                       decoration: InputDecoration(
                         hintText: _getPlaceholder(),
                         hintStyle: TextStyle(
-                          color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
+                          color: theme.colorScheme.onSurfaceVariant.withValues(
+                            alpha: 0.6,
+                          ),
+                        ),
+                        border: InputBorder.none,
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 14,
+                        ),
                       ),
-                      border: InputBorder.none,
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 14,
-                      ),
+                      onSubmitted: (_) => _sendMessage(),
+                      enabled: !_isLoading,
                     ),
-                    onSubmitted: (_) => _sendMessage(),
-                    enabled: !_isLoading,
                   ),
                 ),
-              ),
-              const SizedBox(width: 12),
-              FloatingActionButton(
-                onPressed: _isLoading ? null : _sendMessage,
-                backgroundColor: _isLoading
-                    ? theme.colorScheme.surfaceContainerHighest
-                    : theme.colorScheme.primary,
-                foregroundColor: _isLoading
-                    ? theme.colorScheme.onSurfaceVariant
-                    : theme.colorScheme.onPrimary,
-                elevation: 2,
-                child: _isLoading
-                    ? ShimmerInlineLoading(
-                        size: 24,
-                        color: theme.colorScheme.primary,
-                      )
-                    : const Icon(IconsaxPlusLinear.send_1),
-              ),
-            ],
+                const SizedBox(width: 12),
+                FloatingActionButton(
+                  onPressed: _isLoading ? null : _sendMessage,
+                  backgroundColor: _isLoading
+                      ? theme.colorScheme.surfaceContainerHighest
+                      : theme.colorScheme.primary,
+                  foregroundColor: _isLoading
+                      ? theme.colorScheme.onSurfaceVariant
+                      : theme.colorScheme.onPrimary,
+                  elevation: 2,
+                  child: _isLoading
+                      ? ShimmerInlineLoading(
+                          size: 24,
+                          color: theme.colorScheme.primary,
+                        )
+                      : const Icon(IconsaxPlusLinear.send_1),
+                ),
+              ],
             ),
           ),
         ],
@@ -1011,7 +1119,7 @@ Extracting questions, adding answers and explanations...''',
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -1054,7 +1162,9 @@ Extracting questions, adding answers and explanations...''',
                   color: theme.colorScheme.primary,
                 ),
                 label: const Text('Document'),
-                backgroundColor: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
+                backgroundColor: theme.colorScheme.primaryContainer.withValues(
+                  alpha: 0.5,
+                ),
                 labelStyle: TextStyle(
                   color: theme.colorScheme.onPrimaryContainer,
                   fontSize: 12,
@@ -1068,10 +1178,12 @@ Extracting questions, adding answers and explanations...''',
                 ? () {
                     setState(() {
                       _messages.clear();
-                      _messages.add(ChatMessage(
-                        role: 'assistant',
-                        content: '👋 Chat cleared! How can I help you?',
-                      ));
+                      _messages.add(
+                        ChatMessage(
+                          role: 'assistant',
+                          content: '👋 Chat cleared! How can I help you?',
+                        ),
+                      );
                     });
                   }
                 : null,

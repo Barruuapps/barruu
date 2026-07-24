@@ -37,25 +37,25 @@ import 'package:just_audio/just_audio.dart';
 class AudioTrimmingWidget extends ConsumerStatefulWidget {
   /// The audio player instance used for seeking to preview points
   final AudioPlayer audioPlayer;
-  
+
   /// The total duration of the audio file in seconds
   final double audioDuration;
-  
+
   /// The content map containing startTime and endTime
   final Map<String, dynamic> content;
-  
+
   /// The current block being edited
   final Block block;
-  
+
   /// The document directory
   final Directory docDir;
-  
+
   /// Callback when content is modified
   final VoidCallback onContentChanged;
-  
+
   /// Callback to show error messages
   final Function(String) onError;
-  
+
   /// Callback to show success messages
   final Function(String) onSuccess;
 
@@ -72,7 +72,8 @@ class AudioTrimmingWidget extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<AudioTrimmingWidget> createState() => _AudioTrimmingWidgetState();
+  ConsumerState<AudioTrimmingWidget> createState() =>
+      _AudioTrimmingWidgetState();
 }
 
 class _AudioTrimmingWidgetState extends ConsumerState<AudioTrimmingWidget> {
@@ -108,7 +109,9 @@ class _AudioTrimmingWidgetState extends ConsumerState<AudioTrimmingWidget> {
       }
 
       // Create a new block with the remaining portion
-      final controller = ref.read(editDocumentControllerProvider(widget.docDir).notifier);
+      final controller = ref.read(
+        editDocumentControllerProvider(widget.docDir).notifier,
+      );
 
       final newContent = {
         'path': widget.content['path'],
@@ -129,7 +132,9 @@ class _AudioTrimmingWidgetState extends ConsumerState<AudioTrimmingWidget> {
 
       widget.onSuccess('New audio block created with remaining portion');
     } catch (e) {
-      widget.onError('Error creating next block: ${e.toString().replaceAll('Exception: ', '')}');
+      widget.onError(
+        'Error creating next block: ${e.toString().replaceAll('Exception: ', '')}',
+      );
     } finally {
       if (mounted) {
         setState(() {
@@ -186,7 +191,10 @@ class _AudioTrimmingWidgetState extends ConsumerState<AudioTrimmingWidget> {
             children: [
               Text(
                 'Start: ${_formatDuration(startTime)}',
-                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               IconButton(
                 icon: const Icon(Icons.skip_previous, size: 20),
@@ -203,7 +211,9 @@ class _AudioTrimmingWidgetState extends ConsumerState<AudioTrimmingWidget> {
           Slider(
             value: startTime.clamp(0.0, widget.audioDuration),
             max: widget.audioDuration > 0 ? widget.audioDuration : 1.0,
-            divisions: widget.audioDuration > 0 ? ((widget.audioDuration * 10).toInt()).clamp(1, 10000) : null,
+            divisions: widget.audioDuration > 0
+                ? ((widget.audioDuration * 10).toInt()).clamp(1, 10000)
+                : null,
             label: _formatDuration(startTime),
             onChanged: (value) {
               if (!mounted || widget.audioDuration <= 0) return;
@@ -211,7 +221,10 @@ class _AudioTrimmingWidgetState extends ConsumerState<AudioTrimmingWidget> {
               setState(() {
                 // Ensure start time is before end time
                 if (value < endTime - 0.5 || endTime == 0.0) {
-                  widget.content['startTime'] = value.clamp(0.0, widget.audioDuration);
+                  widget.content['startTime'] = value.clamp(
+                    0.0,
+                    widget.audioDuration,
+                  );
                   widget.onContentChanged();
                 }
               });
@@ -231,7 +244,10 @@ class _AudioTrimmingWidgetState extends ConsumerState<AudioTrimmingWidget> {
             children: [
               Text(
                 'End: ${_formatDuration(endTime)}',
-                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               IconButton(
                 icon: const Icon(Icons.skip_next, size: 20),
@@ -246,9 +262,14 @@ class _AudioTrimmingWidgetState extends ConsumerState<AudioTrimmingWidget> {
             ],
           ),
           Slider(
-            value: endTime.clamp(0.0, widget.audioDuration > 0 ? widget.audioDuration : 1.0),
+            value: endTime.clamp(
+              0.0,
+              widget.audioDuration > 0 ? widget.audioDuration : 1.0,
+            ),
             max: widget.audioDuration > 0 ? widget.audioDuration : 1.0,
-            divisions: widget.audioDuration > 0 ? ((widget.audioDuration * 10).toInt()).clamp(1, 10000) : null,
+            divisions: widget.audioDuration > 0
+                ? ((widget.audioDuration * 10).toInt()).clamp(1, 10000)
+                : null,
             label: _formatDuration(endTime),
             onChanged: (value) {
               if (!mounted || widget.audioDuration <= 0) return;
@@ -256,7 +277,10 @@ class _AudioTrimmingWidgetState extends ConsumerState<AudioTrimmingWidget> {
               setState(() {
                 // Ensure end time is after start time
                 if (value > startTime + 0.5) {
-                  widget.content['endTime'] = value.clamp(0.0, widget.audioDuration);
+                  widget.content['endTime'] = value.clamp(
+                    0.0,
+                    widget.audioDuration,
+                  );
                   widget.onContentChanged();
                 }
               });
@@ -310,7 +334,9 @@ class _AudioTrimmingWidgetState extends ConsumerState<AudioTrimmingWidget> {
                       color: theme.colorScheme.onPrimaryContainer,
                     )
                   : const Icon(Icons.add_box),
-              label: Text(_isProcessing ? 'Creating...' : 'Cut & Create Next Block'),
+              label: Text(
+                _isProcessing ? 'Creating...' : 'Cut & Create Next Block',
+              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colorScheme.primaryContainer,
                 foregroundColor: theme.colorScheme.onPrimaryContainer,

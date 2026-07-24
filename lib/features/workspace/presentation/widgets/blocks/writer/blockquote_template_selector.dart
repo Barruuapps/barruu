@@ -31,13 +31,29 @@ class BlockquoteTemplateSelector extends StatelessWidget {
           childAspectRatio: 0.85,
           children: [
             _buildTemplateOption('basic', 'Basic', _buildBasicPreview()),
-            _buildTemplateOption('bordered', 'Bordered', _buildBorderedPreview()),
-            _buildTemplateOption('highlighted', 'Highlighted', _buildHighlightedPreview()),
+            _buildTemplateOption(
+              'bordered',
+              'Bordered',
+              _buildBorderedPreview(),
+            ),
+            _buildTemplateOption(
+              'highlighted',
+              'Highlighted',
+              _buildHighlightedPreview(),
+            ),
             _buildTemplateOption('modern', 'Modern', _buildModernPreview()),
-            _buildTemplateOption('testimonial', 'Testimonial', _buildTestimonialPreview()),
+            _buildTemplateOption(
+              'testimonial',
+              'Testimonial',
+              _buildTestimonialPreview(),
+            ),
             _buildTemplateOption('callout', 'Callout', _buildCalloutPreview()),
             _buildTemplateOption('sidebar', 'Sidebar', _buildSidebarPreview()),
-            _buildTemplateOption('featured', 'Featured', _buildFeaturedPreview()),
+            _buildTemplateOption(
+              'featured',
+              'Featured',
+              _buildFeaturedPreview(),
+            ),
             _buildTemplateOption('card', 'Card', _buildCardPreview()),
           ],
         ),
@@ -59,11 +75,13 @@ class BlockquoteTemplateSelector extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(
-            color: isSelected ? theme.colorScheme.primary : theme.colorScheme.outline.withValues(alpha: 0.3),
+            color: isSelected
+                ? theme.colorScheme.primary
+                : theme.colorScheme.outline.withValues(alpha: 0.3),
             width: isSelected ? 2.5 : 1,
           ),
           borderRadius: BorderRadius.circular(8),
-          color: isSelected 
+          color: isSelected
               ? theme.colorScheme.primaryContainer.withValues(alpha: 0.2)
               : null,
         ),
@@ -79,9 +97,11 @@ class BlockquoteTemplateSelector extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
               decoration: BoxDecoration(
-                color: isSelected 
+                color: isSelected
                     ? theme.colorScheme.primary.withValues(alpha: 0.1)
-                    : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                    : theme.colorScheme.surfaceContainerHighest.withValues(
+                        alpha: 0.5,
+                      ),
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(7),
                   bottomRight: Radius.circular(7),
@@ -118,16 +138,28 @@ class BlockquoteTemplateSelector extends StatelessWidget {
       padding: const EdgeInsets.all(6),
       child: Row(
         children: [
-          Icon(Icons.format_quote, size: 12, color: theme.colorScheme.primary.withValues(alpha: 0.7)),
+          Icon(
+            Icons.format_quote,
+            size: 12,
+            color: theme.colorScheme.primary.withValues(alpha: 0.7),
+          ),
           const SizedBox(width: 4),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
+                Container(
+                  height: 2,
+                  width: double.infinity,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                ),
                 const SizedBox(height: 2),
-                Container(height: 2, width: 30, color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+                Container(
+                  height: 2,
+                  width: 30,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+                ),
               ],
             ),
           ),
@@ -149,9 +181,17 @@ class BlockquoteTemplateSelector extends StatelessWidget {
         children: [
           Icon(Icons.format_quote, size: 14, color: theme.colorScheme.primary),
           const SizedBox(height: 3),
-          Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
+          Container(
+            height: 2,
+            width: double.infinity,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+          ),
           const SizedBox(height: 2),
-          Container(height: 2, width: 25, color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+          Container(
+            height: 2,
+            width: 25,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+          ),
         ],
       ),
     );
@@ -173,9 +213,17 @@ class BlockquoteTemplateSelector extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(height: 3, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.7)),
+          Container(
+            height: 3,
+            width: double.infinity,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+          ),
           const SizedBox(height: 2),
-          Container(height: 2, width: 30, color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
+          Container(
+            height: 2,
+            width: 30,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+          ),
         ],
       ),
     );
@@ -197,10 +245,7 @@ class BlockquoteTemplateSelector extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
-                  theme.colorScheme.primary,
-                  theme.colorScheme.tertiary,
-                ],
+                colors: [theme.colorScheme.primary, theme.colorScheme.tertiary],
               ),
               borderRadius: BorderRadius.circular(1),
             ),
@@ -211,11 +256,23 @@ class BlockquoteTemplateSelector extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(IconsaxPlusLinear.message_text, size: 10, color: theme.colorScheme.primary),
+                Icon(
+                  IconsaxPlusLinear.message_text,
+                  size: 10,
+                  color: theme.colorScheme.primary,
+                ),
                 const SizedBox(height: 3),
-                Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
+                Container(
+                  height: 2,
+                  width: double.infinity,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                ),
                 const SizedBox(height: 2),
-                Container(height: 2, width: 25, color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+                Container(
+                  height: 2,
+                  width: 25,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+                ),
               ],
             ),
           ),
@@ -241,11 +298,23 @@ class BlockquoteTemplateSelector extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.format_quote, size: 12, color: theme.colorScheme.primary.withValues(alpha: 0.5)),
+          Icon(
+            Icons.format_quote,
+            size: 12,
+            color: theme.colorScheme.primary.withValues(alpha: 0.5),
+          ),
           const SizedBox(height: 3),
-          Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
+          Container(
+            height: 2,
+            width: double.infinity,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+          ),
           const SizedBox(height: 2),
-          Container(height: 2, width: 30, color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+          Container(
+            height: 2,
+            width: 30,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+          ),
           const SizedBox(height: 4),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -259,7 +328,11 @@ class BlockquoteTemplateSelector extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 3),
-              Container(height: 2, width: 15, color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
+              Container(
+                height: 2,
+                width: 15,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+              ),
             ],
           ),
         ],
@@ -286,18 +359,33 @@ class BlockquoteTemplateSelector extends StatelessWidget {
                   color: theme.colorScheme.primary,
                   shape: BoxShape.circle,
                 ),
-                child: Icon(Icons.info_outline, size: 8, color: theme.colorScheme.onPrimary),
+                child: Icon(
+                  Icons.info_outline,
+                  size: 8,
+                  color: theme.colorScheme.onPrimary,
+                ),
               ),
               const SizedBox(width: 4),
               Expanded(
-                child: Container(height: 3, color: theme.colorScheme.onSurface.withValues(alpha: 0.7)),
+                child: Container(
+                  height: 3,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 3),
-          Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
+          Container(
+            height: 2,
+            width: double.infinity,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+          ),
           const SizedBox(height: 2),
-          Container(height: 2, width: 25, color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+          Container(
+            height: 2,
+            width: 25,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+          ),
         ],
       ),
     );
@@ -319,7 +407,9 @@ class BlockquoteTemplateSelector extends StatelessWidget {
         Expanded(
           child: Container(
             decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(
+                alpha: 0.5,
+              ),
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(4),
                 bottomRight: Radius.circular(4),
@@ -330,11 +420,23 @@ class BlockquoteTemplateSelector extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.format_quote, size: 10, color: theme.colorScheme.primary),
+                Icon(
+                  Icons.format_quote,
+                  size: 10,
+                  color: theme.colorScheme.primary,
+                ),
                 const SizedBox(height: 3),
-                Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
+                Container(
+                  height: 2,
+                  width: double.infinity,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                ),
                 const SizedBox(height: 2),
-                Container(height: 2, width: 22, color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+                Container(
+                  height: 2,
+                  width: 22,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+                ),
               ],
             ),
           ),
@@ -365,17 +467,32 @@ class BlockquoteTemplateSelector extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(IconsaxPlusBold.quote_up, size: 12, color: theme.colorScheme.primary),
+              Icon(
+                IconsaxPlusBold.quote_up,
+                size: 12,
+                color: theme.colorScheme.primary,
+              ),
               const SizedBox(width: 4),
               Expanded(
-                child: Container(height: 3, color: theme.colorScheme.onSurface.withValues(alpha: 0.7)),
+                child: Container(
+                  height: 3,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 3),
-          Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
+          Container(
+            height: 2,
+            width: double.infinity,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+          ),
           const SizedBox(height: 2),
-          Container(height: 2, width: 25, color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+          Container(
+            height: 2,
+            width: 25,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+          ),
         ],
       ),
     );
@@ -404,12 +521,24 @@ class BlockquoteTemplateSelector extends StatelessWidget {
               color: theme.colorScheme.primaryContainer,
               shape: BoxShape.circle,
             ),
-            child: Icon(Icons.format_quote, size: 10, color: theme.colorScheme.primary),
+            child: Icon(
+              Icons.format_quote,
+              size: 10,
+              color: theme.colorScheme.primary,
+            ),
           ),
           const SizedBox(height: 4),
-          Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
+          Container(
+            height: 2,
+            width: double.infinity,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+          ),
           const SizedBox(height: 2),
-          Container(height: 2, width: 25, color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+          Container(
+            height: 2,
+            width: 25,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+          ),
         ],
       ),
     );

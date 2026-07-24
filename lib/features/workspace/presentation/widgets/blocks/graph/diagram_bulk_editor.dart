@@ -6,7 +6,11 @@ class DiagramBulkEditor extends StatefulWidget {
   final List<Map<String, dynamic>> nodes;
   final List<Map<String, dynamic>> edges;
   final ThemeData theme;
-  final Function(List<Map<String, dynamic>> nodes, List<Map<String, dynamic>> edges) onDataChanged;
+  final Function(
+    List<Map<String, dynamic>> nodes,
+    List<Map<String, dynamic>> edges,
+  )
+  onDataChanged;
 
   const DiagramBulkEditor({
     required this.nodes,
@@ -36,7 +40,7 @@ class _DiagramBulkEditorState extends State<DiagramBulkEditor> {
     // Example: 1 2 3 Main Idea (node 1 connects to 2,3 and has label "Main Idea")
     final Map<String, List<String>> nodeConnections = {};
     final Map<String, String> nodeLabels = {};
-    
+
     // Build connections map
     for (var edge in widget.edges) {
       final from = edge['from']?.toString() ?? '';
@@ -45,7 +49,7 @@ class _DiagramBulkEditorState extends State<DiagramBulkEditor> {
         nodeConnections.putIfAbsent(from, () => []).add(to);
       }
     }
-    
+
     // Build labels map
     for (var node in widget.nodes) {
       final id = node['id']?.toString() ?? '';
@@ -54,15 +58,15 @@ class _DiagramBulkEditorState extends State<DiagramBulkEditor> {
         nodeLabels[id] = label;
       }
     }
-    
+
     // Generate compact format - include all nodes
     final lines = <String>[];
     final allNodeIds = {...nodeLabels.keys, ...nodeConnections.keys};
-    
+
     for (var nodeId in allNodeIds) {
       final connections = nodeConnections[nodeId] ?? [];
       final label = nodeLabels[nodeId] ?? '';
-      
+
       // Always add the node, even if it has no connections
       if (connections.isNotEmpty && label.isNotEmpty) {
         lines.add('$nodeId ${connections.join(' ')} $label');
@@ -76,7 +80,7 @@ class _DiagramBulkEditorState extends State<DiagramBulkEditor> {
         lines.add(nodeId);
       }
     }
-    
+
     _dataController.text = lines.join('\n');
   }
 
@@ -94,7 +98,10 @@ class _DiagramBulkEditorState extends State<DiagramBulkEditor> {
   Map<String, dynamic> _parseCompactFormat(String text) {
     final nodes = <Map<String, dynamic>>[];
     final edges = <Map<String, dynamic>>[];
-    final lines = text.split('\n').where((line) => line.trim().isNotEmpty).toList();
+    final lines = text
+        .split('\n')
+        .where((line) => line.trim().isNotEmpty)
+        .toList();
     final seenNodes = <String>{};
 
     for (var line in lines) {
@@ -102,17 +109,18 @@ class _DiagramBulkEditorState extends State<DiagramBulkEditor> {
       if (parts.isEmpty) continue;
 
       final nodeId = parts[0];
-      
+
       // Find where the label starts (parts that don't look like node IDs after the first part)
       var labelStartIndex = 1;
       final connections = <String>[];
-      
+
       // Parse connections (parts after node ID that look like valid node IDs)
       // Valid node IDs can be numeric or alphanumeric
       for (var i = 1; i < parts.length; i++) {
         // Check if this could be a connection (simple alphanumeric or number)
-        if (RegExp(r'^[a-zA-Z0-9_-]+$').hasMatch(parts[i]) && 
-            parts[i].length <= 10) { // reasonable ID length limit
+        if (RegExp(r'^[a-zA-Z0-9_-]+$').hasMatch(parts[i]) &&
+            parts[i].length <= 10) {
+          // reasonable ID length limit
           // Could be a connection, but also check if next parts suggest this is the start of label
           if (i < parts.length - 1) {
             connections.add(parts[i]);
@@ -121,7 +129,8 @@ class _DiagramBulkEditorState extends State<DiagramBulkEditor> {
             // Last part - could be connection or label
             // Short alphanumeric (≤4 chars) or pure numeric likely to be ID
             const maxIdLength = 4;
-            if (parts[i].length <= maxIdLength || RegExp(r'^[0-9]+$').hasMatch(parts[i])) {
+            if (parts[i].length <= maxIdLength ||
+                RegExp(r'^[0-9]+$').hasMatch(parts[i])) {
               connections.add(parts[i]);
               labelStartIndex = i + 1;
             } else {
@@ -133,32 +142,25 @@ class _DiagramBulkEditorState extends State<DiagramBulkEditor> {
           break;
         }
       }
-      
+
       // Remaining parts form the label
-      final label = labelStartIndex < parts.length 
+      final label = labelStartIndex < parts.length
           ? parts.sublist(labelStartIndex).join(' ')
           : '';
-      
+
       // Use a meaningful default label if none provided
       final finalLabel = label.isEmpty ? 'Node $nodeId' : label;
-      
+
       // Add node if not seen
       if (!seenNodes.contains(nodeId)) {
-        nodes.add({
-          'id': nodeId,
-          'label': finalLabel,
-          'type': 'default',
-        });
+        nodes.add({'id': nodeId, 'label': finalLabel, 'type': 'default'});
         seenNodes.add(nodeId);
       }
-      
+
       // Add edges
       for (var targetId in connections) {
-        edges.add({
-          'from': nodeId,
-          'to': targetId,
-        });
-        
+        edges.add({'from': nodeId, 'to': targetId});
+
         // Add target node if not seen (with default label)
         if (!seenNodes.contains(targetId)) {
           nodes.add({
@@ -179,7 +181,7 @@ class _DiagramBulkEditorState extends State<DiagramBulkEditor> {
     final isWide = MediaQuery.of(context).size.width > 600;
     final containerPadding = isWide ? 12.0 : 8.0;
     final borderRadius = isWide ? 8.0 : 6.0;
-    
+
     return Container(
       padding: EdgeInsets.all(containerPadding),
       decoration: BoxDecoration(

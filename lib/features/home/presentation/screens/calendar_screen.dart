@@ -152,9 +152,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         final events = snapshot.data ?? [];
 
         if (events.isEmpty) {
-          return const Center(
-            child: Text('No upcoming events'),
-          );
+          return const Center(child: Text('No upcoming events'));
         }
 
         return ListView.builder(
@@ -175,7 +173,9 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       margin: const EdgeInsets.only(bottom: 12),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: Color(int.parse(event.color.replaceFirst('#', '0xFF'))),
+          backgroundColor: Color(
+            int.parse(event.color.replaceFirst('#', '0xFF')),
+          ),
           child: Icon(
             _getIconForEventType(event.type),
             color: Colors.white,
@@ -187,7 +187,11 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (event.description.isNotEmpty)
-              Text(event.description, maxLines: 1, overflow: TextOverflow.ellipsis),
+              Text(
+                event.description,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
             Text(
               event.allDay
                   ? 'All day'
@@ -197,17 +201,23 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
           ],
         ),
         trailing: PopupMenuButton(
-          itemBuilder: (context) => [
+          itemBuilder: (popupContext) => [
             PopupMenuItem(
               child: const Text('Edit'),
               onTap: () {
-                Future.delayed(Duration.zero, () => _showEditEventDialog(context, event));
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  if (context.mounted) {
+                    _showEditEventDialog(context, event);
+                  }
+                });
               },
             ),
             PopupMenuItem(
               child: const Text('Delete'),
               onTap: () {
-                Future.delayed(Duration.zero, () => _deleteEvent(event.id));
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  _deleteEvent(event.id);
+                });
               },
             ),
           ],
@@ -310,13 +320,15 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                   );
                   final endTime = startTime.add(const Duration(hours: 1));
 
-                  await ref.read(calendarServiceProvider).addEvent(
-                    title: titleController.text,
-                    description: descriptionController.text,
-                    startTime: startTime,
-                    endTime: endTime,
-                    type: selectedType,
-                  );
+                  await ref
+                      .read(calendarServiceProvider)
+                      .addEvent(
+                        title: titleController.text,
+                        description: descriptionController.text,
+                        startTime: startTime,
+                        endTime: endTime,
+                        type: selectedType,
+                      );
 
                   if (context.mounted) {
                     Navigator.pop(context);
@@ -334,7 +346,9 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
 
   void _showEditEventDialog(BuildContext context, CalendarEvent event) {
     final titleController = TextEditingController(text: event.title);
-    final descriptionController = TextEditingController(text: event.description);
+    final descriptionController = TextEditingController(
+      text: event.description,
+    );
     EventType selectedType = event.type;
 
     showDialog(
@@ -400,7 +414,9 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                     type: selectedType,
                   );
 
-                  await ref.read(calendarServiceProvider).updateEvent(updatedEvent);
+                  await ref
+                      .read(calendarServiceProvider)
+                      .updateEvent(updatedEvent);
 
                   if (context.mounted) {
                     Navigator.pop(context);

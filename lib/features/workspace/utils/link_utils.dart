@@ -39,17 +39,12 @@ class LinkUtils {
     try {
       final uri = Uri.parse(url);
       // Try to launch URL with platformDefault mode first, fallback to externalApplication
-      return await launchUrl(
-        uri,
-      );
+      return await launchUrl(uri);
     } catch (e) {
       // If platformDefault fails, try with externalApplication
       try {
         final uri = Uri.parse(url);
-        return await launchUrl(
-          uri,
-          mode: LaunchMode.externalApplication,
-        );
+        return await launchUrl(uri, mode: LaunchMode.externalApplication);
       } catch (e) {
         return false;
       }

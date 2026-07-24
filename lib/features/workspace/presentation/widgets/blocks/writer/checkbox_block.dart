@@ -1,4 +1,3 @@
-
 import 'package:barruu/core/widgets/blocks/base_editable_block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/blocks/reader/check_box_reader_block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/utils/toolbar.dart';
@@ -36,7 +35,7 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
   int _focusedIndex = -1;
   final Map<int, TextSelection> _pendingSelections = {};
   TextSelection? _headerPendingSelection;
-  
+
   // Flag to prevent infinite save loops
   bool _isSaving = false;
 
@@ -72,7 +71,9 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
   }
 
   void _setupControllers() {
-    _headerController = TextEditingController(text: content['header']?.toString() ?? '');
+    _headerController = TextEditingController(
+      text: content['header']?.toString() ?? '',
+    );
     _itemControllers = [];
     _itemCheckedStates = [];
     _itemFocusNodes.clear();
@@ -102,13 +103,15 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
 
     _headerFocusNode.addListener(() => onFocusChange(_headerFocusNode, -1));
     for (int i = 0; i < _itemFocusNodes.length; i++) {
-      _itemFocusNodes[i].addListener(() => onFocusChange(_itemFocusNodes[i], i));
+      _itemFocusNodes[i].addListener(
+        () => onFocusChange(_itemFocusNodes[i], i),
+      );
     }
   }
 
-
   void _updateContentFromBlock() {
-    final headerChanged = content['header']?.toString() != _headerController.text;
+    final headerChanged =
+        content['header']?.toString() != _headerController.text;
     if (headerChanged) {
       _headerController.text = content['header']?.toString() ?? '';
     }
@@ -150,15 +153,17 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
 
     final newControllers = List<TextEditingController>.generate(
       itemsList.length,
-          (i) => i < _itemControllers.length ? _itemControllers[i] : TextEditingController(),
+      (i) => i < _itemControllers.length
+          ? _itemControllers[i]
+          : TextEditingController(),
     );
     final newCheckedStates = List<bool>.generate(
       itemsList.length,
-          (i) => i < _itemCheckedStates.length ? _itemCheckedStates[i] : false,
+      (i) => i < _itemCheckedStates.length ? _itemCheckedStates[i] : false,
     );
     final newFocusNodes = List<FocusNode>.generate(
       itemsList.length,
-          (i) => i < _itemFocusNodes.length ? _itemFocusNodes[i] : FocusNode(),
+      (i) => i < _itemFocusNodes.length ? _itemFocusNodes[i] : FocusNode(),
     );
 
     for (int i = 0; i < itemsList.length; i++) {
@@ -214,7 +219,10 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
       _itemFocusNodes.removeAt(index);
       _pendingSelections.remove(index);
       if (_focusedIndex >= index) {
-        _focusedIndex = (_focusedIndex - 1).clamp(-1, _itemControllers.length - 1);
+        _focusedIndex = (_focusedIndex - 1).clamp(
+          -1,
+          _itemControllers.length - 1,
+        );
       }
     });
 
@@ -241,14 +249,16 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
 
     content['header'] = _headerController.text.trim();
     content['items'] = items;
-    
+
     // Set flag to prevent infinite loop when saveContent calls onContentChanged
     _isSaving = true;
-    saveContent().then((_) {
-      _isSaving = false;
-    }).catchError((e) {
-      _isSaving = false;
-    });
+    saveContent()
+        .then((_) {
+          _isSaving = false;
+        })
+        .catchError((e) {
+          _isSaving = false;
+        });
   }
 
   void _restoreFocusAndSelection() {
@@ -269,7 +279,8 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
 
     // Restore header cursor position
     if (_headerPendingSelection != null && _focusedIndex == -1) {
-      if (_headerPendingSelection!.baseOffset <= _headerController.text.length) {
+      if (_headerPendingSelection!.baseOffset <=
+          _headerController.text.length) {
         _headerController.selection = _headerPendingSelection!;
       }
       _headerPendingSelection = null;
@@ -315,7 +326,8 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
       _showBulkInput = !_showBulkInput;
       if (_showBulkInput) {
         // Save preference for this session
-        ref.read(blockStylePreferencesProvider.notifier)
+        ref
+            .read(blockStylePreferencesProvider.notifier)
             .setCheckboxBulkImport(true);
         // Enable bulk import mode - hide individual item interface
         _bulkImportMode = true;
@@ -325,10 +337,10 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
               .asMap()
               .entries
               .map((e) {
-            final text = e.value.text.trim();
-            final checked = _itemCheckedStates[e.key] ? ' [✅]' : '';
-            return text.isNotEmpty ? '$text$checked' : '';
-          })
+                final text = e.value.text.trim();
+                final checked = _itemCheckedStates[e.key] ? ' [✅]' : '';
+                return text.isNotEmpty ? '$text$checked' : '';
+              })
               .where((t) => t.isNotEmpty)
               .join('\n');
         }
@@ -349,7 +361,9 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
       _bulkImportMode = false;
       _bulkInputController.clear();
     });
-    ref.read(blockStylePreferencesProvider.notifier).setCheckboxBulkImport(false);
+    ref
+        .read(blockStylePreferencesProvider.notifier)
+        .setCheckboxBulkImport(false);
   }
 
   void _reorderItem(int oldIndex, int newIndex) {
@@ -376,17 +390,18 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
   Widget buildEditor(BuildContext context) {
     final styleUtils = ref.read(styleUtilsProvider);
     final theme = Theme.of(context);
-    final color = styleUtils.parseHex(widget.block.style.color) ?? theme.colorScheme.onSurface;
+    final color =
+        styleUtils.parseHex(widget.block.style.color) ??
+        theme.colorScheme.onSurface;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-
         FadeTransition(
           opacity: toolbarOpacity,
           child: Toolbar(block: widget.block, docDir: widget.docDir),
         ),
-        const SizedBox(height :8),
+        const SizedBox(height: 8),
 
         // Header input
         Padding(
@@ -398,12 +413,13 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
             decoration: InputDecoration(
               border: InputBorder.none,
               hintText: 'Checklist Title (optional)',
-              hintStyle: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
+              hintStyle: TextStyle(
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+              ),
             ),
-            style: styleUtils.applyStyle(widget.block.style).copyWith(
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
+            style: styleUtils
+                .applyStyle(widget.block.style)
+                .copyWith(fontWeight: FontWeight.bold, color: color),
             onChanged: _onHeaderChanged,
           ),
         ),
@@ -419,7 +435,10 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
                   icon: const Icon(IconsaxPlusLinear.document_upload, size: 16),
                   label: const Text('Bulk Import'),
                   style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 4,
+                      horizontal: 8,
+                    ),
                     visualDensity: VisualDensity.compact,
                   ),
                 ),
@@ -432,7 +451,6 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
           Padding(
             padding: const EdgeInsets.only(bottom: 12.0, left: 8.0, right: 8.0),
             child: Column(
-
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Row(
@@ -447,10 +465,16 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
                     ),
                     TextButton.icon(
                       onPressed: _exitBulkMode,
-                      icon: const Icon(IconsaxPlusLinear.close_circle, size: 16),
+                      icon: const Icon(
+                        IconsaxPlusLinear.close_circle,
+                        size: 16,
+                      ),
                       label: const Text('Exit Bulk Mode'),
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 4,
+                          horizontal: 8,
+                        ),
                         visualDensity: VisualDensity.compact,
                       ),
                     ),
@@ -459,7 +483,9 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
                 const SizedBox(height: 8),
                 Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
+                    border: Border.all(
+                      color: theme.colorScheme.outline.withValues(alpha: 0.3),
+                    ),
                     borderRadius: BorderRadius.circular(8),
                     color: theme.colorScheme.surface,
                   ),
@@ -472,19 +498,30 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
                           'Enter your checklist items (one per line). Add [x] for checked items:',
                           style: TextStyle(
                             fontSize: 12,
-                            color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                            color: theme.colorScheme.onSurface.withValues(
+                              alpha: 0.7,
+                            ),
                           ),
                         ),
                       ),
                       TextField(
                         controller: _bulkInputController,
                         maxLines: 10,
-                        style: styleUtils.applyStyle(widget.block.style).copyWith(fontSize: 14, color: color),
+                        style: styleUtils
+                            .applyStyle(widget.block.style)
+                            .copyWith(fontSize: 14, color: color),
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 8,
+                          ),
                           hintText: 'Buy milk [x]\nCall doctor\nSend email',
-                          hintStyle: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+                          hintStyle: TextStyle(
+                            color: theme.colorScheme.onSurface.withValues(
+                              alpha: 0.4,
+                            ),
+                          ),
                         ),
                         onChanged: (_) => _applyBulkInput(),
                       ),
@@ -555,17 +592,24 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
               controller: _itemControllers[index],
               focusNode: _itemFocusNodes[index],
               maxLines: null,
-              style: styleUtils.applyStyle(widget.block.style).copyWith(
-                decoration: _itemCheckedStates[index] ? TextDecoration.lineThrough : TextDecoration.none,
-                color: color,
-              ),
+              style: styleUtils
+                  .applyStyle(widget.block.style)
+                  .copyWith(
+                    decoration: _itemCheckedStates[index]
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none,
+                    color: color,
+                  ),
               decoration: InputDecoration(
                 prefixIcon: Semantics(
                   label: _itemCheckedStates[index] ? 'Checked' : 'Unchecked',
                   child: GestureDetector(
-                    onTap: () => _updateItemChecked(index, !_itemCheckedStates[index]),
+                    onTap: () =>
+                        _updateItemChecked(index, !_itemCheckedStates[index]),
                     child: Icon(
-                      _itemCheckedStates[index] ? Icons.check_box : Icons.check_box_outline_blank,
+                      _itemCheckedStates[index]
+                          ? Icons.check_box
+                          : Icons.check_box_outline_blank,
                       color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                       size: 18,
                     ),
@@ -573,14 +617,16 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
                 ),
                 border: InputBorder.none,
                 hintText: 'List item ${index + 1}',
-                hintStyle: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
+                hintStyle: TextStyle(
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                ),
                 suffixIcon: _itemControllers.length > 1
                     ? IconButton(
-                  icon: const Icon(Icons.remove, size: 18),
-                  onPressed: () => _removeItem(index),
-                  color: theme.colorScheme.error,
-                  tooltip: 'Remove checklist item',
-                )
+                        icon: const Icon(Icons.remove, size: 18),
+                        onPressed: () => _removeItem(index),
+                        color: theme.colorScheme.error,
+                        tooltip: 'Remove checklist item',
+                      )
                     : null,
               ),
               onChanged: (value) => _onTextFieldChanged(index, value),
@@ -601,7 +647,11 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
   void _parseBulkText(String text) {
     if (text.isEmpty) return;
 
-    final lines = text.split('\n').map((l) => l.trim()).where((l) => l.isNotEmpty).toList();
+    final lines = text
+        .split('\n')
+        .map((l) => l.trim())
+        .where((l) => l.isNotEmpty)
+        .toList();
     if (lines.isEmpty) return;
 
     final checkedPattern = RegExp(r'\[(x|X|checked|CHECKED|✓|✔)\]$');
@@ -632,7 +682,9 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
         f.dispose();
       }
 
-      _itemControllers = itemTexts.map((t) => TextEditingController(text: t)).toList();
+      _itemControllers = itemTexts
+          .map((t) => TextEditingController(text: t))
+          .toList();
       _itemCheckedStates = checkedStates;
       _itemFocusNodes.clear();
       for (int i = 0; i < itemTexts.length; i++) {

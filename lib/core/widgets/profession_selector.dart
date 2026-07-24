@@ -17,13 +17,14 @@ class ProfessionSelector extends StatefulWidget {
 }
 
 class _ProfessionSelectorState extends State<ProfessionSelector> {
-  final TextEditingController _customProfessionController = TextEditingController();
+  final TextEditingController _customProfessionController =
+      TextEditingController();
   bool _isCustom = false;
 
   @override
   void initState() {
     super.initState();
-    if (widget.selectedProfession != null && 
+    if (widget.selectedProfession != null &&
         !Professions.all.contains(widget.selectedProfession)) {
       _isCustom = true;
       _customProfessionController.text = widget.selectedProfession!;
@@ -39,7 +40,7 @@ class _ProfessionSelectorState extends State<ProfessionSelector> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -58,17 +59,16 @@ class _ProfessionSelectorState extends State<ProfessionSelector> {
         ),
         const SizedBox(height: 12),
         DropdownButtonFormField<String>(
-          initialValue: _isCustom ? Professions.other : widget.selectedProfession,
+          initialValue: _isCustom
+              ? Professions.other
+              : widget.selectedProfession,
           decoration: const InputDecoration(
             labelText: 'Select profession',
             border: OutlineInputBorder(),
             prefixIcon: Icon(Icons.work_outline),
           ),
           items: Professions.all.map((profession) {
-            return DropdownMenuItem(
-              value: profession,
-              child: Text(profession),
-            );
+            return DropdownMenuItem(value: profession, child: Text(profession));
           }).toList(),
           onChanged: (value) {
             if (value == Professions.other) {
@@ -103,7 +103,9 @@ class _ProfessionSelectorState extends State<ProfessionSelector> {
               helperText: 'Specify your profession',
             ),
             onChanged: (value) {
-              widget.onProfessionSelected(value.trim().isEmpty ? null : value.trim());
+              widget.onProfessionSelected(
+                value.trim().isEmpty ? null : value.trim(),
+              );
             },
             validator: (value) {
               if (value == null || value.trim().isEmpty) {

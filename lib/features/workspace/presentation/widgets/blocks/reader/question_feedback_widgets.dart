@@ -168,7 +168,9 @@ class _DuolingoSheetState extends ConsumerState<_DuolingoSheet> {
                       Text(
                         'Correct answer:',
                         style: theme.textTheme.labelMedium?.copyWith(
-                          color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                          color: theme.colorScheme.onSurface.withValues(
+                            alpha: 0.6,
+                          ),
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -187,7 +189,9 @@ class _DuolingoSheetState extends ConsumerState<_DuolingoSheet> {
                       Text(
                         widget.explanation,
                         style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.colorScheme.onSurface.withValues(alpha: 0.75),
+                          color: theme.colorScheme.onSurface.withValues(
+                            alpha: 0.75,
+                          ),
                           height: 1.5,
                         ),
                       ),
@@ -201,15 +205,18 @@ class _DuolingoSheetState extends ConsumerState<_DuolingoSheet> {
                             Icon(
                               Icons.auto_awesome_rounded,
                               size: 14,
-                              color: theme.colorScheme.primary.withValues(alpha: 0.7),
+                              color: theme.colorScheme.primary.withValues(
+                                alpha: 0.7,
+                              ),
                             ),
                             const SizedBox(width: 6),
                             Expanded(
                               child: Text(
                                 text,
                                 style: theme.textTheme.bodySmall?.copyWith(
-                                  color: theme.colorScheme.onSurface
-                                      .withValues(alpha: 0.75),
+                                  color: theme.colorScheme.onSurface.withValues(
+                                    alpha: 0.75,
+                                  ),
                                   height: 1.5,
                                 ),
                               ),
@@ -543,7 +550,9 @@ class _PostSubmitActionsState extends ConsumerState<PostSubmitActions> {
       decoration: BoxDecoration(
         color: theme.colorScheme.primaryContainer.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.12)),
+        border: Border.all(
+          color: theme.colorScheme.outline.withValues(alpha: 0.12),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -593,7 +602,9 @@ class _PostSubmitActionsState extends ConsumerState<PostSubmitActions> {
                       text,
                       style: widget.baseStyle.copyWith(
                         fontSize: _bodyFontSize,
-                        color: theme.colorScheme.onSurface.withValues(alpha: 0.75),
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.75,
+                        ),
                         height: 1.5,
                       ),
                     ),
@@ -650,7 +661,9 @@ class _PostSubmitActionsState extends ConsumerState<PostSubmitActions> {
                       Icon(
                         Icons.auto_awesome_rounded,
                         size: 13,
-                        color: theme.colorScheme.secondary.withValues(alpha: 0.8),
+                        color: theme.colorScheme.secondary.withValues(
+                          alpha: 0.8,
+                        ),
                       ),
                       const SizedBox(width: 5),
                       Text(
@@ -659,7 +672,9 @@ class _PostSubmitActionsState extends ConsumerState<PostSubmitActions> {
                             : 'Ask AI again',
                         style: TextStyle(
                           fontSize: 11,
-                          color: theme.colorScheme.secondary.withValues(alpha: 0.85),
+                          color: theme.colorScheme.secondary.withValues(
+                            alpha: 0.85,
+                          ),
                           fontWeight: FontWeight.w500,
                         ),
                       ),

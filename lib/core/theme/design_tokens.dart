@@ -8,16 +8,16 @@ class AppColors {
   AppColors._(); // Private constructor
 
   // Primary palette (Monochrome)
-  static const primary = Color(0xFF000000);    // Black
-  static const secondary = Color(0xFF404040);  // Dark gray
-  static const tertiary = Color(0xFF757575);   // Medium gray
+  static const primary = Color(0xFF000000); // Black
+  static const secondary = Color(0xFF404040); // Dark gray
+  static const tertiary = Color(0xFF757575); // Medium gray
 
   // Neutral palette
   static const background = Color(0xFFFFFFFF); // Pure white
-  static const surface = Color(0xFFF5F5F5);   // Very light gray
+  static const surface = Color(0xFFF5F5F5); // Very light gray
   static const textPrimary = Color(0xFF000000); // Black text
-  static const textMuted = Color(0xFF757575);  // Medium gray text
-  static const border = Color(0xFFE0E0E0);    // Light gray border
+  static const textMuted = Color(0xFF757575); // Medium gray text
+  static const border = Color(0xFFE0E0E0); // Light gray border
 
   // Semantic colors (kept minimal and desaturated)
   static const success = Color(0xFF2E7D32);
@@ -142,8 +142,7 @@ class AppSpacing {
     double top = 0,
     double right = 0,
     double bottom = 0,
-  }) =>
-      EdgeInsets.only(left: left, top: top, right: right, bottom: bottom);
+  }) => EdgeInsets.only(left: left, top: top, right: right, bottom: bottom);
 }
 
 /// Border radius tokens
@@ -168,28 +167,28 @@ class AppShadows {
   AppShadows._(); // Private constructor
 
   static List<BoxShadow> get small => [
-        BoxShadow(
-          color: Colors.black.withValues(alpha: 0.08),
-          blurRadius: 4,
-          offset: const Offset(0, 2),
-        ),
-      ];
+    BoxShadow(
+      color: Colors.black.withValues(alpha: 0.08),
+      blurRadius: 4,
+      offset: const Offset(0, 2),
+    ),
+  ];
 
   static List<BoxShadow> get medium => [
-        BoxShadow(
-          color: Colors.black.withValues(alpha: 0.12),
-          blurRadius: 8,
-          offset: const Offset(0, 2),
-        ),
-      ];
+    BoxShadow(
+      color: Colors.black.withValues(alpha: 0.12),
+      blurRadius: 8,
+      offset: const Offset(0, 2),
+    ),
+  ];
 
   static List<BoxShadow> get large => [
-        BoxShadow(
-          color: Colors.black.withValues(alpha: 0.16),
-          blurRadius: 16,
-          offset: const Offset(0, 4),
-        ),
-      ];
+    BoxShadow(
+      color: Colors.black.withValues(alpha: 0.16),
+      blurRadius: 16,
+      offset: const Offset(0, 4),
+    ),
+  ];
 }
 
 /// Animation duration tokens

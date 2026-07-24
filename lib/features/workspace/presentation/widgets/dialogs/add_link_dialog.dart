@@ -6,11 +6,7 @@ class AddLinkDialog extends ConsumerStatefulWidget {
   final String? initialText;
   final String? initialUrl;
 
-  const AddLinkDialog({
-    super.key,
-    this.initialText,
-    this.initialUrl,
-  });
+  const AddLinkDialog({super.key, this.initialText, this.initialUrl});
 
   @override
   ConsumerState<AddLinkDialog> createState() => _AddLinkDialogState();
@@ -39,16 +35,13 @@ class _AddLinkDialogState extends ConsumerState<AddLinkDialog> {
     if (value == null || value.trim().isEmpty) {
       return 'Please enter a URL';
     }
-    
-    final urlPattern = RegExp(
-      r'^https?://[^\s]+$',
-      caseSensitive: false,
-    );
-    
+
+    final urlPattern = RegExp(r'^https?://[^\s]+$', caseSensitive: false);
+
     if (!urlPattern.hasMatch(value.trim())) {
       return 'Please enter a valid URL (e.g., https://example.com)';
     }
-    
+
     return null;
   }
 
@@ -63,7 +56,7 @@ class _AddLinkDialogState extends ConsumerState<AddLinkDialog> {
     if (_formKey.currentState?.validate() ?? false) {
       final text = _textController.text.trim();
       final url = _urlController.text.trim();
-      
+
       // Return markdown-formatted link
       Navigator.of(context).pop('[$text]($url)');
     }
@@ -72,7 +65,7 @@ class _AddLinkDialogState extends ConsumerState<AddLinkDialog> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return AlertDialog(
       title: Text(
         'Add Link',
@@ -132,10 +125,7 @@ class _AddLinkDialogState extends ConsumerState<AddLinkDialog> {
           onPressed: () => Navigator.of(context).pop(),
           child: const Text('Cancel'),
         ),
-        FilledButton(
-          onPressed: _handleAdd,
-          child: const Text('Add Link'),
-        ),
+        FilledButton(onPressed: _handleAdd, child: const Text('Add Link')),
       ],
     );
   }

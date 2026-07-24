@@ -7,7 +7,7 @@ import 'package:barruu/features/workspace/presentation/widgets/utils/toolbar.dar
 import 'package:barruu/features/workspace/utils/debouncer.dart';
 
 /// Matching question block for creating pair-matching questions.
-/// 
+///
 /// Content format:
 /// ```json
 /// {
@@ -58,7 +58,8 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
   @override
   Map<String, dynamic> getDefaultContent() => {
     'questionType': 'matching',
-    'instruction': 'Match the items on the left with the correct items on the right:',
+    'instruction':
+        'Match the items on the left with the correct items on the right:',
     'leftColumn': [
       {'id': 'l1', 'text': ''},
       {'id': 'l2', 'text': ''},
@@ -82,21 +83,35 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
 
   @override
   void initializeBlockSpecifics() {
-    _instructionController = TextEditingController(text: content['instruction'] ?? '');
-    _explanationController = TextEditingController(text: content['explanation'] ?? '');
+    _instructionController = TextEditingController(
+      text: content['instruction'] ?? '',
+    );
+    _explanationController = TextEditingController(
+      text: content['explanation'] ?? '',
+    );
     _instructionFocusNode = FocusNode();
     _explanationFocusNode = FocusNode();
     _debouncer = Debouncer(delay: const Duration(milliseconds: 500));
 
     _leftColumn = List<Map<String, dynamic>>.from(content['leftColumn'] ?? []);
-    _rightColumn = List<Map<String, dynamic>>.from(content['rightColumn'] ?? []);
-    _correctPairs = List<Map<String, dynamic>>.from(content['correctPairs'] ?? []);
+    _rightColumn = List<Map<String, dynamic>>.from(
+      content['rightColumn'] ?? [],
+    );
+    _correctPairs = List<Map<String, dynamic>>.from(
+      content['correctPairs'] ?? [],
+    );
 
     if (_leftColumn.isEmpty || _rightColumn.isEmpty) {
       final defaults = getDefaultContent();
-      _leftColumn = List<Map<String, dynamic>>.from(defaults['leftColumn'] as List);
-      _rightColumn = List<Map<String, dynamic>>.from(defaults['rightColumn'] as List);
-      _correctPairs = List<Map<String, dynamic>>.from(defaults['correctPairs'] as List);
+      _leftColumn = List<Map<String, dynamic>>.from(
+        defaults['leftColumn'] as List,
+      );
+      _rightColumn = List<Map<String, dynamic>>.from(
+        defaults['rightColumn'] as List,
+      );
+      _correctPairs = List<Map<String, dynamic>>.from(
+        defaults['correctPairs'] as List,
+      );
     }
   }
 
@@ -109,8 +124,12 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
       _explanationController.text = content['explanation'] ?? '';
     }
     _leftColumn = List<Map<String, dynamic>>.from(content['leftColumn'] ?? []);
-    _rightColumn = List<Map<String, dynamic>>.from(content['rightColumn'] ?? []);
-    _correctPairs = List<Map<String, dynamic>>.from(content['correctPairs'] ?? []);
+    _rightColumn = List<Map<String, dynamic>>.from(
+      content['rightColumn'] ?? [],
+    );
+    _correctPairs = List<Map<String, dynamic>>.from(
+      content['correctPairs'] ?? [],
+    );
   }
 
   @override
@@ -181,10 +200,7 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
 
   @override
   Widget buildReader(BuildContext context) {
-    return MatchingReaderBlock(
-      block: widget.block,
-      docDir: widget.docDir,
-    );
+    return MatchingReaderBlock(block: widget.block, docDir: widget.docDir);
   }
 
   @override
@@ -203,7 +219,9 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
-            border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.2)),
+            border: Border.all(
+              color: theme.colorScheme.outline.withValues(alpha: 0.2),
+            ),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
@@ -212,7 +230,11 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
               // Header
               Row(
                 children: [
-                  Icon(IconsaxPlusBold.link_21, size: 18, color: theme.colorScheme.primary),
+                  Icon(
+                    IconsaxPlusBold.link_21,
+                    size: 18,
+                    color: theme.colorScheme.primary,
+                  ),
                   const SizedBox(width: 6),
                   Text(
                     'Matching',
@@ -232,10 +254,16 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
                 minLines: 1,
                 maxLines: 4,
                 decoration: InputDecoration(
-                  hintText: 'Instruction (e.g. Match each term with its definition)',
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(6)),
+                  hintText:
+                      'Instruction (e.g. Match each term with its definition)',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(6),
+                  ),
                   isDense: true,
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 10,
+                  ),
                 ),
                 onChanged: (_) => _debouncer.call(_saveContentLocal),
               ),
@@ -252,7 +280,9 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
                         'LEFT',
                         textAlign: TextAlign.center,
                         style: theme.textTheme.labelSmall?.copyWith(
-                          color: theme.colorScheme.onSurface.withValues(alpha: 0.45),
+                          color: theme.colorScheme.onSurface.withValues(
+                            alpha: 0.45,
+                          ),
                           fontWeight: FontWeight.w700,
                           letterSpacing: 0.8,
                         ),
@@ -265,7 +295,9 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
                         'RIGHT',
                         textAlign: TextAlign.center,
                         style: theme.textTheme.labelSmall?.copyWith(
-                          color: theme.colorScheme.onSurface.withValues(alpha: 0.45),
+                          color: theme.colorScheme.onSurface.withValues(
+                            alpha: 0.45,
+                          ),
                           fontWeight: FontWeight.w700,
                           letterSpacing: 0.8,
                         ),
@@ -283,7 +315,9 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
                   margin: const EdgeInsets.only(bottom: 6),
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+                    color: theme.colorScheme.surfaceContainerHighest.withValues(
+                      alpha: 0.3,
+                    ),
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Row(
@@ -298,7 +332,9 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
                           style: theme.textTheme.bodySmall,
                           decoration: InputDecoration(
                             hintText: 'Item ${index + 1}',
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                            ),
                             isDense: true,
                             contentPadding: const EdgeInsets.all(8),
                           ),
@@ -310,7 +346,9 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
                         child: Icon(
                           Icons.arrow_forward_rounded,
                           size: 15,
-                          color: theme.colorScheme.primary.withValues(alpha: 0.6),
+                          color: theme.colorScheme.primary.withValues(
+                            alpha: 0.6,
+                          ),
                         ),
                       ),
                       // Right input
@@ -322,7 +360,9 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
                           style: theme.textTheme.bodySmall,
                           decoration: InputDecoration(
                             hintText: 'Match ${index + 1}',
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                            ),
                             isDense: true,
                             contentPadding: const EdgeInsets.all(8),
                           ),
@@ -338,7 +378,9 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
                           if (index > 0)
                             _actionIconButton(
                               icon: Icons.keyboard_arrow_up_rounded,
-                              color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                              color: theme.colorScheme.onSurface.withValues(
+                                alpha: 0.5,
+                              ),
                               onTap: () => _movePair(index, -1),
                             )
                           else
@@ -347,7 +389,9 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
                           if (index < _leftColumn.length - 1)
                             _actionIconButton(
                               icon: Icons.keyboard_arrow_down_rounded,
-                              color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                              color: theme.colorScheme.onSurface.withValues(
+                                alpha: 0.5,
+                              ),
                               onTap: () => _movePair(index, 1),
                             )
                           else
@@ -377,59 +421,80 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
                   OutlinedButton.icon(
                     onPressed: _addPair,
                     icon: const Icon(IconsaxPlusBold.add, size: 14),
-                    label: const Text('Add Pair', style: TextStyle(fontSize: 12)),
+                    label: const Text(
+                      'Add Pair',
+                      style: TextStyle(fontSize: 12),
+                    ),
                     style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
                       minimumSize: const Size(0, 32),
                     ),
                   ),
                   Flexible(
                     child: Wrap(
-                    spacing: 4,
-                    alignment: WrapAlignment.end,
-                    children: [
-                      FilterChip(
-                        label: const Text('Shuffle', style: TextStyle(fontSize: 11)),
-                        selected: content['shuffleItems'] ?? true,
-                        onSelected: (value) {
-                          setState(() => content['shuffleItems'] = value);
-                          _debouncer.call(_saveContentLocal);
-                        },
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        visualDensity: VisualDensity.compact,
-                      ),
-                      FilterChip(
-                        label: const Text('Partial', style: TextStyle(fontSize: 11)),
-                        selected: content['allowPartialCredit'] ?? true,
-                        onSelected: (value) {
-                          setState(() => content['allowPartialCredit'] = value);
-                          _debouncer.call(_saveContentLocal);
-                        },
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        visualDensity: VisualDensity.compact,
-                      ),
-                      FilterChip(
-                        label: const Text('Explanation', style: TextStyle(fontSize: 11)),
-                        selected: content['showExplanation'] as bool? ?? true,
-                        onSelected: (value) {
-                          setState(() => content['showExplanation'] = value);
-                          _debouncer.call(_saveContentLocal);
-                        },
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        visualDensity: VisualDensity.compact,
-                      ),
-                      FilterChip(
-                        label: const Text('Instant Check', style: TextStyle(fontSize: 11)),
-                        selected: content['evaluateOnMatch'] as bool? ?? false,
-                        onSelected: (value) {
-                          setState(() => content['evaluateOnMatch'] = value);
-                          _debouncer.call(_saveContentLocal);
-                        },
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        visualDensity: VisualDensity.compact,
-                      ),
-                    ],
-                  ),
+                      spacing: 4,
+                      alignment: WrapAlignment.end,
+                      children: [
+                        FilterChip(
+                          label: const Text(
+                            'Shuffle',
+                            style: TextStyle(fontSize: 11),
+                          ),
+                          selected: content['shuffleItems'] ?? true,
+                          onSelected: (value) {
+                            setState(() => content['shuffleItems'] = value);
+                            _debouncer.call(_saveContentLocal);
+                          },
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          visualDensity: VisualDensity.compact,
+                        ),
+                        FilterChip(
+                          label: const Text(
+                            'Partial',
+                            style: TextStyle(fontSize: 11),
+                          ),
+                          selected: content['allowPartialCredit'] ?? true,
+                          onSelected: (value) {
+                            setState(
+                              () => content['allowPartialCredit'] = value,
+                            );
+                            _debouncer.call(_saveContentLocal);
+                          },
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          visualDensity: VisualDensity.compact,
+                        ),
+                        FilterChip(
+                          label: const Text(
+                            'Explanation',
+                            style: TextStyle(fontSize: 11),
+                          ),
+                          selected: content['showExplanation'] as bool? ?? true,
+                          onSelected: (value) {
+                            setState(() => content['showExplanation'] = value);
+                            _debouncer.call(_saveContentLocal);
+                          },
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          visualDensity: VisualDensity.compact,
+                        ),
+                        FilterChip(
+                          label: const Text(
+                            'Instant Check',
+                            style: TextStyle(fontSize: 11),
+                          ),
+                          selected:
+                              content['evaluateOnMatch'] as bool? ?? false,
+                          onSelected: (value) {
+                            setState(() => content['evaluateOnMatch'] = value);
+                            _debouncer.call(_saveContentLocal);
+                          },
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          visualDensity: VisualDensity.compact,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -444,9 +509,14 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
                   minLines: 1,
                   decoration: InputDecoration(
                     hintText: 'Explanation (shown after answering)',
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(6)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
                     isDense: true,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 10,
+                    ),
                   ),
                   onChanged: (_) => _debouncer.call(_saveContentLocal),
                 ),

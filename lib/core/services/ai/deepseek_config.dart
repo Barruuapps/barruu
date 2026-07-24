@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 ///
 /// Contains all necessary configuration for connecting to the DeepSeek API.
 /// API keys and URLs are read from the .env file using flutter_dotenv.
-/// 
+///
 /// Make sure to call `await dotenv.load()` in main() before using this config.
 class DeepSeekConfig {
   // Private constructor to prevent instantiation
@@ -45,4 +45,3 @@ class DeepSeekConfig {
   /// Check if API key is configured
   static bool get isConfigured => apiKey.isNotEmpty;
 }
-

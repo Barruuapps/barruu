@@ -42,7 +42,10 @@ class ImageUrlInputWidget extends StatelessWidget {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
               ),
               onSubmitted: onSubmit,
             ),
@@ -56,10 +59,7 @@ class ImageUrlInputWidget extends StatelessWidget {
               foregroundColor: theme.colorScheme.onPrimary,
             ),
           ),
-          IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: onCancel,
-          ),
+          IconButton(icon: const Icon(Icons.close), onPressed: onCancel),
         ],
       ),
     );

@@ -83,8 +83,11 @@ class DocumentDatabaseManager {
 
       logger.i('Created page database schema with indexes');
     } catch (e, stackTrace) {
-      logger.e('Failed to create database schema',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to create database schema',
+        error: e,
+        stackTrace: stackTrace,
+      );
       rethrow;
     }
   }
@@ -113,8 +116,11 @@ class DocumentDatabaseManager {
       logger.i('Opened page database: $path');
       return db;
     } catch (e, stackTrace) {
-      logger.e('Failed to open page database: $path',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to open page database: $path',
+        error: e,
+        stackTrace: stackTrace,
+      );
       rethrow;
     }
   }

@@ -33,15 +33,17 @@ class LocalAuthState {
 }
 
 /// Provider for local auth state.
-final authStateProvider = StateNotifierProvider<LocalAuthNotifier, LocalAuthState>(
-  (ref) => LocalAuthNotifier(ref.read(userIdentityServiceProvider)),
-);
+final authStateProvider =
+    StateNotifierProvider<LocalAuthNotifier, LocalAuthState>(
+      (ref) => LocalAuthNotifier(ref.read(userIdentityServiceProvider)),
+    );
 
 /// Notifier that manages local auth state.
 class LocalAuthNotifier extends StateNotifier<LocalAuthState> {
   final UserIdentityService _identityService;
 
-  LocalAuthNotifier(this._identityService) : super(const LocalAuthState(userId: '')) {
+  LocalAuthNotifier(this._identityService)
+    : super(const LocalAuthState(userId: '')) {
     _load();
   }
 
@@ -71,7 +73,11 @@ class LocalAuthNotifier extends StateNotifier<LocalAuthState> {
   Future<bool> login(String _, String __) async {
     await _load();
     if (mounted) {
-      state = state.copyWith(userId: state.userId.isNotEmpty ? state.userId : await _identityService.getUserId());
+      state = state.copyWith(
+        userId: state.userId.isNotEmpty
+            ? state.userId
+            : await _identityService.getUserId(),
+      );
     }
     return true;
   }

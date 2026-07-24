@@ -22,8 +22,10 @@ Widget buildPageBlockCardStyle({
 }) {
   TextDecoration? decoration;
   if (blockStyle.underline && blockStyle.strikethrough) {
-    decoration = TextDecoration.combine(
-        [TextDecoration.underline, TextDecoration.lineThrough]);
+    decoration = TextDecoration.combine([
+      TextDecoration.underline,
+      TextDecoration.lineThrough,
+    ]);
   } else if (blockStyle.underline) {
     decoration = TextDecoration.underline;
   } else if (blockStyle.strikethrough) {
@@ -58,7 +60,8 @@ Widget buildPageBlockCardStyle({
       ),
       borderRadius: BorderRadius.circular(16),
       border: Border.all(
-        color: styleUtils.parseHex(blockStyle.borderColor) ??
+        color:
+            styleUtils.parseHex(blockStyle.borderColor) ??
             theme.colorScheme.primary.withValues(alpha: 0.4),
         width: 2,
       ),
@@ -92,7 +95,9 @@ Widget buildPageBlockCardStyle({
                     Text(
                       'Linked Page',
                       style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.6,
+                        ),
                         fontSize: 11,
                         fontWeight: FontWeight.w500,
                         letterSpacing: 0.5,
@@ -143,7 +148,10 @@ Widget buildPageBlockCardStyle({
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.colorScheme.primary,
                     foregroundColor: theme.colorScheme.onPrimary,
-                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 12,
+                      horizontal: 16,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -162,7 +170,10 @@ Widget buildPageBlockCardStyle({
                       color: theme.colorScheme.primary.withValues(alpha: 0.5),
                       width: 1.5,
                     ),
-                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 12,
+                      horizontal: 16,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -189,4 +200,3 @@ Widget buildPageBlockCardStyle({
   }
   return cardWidget;
 }
-

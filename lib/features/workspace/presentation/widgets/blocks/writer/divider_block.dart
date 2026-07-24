@@ -1,4 +1,3 @@
-
 import 'package:barruu/core/widgets/blocks/base_editable_block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/blocks/reader/divider_reader_block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/painters/divider_painter.dart';
@@ -82,7 +81,9 @@ class _DividerBlockState extends BaseEditableBlockState<DividerBlock> {
           : null,
     );
     final updatedBlock = widget.block.copyWith(style: updatedStyle);
-    ref.read(editDocumentControllerProvider(widget.docDir).notifier).saveBlock(updatedBlock);
+    ref
+        .read(editDocumentControllerProvider(widget.docDir).notifier)
+        .saveBlock(updatedBlock);
   }
 
   @override
@@ -126,11 +127,26 @@ class _DividerBlockState extends BaseEditableBlockState<DividerBlock> {
             DropdownButton<DividerStyle>(
               value: _dividerStyle,
               items: const [
-                DropdownMenuItem(value: DividerStyle.solid, child: Text('───────')),
-                DropdownMenuItem(value: DividerStyle.dashed, child:Text('--------------')),
-                DropdownMenuItem(value: DividerStyle.dotted, child:Text('.................')),
-                DropdownMenuItem(value: DividerStyle.double, child:Text('═══════')),
-                DropdownMenuItem(value: DividerStyle.threeDot, child: Text('         ...')),
+                DropdownMenuItem(
+                  value: DividerStyle.solid,
+                  child: Text('───────'),
+                ),
+                DropdownMenuItem(
+                  value: DividerStyle.dashed,
+                  child: Text('--------------'),
+                ),
+                DropdownMenuItem(
+                  value: DividerStyle.dotted,
+                  child: Text('.................'),
+                ),
+                DropdownMenuItem(
+                  value: DividerStyle.double,
+                  child: Text('═══════'),
+                ),
+                DropdownMenuItem(
+                  value: DividerStyle.threeDot,
+                  child: Text('         ...'),
+                ),
               ],
               onChanged: (DividerStyle? newValue) {
                 if (newValue != null) {

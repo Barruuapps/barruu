@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:barruu/core/utils/app_logger.dart';
 
 /// A widget that displays a preview of a cover image in the edit dialog.
-/// 
+///
 /// Shows a small thumbnail of the selected image with optional filename
 /// overlay. Falls back to app logo if image is not available or on web.
 class CoverImagePreview extends StatelessWidget {
   /// The image file to preview
   final File? image;
-  
+
   /// The original filename of the image
   final String? originalName;
-  
+
   /// The theme to use for styling
   final ThemeData theme;
 
@@ -32,7 +32,9 @@ class CoverImagePreview extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: theme.colorScheme.surfaceContainer,
-        border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.4)),
+        border: Border.all(
+          color: theme.colorScheme.outline.withValues(alpha: 0.4),
+        ),
       ),
       child: Stack(
         fit: StackFit.expand,
@@ -41,20 +43,20 @@ class CoverImagePreview extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             child: image != null && !kIsWeb
                 ? Image.file(
-              image!,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                logger.w('Failed to load cover: ${image!.path}', error: error);
-                return Image.asset(
-                  'assets/images/app_logo.png',
-                  fit: BoxFit.cover,
-                );
-              },
-            )
-                : Image.asset(
-              'assets/images/app_logo.png',
-              fit: BoxFit.cover,
-            ),
+                    image!,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      logger.w(
+                        'Failed to load cover: ${image!.path}',
+                        error: error,
+                      );
+                      return Image.asset(
+                        'assets/images/app_logo.png',
+                        fit: BoxFit.cover,
+                      );
+                    },
+                  )
+                : Image.asset('assets/images/app_logo.png', fit: BoxFit.cover),
           ),
           if (originalName != null && originalName!.isNotEmpty)
             Positioned(
@@ -68,7 +70,9 @@ class CoverImagePreview extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(
-                  originalName!.length > 20 ? '${originalName!.substring(0, 17)}...' : originalName!,
+                  originalName!.length > 20
+                      ? '${originalName!.substring(0, 17)}...'
+                      : originalName!,
                   style: theme.textTheme.bodySmall?.copyWith(
                     fontWeight: FontWeight.w500,
                     color: theme.colorScheme.onSurface,

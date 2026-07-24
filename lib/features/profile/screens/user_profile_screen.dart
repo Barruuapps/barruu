@@ -578,10 +578,7 @@ class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
     UserProfile profile,
   ) {
     return IntrinsicHeight(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [],
-      ),
+      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: []),
     );
   }
 
@@ -701,41 +698,6 @@ class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
     );
   }
 
-  Widget _buildStatItem(
-    BuildContext context,
-    ThemeData theme,
-    String count,
-    String label, {
-    VoidCallback? onTap,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(8),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              count,
-              style: theme.textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 2),
-            Text(
-              label,
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   void _showOptionsMenu(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -751,7 +713,9 @@ class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
+                  color: theme.colorScheme.onSurfaceVariant.withValues(
+                    alpha: 0.4,
+                  ),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -943,9 +907,11 @@ View profile: ${AppConstants.webBaseUrl}/@${profile.username}
     '''
             .trim();
 
-    Share.share(
-      shareText,
-      subject: '${profile.displayName} on ${AppConstants.appName}',
+    SharePlus.instance.share(
+      ShareParams(
+        text: shareText,
+        subject: '${profile.displayName} on ${AppConstants.appName}',
+      ),
     );
 
     // Show confirmation
@@ -1100,5 +1066,4 @@ View profile: ${AppConstants.webBaseUrl}/@${profile.username}
       }
     }
   }
-
 }

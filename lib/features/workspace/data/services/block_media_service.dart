@@ -38,10 +38,10 @@ class BlockMediaService {
     if (!pathValidator.isFileOperationSupported) return null;
     try {
       final picker = FilePicker.platform;
-      final result = await picker.pickFiles(
-        type: FileType.image,
-      );
-      if (result == null || result.files.isEmpty || result.files.first.path == null) {
+      final result = await picker.pickFiles(type: FileType.image);
+      if (result == null ||
+          result.files.isEmpty ||
+          result.files.first.path == null) {
         logger.w('Image picking cancelled');
         return null;
       }
@@ -49,7 +49,11 @@ class BlockMediaService {
       final originalName = result.files.first.name;
       return await _saveImageFile(file, originalName);
     } catch (e, stackTrace) {
-      logger.e('Failed to handle image block', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to handle image block',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return null;
     }
   }
@@ -73,7 +77,9 @@ class BlockMediaService {
       }
 
       final fileName = url.split('/').last.split('?').first;
-      final sanitizedName = pathValidator.sanitizeFileName(fileName.isEmpty ? 'image.jpg' : fileName);
+      final sanitizedName = pathValidator.sanitizeFileName(
+        fileName.isEmpty ? 'image.jpg' : fileName,
+      );
       final uniqueName = '${_uuid.v4()}_$sanitizedName';
       final imagePath = '${imagesDir.path}/$uniqueName';
 
@@ -95,7 +101,11 @@ class BlockMediaService {
         'fileName': sanitizedName,
       };
     } catch (e, stackTrace) {
-      logger.e('Failed to download image from URL', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to download image from URL',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return null;
     }
   }
@@ -106,7 +116,9 @@ class BlockMediaService {
   Future<Map<String, dynamic>?> handleImageFromCamera() async {
     try {
       final imagePicker = ImagePicker();
-      final pickedFile = await imagePicker.pickImage(source: ImageSource.camera);
+      final pickedFile = await imagePicker.pickImage(
+        source: ImageSource.camera,
+      );
 
       if (pickedFile == null) {
         logger.w('Image capture cancelled');
@@ -117,7 +129,11 @@ class BlockMediaService {
       final originalName = pickedFile.name;
       return await _saveImageFile(file, originalName);
     } catch (e, stackTrace) {
-      logger.e('Failed to capture image from camera', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to capture image from camera',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return null;
     }
   }
@@ -128,7 +144,10 @@ class BlockMediaService {
   /// [originalName] - The original filename
   ///
   /// Returns a map with image metadata or null if saving failed.
-  Future<Map<String, dynamic>?> _saveImageFile(File file, String originalName) async {
+  Future<Map<String, dynamic>?> _saveImageFile(
+    File file,
+    String originalName,
+  ) async {
     try {
       final imagesDir = Directory('${docDir.path}/media/images');
       if (!await imagesDir.exists()) {
@@ -178,7 +197,9 @@ class BlockMediaService {
       // Use ImagePicker (gallery) on mobile platforms for better UX
       if (Platform.isAndroid || Platform.isIOS) {
         final imagePicker = ImagePicker();
-        final pickedFile = await imagePicker.pickVideo(source: ImageSource.gallery);
+        final pickedFile = await imagePicker.pickVideo(
+          source: ImageSource.gallery,
+        );
 
         if (pickedFile == null) {
           logger.w('Video picking cancelled');
@@ -190,11 +211,11 @@ class BlockMediaService {
       } else {
         // Use FilePicker for desktop/web platforms
         final picker = FilePicker.platform;
-        final result = await picker.pickFiles(
-          type: FileType.video,
-        );
+        final result = await picker.pickFiles(type: FileType.video);
 
-        if (result == null || result.files.isEmpty || result.files.first.path == null) {
+        if (result == null ||
+            result.files.isEmpty ||
+            result.files.first.path == null) {
           logger.w('Video picking cancelled');
           return null;
         }
@@ -205,7 +226,11 @@ class BlockMediaService {
 
       return await _saveVideoFile(file, originalName);
     } catch (e, stackTrace) {
-      logger.e('Failed to handle video block', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to handle video block',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return null;
     }
   }
@@ -240,7 +265,9 @@ class BlockMediaService {
           'caption': '',
         };
 
-        logger.i('Video processed - sourceType: $sourceType, youtubeId: $newYoutubeId, path: $newPath');
+        logger.i(
+          'Video processed - sourceType: $sourceType, youtubeId: $newYoutubeId, path: $newPath',
+        );
         return result;
       }
 
@@ -258,7 +285,9 @@ class BlockMediaService {
   Future<Map<String, dynamic>?> handleVideoFromCamera() async {
     try {
       final imagePicker = ImagePicker();
-      final pickedFile = await imagePicker.pickVideo(source: ImageSource.camera);
+      final pickedFile = await imagePicker.pickVideo(
+        source: ImageSource.camera,
+      );
 
       if (pickedFile == null) {
         logger.w('Video capture cancelled');
@@ -269,7 +298,11 @@ class BlockMediaService {
       final originalName = pickedFile.name;
       return await _saveVideoFile(file, originalName);
     } catch (e, stackTrace) {
-      logger.e('Failed to capture video from camera', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to capture video from camera',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return null;
     }
   }
@@ -280,7 +313,10 @@ class BlockMediaService {
   /// [originalName] - The original filename
   ///
   /// Returns a map with video metadata or null if saving failed.
-  Future<Map<String, dynamic>?> _saveVideoFile(File file, String originalName) async {
+  Future<Map<String, dynamic>?> _saveVideoFile(
+    File file,
+    String originalName,
+  ) async {
     try {
       final videosDir = Directory('${docDir.path}/media/videos');
       if (!await videosDir.exists()) {
@@ -328,7 +364,9 @@ class BlockMediaService {
         allowedExtensions: AudioFileService.validAudioExtensions,
         dialogTitle: 'Select an Audio File',
       );
-      if (result == null || result.files.isEmpty || result.files.first.path == null) {
+      if (result == null ||
+          result.files.isEmpty ||
+          result.files.first.path == null) {
         logger.w('Audio picking cancelled');
         return null;
       }
@@ -336,7 +374,11 @@ class BlockMediaService {
       final originalName = result.files.first.name;
       return await _saveAudioFile(file, originalName);
     } catch (e, stackTrace) {
-      logger.e('Failed to handle audio block', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to handle audio block',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return null;
     }
   }
@@ -360,7 +402,9 @@ class BlockMediaService {
       }
 
       final fileName = url.split('/').last.split('?').first;
-      final sanitizedName = pathValidator.sanitizeFileName(fileName.isEmpty ? 'audio.mp3' : fileName);
+      final sanitizedName = pathValidator.sanitizeFileName(
+        fileName.isEmpty ? 'audio.mp3' : fileName,
+      );
       final uniqueName = '${_uuid.v4()}_$sanitizedName';
       final audioPath = '${audiosDir.path}/$uniqueName';
 
@@ -380,7 +424,11 @@ class BlockMediaService {
         'fileName': sanitizedName,
       };
     } catch (e, stackTrace) {
-      logger.e('Failed to download audio from URL', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to download audio from URL',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return null;
     }
   }
@@ -394,10 +442,16 @@ class BlockMediaService {
     try {
       // Fallback to file picker until audio recording is implemented
       // This would require an audio recording package like record or audio_recorder
-      logger.w('Audio recording not yet implemented - using file picker instead');
+      logger.w(
+        'Audio recording not yet implemented - using file picker instead',
+      );
       return await handleAudioFromFile();
     } catch (e, stackTrace) {
-      logger.e('Failed to record audio from microphone', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to record audio from microphone',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return null;
     }
   }
@@ -408,7 +462,10 @@ class BlockMediaService {
   /// [originalName] - The original filename
   ///
   /// Returns a map with audio metadata or null if saving failed.
-  Future<Map<String, dynamic>?> _saveAudioFile(File file, String originalName) async {
+  Future<Map<String, dynamic>?> _saveAudioFile(
+    File file,
+    String originalName,
+  ) async {
     try {
       final audiosDir = Directory('${docDir.path}/media/audios');
       if (!await audiosDir.exists()) {

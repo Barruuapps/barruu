@@ -39,8 +39,6 @@ class AvatarViewerDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    
     return Dialog(
       backgroundColor: Colors.transparent,
       insetPadding: EdgeInsets.zero,
@@ -55,7 +53,7 @@ class AvatarViewerDialog extends StatelessWidget {
               height: double.infinity,
             ),
           ),
-          
+
           // Centered avatar with interactive viewer for zoom
           Center(
             child: Column(
@@ -81,20 +79,17 @@ class AvatarViewerDialog extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 24),
-                
+
                 // Avatar with zoom capability
                 InteractiveViewer(
                   minScale: 1.0,
                   maxScale: 4.0,
                   child: heroTag != null
-                      ? Hero(
-                          tag: heroTag!,
-                          child: _buildAvatarImage(),
-                        )
+                      ? Hero(tag: heroTag!, child: _buildAvatarImage())
                       : _buildAvatarImage(),
                 ),
                 const SizedBox(height: 24),
-                
+
                 // Hint text
                 Container(
                   padding: const EdgeInsets.symmetric(
@@ -116,10 +111,7 @@ class AvatarViewerDialog extends StatelessWidget {
                       const SizedBox(width: 8),
                       const Text(
                         'Pinch to zoom',
-                        style: TextStyle(
-                          color: Colors.white70,
-                          fontSize: 14,
-                        ),
+                        style: TextStyle(color: Colors.white70, fontSize: 14),
                       ),
                     ],
                   ),
@@ -127,7 +119,7 @@ class AvatarViewerDialog extends StatelessWidget {
               ],
             ),
           ),
-          
+
           // Close button
           Positioned(
             top: MediaQuery.of(context).padding.top + 16,
@@ -136,10 +128,7 @@ class AvatarViewerDialog extends StatelessWidget {
               color: Colors.black54,
               shape: const CircleBorder(),
               child: IconButton(
-                icon: const Icon(
-                  Icons.close,
-                  color: Colors.white,
-                ),
+                icon: const Icon(Icons.close, color: Colors.white),
                 onPressed: () => Navigator.of(context).pop(),
               ),
             ),
@@ -151,9 +140,7 @@ class AvatarViewerDialog extends StatelessWidget {
 
   Widget _buildAvatarImage() {
     return Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-      ),
+      decoration: BoxDecoration(shape: BoxShape.circle),
       child: ClipOval(
         child: avatarUrl != null
             ? CachedNetworkImage(

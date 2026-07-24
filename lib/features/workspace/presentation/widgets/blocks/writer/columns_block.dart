@@ -12,7 +12,7 @@ import 'package:barruu/features/workspace/presentation/widgets/blocks/writer/col
 import 'package:barruu/features/workspace/constants/block_dimension_constants.dart';
 
 /// Columns block for multi-column layout with image support.
-/// 
+///
 /// Content format:
 /// ```json
 /// {
@@ -64,16 +64,16 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
   void initializeBlockSpecifics() {
     _debouncer = Debouncer(delay: const Duration(milliseconds: 500));
     _imageFileService = ImageFileService();
-    
+
     // Ensure columns is a list
     if (content['columns'] is! List) {
       content['columns'] = [];
     }
-    
+
     _gap = (content['gap'] as num?)?.toDouble() ?? 16.0;
     _columnStyle = content['columnStyle']?.toString() ?? 'elevated';
     _columnTemplate = content['columnTemplate']?.toString() ?? 'standard';
-    
+
     // Initialize controllers for existing columns
     _initializeColumnControllers();
   }
@@ -83,7 +83,7 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
     _gap = (content['gap'] as num?)?.toDouble() ?? 16.0;
     _columnStyle = content['columnStyle']?.toString() ?? 'elevated';
     _columnTemplate = content['columnTemplate']?.toString() ?? 'standard';
-    
+
     // Update controllers when content changes externally
     _updateColumnControllers();
   }
@@ -93,20 +93,22 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
     _debouncer.dispose();
     _disposeColumnControllers();
   }
-  
+
   void _initializeColumnControllers() {
     final columns = content['columns'] as List;
     for (int i = 0; i < columns.length; i++) {
       if (!_columnControllers.containsKey(i)) {
         final column = columns[i] as Map<String, dynamic>;
-        _columnControllers[i] = TextEditingController(text: column['content']?.toString() ?? '');
+        _columnControllers[i] = TextEditingController(
+          text: column['content']?.toString() ?? '',
+        );
       }
     }
   }
-  
+
   void _updateColumnControllers() {
     final columns = content['columns'] as List;
-    
+
     // Remove controllers for columns that no longer exist
     _columnControllers.removeWhere((key, controller) {
       if (key >= columns.length) {
@@ -115,12 +117,12 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
       }
       return false;
     });
-    
+
     // Update existing controllers and create new ones
     for (int i = 0; i < columns.length; i++) {
       final column = columns[i] as Map<String, dynamic>;
       final text = column['content']?.toString() ?? '';
-      
+
       if (_columnControllers.containsKey(i)) {
         // Only update if text is different to avoid cursor reset
         if (_columnControllers[i]!.text != text) {
@@ -131,7 +133,7 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
       }
     }
   }
-  
+
   void _disposeColumnControllers() {
     for (var controller in _columnControllers.values) {
       controller.dispose();
@@ -147,19 +149,15 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
       for (var column in columns) {
         column['width'] = newWidth;
       }
-      
+
       final newIndex = columns.length;
-      columns.add({
-        'width': newWidth,
-        'content': '',
-        'imagePath': '',
-      });
-      
+      columns.add({'width': newWidth, 'content': '', 'imagePath': ''});
+
       content['columns'] = columns;
-      
+
       // Create controller for new column
       _columnControllers[newIndex] = TextEditingController(text: '');
-      
+
       saveContent();
     }
   }
@@ -206,7 +204,9 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
         action: SnackBarAction(
           label: 'Undo',
           onPressed: () {
-            final currentColumns = List<Map<String, dynamic>>.from(content['columns'] as List);
+            final currentColumns = List<Map<String, dynamic>>.from(
+              content['columns'] as List,
+            );
             currentColumns.insert(index, removedColumn);
             // Redistribute widths
             final restoredWidth = 1.0 / currentColumns.length;
@@ -276,7 +276,9 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
   Future<void> _addImageToColumn(int columnIndex) async {
     final images = await _imageFileService.pickAndSaveImages(widget.docDir);
     if (images != null && images.isNotEmpty) {
-      final columns = List<Map<String, dynamic>>.from(content['columns'] as List);
+      final columns = List<Map<String, dynamic>>.from(
+        content['columns'] as List,
+      );
       if (columnIndex >= 0 && columnIndex < columns.length) {
         columns[columnIndex]['imagePath'] = images[0]['path'];
         content['columns'] = columns;
@@ -303,7 +305,9 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
     // Pick new image
     final images = await _imageFileService.pickAndSaveImages(widget.docDir);
     if (images != null && images.isNotEmpty) {
-      final updated = List<Map<String, dynamic>>.from(content['columns'] as List);
+      final updated = List<Map<String, dynamic>>.from(
+        content['columns'] as List,
+      );
       if (columnIndex < updated.length) {
         updated[columnIndex]['imagePath'] = images[0]['path'];
         content['columns'] = updated;
@@ -322,7 +326,7 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
           file.deleteSync();
         }
       }
-      
+
       columns[columnIndex]['imagePath'] = '';
       content['columns'] = columns;
       saveContent();
@@ -346,11 +350,13 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
           opacity: toolbarOpacity,
           child: Toolbar(block: widget.block, docDir: widget.docDir),
         ),
-        
+
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
+            border: Border.all(
+              color: theme.colorScheme.outline.withValues(alpha: 0.3),
+            ),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
@@ -385,7 +391,10 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
                         icon: const Icon(IconsaxPlusLinear.gallery, size: 16),
                         label: Text(_getTemplateDisplayName(_columnTemplate)),
                         style: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 8,
+                          ),
                           minimumSize: const Size(0, 32),
                         ),
                       ),
@@ -395,9 +404,18 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
                         value: _columnStyle,
                         hint: const Text('Style'),
                         items: const [
-                          DropdownMenuItem(value: 'elevated', child: Text('Elevated')),
-                          DropdownMenuItem(value: 'outlined', child: Text('Outlined')),
-                          DropdownMenuItem(value: 'filled', child: Text('Filled')),
+                          DropdownMenuItem(
+                            value: 'elevated',
+                            child: Text('Elevated'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'outlined',
+                            child: Text('Outlined'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'filled',
+                            child: Text('Filled'),
+                          ),
                         ],
                         onChanged: (value) {
                           if (value != null) {
@@ -410,7 +428,7 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
                 ],
               ),
               const SizedBox(height: 12),
-              
+
               // Gap slider
               Row(
                 children: [
@@ -429,9 +447,9 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
                   ),
                 ],
               ),
-              
+
               const SizedBox(height: 12),
-              
+
               // Columns editors
               if (columns.isEmpty)
                 BlockEmptyState(
@@ -456,9 +474,9 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
                     );
                   }),
                 ),
-              
+
               const SizedBox(height: 12),
-              
+
               // Add/Remove buttons
               Row(
                 children: [
@@ -469,7 +487,9 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
                   ),
                   const SizedBox(width: 8),
                   OutlinedButton.icon(
-                    onPressed: columns.length > 1 ? () => _removeColumn(columns.length - 1) : null,
+                    onPressed: columns.length > 1
+                        ? () => _removeColumn(columns.length - 1)
+                        : null,
                     icon: const Icon(IconsaxPlusLinear.minus),
                     label: const Text('Remove'),
                   ),
@@ -482,7 +502,12 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
     );
   }
 
-  Widget _buildAlignButton(Map<String, dynamic> column, int index, String align, IconData icon) {
+  Widget _buildAlignButton(
+    Map<String, dynamic> column,
+    int index,
+    String align,
+    IconData icon,
+  ) {
     final current = column['align'] as String? ?? 'left';
     final isSelected = current == align;
     final theme = Theme.of(context);
@@ -492,7 +517,9 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
       child: IconButton(
         icon: Icon(icon, size: 14),
         padding: EdgeInsets.zero,
-        color: isSelected ? theme.colorScheme.primary : theme.colorScheme.onSurface.withValues(alpha: 0.4),
+        color: isSelected
+            ? theme.colorScheme.primary
+            : theme.colorScheme.onSurface.withValues(alpha: 0.4),
         onPressed: () => _updateColumnAlign(index, align),
         tooltip: align[0].toUpperCase() + align.substring(1),
         constraints: const BoxConstraints(),
@@ -500,15 +527,21 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
     );
   }
 
-  Widget _buildColumnEditor(ThemeData theme, Map<String, dynamic> column, int index) {
+  Widget _buildColumnEditor(
+    ThemeData theme,
+    Map<String, dynamic> column,
+    int index,
+  ) {
     final imagePath = column['imagePath'] as String?;
     final hasImage = imagePath != null && imagePath.isNotEmpty;
-    
+
     // Ensure controller exists for this column
     if (!_columnControllers.containsKey(index)) {
-      _columnControllers[index] = TextEditingController(text: column['content']?.toString() ?? '');
+      _columnControllers[index] = TextEditingController(
+        text: column['content']?.toString() ?? '',
+      );
     }
-    
+
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -534,9 +567,24 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   // Per-column text alignment toggle
-                  _buildAlignButton(column, index, 'left', Icons.format_align_left),
-                  _buildAlignButton(column, index, 'center', Icons.format_align_center),
-                  _buildAlignButton(column, index, 'right', Icons.format_align_right),
+                  _buildAlignButton(
+                    column,
+                    index,
+                    'left',
+                    Icons.format_align_left,
+                  ),
+                  _buildAlignButton(
+                    column,
+                    index,
+                    'center',
+                    Icons.format_align_center,
+                  ),
+                  _buildAlignButton(
+                    column,
+                    index,
+                    'right',
+                    Icons.format_align_right,
+                  ),
                   if (hasImage) ...[
                     const SizedBox(width: 4),
                     IconButton(
@@ -568,7 +616,7 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
             ],
           ),
           const SizedBox(height: 8),
-          
+
           // Image display or add button
           if (hasImage)
             ClipRRect(
@@ -590,7 +638,7 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
                 minimumSize: Size.zero,
               ),
             ),
-          
+
           const SizedBox(height: 8),
           TextField(
             controller: _columnControllers[index],

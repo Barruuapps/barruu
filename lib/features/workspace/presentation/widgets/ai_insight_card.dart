@@ -70,7 +70,11 @@ class _AiInsightCardState extends State<AiInsightCard> {
         if (mounted) setState(() => _done = true);
       },
       onError: (_) {
-        if (mounted) setState(() { _done = true; _error = true; });
+        if (mounted)
+          setState(() {
+            _done = true;
+            _error = true;
+          });
       },
     );
   }
@@ -148,26 +152,23 @@ class _AiInsightCardState extends State<AiInsightCard> {
             child: _error
                 ? Text(
                     'Could not reach the AI. Check your connection and try again.',
-                    style: TextStyle(
-                      color: colorScheme.error,
-                      fontSize: 13,
-                    ),
+                    style: TextStyle(color: colorScheme.error, fontSize: 13),
                   )
                 : content.isEmpty
-                    ? const _ThinkingIndicator()
-                    : MarkdownBody(
-                        data: content,
-                        styleSheet: MarkdownStyleSheet.fromTheme(theme).copyWith(
-                          p: theme.textTheme.bodyMedium?.copyWith(
-                            color: colorScheme.onSurface,
-                            height: 1.5,
-                          ),
-                          code: theme.textTheme.bodySmall?.copyWith(
-                            fontFamily: 'monospace',
-                            backgroundColor: colorScheme.surfaceContainerHighest,
-                          ),
-                        ),
+                ? const _ThinkingIndicator()
+                : MarkdownBody(
+                    data: content,
+                    styleSheet: MarkdownStyleSheet.fromTheme(theme).copyWith(
+                      p: theme.textTheme.bodyMedium?.copyWith(
+                        color: colorScheme.onSurface,
+                        height: 1.5,
                       ),
+                      code: theme.textTheme.bodySmall?.copyWith(
+                        fontFamily: 'monospace',
+                        backgroundColor: colorScheme.surfaceContainerHighest,
+                      ),
+                    ),
+                  ),
           ),
 
           // Footer actions (when done)
@@ -181,12 +182,21 @@ class _AiInsightCardState extends State<AiInsightCard> {
                   if (widget.onAddToDocument != null)
                     TextButton.icon(
                       onPressed: () => widget.onAddToDocument!(content),
-                      icon: const Icon(Icons.add_circle_outline_rounded, size: 16),
+                      icon: const Icon(
+                        Icons.add_circle_outline_rounded,
+                        size: 16,
+                      ),
                       label: const Text('Add to document'),
                       style: TextButton.styleFrom(
                         foregroundColor: colorScheme.primary,
-                        textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        textStyle: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 4,
+                        ),
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
                     ),
@@ -227,7 +237,11 @@ class _SmallButton extends StatelessWidget {
             const SizedBox(width: 3),
             Text(
               label,
-              style: TextStyle(fontSize: 11, color: color, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                fontSize: 11,
+                color: color,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ],
         ),

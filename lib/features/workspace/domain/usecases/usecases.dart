@@ -1,5 +1,5 @@
 /// Workspace use cases barrel file
-/// 
+///
 /// This file exports all use cases for the workspace feature.
 /// Use cases encapsulate business logic and orchestrate data flow.
 library;

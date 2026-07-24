@@ -21,7 +21,9 @@ class CustomBorderPainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
 
     if (position == 'bottom') {
-      final path = Path()..moveTo(0, size.height - strokeWidth / 2)..lineTo(size.width, size.height - strokeWidth / 2);
+      final path = Path()
+        ..moveTo(0, size.height - strokeWidth / 2)
+        ..lineTo(size.width, size.height - strokeWidth / 2);
 
       if (style == 'dashed') {
         final dashedPath = _dashPath(path, [6.0, 4.0]);
@@ -34,10 +36,17 @@ class CustomBorderPainter extends CustomPainter {
       }
     } else {
       final path = Path()
-        ..addRRect(RRect.fromRectAndRadius(
-          Rect.fromLTWH(strokeWidth / 2, strokeWidth / 2, size.width - strokeWidth, size.height - strokeWidth),
-          const Radius.circular(4),
-        ));
+        ..addRRect(
+          RRect.fromRectAndRadius(
+            Rect.fromLTWH(
+              strokeWidth / 2,
+              strokeWidth / 2,
+              size.width - strokeWidth,
+              size.height - strokeWidth,
+            ),
+            const Radius.circular(4),
+          ),
+        );
 
       if (style == 'dashed') {
         final dashedPath = _dashPath(path, [6.0, 4.0]);

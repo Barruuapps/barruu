@@ -1,4 +1,3 @@
-
 import 'package:barruu/features/workspace/data/repositories/workspace_repository_impl.dart';
 import 'package:barruu/features/workspace/domain/entities/block.dart';
 import 'package:barruu/features/workspace/domain/entities/block_type.dart';
@@ -7,14 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 /// Controls for picking text, background, and border colors
 class ColorPickerControls extends ConsumerWidget {
   final EditDocumentController controller;
   final Block block;
   final StyleUtils styleUtils;
 
-  const ColorPickerControls({super.key,
+  const ColorPickerControls({
+    super.key,
     required this.controller,
     required this.block,
     required this.styleUtils,
@@ -30,29 +29,40 @@ class ColorPickerControls extends ConsumerWidget {
         icon: Icons.format_color_text,
         tooltip: 'Text Color',
         initialColor: styleUtils.parseHex(style.color) ?? Colors.black,
-        onPicked: (color) =>
-            controller.updateStyle(block, style.copyWith(color: styleUtils.toHex(color))),
+        onPicked: (color) => controller.updateStyle(
+          block,
+          style.copyWith(color: styleUtils.toHex(color)),
+        ),
       ),
       _buildColorButton(
         ref: ref,
         context: context,
         icon: Icons.format_color_fill,
         tooltip: 'Background Color',
-        initialColor: styleUtils.parseHex(style.background) ?? Colors.transparent,
-        onPicked: (color) =>
-            controller.updateStyle(block, style.copyWith(background: styleUtils.toHex(color))),
+        initialColor:
+            styleUtils.parseHex(style.background) ?? Colors.transparent,
+        onPicked: (color) => controller.updateStyle(
+          block,
+          style.copyWith(background: styleUtils.toHex(color)),
+        ),
       ),
     ];
 
-    if (block.type == BlockType.blockquote || block.type == BlockType.box || block.type == BlockType.page) {
+    if (block.type == BlockType.blockquote ||
+        block.type == BlockType.box ||
+        block.type == BlockType.page) {
       buttons.add(
         _buildColorButton(
           ref: ref,
           context: context,
           icon: Icons.border_left,
           tooltip: 'Border Color',
-          initialColor: styleUtils.parseHex(style.borderColor) ?? Colors.blueGrey,
-          onPicked: (color) => controller.updateStyle(block, style.copyWith(borderColor: styleUtils.toHex(color))),
+          initialColor:
+              styleUtils.parseHex(style.borderColor) ?? Colors.blueGrey,
+          onPicked: (color) => controller.updateStyle(
+            block,
+            style.copyWith(borderColor: styleUtils.toHex(color)),
+          ),
         ),
       );
     }
@@ -101,12 +111,12 @@ class ColorPickerControls extends ConsumerWidget {
                     height: 3,
                     decoration: BoxDecoration(
                       color: initialColor.alpha == 0
-                        ? Colors.red.withValues(alpha: 0.8)
-                        : initialColor,
+                          ? Colors.red.withValues(alpha: 0.8)
+                          : initialColor,
                       borderRadius: BorderRadius.circular(2),
                       border: initialColor.alpha == 0
-                        ? Border.all(color: Colors.red, width: 0.5)
-                        : null,
+                          ? Border.all(color: Colors.red, width: 0.5)
+                          : null,
                     ),
                   ),
                 ),
@@ -128,29 +138,56 @@ class ColorPickerControls extends ConsumerWidget {
     final theme = Theme.of(context);
     final screenSize = MediaQuery.of(context).size;
     final isWideScreen = screenSize.width > 600;
-    
+
     final materialColors = [
-      Colors.red, Colors.pink, Colors.purple, Colors.deepPurple, Colors.indigo,
-      Colors.blue, Colors.lightBlue, Colors.cyan, Colors.teal, Colors.green,
-      Colors.lightGreen, Colors.lime, Colors.yellow, Colors.amber, Colors.orange,
+      Colors.red,
+      Colors.pink,
+      Colors.purple,
+      Colors.deepPurple,
+      Colors.indigo,
+      Colors.blue,
+      Colors.lightBlue,
+      Colors.cyan,
+      Colors.teal,
+      Colors.green,
+      Colors.lightGreen,
+      Colors.lime,
+      Colors.yellow,
+      Colors.amber,
+      Colors.orange,
       Colors.deepOrange,
     ];
     final accentColors = [
-      Colors.brown, ...List.generate(9, (i) => Colors.grey[900 - i * 100]!),
-      Colors.white, Colors.black, Colors.blueGrey,
+      Colors.brown,
+      ...List.generate(9, (i) => Colors.grey[900 - i * 100]!),
+      Colors.white,
+      Colors.black,
+      Colors.blueGrey,
     ];
     final colorShades = materialColors
-        .map((color) => [
-      color[900]!, color[800]!, color[700]!, color[600]!, color[500]!,
-      color[400]!, color[300]!, color[200]!, color[100]!, color[50]!
-    ])
+        .map(
+          (color) => [
+            color[900]!,
+            color[800]!,
+            color[700]!,
+            color[600]!,
+            color[500]!,
+            color[400]!,
+            color[300]!,
+            color[200]!,
+            color[100]!,
+            color[50]!,
+          ],
+        )
         .toList();
 
     await showDialog(
       context: context,
       builder: (ctx) => StatefulBuilder(
         builder: (context, setState) => AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
           backgroundColor: theme.colorScheme.surface,
           elevation: 24,
           title: Row(
@@ -205,17 +242,24 @@ class ColorPickerControls extends ConsumerWidget {
                     ),
                     child: Center(
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
                         decoration: BoxDecoration(
-                          color: (pickedColor.computeLuminance() > 0.5
-                            ? Colors.black
-                            : Colors.white).withValues(alpha: 0.1),
+                          color:
+                              (pickedColor.computeLuminance() > 0.5
+                                      ? Colors.black
+                                      : Colors.white)
+                                  .withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
                           '#${pickedColor.toARGB32().toRadixString(16).padLeft(8, '0').substring(2).toUpperCase()}',
                           style: TextStyle(
-                            color: pickedColor.computeLuminance() > 0.5 ? Colors.black87 : Colors.white,
+                            color: pickedColor.computeLuminance() > 0.5
+                                ? Colors.black87
+                                : Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                             letterSpacing: 1.2,
@@ -231,11 +275,18 @@ class ColorPickerControls extends ConsumerWidget {
                       children: [
                         TabBar(
                           tabs: const [
-                            Tab(text: 'Palette', icon: Icon(Icons.grid_view, size: 20)),
-                            Tab(text: 'Custom', icon: Icon(Icons.tune, size: 20)),
+                            Tab(
+                              text: 'Palette',
+                              icon: Icon(Icons.grid_view, size: 20),
+                            ),
+                            Tab(
+                              text: 'Custom',
+                              icon: Icon(Icons.tune, size: 20),
+                            ),
                           ],
                           labelColor: theme.colorScheme.primary,
-                          unselectedLabelColor: theme.colorScheme.onSurfaceVariant,
+                          unselectedLabelColor:
+                              theme.colorScheme.onSurfaceVariant,
                           indicatorColor: theme.colorScheme.primary,
                           indicatorSize: TabBarIndicatorSize.tab,
                           indicatorWeight: 3,
@@ -243,7 +294,9 @@ class ColorPickerControls extends ConsumerWidget {
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
                           ),
-                          dividerColor: theme.colorScheme.outline.withValues(alpha: 0.1),
+                          dividerColor: theme.colorScheme.outline.withValues(
+                            alpha: 0.1,
+                          ),
                         ),
                         const SizedBox(height: 16),
                         SizedBox(
@@ -257,40 +310,87 @@ class ColorPickerControls extends ConsumerWidget {
                                     Container(
                                       padding: const EdgeInsets.all(12),
                                       decoration: BoxDecoration(
-                                        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+                                        color: theme
+                                            .colorScheme
+                                            .surfaceContainerHighest
+                                            .withValues(alpha: 0.3),
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             'Quick Colors',
-                                            style: theme.textTheme.labelMedium?.copyWith(
-                                              fontWeight: FontWeight.w600,
-                                              color: theme.colorScheme.onSurfaceVariant,
-                                            ),
+                                            style: theme.textTheme.labelMedium
+                                                ?.copyWith(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: theme
+                                                      .colorScheme
+                                                      .onSurfaceVariant,
+                                                ),
                                           ),
                                           const SizedBox(height: 8),
                                           Wrap(
                                             spacing: 8,
                                             runSpacing: 8,
                                             children: [
-                                              _colorBoxButton(Colors.transparent, pickedColor,
-                                                      (color) => setState(() => pickedColor = color)),
-                                              _colorBoxButton(Colors.white, pickedColor,
-                                                      (color) => setState(() => pickedColor = color)),
-                                              _colorBoxButton(Colors.black, pickedColor,
-                                                      (color) => setState(() => pickedColor = color)),
-                                              _colorBoxButton(Colors.grey, pickedColor,
-                                                      (color) => setState(() => pickedColor = color)),
-                                              _colorBoxButton(Colors.red, pickedColor,
-                                                      (color) => setState(() => pickedColor = color)),
-                                              _colorBoxButton(Colors.blue, pickedColor,
-                                                      (color) => setState(() => pickedColor = color)),
-                                              _colorBoxButton(Colors.green, pickedColor,
-                                                      (color) => setState(() => pickedColor = color)),
-                                              _colorBoxButton(Colors.yellow, pickedColor,
-                                                      (color) => setState(() => pickedColor = color)),
+                                              _colorBoxButton(
+                                                Colors.transparent,
+                                                pickedColor,
+                                                (color) => setState(
+                                                  () => pickedColor = color,
+                                                ),
+                                              ),
+                                              _colorBoxButton(
+                                                Colors.white,
+                                                pickedColor,
+                                                (color) => setState(
+                                                  () => pickedColor = color,
+                                                ),
+                                              ),
+                                              _colorBoxButton(
+                                                Colors.black,
+                                                pickedColor,
+                                                (color) => setState(
+                                                  () => pickedColor = color,
+                                                ),
+                                              ),
+                                              _colorBoxButton(
+                                                Colors.grey,
+                                                pickedColor,
+                                                (color) => setState(
+                                                  () => pickedColor = color,
+                                                ),
+                                              ),
+                                              _colorBoxButton(
+                                                Colors.red,
+                                                pickedColor,
+                                                (color) => setState(
+                                                  () => pickedColor = color,
+                                                ),
+                                              ),
+                                              _colorBoxButton(
+                                                Colors.blue,
+                                                pickedColor,
+                                                (color) => setState(
+                                                  () => pickedColor = color,
+                                                ),
+                                              ),
+                                              _colorBoxButton(
+                                                Colors.green,
+                                                pickedColor,
+                                                (color) => setState(
+                                                  () => pickedColor = color,
+                                                ),
+                                              ),
+                                              _colorBoxButton(
+                                                Colors.yellow,
+                                                pickedColor,
+                                                (color) => setState(
+                                                  () => pickedColor = color,
+                                                ),
+                                              ),
                                             ],
                                           ),
                                         ],
@@ -301,29 +401,40 @@ class ColorPickerControls extends ConsumerWidget {
                                     Container(
                                       padding: const EdgeInsets.all(12),
                                       decoration: BoxDecoration(
-                                        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+                                        color: theme
+                                            .colorScheme
+                                            .surfaceContainerHighest
+                                            .withValues(alpha: 0.3),
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             'Neutral & Accent Colors',
-                                            style: theme.textTheme.labelMedium?.copyWith(
-                                              fontWeight: FontWeight.w600,
-                                              color: theme.colorScheme.onSurfaceVariant,
-                                            ),
+                                            style: theme.textTheme.labelMedium
+                                                ?.copyWith(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: theme
+                                                      .colorScheme
+                                                      .onSurfaceVariant,
+                                                ),
                                           ),
                                           const SizedBox(height: 8),
                                           Wrap(
                                             spacing: 6,
                                             runSpacing: 6,
                                             children: accentColors
-                                                .map((color) => _colorBoxButton(
-                                              color,
-                                              pickedColor,
-                                                  (c) => setState(() => pickedColor = c),
-                                            ))
+                                                .map(
+                                                  (color) => _colorBoxButton(
+                                                    color,
+                                                    pickedColor,
+                                                    (c) => setState(
+                                                      () => pickedColor = c,
+                                                    ),
+                                                  ),
+                                                )
                                                 .toList(),
                                           ),
                                         ],
@@ -334,35 +445,51 @@ class ColorPickerControls extends ConsumerWidget {
                                     Container(
                                       padding: const EdgeInsets.all(12),
                                       decoration: BoxDecoration(
-                                        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+                                        color: theme
+                                            .colorScheme
+                                            .surfaceContainerHighest
+                                            .withValues(alpha: 0.3),
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             'Material Colors',
-                                            style: theme.textTheme.labelMedium?.copyWith(
-                                              fontWeight: FontWeight.w600,
-                                              color: theme.colorScheme.onSurfaceVariant,
-                                            ),
+                                            style: theme.textTheme.labelMedium
+                                                ?.copyWith(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: theme
+                                                      .colorScheme
+                                                      .onSurfaceVariant,
+                                                ),
                                           ),
                                           const SizedBox(height: 8),
                                           ListView.builder(
                                             shrinkWrap: true,
-                                            physics: const NeverScrollableScrollPhysics(),
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
                                             itemCount: colorShades.length,
                                             itemBuilder: (context, i) => Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 2),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    vertical: 2,
+                                                  ),
                                               child: Row(
                                                 children: colorShades[i]
-                                                    .map((color) => Expanded(
-                                                  child: _colorBoxButton(
-                                                    color,
-                                                    pickedColor,
-                                                        (c) => setState(() => pickedColor = c),
-                                                  ),
-                                                ))
+                                                    .map(
+                                                      (color) => Expanded(
+                                                        child: _colorBoxButton(
+                                                          color,
+                                                          pickedColor,
+                                                          (c) => setState(
+                                                            () =>
+                                                                pickedColor = c,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    )
                                                     .toList(),
                                               ),
                                             ),
@@ -375,17 +502,22 @@ class ColorPickerControls extends ConsumerWidget {
                               ),
                               SingleChildScrollView(
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 16),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 16,
+                                  ),
                                   child: ColorPicker(
                                     pickerColor: pickedColor,
-                                    onColorChanged: (color) => setState(() => pickedColor = color),
+                                    onColorChanged: (color) =>
+                                        setState(() => pickedColor = color),
                                     portraitOnly: true,
                                     hexInputBar: true,
                                     displayThumbColor: true,
                                     pickerAreaHeightPercent: 0.7,
                                     labelTypes: const [],
                                     paletteType: PaletteType.hueWheel,
-                                    colorPickerWidth: isWideScreen ? 280 : screenSize.width * 0.7,
+                                    colorPickerWidth: isWideScreen
+                                        ? 280
+                                        : screenSize.width * 0.7,
                                   ),
                                 ),
                               ),
@@ -404,11 +536,19 @@ class ColorPickerControls extends ConsumerWidget {
             TextButton(
               onPressed: () => Navigator.of(ctx).pop(),
               style: TextButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 14,
+                ),
                 foregroundColor: theme.colorScheme.onSurfaceVariant,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
-              child: const Text('Cancel', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15)),
+              child: const Text(
+                'Cancel',
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+              ),
             ),
             const SizedBox(width: 8),
             ElevatedButton(
@@ -417,21 +557,34 @@ class ColorPickerControls extends ConsumerWidget {
                 onPicked(pickedColor);
               },
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 28,
+                  vertical: 14,
+                ),
                 backgroundColor: theme.colorScheme.primary,
                 foregroundColor: theme.colorScheme.onPrimary,
                 elevation: 2,
                 shadowColor: theme.colorScheme.primary.withValues(alpha: 0.4),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
-              child: const Text('Apply', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+              child: const Text(
+                'Apply',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              ),
             ),
           ],
         ),
       ),
     );
   }
-  Widget _colorBoxButton(Color color, Color selectedColor, Function(Color) onSelect) {
+
+  Widget _colorBoxButton(
+    Color color,
+    Color selectedColor,
+    Function(Color) onSelect,
+  ) {
     final isSelected = color.toARGB32() == selectedColor.toARGB32();
     final isTransparent = color.alpha == 0 || color == Colors.transparent;
 
@@ -446,26 +599,26 @@ class ColorPickerControls extends ConsumerWidget {
         decoration: BoxDecoration(
           color: color,
           border: Border.all(
-            color: isSelected 
-              ? Colors.blue.shade700 
-              : Colors.grey.shade300,
+            color: isSelected ? Colors.blue.shade700 : Colors.grey.shade300,
             width: isSelected ? 3 : 1.5,
           ),
           borderRadius: BorderRadius.circular(8),
-          boxShadow: isSelected ? [
-            BoxShadow(
-              color: Colors.blue.withValues(alpha: 0.4),
-              blurRadius: 8,
-              offset: const Offset(0, 3),
-              spreadRadius: 1,
-            ),
-          ] : [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
-              blurRadius: 2,
-              offset: const Offset(0, 1),
-            ),
-          ],
+          boxShadow: isSelected
+              ? [
+                  BoxShadow(
+                    color: Colors.blue.withValues(alpha: 0.4),
+                    blurRadius: 8,
+                    offset: const Offset(0, 3),
+                    spreadRadius: 1,
+                  ),
+                ]
+              : [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.05),
+                    blurRadius: 2,
+                    offset: const Offset(0, 1),
+                  ),
+                ],
         ),
         child: isTransparent
             ? Stack(
@@ -477,10 +630,7 @@ class ColorPickerControls extends ConsumerWidget {
                       gradient: LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
-                        colors: [
-                          Colors.grey.shade200,
-                          Colors.grey.shade300,
-                        ],
+                        colors: [Colors.grey.shade200, Colors.grey.shade300],
                       ),
                     ),
                   ),
@@ -518,7 +668,9 @@ class ColorPickerControls extends ConsumerWidget {
                   child: Icon(
                     Icons.check_circle,
                     size: 22,
-                    color: color.computeLuminance() > 0.5 ? Colors.black87 : Colors.white,
+                    color: color.computeLuminance() > 0.5
+                        ? Colors.black87
+                        : Colors.white,
                   ),
                 ),
               )

@@ -4,7 +4,7 @@ import 'package:barruu/features/workspace/domain/usecases/base_use_case.dart';
 import 'package:barruu/features/workspace/domain/repositories/i_document_repository.dart';
 
 /// Use case for updating multiple blocks in a single transaction
-/// 
+///
 /// This use case handles batch block updates, including validation
 /// and atomic transaction handling.
 class UpdateBlocksUseCase extends UseCase<void, UpdateBlocksParams> {
@@ -16,13 +16,13 @@ class UpdateBlocksUseCase extends UseCase<void, UpdateBlocksParams> {
   Future<Result<void>> call(UpdateBlocksParams params) async {
     try {
       // Validate all blocks have IDs
-      final invalidBlocks = params.blocks.where(
-        (block) => block.id == null || block.id!.isEmpty
-      ).toList();
-      
+      final invalidBlocks = params.blocks
+          .where((block) => block.id == null || block.id!.isEmpty)
+          .toList();
+
       if (invalidBlocks.isNotEmpty) {
         return Result.error(
-          'Cannot update blocks: ${invalidBlocks.length} block(s) have invalid IDs'
+          'Cannot update blocks: ${invalidBlocks.length} block(s) have invalid IDs',
         );
       }
 

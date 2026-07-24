@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Smart block list widget that automatically chooses between pagination and full-load
 /// based on document size for optimal performance and functionality.
-/// 
+///
 /// For small documents (<100 blocks), uses full-load with reordering support.
 /// For large documents (>100 blocks), uses pagination for better memory performance.
 class SmartBlockList extends ConsumerStatefulWidget {
@@ -47,17 +47,21 @@ class _SmartBlockListState extends ConsumerState<SmartBlockList> {
   Future<void> _checkDocumentSize() async {
     try {
       // Get total block count to decide pagination strategy
-      final countUseCase = ref.read(getBlocksCountUseCaseProvider(widget.docDir));
+      final countUseCase = ref.read(
+        getBlocksCountUseCaseProvider(widget.docDir),
+      );
       final result = await countUseCase.execute();
-      
+
       result.when(
         success: (count) {
           if (mounted) {
             setState(() {
-              _shouldUsePagination = PaginationConfig.shouldUsePagination(count);
+              _shouldUsePagination = PaginationConfig.shouldUsePagination(
+                count,
+              );
               _isCheckingSize = false;
             });
-            
+
             // Only setup scroll listener if pagination is needed
             if (_shouldUsePagination) {
               widget.scrollController.addListener(_onScroll);
@@ -85,18 +89,23 @@ class _SmartBlockListState extends ConsumerState<SmartBlockList> {
 
   void _onScroll() {
     final controller = widget.scrollController;
-    if (controller.position.pixels >= 
-        controller.position.maxScrollExtent - PaginationConfig.loadMoreThreshold) {
+    if (controller.position.pixels >=
+        controller.position.maxScrollExtent -
+            PaginationConfig.loadMoreThreshold) {
       _loadMoreBlocks();
     }
   }
 
   void _loadMoreBlocks() {
     if (!_shouldUsePagination) return;
-    
-    final paginatedState = ref.read(paginatedEditControllerProvider(widget.docDir));
+
+    final paginatedState = ref.read(
+      paginatedEditControllerProvider(widget.docDir),
+    );
     if (!paginatedState.isLoading && paginatedState.hasMore) {
-      ref.read(paginatedEditControllerProvider(widget.docDir).notifier).loadNextPage();
+      ref
+          .read(paginatedEditControllerProvider(widget.docDir).notifier)
+          .loadNextPage();
     }
   }
 
@@ -147,7 +156,10 @@ class _SmartBlockListState extends ConsumerState<SmartBlockList> {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                ref.read(paginatedEditControllerProvider(widget.docDir).notifier)
+                ref
+                    .read(
+                      paginatedEditControllerProvider(widget.docDir).notifier,
+                    )
                     .refresh();
               },
               child: const Text('Retry'),
@@ -170,9 +182,7 @@ class _SmartBlockListState extends ConsumerState<SmartBlockList> {
         if (index == state.blocks.length) {
           return const Padding(
             padding: EdgeInsets.all(16.0),
-            child: Center(
-              child: ShimmerCircularProgress(size: 40),
-            ),
+            child: Center(child: ShimmerCircularProgress(size: 40)),
           );
         }
 

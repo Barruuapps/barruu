@@ -59,8 +59,9 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
     bool initiallyOpen = widget.forceExpanded;
     if (!initiallyOpen) {
       try {
-        final parsed =
-            JsonStringConverter().convertFromJsonString(widget.block.content);
+        final parsed = JsonStringConverter().convertFromJsonString(
+          widget.block.content,
+        );
         initiallyOpen = parsed['initiallyOpen'] as bool? ?? false;
       } catch (_) {}
     }
@@ -71,10 +72,7 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
       vsync: this,
     );
     _iconRotation = Tween<double>(begin: 0.0, end: 0.5).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.easeInOut,
-      ),
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
     if (_isExpanded) _animationController.value = 1.0;
   }
@@ -148,7 +146,8 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
           style: widget.block.style,
         );
       case 'list':
-        final items = (contentData['items'] as List?)
+        final items =
+            (contentData['items'] as List?)
                 ?.map((e) => e.toString())
                 .toList() ??
             <String>[];
@@ -203,13 +202,11 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
     final fontSize = widget.block.style.fontSize;
     final parsedColor = styleUtils.parseHex(widget.block.style.color);
     final color = parsedColor ?? theme.colorScheme.onSurface;
-    final parsedBackground =
-        styleUtils.parseHex(widget.block.style.background);
+    final parsedBackground = styleUtils.parseHex(widget.block.style.background);
     final textMultiplier = ResponsiveUtils.getTextSizeMultiplier(context);
-    final baseTextStyle = styleUtils.applyStyle(widget.block.style).copyWith(
-      fontSize: fontSize * textMultiplier,
-      color: color,
-    );
+    final baseTextStyle = styleUtils
+        .applyStyle(widget.block.style)
+        .copyWith(fontSize: fontSize * textMultiplier, color: color);
 
     final contentType = parsedContent['contentType']?.toString() ?? 'paragraph';
     final contentData = _extractContentData(parsedContent);
@@ -241,33 +238,80 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
   ) {
     switch (template) {
       case 'filled':
-        final fillColor = parsedBackground ??
+        final fillColor =
+            parsedBackground ??
             theme.colorScheme.primaryContainer.withValues(alpha: 0.3);
-        return _buildContainerTemplate(theme, fillColor, color, baseTextStyle,
-            title, contentType, contentData,
-            borderRadius: 12);
+        return _buildContainerTemplate(
+          theme,
+          fillColor,
+          color,
+          baseTextStyle,
+          title,
+          contentType,
+          contentData,
+          borderRadius: 12,
+        );
       case 'minimal':
-        return _buildMinimalTemplate(theme, color, baseTextStyle, title,
-            contentType, contentData);
+        return _buildMinimalTemplate(
+          theme,
+          color,
+          baseTextStyle,
+          title,
+          contentType,
+          contentData,
+        );
       case 'card':
-        return _buildCardTemplate(theme, parsedBackground, color, baseTextStyle,
-            title, contentType, contentData);
+        return _buildCardTemplate(
+          theme,
+          parsedBackground,
+          color,
+          baseTextStyle,
+          title,
+          contentType,
+          contentData,
+        );
       case 'outlined':
-        return _buildOutlinedTemplate(theme, color, baseTextStyle, title,
-            contentType, contentData);
+        return _buildOutlinedTemplate(
+          theme,
+          color,
+          baseTextStyle,
+          title,
+          contentType,
+          contentData,
+        );
       case 'accent':
-        return _buildAccentTemplate(theme, parsedBackground, color,
-            baseTextStyle, title, contentType, contentData);
+        return _buildAccentTemplate(
+          theme,
+          parsedBackground,
+          color,
+          baseTextStyle,
+          title,
+          contentType,
+          contentData,
+        );
       case 'default':
       default:
-        return _buildDefaultTemplate(theme, parsedBackground, color,
-            baseTextStyle, title, contentType, contentData);
+        return _buildDefaultTemplate(
+          theme,
+          parsedBackground,
+          color,
+          baseTextStyle,
+          title,
+          contentType,
+          contentData,
+        );
     }
   }
 
-  Widget _buildDefaultTemplate(ThemeData theme, Color? parsedBackground,
-      Color color, TextStyle baseTextStyle, String title, String contentType,
-      Map<String, dynamic> contentData) {
+  Widget _buildDefaultTemplate(
+    ThemeData theme,
+    Color? parsedBackground,
+    Color color,
+    TextStyle baseTextStyle,
+    String title,
+    String contentType,
+    Map<String, dynamic> contentData,
+  ) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
@@ -280,31 +324,54 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
         ),
         borderRadius: BorderRadius.circular(12),
       ),
-      child: _buildExpandableCore(theme, color, baseTextStyle, title,
-          contentType, contentData,
-          borderRadius: 12),
+      child: _buildExpandableCore(
+        theme,
+        color,
+        baseTextStyle,
+        title,
+        contentType,
+        contentData,
+        borderRadius: 12,
+      ),
     );
   }
 
-  Widget _buildContainerTemplate(ThemeData theme, Color bgColor, Color color,
-      TextStyle baseTextStyle, String title, String contentType,
-      Map<String, dynamic> contentData,
-      {double borderRadius = 12}) {
+  Widget _buildContainerTemplate(
+    ThemeData theme,
+    Color bgColor,
+    Color color,
+    TextStyle baseTextStyle,
+    String title,
+    String contentType,
+    Map<String, dynamic> contentData, {
+    double borderRadius = 12,
+  }) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
         color: bgColor,
         borderRadius: BorderRadius.circular(borderRadius),
       ),
-      child: _buildExpandableCore(theme, color, baseTextStyle, title,
-          contentType, contentData,
-          borderRadius: borderRadius),
+      child: _buildExpandableCore(
+        theme,
+        color,
+        baseTextStyle,
+        title,
+        contentType,
+        contentData,
+        borderRadius: borderRadius,
+      ),
     );
   }
 
-  Widget _buildMinimalTemplate(ThemeData theme, Color color,
-      TextStyle baseTextStyle, String title, String contentType,
-      Map<String, dynamic> contentData) {
+  Widget _buildMinimalTemplate(
+    ThemeData theme,
+    Color color,
+    TextStyle baseTextStyle,
+    String title,
+    String contentType,
+    Map<String, dynamic> contentData,
+  ) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: Material(
@@ -333,20 +400,27 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
                     const SizedBox(width: 8),
                     RotationTransition(
                       turns: _iconRotation,
-                      child: Icon(Icons.keyboard_arrow_down_rounded,
-                          color: _isExpanded
-                              ? theme.colorScheme.primary
-                              : color.withValues(alpha: 0.6),
-                          size: 24),
+                      child: Icon(
+                        Icons.keyboard_arrow_down_rounded,
+                        color: _isExpanded
+                            ? theme.colorScheme.primary
+                            : color.withValues(alpha: 0.6),
+                        size: 24,
+                      ),
                     ),
                   ],
                 ),
               ),
               Divider(
-                  height: 1,
-                  color: theme.colorScheme.outline.withValues(alpha: 0.3)),
+                height: 1,
+                color: theme.colorScheme.outline.withValues(alpha: 0.3),
+              ),
               _buildContentSection(
-                  theme, baseTextStyle, contentType, contentData),
+                theme,
+                baseTextStyle,
+                contentType,
+                contentData,
+              ),
             ],
           ),
         ),
@@ -354,9 +428,15 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
     );
   }
 
-  Widget _buildCardTemplate(ThemeData theme, Color? parsedBackground,
-      Color color, TextStyle baseTextStyle, String title, String contentType,
-      Map<String, dynamic> contentData) {
+  Widget _buildCardTemplate(
+    ThemeData theme,
+    Color? parsedBackground,
+    Color color,
+    TextStyle baseTextStyle,
+    String title,
+    String contentType,
+    Map<String, dynamic> contentData,
+  ) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
@@ -370,15 +450,26 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
           ),
         ],
       ),
-      child: _buildExpandableCore(theme, color, baseTextStyle, title,
-          contentType, contentData,
-          borderRadius: 12),
+      child: _buildExpandableCore(
+        theme,
+        color,
+        baseTextStyle,
+        title,
+        contentType,
+        contentData,
+        borderRadius: 12,
+      ),
     );
   }
 
-  Widget _buildOutlinedTemplate(ThemeData theme, Color color,
-      TextStyle baseTextStyle, String title, String contentType,
-      Map<String, dynamic> contentData) {
+  Widget _buildOutlinedTemplate(
+    ThemeData theme,
+    Color color,
+    TextStyle baseTextStyle,
+    String title,
+    String contentType,
+    Map<String, dynamic> contentData,
+  ) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
@@ -389,33 +480,57 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
         ),
         borderRadius: BorderRadius.circular(12),
       ),
-      child: _buildExpandableCore(theme, color, baseTextStyle, title,
-          contentType, contentData,
-          borderRadius: 12),
+      child: _buildExpandableCore(
+        theme,
+        color,
+        baseTextStyle,
+        title,
+        contentType,
+        contentData,
+        borderRadius: 12,
+      ),
     );
   }
 
-  Widget _buildAccentTemplate(ThemeData theme, Color? parsedBackground,
-      Color color, TextStyle baseTextStyle, String title, String contentType,
-      Map<String, dynamic> contentData) {
+  Widget _buildAccentTemplate(
+    ThemeData theme,
+    Color? parsedBackground,
+    Color color,
+    TextStyle baseTextStyle,
+    String title,
+    String contentType,
+    Map<String, dynamic> contentData,
+  ) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
-        color: parsedBackground ??
+        color:
+            parsedBackground ??
             theme.colorScheme.primaryContainer.withValues(alpha: 0.1),
         border: Border(
           left: BorderSide(color: theme.colorScheme.primary, width: 4),
         ),
       ),
       child: _buildExpandableCore(
-          theme, color, baseTextStyle, title, contentType, contentData),
+        theme,
+        color,
+        baseTextStyle,
+        title,
+        contentType,
+        contentData,
+      ),
     );
   }
 
-  Widget _buildExpandableCore(ThemeData theme, Color color,
-      TextStyle baseTextStyle, String title, String contentType,
-      Map<String, dynamic> contentData,
-      {double borderRadius = 12}) {
+  Widget _buildExpandableCore(
+    ThemeData theme,
+    Color color,
+    TextStyle baseTextStyle,
+    String title,
+    String contentType,
+    Map<String, dynamic> contentData, {
+    double borderRadius = 12,
+  }) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -433,9 +548,7 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
                       title,
                       style: baseTextStyle.copyWith(
                         fontWeight: FontWeight.w600,
-                        color: _isExpanded
-                            ? theme.colorScheme.primary
-                            : color,
+                        color: _isExpanded ? theme.colorScheme.primary : color,
                       ),
                     ),
                   ),
@@ -454,7 +567,11 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
               ),
             ),
             _buildContentSection(
-                theme, baseTextStyle, contentType, contentData),
+              theme,
+              baseTextStyle,
+              contentType,
+              contentData,
+            ),
           ],
         ),
       ),
@@ -497,7 +614,10 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
                     duration: const Duration(milliseconds: 200),
                     opacity: _isExpanded ? 1.0 : 0.0,
                     child: _buildBlockContent(
-                        contentType, contentData, baseTextStyle),
+                      contentType,
+                      contentData,
+                      baseTextStyle,
+                    ),
                   ),
                 ],
               ),
@@ -526,7 +646,9 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
         return HeaderBlockReader(block: syntheticBlock, allowSelection: false);
       case 'blockquote':
         return BlockQuoteReaderBlock(
-            block: syntheticBlock, allowSelection: false);
+          block: syntheticBlock,
+          allowSelection: false,
+        );
       case 'list':
         return ListReaderBlock(block: syntheticBlock, allowSelection: false);
       case 'code':
@@ -540,7 +662,9 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
       case 'paragraph':
       default:
         return ParagraphReaderBlock(
-            block: syntheticBlock, allowSelection: false);
+          block: syntheticBlock,
+          allowSelection: false,
+        );
     }
   }
 
@@ -562,12 +686,17 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
                   errorBuilder: (_, __, ___) => Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.errorContainer.withValues(alpha: 0.3),
+                      color: theme.colorScheme.errorContainer.withValues(
+                        alpha: 0.3,
+                      ),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
                       'Image unavailable',
-                      style: TextStyle(color: theme.colorScheme.error, fontSize: 12),
+                      style: TextStyle(
+                        color: theme.colorScheme.error,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                 )
@@ -577,7 +706,10 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
                   fit: BoxFit.cover,
                   errorBuilder: (_, __, ___) => Container(
                     padding: const EdgeInsets.all(12),
-                    child: Text('Image not found: $url', style: const TextStyle(fontSize: 12)),
+                    child: Text(
+                      'Image not found: $url',
+                      style: const TextStyle(fontSize: 12),
+                    ),
                   ),
                 ),
         ),
@@ -612,30 +744,54 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
     final colCount = headerRow.length;
 
     TextStyle cellStyle(bool isHeader) => TextStyle(
-          fontSize: 13,
-          fontWeight: isHeader ? FontWeight.w600 : FontWeight.normal,
-          color: theme.colorScheme.onSurface.withValues(alpha: isHeader ? 0.9 : 0.75),
-        );
+      fontSize: 13,
+      fontWeight: isHeader ? FontWeight.w600 : FontWeight.normal,
+      color: theme.colorScheme.onSurface.withValues(
+        alpha: isHeader ? 0.9 : 0.75,
+      ),
+    );
 
-    Widget buildCell(String text, bool isHeader, {bool isLast = false, bool isLastRow = false}) {
+    Widget buildCell(
+      String text,
+      bool isHeader, {
+      bool isLast = false,
+      bool isLastRow = false,
+    }) {
       return Expanded(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
           decoration: BoxDecoration(
-            color: isHeader ? theme.colorScheme.primary.withValues(alpha: 0.08) : Colors.transparent,
+            color: isHeader
+                ? theme.colorScheme.primary.withValues(alpha: 0.08)
+                : Colors.transparent,
             border: Border(
-              right: isLast ? BorderSide.none : BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.25)),
-              bottom: isLastRow ? BorderSide.none : BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.2)),
+              right: isLast
+                  ? BorderSide.none
+                  : BorderSide(
+                      color: theme.colorScheme.outline.withValues(alpha: 0.25),
+                    ),
+              bottom: isLastRow
+                  ? BorderSide.none
+                  : BorderSide(
+                      color: theme.colorScheme.outline.withValues(alpha: 0.2),
+                    ),
             ),
           ),
-          child: Text(text, style: cellStyle(isHeader), maxLines: 3, overflow: TextOverflow.ellipsis),
+          child: Text(
+            text,
+            style: cellStyle(isHeader),
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
       );
     }
 
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
+        border: Border.all(
+          color: theme.colorScheme.outline.withValues(alpha: 0.3),
+        ),
         borderRadius: BorderRadius.circular(8),
       ),
       clipBehavior: Clip.antiAlias,

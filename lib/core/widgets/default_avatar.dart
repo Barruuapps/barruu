@@ -3,7 +3,7 @@ import 'package:barruu/core/widgets/shimmer_loading.dart';
 import 'dart:math' as math;
 
 /// Generates a default avatar with user initials when no avatar image is available
-/// 
+///
 /// Features:
 /// - Displays user initials (up to 2 characters)
 /// - Consistent color generation based on user ID
@@ -12,13 +12,13 @@ import 'dart:math' as math;
 class DefaultAvatar extends StatelessWidget {
   /// User's display name (used to generate initials)
   final String? displayName;
-  
+
   /// Unique user ID (used for consistent color generation)
   final String userId;
-  
+
   /// Avatar radius
   final double radius;
-  
+
   /// Whether to show gradient ring (Instagram-style)
   final bool showGradientRing;
 
@@ -35,16 +35,13 @@ class DefaultAvatar extends StatelessWidget {
     final theme = Theme.of(context);
     final backgroundColor = _generateColorFromUserId(userId, theme);
     final initials = _generateInitials(displayName);
-    
+
     Widget avatarContent = Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            backgroundColor,
-            backgroundColor.withValues(alpha: 0.8),
-          ],
+          colors: [backgroundColor, backgroundColor.withValues(alpha: 0.8)],
         ),
       ),
       child: Center(
@@ -111,7 +108,7 @@ class DefaultAvatar extends StatelessWidget {
     }
 
     final words = name.trim().split(RegExp(r'\s+'));
-    
+
     if (words.length == 1) {
       // Single word: take first 2 characters
       return words[0].substring(0, math.min(2, words[0].length)).toUpperCase();
@@ -126,7 +123,7 @@ class DefaultAvatar extends StatelessWidget {
     // Use hash code of userId to generate consistent color
     final hash = userId.hashCode;
     final hue = (hash % 360).toDouble();
-    
+
     // Use HSL color space for vibrant colors
     return HSLColor.fromAHSL(1.0, hue, 0.6, 0.5).toColor();
   }
@@ -135,7 +132,7 @@ class DefaultAvatar extends StatelessWidget {
   Color _getTextColor(Color backgroundColor) {
     // Calculate relative luminance
     final luminance = backgroundColor.computeLuminance();
-    
+
     // Return white for dark backgrounds, black for light backgrounds
     return luminance > 0.5 ? Colors.black87 : Colors.white;
   }
@@ -146,16 +143,16 @@ class DefaultAvatar extends StatelessWidget {
 class CachedAvatar extends StatelessWidget {
   /// Avatar image URL
   final String? avatarUrl;
-  
+
   /// User's display name (for fallback initials)
   final String? displayName;
-  
+
   /// Unique user ID (for fallback color generation)
   final String userId;
-  
+
   /// Avatar radius
   final double radius;
-  
+
   /// Whether to show gradient ring
   final bool showGradientRing;
 
@@ -171,7 +168,7 @@ class CachedAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     // Show default avatar if no URL
     if (avatarUrl == null || avatarUrl!.isEmpty) {
       return DefaultAvatar(

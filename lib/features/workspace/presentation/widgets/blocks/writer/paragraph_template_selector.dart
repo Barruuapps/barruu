@@ -30,19 +30,55 @@ class ParagraphTemplateSelector extends StatelessWidget {
           childAspectRatio: 0.85,
           children: [
             _buildTemplateOption('default', 'Default', _buildDefaultPreview()),
-            _buildTemplateOption('drop_cap', 'Drop Cap', _buildDropCapPreview()),
-            _buildTemplateOption('image_left', 'Image Left', _buildImageLeftPreview()),
-            _buildTemplateOption('image_right', 'Image Right', _buildImageRightPreview()),
-            _buildTemplateOption('image_float_left', 'Float Left', _buildImageFloatLeftPreview()),
-            _buildTemplateOption('image_float_right', 'Float Right', _buildImageFloatRightPreview()),
+            _buildTemplateOption(
+              'drop_cap',
+              'Drop Cap',
+              _buildDropCapPreview(),
+            ),
+            _buildTemplateOption(
+              'image_left',
+              'Image Left',
+              _buildImageLeftPreview(),
+            ),
+            _buildTemplateOption(
+              'image_right',
+              'Image Right',
+              _buildImageRightPreview(),
+            ),
+            _buildTemplateOption(
+              'image_float_left',
+              'Float Left',
+              _buildImageFloatLeftPreview(),
+            ),
+            _buildTemplateOption(
+              'image_float_right',
+              'Float Right',
+              _buildImageFloatRightPreview(),
+            ),
             _buildTemplateOption('zigzag', 'Zigzag', _buildZigzagPreview()),
             _buildTemplateOption('note', 'Note', _buildNotePreview()),
             _buildTemplateOption('warning', 'Warning', _buildWarningPreview()),
             _buildTemplateOption('success', 'Success', _buildSuccessPreview()),
-            _buildTemplateOption('highlight', 'Highlight', _buildHighlightPreview()),
-            _buildTemplateOption('pull_quote', 'Pull Quote', _buildPullQuotePreview()),
-            _buildTemplateOption('quote_card', 'Quote Card', _buildQuoteCardPreview()),
-            _buildTemplateOption('centered', 'Centered', _buildCenteredPreview()),
+            _buildTemplateOption(
+              'highlight',
+              'Highlight',
+              _buildHighlightPreview(),
+            ),
+            _buildTemplateOption(
+              'pull_quote',
+              'Pull Quote',
+              _buildPullQuotePreview(),
+            ),
+            _buildTemplateOption(
+              'quote_card',
+              'Quote Card',
+              _buildQuoteCardPreview(),
+            ),
+            _buildTemplateOption(
+              'centered',
+              'Centered',
+              _buildCenteredPreview(),
+            ),
           ],
         ),
       ),
@@ -87,7 +123,9 @@ class ParagraphTemplateSelector extends StatelessWidget {
               decoration: BoxDecoration(
                 color: isSelected
                     ? theme.colorScheme.primary.withValues(alpha: 0.1)
-                    : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                    : theme.colorScheme.surfaceContainerHighest.withValues(
+                        alpha: 0.5,
+                      ),
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(7),
                   bottomRight: Radius.circular(7),
@@ -97,8 +135,7 @@ class ParagraphTemplateSelector extends StatelessWidget {
                 label,
                 style: theme.textTheme.labelSmall?.copyWith(
                   fontSize: 10,
-                  fontWeight:
-                      isSelected ? FontWeight.bold : FontWeight.normal,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                   color: isSelected ? theme.colorScheme.primary : null,
                 ),
                 textAlign: TextAlign.center,
@@ -120,19 +157,22 @@ class ParagraphTemplateSelector extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-            height: 2,
-            width: double.infinity,
-            color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
+          height: 2,
+          width: double.infinity,
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+        ),
         const SizedBox(height: 3),
         Container(
-            height: 2,
-            width: double.infinity,
-            color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
+          height: 2,
+          width: double.infinity,
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+        ),
         const SizedBox(height: 3),
         Container(
-            height: 2,
-            width: 40,
-            color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+          height: 2,
+          width: 40,
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+        ),
       ],
     );
   }
@@ -166,19 +206,22 @@ class ParagraphTemplateSelector extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                  height: 2,
-                  width: double.infinity,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
+                height: 2,
+                width: double.infinity,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+              ),
               const SizedBox(height: 3),
               Container(
-                  height: 2,
-                  width: double.infinity,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
+                height: 2,
+                width: double.infinity,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+              ),
               const SizedBox(height: 3),
               Container(
-                  height: 2,
-                  width: 30,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+                height: 2,
+                width: 30,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+              ),
             ],
           ),
         ),
@@ -197,8 +240,11 @@ class ParagraphTemplateSelector extends StatelessWidget {
             color: theme.colorScheme.surfaceContainerHighest,
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Icon(Icons.image_outlined,
-              size: 14, color: theme.colorScheme.onSurfaceVariant),
+          child: Icon(
+            Icons.image_outlined,
+            size: 14,
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
         ),
         const SizedBox(width: 5),
         Expanded(
@@ -207,19 +253,22 @@ class ParagraphTemplateSelector extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                  height: 2,
-                  width: double.infinity,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
+                height: 2,
+                width: double.infinity,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+              ),
               const SizedBox(height: 3),
               Container(
-                  height: 2,
-                  width: double.infinity,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
+                height: 2,
+                width: double.infinity,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+              ),
               const SizedBox(height: 3),
               Container(
-                  height: 2,
-                  width: 25,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+                height: 2,
+                width: 25,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+              ),
             ],
           ),
         ),
@@ -237,19 +286,22 @@ class ParagraphTemplateSelector extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                  height: 2,
-                  width: double.infinity,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
+                height: 2,
+                width: double.infinity,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+              ),
               const SizedBox(height: 3),
               Container(
-                  height: 2,
-                  width: double.infinity,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
+                height: 2,
+                width: double.infinity,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+              ),
               const SizedBox(height: 3),
               Container(
-                  height: 2,
-                  width: 25,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+                height: 2,
+                width: 25,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+              ),
             ],
           ),
         ),
@@ -261,8 +313,11 @@ class ParagraphTemplateSelector extends StatelessWidget {
             color: theme.colorScheme.surfaceContainerHighest,
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Icon(Icons.image_outlined,
-              size: 14, color: theme.colorScheme.onSurfaceVariant),
+          child: Icon(
+            Icons.image_outlined,
+            size: 14,
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
         ),
       ],
     );
@@ -278,14 +333,16 @@ class ParagraphTemplateSelector extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-                height: 2,
-                width: double.infinity,
-                color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
+              height: 2,
+              width: double.infinity,
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+            ),
             const SizedBox(height: 3),
             Container(
-                height: 2,
-                width: 30,
-                color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+              height: 2,
+              width: 30,
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+            ),
           ],
         ),
       ),
@@ -298,7 +355,9 @@ class ParagraphTemplateSelector extends StatelessWidget {
         color: theme.colorScheme.primaryContainer.withValues(alpha: 0.4),
         borderRadius: BorderRadius.circular(6),
         border: Border.all(
-            color: theme.colorScheme.primary.withValues(alpha: 0.5), width: 1),
+          color: theme.colorScheme.primary.withValues(alpha: 0.5),
+          width: 1,
+        ),
       ),
       padding: const EdgeInsets.all(6),
       child: Column(
@@ -306,26 +365,32 @@ class ParagraphTemplateSelector extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.info_outline,
-                  size: 10, color: theme.colorScheme.primary),
+              Icon(
+                Icons.info_outline,
+                size: 10,
+                color: theme.colorScheme.primary,
+              ),
               const SizedBox(width: 3),
               Expanded(
                 child: Container(
-                    height: 3,
-                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7)),
+                  height: 3,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 3),
           Container(
-              height: 2,
-              width: double.infinity,
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
+            height: 2,
+            width: double.infinity,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+          ),
           const SizedBox(height: 2),
           Container(
-              height: 2,
-              width: 25,
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+            height: 2,
+            width: 25,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+          ),
         ],
       ),
     );
@@ -348,19 +413,22 @@ class ParagraphTemplateSelector extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-              height: 2,
-              width: double.infinity,
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
+            height: 2,
+            width: double.infinity,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+          ),
           const SizedBox(height: 3),
           Container(
-              height: 2,
-              width: double.infinity,
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
+            height: 2,
+            width: double.infinity,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+          ),
           const SizedBox(height: 3),
           Container(
-              height: 2,
-              width: 30,
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+            height: 2,
+            width: 30,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+          ),
         ],
       ),
     );
@@ -385,14 +453,16 @@ class ParagraphTemplateSelector extends StatelessWidget {
         ),
         const SizedBox(height: 2),
         Container(
-            height: 2,
-            width: double.infinity,
-            color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
+          height: 2,
+          width: double.infinity,
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+        ),
         const SizedBox(height: 2),
         Container(
-            height: 2,
-            width: 30,
-            color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+          height: 2,
+          width: 30,
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+        ),
         const SizedBox(height: 2),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -427,25 +497,29 @@ class ParagraphTemplateSelector extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                  height: 2,
-                  width: double.infinity,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
+                height: 2,
+                width: double.infinity,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+              ),
               const SizedBox(height: 3),
               Container(
-                  height: 2,
-                  width: double.infinity,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
+                height: 2,
+                width: double.infinity,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+              ),
               const SizedBox(height: 3),
               Container(
-                  height: 2,
-                  width: double.infinity,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+                height: 2,
+                width: double.infinity,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+              ),
               const SizedBox(height: 8),
               // Text continues BELOW image at full width
               Container(
-                  height: 2,
-                  width: double.infinity,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.35)),
+                height: 2,
+                width: double.infinity,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.35),
+              ),
             ],
           ),
         ),
@@ -460,8 +534,11 @@ class ParagraphTemplateSelector extends StatelessWidget {
               color: theme.colorScheme.surfaceContainerHighest,
               borderRadius: BorderRadius.circular(3),
             ),
-            child: Icon(Icons.image_outlined,
-                size: 12, color: theme.colorScheme.onSurfaceVariant),
+            child: Icon(
+              Icons.image_outlined,
+              size: 12,
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
           ),
         ),
       ],
@@ -482,24 +559,28 @@ class ParagraphTemplateSelector extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                  height: 2,
-                  width: double.infinity,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
+                height: 2,
+                width: double.infinity,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+              ),
               const SizedBox(height: 3),
               Container(
-                  height: 2,
-                  width: double.infinity,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
+                height: 2,
+                width: double.infinity,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+              ),
               const SizedBox(height: 3),
               Container(
-                  height: 2,
-                  width: double.infinity,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+                height: 2,
+                width: double.infinity,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+              ),
               const SizedBox(height: 8),
               Container(
-                  height: 2,
-                  width: double.infinity,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.35)),
+                height: 2,
+                width: double.infinity,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.35),
+              ),
             ],
           ),
         ),
@@ -514,8 +595,11 @@ class ParagraphTemplateSelector extends StatelessWidget {
               color: theme.colorScheme.surfaceContainerHighest,
               borderRadius: BorderRadius.circular(3),
             ),
-            child: Icon(Icons.image_outlined,
-                size: 12, color: theme.colorScheme.onSurfaceVariant),
+            child: Icon(
+              Icons.image_outlined,
+              size: 12,
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
           ),
         ),
       ],
@@ -528,7 +612,9 @@ class ParagraphTemplateSelector extends StatelessWidget {
         color: const Color(0xFFF59E0B).withValues(alpha: 0.12),
         border: Border(
           left: BorderSide(
-              color: const Color(0xFFF59E0B).withValues(alpha: 0.85), width: 3),
+            color: const Color(0xFFF59E0B).withValues(alpha: 0.85),
+            width: 3,
+          ),
         ),
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(5),
@@ -541,26 +627,32 @@ class ParagraphTemplateSelector extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.warning_amber_rounded,
-                  size: 10, color: const Color(0xFFF59E0B)),
+              Icon(
+                Icons.warning_amber_rounded,
+                size: 10,
+                color: const Color(0xFFF59E0B),
+              ),
               const SizedBox(width: 3),
               Expanded(
                 child: Container(
-                    height: 3,
-                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7)),
+                  height: 3,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 3),
           Container(
-              height: 2,
-              width: double.infinity,
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
+            height: 2,
+            width: double.infinity,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+          ),
           const SizedBox(height: 2),
           Container(
-              height: 2,
-              width: 25,
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+            height: 2,
+            width: 25,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+          ),
         ],
       ),
     );
@@ -572,7 +664,9 @@ class ParagraphTemplateSelector extends StatelessWidget {
         color: const Color(0xFF10B981).withValues(alpha: 0.10),
         border: Border(
           left: BorderSide(
-              color: const Color(0xFF10B981).withValues(alpha: 0.85), width: 3),
+            color: const Color(0xFF10B981).withValues(alpha: 0.85),
+            width: 3,
+          ),
         ),
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(5),
@@ -585,26 +679,32 @@ class ParagraphTemplateSelector extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.check_circle_outline_rounded,
-                  size: 10, color: const Color(0xFF10B981)),
+              Icon(
+                Icons.check_circle_outline_rounded,
+                size: 10,
+                color: const Color(0xFF10B981),
+              ),
               const SizedBox(width: 3),
               Expanded(
                 child: Container(
-                    height: 3,
-                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7)),
+                  height: 3,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 3),
           Container(
-              height: 2,
-              width: double.infinity,
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
+            height: 2,
+            width: double.infinity,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+          ),
           const SizedBox(height: 2),
           Container(
-              height: 2,
-              width: 25,
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+            height: 2,
+            width: 25,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+          ),
         ],
       ),
     );
@@ -642,22 +742,31 @@ class ParagraphTemplateSelector extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.format_quote_rounded,
-                    size: 10, color: theme.colorScheme.primary.withValues(alpha: 0.5)),
+                Icon(
+                  Icons.format_quote_rounded,
+                  size: 10,
+                  color: theme.colorScheme.primary.withValues(alpha: 0.5),
+                ),
                 const SizedBox(width: 3),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                          height: 2,
-                          width: double.infinity,
-                          color: theme.colorScheme.onSurface.withValues(alpha: 0.55)),
+                        height: 2,
+                        width: double.infinity,
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.55,
+                        ),
+                      ),
                       const SizedBox(height: 3),
                       Container(
-                          height: 2,
-                          width: 20,
-                          color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+                        height: 2,
+                        width: 20,
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.4,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -677,40 +786,64 @@ class ParagraphTemplateSelector extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(width: 10, height: 1, color: rulerColor.withValues(alpha: 0.5)),
+            Container(
+              width: 10,
+              height: 1,
+              color: rulerColor.withValues(alpha: 0.5),
+            ),
             const SizedBox(width: 3),
             Container(
-                width: 4,
-                height: 4,
-                decoration: BoxDecoration(
-                    color: rulerColor.withValues(alpha: 0.5), shape: BoxShape.circle)),
+              width: 4,
+              height: 4,
+              decoration: BoxDecoration(
+                color: rulerColor.withValues(alpha: 0.5),
+                shape: BoxShape.circle,
+              ),
+            ),
             const SizedBox(width: 3),
-            Container(width: 10, height: 1, color: rulerColor.withValues(alpha: 0.5)),
+            Container(
+              width: 10,
+              height: 1,
+              color: rulerColor.withValues(alpha: 0.5),
+            ),
           ],
         ),
         const SizedBox(height: 4),
         Container(
-            height: 2,
-            width: 40,
-            color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
+          height: 2,
+          width: 40,
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+        ),
         const SizedBox(height: 2),
         Container(
-            height: 2,
-            width: 30,
-            color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
+          height: 2,
+          width: 30,
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+        ),
         const SizedBox(height: 4),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(width: 10, height: 1, color: rulerColor.withValues(alpha: 0.5)),
+            Container(
+              width: 10,
+              height: 1,
+              color: rulerColor.withValues(alpha: 0.5),
+            ),
             const SizedBox(width: 3),
             Container(
-                width: 4,
-                height: 4,
-                decoration: BoxDecoration(
-                    color: rulerColor.withValues(alpha: 0.5), shape: BoxShape.circle)),
+              width: 4,
+              height: 4,
+              decoration: BoxDecoration(
+                color: rulerColor.withValues(alpha: 0.5),
+                shape: BoxShape.circle,
+              ),
+            ),
             const SizedBox(width: 3),
-            Container(width: 10, height: 1, color: rulerColor.withValues(alpha: 0.5)),
+            Container(
+              width: 10,
+              height: 1,
+              color: rulerColor.withValues(alpha: 0.5),
+            ),
           ],
         ),
       ],

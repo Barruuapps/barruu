@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
@@ -65,18 +64,28 @@ class HeaderControls extends ConsumerWidget {
     return Row(
       children: [
         PopupMenuButton<int>(
-          icon: Icon(Icons.title, color: theme.colorScheme.primary, semanticLabel: 'Select header level'),
+          icon: Icon(
+            Icons.title,
+            color: theme.colorScheme.primary,
+            semanticLabel: 'Select header level',
+          ),
           tooltip: 'Select Header Level',
           itemBuilder: (context) => buildHeaderLevelItems(),
           onSelected: (level) async {
             try {
-              final selectedLevel = headerLevels.firstWhere((h) => h.level == level);
+              final selectedLevel = headerLevels.firstWhere(
+                (h) => h.level == level,
+              );
               await controller.updateStyle(
                 block,
                 block.style.copyWith(fontSize: selectedLevel.fontSize),
               );
             } catch (e, stackTrace) {
-              logger.e('Failed to update header level', error: e, stackTrace: stackTrace);
+              logger.e(
+                'Failed to update header level',
+                error: e,
+                stackTrace: stackTrace,
+              );
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Error updating header level: $e')),
@@ -88,7 +97,10 @@ class HeaderControls extends ConsumerWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
         IconButton(
-          icon: Icon(IconsaxPlusLinear.gallery, color: theme.colorScheme.primary),
+          icon: Icon(
+            IconsaxPlusLinear.gallery,
+            color: theme.colorScheme.primary,
+          ),
           tooltip: 'Select Header Template',
           onPressed: () {
             showDialog(
@@ -105,10 +117,16 @@ class HeaderControls extends ConsumerWidget {
                       Navigator.of(context).pop();
                     }
                   } catch (e, stackTrace) {
-                    logger.e('Failed to update header style', error: e, stackTrace: stackTrace);
+                    logger.e(
+                      'Failed to update header style',
+                      error: e,
+                      stackTrace: stackTrace,
+                    );
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Error updating header style: $e')),
+                        SnackBar(
+                          content: Text('Error updating header style: $e'),
+                        ),
                       );
                     }
                   }
@@ -119,7 +137,11 @@ class HeaderControls extends ConsumerWidget {
           },
         ),
         PopupMenuButton<double>(
-          icon: Icon(Icons.line_weight, color: theme.colorScheme.primary, semanticLabel: 'Select border width'),
+          icon: Icon(
+            Icons.line_weight,
+            color: theme.colorScheme.primary,
+            semanticLabel: 'Select border width',
+          ),
           tooltip: 'Select Border Width',
           itemBuilder: (context) => buildBorderWidthItems(),
           onSelected: (width) async {
@@ -129,7 +151,11 @@ class HeaderControls extends ConsumerWidget {
                 block.style.copyWith(borderWidth: width),
               );
             } catch (e, stackTrace) {
-              logger.e('Failed to update border width', error: e, stackTrace: stackTrace);
+              logger.e(
+                'Failed to update border width',
+                error: e,
+                stackTrace: stackTrace,
+              );
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Error updating border width: $e')),
@@ -161,8 +187,5 @@ class _BorderWidth {
   final String name;
   final double value;
 
-  const _BorderWidth({
-    required this.name,
-    required this.value,
-  });
+  const _BorderWidth({required this.name, required this.value});
 }

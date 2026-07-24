@@ -91,10 +91,7 @@ class _FollowButtonState extends ConsumerState<FollowButton> {
     try {
       if (_isFollowing) {
         // Unfollow
-        final result = await followService.unfollowUser(
-          userId,
-          widget.userId,
-        );
+        final result = await followService.unfollowUser(userId, widget.userId);
 
         result.when(
           success: (_) {
@@ -191,7 +188,9 @@ class _FollowButtonState extends ConsumerState<FollowButton> {
         : colorScheme.onPrimary;
 
     final buttonText = _isFollowing ? 'Following' : 'Follow';
-    final buttonIcon = _isFollowing ? IconsaxPlusLinear.tick_circle : IconsaxPlusLinear.user_add;
+    final buttonIcon = _isFollowing
+        ? IconsaxPlusLinear.tick_circle
+        : IconsaxPlusLinear.user_add;
 
     final button = AnimatedContainer(
       duration: const Duration(milliseconds: 300),
@@ -225,10 +224,7 @@ class _FollowButtonState extends ConsumerState<FollowButton> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if (widget.showIcon) ...[
-                    Icon(
-                      buttonIcon,
-                      size: iconSize,
-                    ),
+                    Icon(buttonIcon, size: iconSize),
                     const SizedBox(width: 8),
                   ],
                   Text(
@@ -253,8 +249,4 @@ class _FollowButtonState extends ConsumerState<FollowButton> {
 }
 
 /// Follow button size variants
-enum FollowButtonSize {
-  small,
-  medium,
-  large,
-}
+enum FollowButtonSize { small, medium, large }

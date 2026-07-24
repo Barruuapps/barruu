@@ -8,13 +8,13 @@ import 'package:iconsax_plus/iconsax_plus.dart';
 class AppIconWidget extends StatelessWidget {
   /// The URL of the icon image. If null or empty, shows the fallback icon.
   final String? iconUrl;
-  
+
   /// The size of the icon container. Default is 64.
   final double size;
-  
+
   /// The border radius of the icon. Default is 16.
   final double borderRadius;
-  
+
   /// Optional fallback icon to show when image fails to load.
   /// Defaults to IconsaxPlusLinear.document_text.
   final IconData fallbackIcon;
@@ -96,10 +96,10 @@ class AppIconWidget extends StatelessWidget {
 class UserAvatarWidget extends StatelessWidget {
   /// The URL of the avatar image. If null or empty, shows the fallback icon.
   final String? avatarUrl;
-  
+
   /// The radius of the avatar. Default is 50.
   final double radius;
-  
+
   /// Optional fallback icon. Defaults to IconsaxPlusLinear.user.
   final IconData fallbackIcon;
 
@@ -143,10 +143,6 @@ class UserAvatarWidget extends StatelessWidget {
   }
 
   Widget _buildFallbackIcon(ThemeData theme) {
-    return Icon(
-      fallbackIcon,
-      size: radius,
-      color: theme.colorScheme.primary,
-    );
+    return Icon(fallbackIcon, size: radius, color: theme.colorScheme.primary);
   }
 }

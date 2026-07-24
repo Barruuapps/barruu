@@ -1,4 +1,3 @@
-
 import 'package:barruu/features/workspace/domain/entities/block.dart';
 import 'package:barruu/features/workspace/utils/style_constants.dart';
 import 'package:flutter/material.dart';
@@ -52,12 +51,9 @@ class StyleUtils {
   double dividerThicknessFromStyle(BlockStyle style) =>
       (style.fontSize / 10).clamp(1.0, 12.0);
 
-
   // New method to get default style
   BlockStyle getDefaultStyle() {
-    return const BlockStyle(
-      color: '#000000',
-    );
+    return const BlockStyle(color: '#000000');
   }
 
   // New method to merge styles

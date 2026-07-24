@@ -12,21 +12,21 @@ import 'package:barruu/core/utils/app_logger.dart';
 import 'package:uuid/uuid.dart';
 
 /// A dialog for editing document information.
-/// 
+///
 /// Allows the user to:
 /// - Change document name
 /// - Update description
 /// - Select a new cover image
-/// 
+///
 /// The dialog handles image selection, validation, and updating
 /// the document metadata.
 class EditDocumentInfoDialog extends ConsumerStatefulWidget {
   /// The directory containing the document
   final Directory doc;
-  
+
   /// Initial metadata for the document
   final Map<String, dynamic> meta;
-  
+
   /// Callback to show snackbar messages
   final void Function(String message) onShowSnackBar;
 
@@ -38,10 +38,12 @@ class EditDocumentInfoDialog extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<EditDocumentInfoDialog> createState() => _EditDocumentInfoDialogState();
+  ConsumerState<EditDocumentInfoDialog> createState() =>
+      _EditDocumentInfoDialogState();
 }
 
-class _EditDocumentInfoDialogState extends ConsumerState<EditDocumentInfoDialog> {
+class _EditDocumentInfoDialogState
+    extends ConsumerState<EditDocumentInfoDialog> {
   late TextEditingController _nameController;
   late TextEditingController _descController;
   String? _coverPath;
@@ -53,11 +55,17 @@ class _EditDocumentInfoDialogState extends ConsumerState<EditDocumentInfoDialog>
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController(text: widget.meta[MetaFile.nameKey]);
-    _descController = TextEditingController(text: widget.meta[MetaFile.descriptionKey]);
+    _nameController = TextEditingController(
+      text: widget.meta[MetaFile.nameKey],
+    );
+    _descController = TextEditingController(
+      text: widget.meta[MetaFile.descriptionKey],
+    );
     _coverPath = widget.meta[MetaFile.coverKey];
     _coverOriginalName = widget.meta[MetaFile.coverOriginalNameKey];
-    _coverImage = _coverPath != null && _coverPath!.isNotEmpty ? File(_coverPath!) : null;
+    _coverImage = _coverPath != null && _coverPath!.isNotEmpty
+        ? File(_coverPath!)
+        : null;
   }
 
   @override
@@ -131,7 +139,9 @@ class _EditDocumentInfoDialogState extends ConsumerState<EditDocumentInfoDialog>
           style: TextButton.styleFrom(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
             foregroundColor: theme.colorScheme.onSurfaceVariant,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
           ),
           child: Text(
             'Cancel',
@@ -145,7 +155,9 @@ class _EditDocumentInfoDialogState extends ConsumerState<EditDocumentInfoDialog>
           onPressed: _handleSave,
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
             backgroundColor: theme.colorScheme.primary,
             foregroundColor: theme.colorScheme.onPrimary,
             elevation: 0,
@@ -191,21 +203,24 @@ class _EditDocumentInfoDialogState extends ConsumerState<EditDocumentInfoDialog>
       widget.onShowSnackBar('Document name is required');
       return;
     }
-    
+
     try {
       final documentService = ref.read(documentServiceProvider);
       String newCoverPath = _coverPath ?? '';
       String newCoverOriginalNameFinal = _coverOriginalName ?? '';
-      
+
       if (_newPickedCover != null && !kIsWeb) {
         final imagesDir = Directory('${widget.doc.path}/media/images');
         await imagesDir.create(recursive: true);
-        final sanitizedName = _newCoverOriginalName!.replaceAll(RegExp(r'[<>:"/\\|?*]'), '_');
+        final sanitizedName = _newCoverOriginalName!.replaceAll(
+          RegExp(r'[<>:"/\\|?*]'),
+          '_',
+        );
         newCoverPath = '${imagesDir.path}/${const Uuid().v4()}_$sanitizedName';
         newCoverOriginalNameFinal = _newCoverOriginalName!;
         await _newPickedCover!.copy(newCoverPath);
       }
-      
+
       final success = await documentService.updateDocumentInfo(
         widget.doc,
         _nameController.text.trim(),
@@ -214,7 +229,7 @@ class _EditDocumentInfoDialogState extends ConsumerState<EditDocumentInfoDialog>
         newCoverPath,
         coverOriginalName: newCoverOriginalNameFinal,
       );
-      
+
       if (mounted) {
         Navigator.of(context).pop();
         if (success) {

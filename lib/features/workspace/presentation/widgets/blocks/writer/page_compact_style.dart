@@ -21,8 +21,10 @@ Widget buildPageBlockCompactStyle({
 }) {
   TextDecoration? decoration;
   if (blockStyle.underline && blockStyle.strikethrough) {
-    decoration = TextDecoration.combine(
-        [TextDecoration.underline, TextDecoration.lineThrough]);
+    decoration = TextDecoration.combine([
+      TextDecoration.underline,
+      TextDecoration.lineThrough,
+    ]);
   } else if (blockStyle.underline) {
     decoration = TextDecoration.underline;
   } else if (blockStyle.strikethrough) {
@@ -40,11 +42,13 @@ Widget buildPageBlockCompactStyle({
 
   final containerWidget = Container(
     decoration: BoxDecoration(
-      color: styleUtils.parseHex(blockStyle.background) ??
+      color:
+          styleUtils.parseHex(blockStyle.background) ??
           theme.colorScheme.primaryContainer.withValues(alpha: 0.15),
       borderRadius: BorderRadius.circular(8),
       border: Border.all(
-        color: styleUtils.parseHex(blockStyle.borderColor) ??
+        color:
+            styleUtils.parseHex(blockStyle.borderColor) ??
             theme.colorScheme.primary.withValues(alpha: 0.4),
       ),
     ),
@@ -76,7 +80,11 @@ Widget buildPageBlockCompactStyle({
                         contentPadding: EdgeInsets.zero,
                       ),
                     )
-                  : Text(title, style: titleStyle, textAlign: styleUtils.textAlignFromStyle(blockStyle)),
+                  : Text(
+                      title,
+                      style: titleStyle,
+                      textAlign: styleUtils.textAlignFromStyle(blockStyle),
+                    ),
             ),
             if (!isEditing && hasPage)
               Icon(
@@ -132,4 +140,3 @@ Widget buildPageBlockCompactStyle({
   }
   return containerWidget;
 }
-

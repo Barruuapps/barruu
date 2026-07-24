@@ -7,8 +7,10 @@ class DocumentPage {
   final DateTime createdAt;
   final String? parentPageId; // null for drawer pages, set for nested pages
   final String? icon; // optional icon name, null means no icon
-  final bool isTabPage; // true for tab pages (shown in AppBar tabs), false for drawer pages
-  final String? tabDisplayName; // optional custom display name for tab bar (independent of page title)
+  final bool
+  isTabPage; // true for tab pages (shown in AppBar tabs), false for drawer pages
+  final String?
+  tabDisplayName; // optional custom display name for tab bar (independent of page title)
 
   DocumentPage({
     required this.id,
@@ -41,19 +43,22 @@ class DocumentPage {
       parentPageId: parentPageId ?? this.parentPageId,
       icon: clearIcon ? null : (icon ?? this.icon),
       isTabPage: isTabPage ?? this.isTabPage,
-      tabDisplayName: clearTabDisplayName ? null : (tabDisplayName ?? this.tabDisplayName),
+      tabDisplayName: clearTabDisplayName
+          ? null
+          : (tabDisplayName ?? this.tabDisplayName),
     );
   }
-  
+
   /// Returns true if this is a drawer page (root page, not tab page)
   bool get isDrawerPage => parentPageId == null && !isTabPage;
-  
+
   /// Returns true if this is a nested page (child page)
   bool get isNestedPage => parentPageId != null;
-  
+
   /// Returns the display title, using 'Untitled Screen' if title is empty
-  String get displayTitle => title.trim().isEmpty ? PageConstants.untitledPageTitle : title;
-  
+  String get displayTitle =>
+      title.trim().isEmpty ? PageConstants.untitledPageTitle : title;
+
   /// Returns the tab display name for use in tab bar
   /// Falls back to displayTitle if no custom tab name is set
   String get tabTitle {
@@ -62,7 +67,7 @@ class DocumentPage {
     }
     return displayTitle;
   }
-  
+
   /// Returns true if the page has a custom icon
   bool get hasIcon => icon != null && icon!.isNotEmpty;
 

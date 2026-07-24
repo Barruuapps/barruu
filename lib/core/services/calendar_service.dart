@@ -16,20 +16,10 @@ enum EventType {
 }
 
 /// Event priority levels
-enum EventPriority {
-  high,
-  normal,
-  low,
-}
+enum EventPriority { high, normal, low }
 
 /// Recurrence patterns for events
-enum RecurrencePattern {
-  none,
-  daily,
-  weekly,
-  monthly,
-  yearly,
-}
+enum RecurrencePattern { none, daily, weekly, monthly, yearly }
 
 /// Calendar event model
 class CalendarEvent {
@@ -63,8 +53,8 @@ class CalendarEvent {
     this.priority = EventPriority.normal,
     DateTime? createdAt,
     DateTime? updatedAt,
-  })  : createdAt = createdAt ?? DateTime.now(),
-        updatedAt = updatedAt ?? DateTime.now();
+  }) : createdAt = createdAt ?? DateTime.now(),
+       updatedAt = updatedAt ?? DateTime.now();
 
   /// Convert to JSON
   Map<String, dynamic> toJson() {
@@ -97,12 +87,16 @@ class CalendarEvent {
       type: EventType.values.firstWhere((e) => e.name == json['type']),
       linkedDocumentId: json['linkedDocumentId'],
       allDay: json['allDay'],
-      recurrence: RecurrencePattern.values.firstWhere((e) => e.name == json['recurrence']),
+      recurrence: RecurrencePattern.values.firstWhere(
+        (e) => e.name == json['recurrence'],
+      ),
       reminderTimes: (json['reminderTimes'] as List)
           .map((e) => DateTime.parse(e))
           .toList(),
       color: json['color'],
-      priority: EventPriority.values.firstWhere((e) => e.name == json['priority']),
+      priority: EventPriority.values.firstWhere(
+        (e) => e.name == json['priority'],
+      ),
       createdAt: DateTime.parse(json['createdAt']),
       updatedAt: DateTime.parse(json['updatedAt']),
     );
@@ -150,9 +144,9 @@ class CalendarService {
   Future<List<CalendarEvent>> getAllEvents() async {
     final prefs = await SharedPreferences.getInstance();
     final eventsJson = prefs.getString(_storageKey);
-    
+
     if (eventsJson == null) return [];
-    
+
     final List<dynamic> eventsList = json.decode(eventsJson);
     return eventsList.map((e) => CalendarEvent.fromJson(e)).toList();
   }
@@ -161,7 +155,7 @@ class CalendarService {
   Future<List<CalendarEvent>> getEventsForDate(DateTime date) async {
     final allEvents = await getAllEvents();
     final targetDate = DateTime(date.year, date.month, date.day);
-    
+
     return allEvents.where((event) {
       final eventDate = DateTime(
         event.startTime.year,
@@ -173,12 +167,17 @@ class CalendarService {
   }
 
   /// Get events for a date range (inclusive)
-  Future<List<CalendarEvent>> getEventsInRange(DateTime start, DateTime end) async {
+  Future<List<CalendarEvent>> getEventsInRange(
+    DateTime start,
+    DateTime end,
+  ) async {
     final allEvents = await getAllEvents();
-    
+
     return allEvents.where((event) {
-      return event.startTime.isAfter(start) || event.startTime.isAtSameMomentAs(start) &&
-          event.startTime.isBefore(end) || event.startTime.isAtSameMomentAs(end);
+      return event.startTime.isAfter(start) ||
+          event.startTime.isAtSameMomentAs(start) &&
+              event.startTime.isBefore(end) ||
+          event.startTime.isAtSameMomentAs(end);
     }).toList();
   }
 
@@ -222,7 +221,7 @@ class CalendarService {
   Future<void> updateEvent(CalendarEvent event) async {
     final events = await getAllEvents();
     final index = events.indexWhere((e) => e.id == event.id);
-    
+
     if (index != -1) {
       events[index] = event.copyWith();
       await _saveEvents(events);
@@ -253,7 +252,7 @@ class CalendarService {
   Future<List<CalendarEvent>> searchEvents(String query) async {
     final allEvents = await getAllEvents();
     final lowerQuery = query.toLowerCase();
-    
+
     return allEvents.where((event) {
       return event.title.toLowerCase().contains(lowerQuery) ||
           event.description.toLowerCase().contains(lowerQuery);
@@ -261,9 +260,12 @@ class CalendarService {
   }
 
   /// Check for conflicts with existing events
-  Future<List<CalendarEvent>> findConflicts(DateTime start, DateTime end) async {
+  Future<List<CalendarEvent>> findConflicts(
+    DateTime start,
+    DateTime end,
+  ) async {
     final allEvents = await getAllEvents();
-    
+
     return allEvents.where((event) {
       return (start.isBefore(event.endTime) && end.isAfter(event.startTime));
     }).toList();
@@ -273,23 +275,23 @@ class CalendarService {
   Future<Map<DateTime, int>> getMonthEventCounts(int year, int month) async {
     final allEvents = await getAllEvents();
     final Map<DateTime, int> counts = {};
-    
+
     final firstDay = DateTime(year, month);
     final lastDay = DateTime(year, month + 1, 0);
-    
+
     for (var event in allEvents) {
       final eventDate = DateTime(
         event.startTime.year,
         event.startTime.month,
         event.startTime.day,
       );
-      
+
       if (eventDate.isAfter(firstDay.subtract(const Duration(days: 1))) &&
           eventDate.isBefore(lastDay.add(const Duration(days: 1)))) {
         counts[eventDate] = (counts[eventDate] ?? 0) + 1;
       }
     }
-    
+
     return counts;
   }
 
@@ -325,7 +327,8 @@ final upcomingEventsProvider = FutureProvider<List<CalendarEvent>>((ref) async {
 });
 
 /// Provider for events on a specific date
-final eventsForDateProvider = FutureProvider.family<List<CalendarEvent>, DateTime>((ref, date) async {
-  final service = ref.watch(calendarServiceProvider);
-  return service.getEventsForDate(date);
-});
+final eventsForDateProvider =
+    FutureProvider.family<List<CalendarEvent>, DateTime>((ref, date) async {
+      final service = ref.watch(calendarServiceProvider);
+      return service.getEventsForDate(date);
+    });

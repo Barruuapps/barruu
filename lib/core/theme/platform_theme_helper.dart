@@ -144,15 +144,28 @@ class PlatformThemeHelper {
       // Apple subtle shadows
       return BoxShadow(
         color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.12),
-        blurRadius: level == 1 ? 3.0 : level == 2 ? 6.0 : 20.0,
-        offset: Offset(0, level == 1 ? 1.0 : level == 2 ? 4.0 : 10.0),
+        blurRadius: level == 1
+            ? 3.0
+            : level == 2
+            ? 6.0
+            : 20.0,
+        offset: Offset(
+          0,
+          level == 1
+              ? 1.0
+              : level == 2
+              ? 4.0
+              : 10.0,
+        ),
       );
     }
   }
 
   /// Returns a list of platform-appropriate shadows.
-  static List<BoxShadow> getPlatformShadows(BuildContext context,
-      {int level = 1}) {
+  static List<BoxShadow> getPlatformShadows(
+    BuildContext context, {
+    int level = 1,
+  }) {
     return [getPlatformShadow(context, level: level)];
   }
 
@@ -161,8 +174,10 @@ class PlatformThemeHelper {
   /// Automatically scales radius based on platform conventions:
   /// - Android: Uses larger, more dramatic radius
   /// - Apple: Uses subtle, refined radius
-  static double getScaledPlatformRadius(
-      {required double baseRadius, BuildContext? context}) {
+  static double getScaledPlatformRadius({
+    required double baseRadius,
+    BuildContext? context,
+  }) {
     if (isAndroid) {
       // Android uses larger, more dramatic radius
       if (baseRadius <= 8.0) return 12.0;

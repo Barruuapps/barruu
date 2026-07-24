@@ -65,9 +65,11 @@ class DocumentRepository implements IDocumentRepository {
   Future<List<Block>> getBlocks() async {
     final db = await _openDb();
     try {
-      final maps = await db.query(BlockConstants.tableName, orderBy: 'position ASC');
-      final blocks =
-          maps.map((m) => Block.fromDatabaseMap(m)).toList();
+      final maps = await db.query(
+        BlockConstants.tableName,
+        orderBy: 'position ASC',
+      );
+      final blocks = maps.map((m) => Block.fromDatabaseMap(m)).toList();
       logger.i('Fetched ${blocks.length} blocks from ${docDir.path}');
       await _closeDb();
       return blocks;
@@ -96,7 +98,9 @@ class DocumentRepository implements IDocumentRepository {
         offset: offset,
       );
       final blocks = maps.map((m) => Block.fromDatabaseMap(m)).toList();
-      logger.i('Fetched ${blocks.length} blocks (limit: $limit, offset: $offset) from ${docDir.path}');
+      logger.i(
+        'Fetched ${blocks.length} blocks (limit: $limit, offset: $offset) from ${docDir.path}',
+      );
       await _closeDb();
       return blocks;
     } catch (e, stackTrace) {
@@ -136,7 +140,10 @@ class DocumentRepository implements IDocumentRepository {
   Future<String> addBlock(Block block) async {
     final db = await _openDb();
     try {
-      final id = await db.insert(BlockConstants.tableName, block.toDatabaseMap());
+      final id = await db.insert(
+        BlockConstants.tableName,
+        block.toDatabaseMap(),
+      );
       logger.i('Block added: ID $id in ${docDir.path}');
       await _closeDb();
       return id.toString();
@@ -276,16 +283,20 @@ class DocumentRepository implements IDocumentRepository {
   }
 
   /// Performs database migration from old version to new version
-  Future<void> _performDatabaseMigration(Database db, int oldVersion, int newVersion) async {
+  Future<void> _performDatabaseMigration(
+    Database db,
+    int oldVersion,
+    int newVersion,
+  ) async {
     logger.i('Migrating database from version $oldVersion to $newVersion');
-    
+
     try {
       // Migration from version 1 to 2: Add indexes
       if (oldVersion < 2 && newVersion >= 2) {
         await _createIndexes(db);
         logger.i('Successfully migrated to version 2');
       }
-      
+
       // Future migrations can be added here
       // if (oldVersion < 3 && newVersion >= 3) { ... }
     } catch (e, stackTrace) {
@@ -359,19 +370,22 @@ class BlocksNotifier extends StateNotifier<List<Block>> {
 
 // Provider for blocks notifier
 final blocksNotifierProvider =
-StateNotifierProvider.family<BlocksNotifier, List<Block>, Directory>((
-    ref,
-    docDir,
+    StateNotifierProvider.family<BlocksNotifier, List<Block>, Directory>((
+      ref,
+      docDir,
     ) {
-  final repository = ref.read(documentRepositoryProvider(docDir));
-  final initialBlocks =
-      ref.watch(documentBlocksProvider(docDir)).value ?? [];
-  return BlocksNotifier(repository, initialBlocks);
-});
+      final repository = ref.read(documentRepositoryProvider(docDir));
+      final initialBlocks =
+          ref.watch(documentBlocksProvider(docDir)).value ?? [];
+      return BlocksNotifier(repository, initialBlocks);
+    });
 
 // Provider for page repository
 final pageRepositoryProvider =
-    Provider.family<PageRepository, ({Directory docDir, String pageId})>((ref, params) {
+    Provider.family<PageRepository, ({Directory docDir, String pageId})>((
+      ref,
+      params,
+    ) {
       return PageRepository(params.docDir, params.pageId);
     });
 
@@ -395,16 +409,20 @@ class PageRepository {
   }
 
   /// Performs database migration from old version to new version
-  Future<void> _performDatabaseMigration(Database db, int oldVersion, int newVersion) async {
+  Future<void> _performDatabaseMigration(
+    Database db,
+    int oldVersion,
+    int newVersion,
+  ) async {
     logger.i('Migrating page database from version $oldVersion to $newVersion');
-    
+
     try {
       // Migration from version 1 to 2: Add indexes
       if (oldVersion < 2 && newVersion >= 2) {
         await _createIndexes(db);
         logger.i('Successfully migrated to version 2');
       }
-      
+
       // Future migrations can be added here
       // if (oldVersion < 3 && newVersion >= 3) { ... }
     } catch (e, stackTrace) {
@@ -427,7 +445,9 @@ class PageRepository {
           await db.execute(BlockConstants.createTableSql);
           // Create indexes for query optimization
           await _createIndexes(db);
-          logger.i('Created block table with indexes in page database: $dbPath');
+          logger.i(
+            'Created block table with indexes in page database: $dbPath',
+          );
         },
         onUpgrade: _performDatabaseMigration,
       );
@@ -448,7 +468,9 @@ class PageRepository {
     if (_database != null && _database!.isOpen) {
       await _database!.close();
       _database = null;
-      logger.i('Page database closed: ${PageConstants.getPageFileName(pageId)}');
+      logger.i(
+        'Page database closed: ${PageConstants.getPageFileName(pageId)}',
+      );
     }
   }
 
@@ -457,8 +479,8 @@ class PageRepository {
     final db = await _openDb();
     try {
       final maps = await db.query(
-        BlockConstants.tableName, 
-        orderBy: '${BlockConstants.positionKey} ASC'
+        BlockConstants.tableName,
+        orderBy: '${BlockConstants.positionKey} ASC',
       );
       final blocks = maps.map((m) => Block.fromDatabaseMap(m)).toList();
       logger.i('Fetched ${blocks.length} blocks from page $pageId');
@@ -479,7 +501,10 @@ class PageRepository {
   Future<String> addBlock(Block block) async {
     final db = await _openDb();
     try {
-      final id = await db.insert(BlockConstants.tableName, block.toDatabaseMap());
+      final id = await db.insert(
+        BlockConstants.tableName,
+        block.toDatabaseMap(),
+      );
       logger.i('Block added: ID $id in page $pageId');
       await _closeDb();
       return id.toString();

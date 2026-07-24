@@ -35,8 +35,11 @@ class TrueFalseControls extends ConsumerWidget {
               Navigator.of(context).pop();
             }
           } catch (e, stackTrace) {
-            logger.e('Failed to update true/false question template',
-                error: e, stackTrace: stackTrace);
+            logger.e(
+              'Failed to update true/false question template',
+              error: e,
+              stackTrace: stackTrace,
+            );
           }
         },
         theme: theme,

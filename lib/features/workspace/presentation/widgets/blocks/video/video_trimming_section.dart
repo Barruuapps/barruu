@@ -65,7 +65,11 @@ class VideoTrimmingSection extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(Icons.content_cut, size: 20, color: theme.colorScheme.primary),
+                Icon(
+                  Icons.content_cut,
+                  size: 20,
+                  color: theme.colorScheme.primary,
+                ),
                 const SizedBox(width: 8),
                 Text(
                   'Video Trimming',

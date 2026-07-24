@@ -35,8 +35,11 @@ class FillBlankControls extends ConsumerWidget {
               Navigator.of(context).pop();
             }
           } catch (e, stackTrace) {
-            logger.e('Failed to update fill-in-blank question template',
-                error: e, stackTrace: stackTrace);
+            logger.e(
+              'Failed to update fill-in-blank question template',
+              error: e,
+              stackTrace: stackTrace,
+            );
           }
         },
         theme: theme,

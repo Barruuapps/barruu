@@ -30,13 +30,33 @@ class HeaderTemplateSelector extends StatelessWidget {
           childAspectRatio: 0.85,
           children: [
             _buildTemplateOption('normal', 'Normal', _buildNormalPreview()),
-            _buildTemplateOption('underline', 'Underline', _buildUnderlinePreview()),
+            _buildTemplateOption(
+              'underline',
+              'Underline',
+              _buildUnderlinePreview(),
+            ),
             _buildTemplateOption('dotted', 'Dotted', _buildDottedPreview()),
-            _buildTemplateOption('breakline', 'Breakline', _buildBreaklinePreview()),
+            _buildTemplateOption(
+              'breakline',
+              'Breakline',
+              _buildBreaklinePreview(),
+            ),
             _buildTemplateOption('boxed', 'Boxed', _buildBoxedPreview()),
-            _buildTemplateOption('dotted_box', 'Dotted Box', _buildDottedBoxPreview()),
-            _buildTemplateOption('gradient', 'Gradient', _buildGradientPreview()),
-            _buildTemplateOption('featured', 'Featured', _buildFeaturedPreview()),
+            _buildTemplateOption(
+              'dotted_box',
+              'Dotted Box',
+              _buildDottedBoxPreview(),
+            ),
+            _buildTemplateOption(
+              'gradient',
+              'Gradient',
+              _buildGradientPreview(),
+            ),
+            _buildTemplateOption(
+              'featured',
+              'Featured',
+              _buildFeaturedPreview(),
+            ),
             _buildTemplateOption('modern', 'Modern', _buildModernPreview()),
             _buildTemplateOption('hero', 'Hero', _buildHeroPreview()),
             _buildTemplateOption('minimal', 'Minimal', _buildMinimalPreview()),
@@ -64,11 +84,13 @@ class HeaderTemplateSelector extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(
-            color: isSelected ? theme.colorScheme.primary : theme.colorScheme.outline.withValues(alpha: 0.3),
+            color: isSelected
+                ? theme.colorScheme.primary
+                : theme.colorScheme.outline.withValues(alpha: 0.3),
             width: isSelected ? 2.5 : 1,
           ),
           borderRadius: BorderRadius.circular(8),
-          color: isSelected 
+          color: isSelected
               ? theme.colorScheme.primaryContainer.withValues(alpha: 0.2)
               : null,
         ),
@@ -84,9 +106,11 @@ class HeaderTemplateSelector extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
               decoration: BoxDecoration(
-                color: isSelected 
+                color: isSelected
                     ? theme.colorScheme.primary.withValues(alpha: 0.1)
-                    : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                    : theme.colorScheme.surfaceContainerHighest.withValues(
+                        alpha: 0.5,
+                      ),
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(7),
                   bottomRight: Radius.circular(7),
@@ -237,10 +261,7 @@ class HeaderTemplateSelector extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
-        border: Border.all(
-          color: theme.colorScheme.primary,
-          width: 2,
-        ),
+        border: Border.all(color: theme.colorScheme.primary, width: 2),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Column(
@@ -263,10 +284,7 @@ class HeaderTemplateSelector extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
-        border: Border.all(
-          color: theme.colorScheme.primary,
-          width: 2,
-        ),
+        border: Border.all(color: theme.colorScheme.primary, width: 2),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Column(
@@ -326,10 +344,7 @@ class HeaderTemplateSelector extends StatelessWidget {
           ],
         ),
         borderRadius: BorderRadius.circular(4),
-        border: Border.all(
-          color: theme.colorScheme.primary,
-          width: 1.5,
-        ),
+        border: Border.all(color: theme.colorScheme.primary, width: 1.5),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -425,10 +440,7 @@ class HeaderTemplateSelector extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [
-                theme.colorScheme.primary,
-                theme.colorScheme.secondary,
-              ],
+              colors: [theme.colorScheme.primary, theme.colorScheme.secondary],
             ),
             borderRadius: BorderRadius.circular(4),
           ),
@@ -484,10 +496,7 @@ class HeaderTemplateSelector extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
-                  theme.colorScheme.primary,
-                  theme.colorScheme.tertiary,
-                ],
+                colors: [theme.colorScheme.primary, theme.colorScheme.tertiary],
               ),
               borderRadius: BorderRadius.circular(2),
             ),
@@ -558,7 +567,9 @@ class HeaderTemplateSelector extends StatelessWidget {
           margin: const EdgeInsets.only(left: 8, top: 6),
           padding: const EdgeInsets.all(6),
           decoration: BoxDecoration(
-            color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+            color: theme.colorScheme.surfaceContainerHighest.withValues(
+              alpha: 0.5,
+            ),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Column(
@@ -603,19 +614,12 @@ class HeaderTemplateSelector extends StatelessWidget {
       decoration: BoxDecoration(
         color: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(
-          color: theme.colorScheme.primary,
-          width: 1.5,
-        ),
+        border: Border.all(color: theme.colorScheme.primary, width: 1.5),
       ),
       padding: const EdgeInsets.all(8),
       child: Row(
         children: [
-          Icon(
-            Icons.info_outline,
-            size: 14,
-            color: theme.colorScheme.primary,
-          ),
+          Icon(Icons.info_outline, size: 14, color: theme.colorScheme.primary),
           const SizedBox(width: 5),
           Expanded(
             child: Container(

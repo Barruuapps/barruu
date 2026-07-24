@@ -5,7 +5,7 @@ import 'package:barruu/features/workspace/domain/usecases/base_use_case.dart';
 import 'package:barruu/features/workspace/domain/repositories/i_document_repository.dart';
 
 /// Use case for fetching all blocks from a document
-/// 
+///
 /// This use case encapsulates the business logic for retrieving blocks,
 /// including error handling and data transformation.
 class GetBlocksUseCase extends UseCase<List<Block>, GetBlocksParams> {

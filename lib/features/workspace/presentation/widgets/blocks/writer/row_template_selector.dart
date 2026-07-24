@@ -27,19 +27,39 @@ class RowTemplateSelector extends StatelessWidget {
           crossAxisSpacing: 12,
           childAspectRatio: 0.75,
           children: [
-            _buildTemplateOption('standard', 'Standard', _buildStandardPreview()),
+            _buildTemplateOption(
+              'standard',
+              'Standard',
+              _buildStandardPreview(),
+            ),
             _buildTemplateOption('stacked', 'Stacked', _buildStackedPreview()),
-            _buildTemplateOption('highlight', 'Highlight', _buildHighlightPreview()),
-            _buildTemplateOption('timeline', 'Timeline', _buildTimelinePreview()),
+            _buildTemplateOption(
+              'highlight',
+              'Highlight',
+              _buildHighlightPreview(),
+            ),
+            _buildTemplateOption(
+              'timeline',
+              'Timeline',
+              _buildTimelinePreview(),
+            ),
             _buildTemplateOption('feature', 'Feature', _buildFeaturePreview()),
             _buildTemplateOption('compact', 'Compact', _buildCompactPreview()),
             _buildTemplateOption('overlay', 'Overlay', _buildOverlayPreview()),
-            _buildTemplateOption('magazine', 'Magazine', _buildMagazinePreview()),
+            _buildTemplateOption(
+              'magazine',
+              'Magazine',
+              _buildMagazinePreview(),
+            ),
             _buildTemplateOption('split', 'Split', _buildSplitPreview()),
             _buildTemplateOption('banner', 'Banner', _buildBannerPreview()),
             _buildTemplateOption('avatar', 'Avatar', _buildAvatarPreview()),
             _buildTemplateOption('icon', 'Icon', _buildIconPreview()),
-            _buildTemplateOption('horizontal', 'Horizontal', _buildHorizontalPreview()),
+            _buildTemplateOption(
+              'horizontal',
+              'Horizontal',
+              _buildHorizontalPreview(),
+            ),
           ],
         ),
       ),
@@ -59,11 +79,13 @@ class RowTemplateSelector extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(
-            color: isSelected ? theme.colorScheme.primary : theme.colorScheme.outline.withValues(alpha: 0.3),
+            color: isSelected
+                ? theme.colorScheme.primary
+                : theme.colorScheme.outline.withValues(alpha: 0.3),
             width: isSelected ? 2.5 : 1,
           ),
           borderRadius: BorderRadius.circular(8),
-          color: isSelected 
+          color: isSelected
               ? theme.colorScheme.primaryContainer.withValues(alpha: 0.2)
               : null,
         ),
@@ -79,9 +101,11 @@ class RowTemplateSelector extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
               decoration: BoxDecoration(
-                color: isSelected 
+                color: isSelected
                     ? theme.colorScheme.primary.withValues(alpha: 0.1)
-                    : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                    : theme.colorScheme.surfaceContainerHighest.withValues(
+                        alpha: 0.5,
+                      ),
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(7),
                   bottomRight: Radius.circular(7),
@@ -123,7 +147,13 @@ class RowTemplateSelector extends StatelessWidget {
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Center(
-                child: Icon(Icons.image, size: 12, color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.5)),
+                child: Icon(
+                  Icons.image,
+                  size: 12,
+                  color: theme.colorScheme.onPrimaryContainer.withValues(
+                    alpha: 0.5,
+                  ),
+                ),
               ),
             ),
           ),
@@ -133,9 +163,17 @@ class RowTemplateSelector extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.3)),
+                Container(
+                  height: 2,
+                  width: double.infinity,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                ),
                 const SizedBox(height: 2),
-                Container(height: 2, width: 30, color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
+                Container(
+                  height: 2,
+                  width: 30,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                ),
               ],
             ),
           ),
@@ -174,16 +212,28 @@ class RowTemplateSelector extends StatelessWidget {
             color: theme.colorScheme.primaryContainer,
             borderRadius: BorderRadius.circular(3),
           ),
-          child: Icon(Icons.image, size: 8, color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.5)),
+          child: Icon(
+            Icons.image,
+            size: 8,
+            color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.5),
+          ),
         ),
         const SizedBox(width: 4),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.3)),
+              Container(
+                height: 2,
+                width: double.infinity,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+              ),
               const SizedBox(height: 2),
-              Container(height: 2, width: 20, color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
+              Container(
+                height: 2,
+                width: 20,
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+              ),
             ],
           ),
         ),
@@ -215,7 +265,13 @@ class RowTemplateSelector extends StatelessWidget {
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Center(
-                child: Icon(Icons.image, size: 14, color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.6)),
+                child: Icon(
+                  Icons.image,
+                  size: 14,
+                  color: theme.colorScheme.onPrimaryContainer.withValues(
+                    alpha: 0.6,
+                  ),
+                ),
               ),
             ),
           ),
@@ -225,9 +281,21 @@ class RowTemplateSelector extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(height: 3, width: double.infinity, color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.6)),
+                Container(
+                  height: 3,
+                  width: double.infinity,
+                  color: theme.colorScheme.onPrimaryContainer.withValues(
+                    alpha: 0.6,
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Container(height: 2, width: 30, color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.4)),
+                Container(
+                  height: 2,
+                  width: 30,
+                  color: theme.colorScheme.onPrimaryContainer.withValues(
+                    alpha: 0.4,
+                  ),
+                ),
               ],
             ),
           ),
@@ -319,7 +387,9 @@ class RowTemplateSelector extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(3),
             decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(
+                alpha: 0.5,
+              ),
               borderRadius: BorderRadius.circular(3),
               border: Border.all(
                 color: theme.colorScheme.outline.withValues(alpha: 0.2),
@@ -328,9 +398,17 @@ class RowTemplateSelector extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.3)),
+                Container(
+                  height: 2,
+                  width: double.infinity,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                ),
                 const SizedBox(height: 2),
-                Container(height: 2, width: 15, color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
+                Container(
+                  height: 2,
+                  width: 15,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                ),
               ],
             ),
           ),
@@ -363,7 +441,11 @@ class RowTemplateSelector extends StatelessWidget {
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Center(
-                child: Icon(Icons.auto_awesome, size: 18, color: theme.colorScheme.primary.withValues(alpha: 0.5)),
+                child: Icon(
+                  Icons.auto_awesome,
+                  size: 18,
+                  color: theme.colorScheme.primary.withValues(alpha: 0.5),
+                ),
               ),
             ),
           ),
@@ -373,11 +455,23 @@ class RowTemplateSelector extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(height: 3, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+                Container(
+                  height: 3,
+                  width: double.infinity,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+                ),
                 const SizedBox(height: 3),
-                Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.3)),
+                Container(
+                  height: 2,
+                  width: double.infinity,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                ),
                 const SizedBox(height: 2),
-                Container(height: 2, width: 30, color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
+                Container(
+                  height: 2,
+                  width: 30,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                ),
               ],
             ),
           ),
@@ -402,7 +496,13 @@ class RowTemplateSelector extends StatelessWidget {
               color: theme.colorScheme.primaryContainer,
               borderRadius: BorderRadius.circular(3),
             ),
-            child: Icon(Icons.image, size: 10, color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.5)),
+            child: Icon(
+              Icons.image,
+              size: 10,
+              color: theme.colorScheme.onPrimaryContainer.withValues(
+                alpha: 0.5,
+              ),
+            ),
           ),
           const SizedBox(width: 4),
           Expanded(
@@ -410,9 +510,17 @@ class RowTemplateSelector extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.3)),
+                Container(
+                  height: 2,
+                  width: double.infinity,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                ),
                 const SizedBox(height: 2),
-                Container(height: 2, width: 25, color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
+                Container(
+                  height: 2,
+                  width: 25,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                ),
               ],
             ),
           ),
@@ -446,7 +554,11 @@ class RowTemplateSelector extends StatelessWidget {
             children: [
               Container(height: 3, width: 30, color: Colors.white),
               const SizedBox(height: 2),
-              Container(height: 2, width: 40, color: Colors.white.withValues(alpha: 0.8)),
+              Container(
+                height: 2,
+                width: 40,
+                color: Colors.white.withValues(alpha: 0.8),
+              ),
             ],
           ),
         ),
@@ -470,7 +582,13 @@ class RowTemplateSelector extends StatelessWidget {
               color: theme.colorScheme.primaryContainer,
               borderRadius: BorderRadius.circular(3),
             ),
-            child: Icon(Icons.image, size: 12, color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.5)),
+            child: Icon(
+              Icons.image,
+              size: 12,
+              color: theme.colorScheme.onPrimaryContainer.withValues(
+                alpha: 0.5,
+              ),
+            ),
           ),
           const SizedBox(width: 4),
           Expanded(
@@ -478,9 +596,17 @@ class RowTemplateSelector extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(height: 3, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+                Container(
+                  height: 3,
+                  width: double.infinity,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+                ),
                 const SizedBox(height: 3),
-                Container(height: 2, width: 30, color: theme.colorScheme.onSurface.withValues(alpha: 0.3)),
+                Container(
+                  height: 2,
+                  width: 30,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                ),
               ],
             ),
           ),
@@ -502,15 +628,25 @@ class RowTemplateSelector extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
+                color: theme.colorScheme.primaryContainer.withValues(
+                  alpha: 0.5,
+                ),
                 borderRadius: BorderRadius.circular(3),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.3)),
+                  Container(
+                    height: 2,
+                    width: double.infinity,
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                  ),
                   const SizedBox(height: 2),
-                  Container(height: 2, width: 18, color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
+                  Container(
+                    height: 2,
+                    width: 18,
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                  ),
                 ],
               ),
             ),
@@ -523,15 +659,25 @@ class RowTemplateSelector extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: theme.colorScheme.secondaryContainer.withValues(alpha: 0.5),
+                color: theme.colorScheme.secondaryContainer.withValues(
+                  alpha: 0.5,
+                ),
                 borderRadius: BorderRadius.circular(3),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.3)),
+                  Container(
+                    height: 2,
+                    width: double.infinity,
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                  ),
                   const SizedBox(height: 2),
-                  Container(height: 2, width: 18, color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
+                  Container(
+                    height: 2,
+                    width: 18,
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                  ),
                 ],
               ),
             ),
@@ -563,7 +709,11 @@ class RowTemplateSelector extends StatelessWidget {
             children: [
               Container(height: 3, width: 35, color: Colors.white),
               const SizedBox(height: 2),
-              Container(height: 2, width: 40, color: Colors.white.withValues(alpha: 0.8)),
+              Container(
+                height: 2,
+                width: 40,
+                color: Colors.white.withValues(alpha: 0.8),
+              ),
             ],
           ),
         ),
@@ -587,7 +737,11 @@ class RowTemplateSelector extends StatelessWidget {
               shape: BoxShape.circle,
               color: theme.colorScheme.primaryContainer,
             ),
-            child: Icon(Icons.person, size: 12, color: theme.colorScheme.onPrimaryContainer),
+            child: Icon(
+              Icons.person,
+              size: 12,
+              color: theme.colorScheme.onPrimaryContainer,
+            ),
           ),
           const SizedBox(width: 4),
           Expanded(
@@ -595,9 +749,17 @@ class RowTemplateSelector extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.3)),
+                Container(
+                  height: 2,
+                  width: double.infinity,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                ),
                 const SizedBox(height: 2),
-                Container(height: 2, width: 25, color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
+                Container(
+                  height: 2,
+                  width: 25,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                ),
               ],
             ),
           ),
@@ -622,7 +784,9 @@ class RowTemplateSelector extends StatelessWidget {
               shape: BoxShape.circle,
               color: theme.colorScheme.primaryContainer,
             ),
-            child: Center(child: Text('✨', style: const TextStyle(fontSize: 10))),
+            child: Center(
+              child: Text('✨', style: const TextStyle(fontSize: 10)),
+            ),
           ),
           const SizedBox(width: 4),
           Expanded(
@@ -630,9 +794,17 @@ class RowTemplateSelector extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.3)),
+                Container(
+                  height: 2,
+                  width: double.infinity,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                ),
                 const SizedBox(height: 2),
-                Container(height: 2, width: 25, color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
+                Container(
+                  height: 2,
+                  width: 25,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                ),
               ],
             ),
           ),
@@ -649,10 +821,18 @@ class RowTemplateSelector extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               color: theme.colorScheme.primaryContainer,
-              borderRadius: const BorderRadius.horizontal(left: Radius.circular(4)),
+              borderRadius: const BorderRadius.horizontal(
+                left: Radius.circular(4),
+              ),
             ),
             child: Center(
-              child: Icon(Icons.image, size: 12, color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.5)),
+              child: Icon(
+                Icons.image,
+                size: 12,
+                color: theme.colorScheme.onPrimaryContainer.withValues(
+                  alpha: 0.5,
+                ),
+              ),
             ),
           ),
         ),
@@ -661,16 +841,26 @@ class RowTemplateSelector extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               color: theme.colorScheme.surface,
-              borderRadius: const BorderRadius.horizontal(right: Radius.circular(4)),
+              borderRadius: const BorderRadius.horizontal(
+                right: Radius.circular(4),
+              ),
             ),
             padding: const EdgeInsets.all(4),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(height: 2, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.3)),
+                Container(
+                  height: 2,
+                  width: double.infinity,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+                ),
                 const SizedBox(height: 2),
-                Container(height: 2, width: 25, color: theme.colorScheme.onSurface.withValues(alpha: 0.2)),
+                Container(
+                  height: 2,
+                  width: 25,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
+                ),
               ],
             ),
           ),

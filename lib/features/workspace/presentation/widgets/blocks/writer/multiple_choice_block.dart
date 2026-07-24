@@ -7,7 +7,7 @@ import 'package:barruu/features/workspace/presentation/widgets/utils/toolbar.dar
 import 'package:barruu/features/workspace/utils/debouncer.dart';
 
 /// Multiple choice question block for creating interactive questions.
-/// 
+///
 /// Content format:
 /// ```json
 /// {
@@ -34,10 +34,12 @@ class MultipleChoiceBlock extends BaseEditableBlock {
   });
 
   @override
-  ConsumerState<MultipleChoiceBlock> createState() => _MultipleChoiceBlockState();
+  ConsumerState<MultipleChoiceBlock> createState() =>
+      _MultipleChoiceBlockState();
 }
 
-class _MultipleChoiceBlockState extends BaseEditableBlockState<MultipleChoiceBlock> {
+class _MultipleChoiceBlockState
+    extends BaseEditableBlockState<MultipleChoiceBlock> {
   late TextEditingController _questionController;
   late TextEditingController _explanationController;
   late FocusNode _questionFocusNode;
@@ -66,16 +68,22 @@ class _MultipleChoiceBlockState extends BaseEditableBlockState<MultipleChoiceBlo
 
   @override
   void initializeBlockSpecifics() {
-    _questionController = TextEditingController(text: content['question'] ?? '');
-    _explanationController = TextEditingController(text: content['explanation'] ?? '');
+    _questionController = TextEditingController(
+      text: content['question'] ?? '',
+    );
+    _explanationController = TextEditingController(
+      text: content['explanation'] ?? '',
+    );
     _questionFocusNode = FocusNode();
     _explanationFocusNode = FocusNode();
     _debouncer = Debouncer(delay: const Duration(milliseconds: 500));
-    
+
     // Initialize options
     _options = List<Map<String, dynamic>>.from(content['options'] ?? []);
     if (_options.isEmpty) {
-      _options = List<Map<String, dynamic>>.from(getDefaultContent()['options'] as List);
+      _options = List<Map<String, dynamic>>.from(
+        getDefaultContent()['options'] as List,
+      );
     }
   }
 
@@ -166,12 +174,14 @@ class _MultipleChoiceBlockState extends BaseEditableBlockState<MultipleChoiceBlo
           opacity: toolbarOpacity,
           child: Toolbar(block: widget.block, docDir: widget.docDir),
         ),
-        
+
         Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
-            border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.2)),
+            border: Border.all(
+              color: theme.colorScheme.outline.withValues(alpha: 0.2),
+            ),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
@@ -180,7 +190,11 @@ class _MultipleChoiceBlockState extends BaseEditableBlockState<MultipleChoiceBlo
               // Header
               Row(
                 children: [
-                  Icon(IconsaxPlusBold.task_square, size: 18, color: theme.colorScheme.primary),
+                  Icon(
+                    IconsaxPlusBold.task_square,
+                    size: 18,
+                    color: theme.colorScheme.primary,
+                  ),
                   const SizedBox(width: 6),
                   Text(
                     'Multiple Choice',
@@ -192,7 +206,7 @@ class _MultipleChoiceBlockState extends BaseEditableBlockState<MultipleChoiceBlo
                 ],
               ),
               const SizedBox(height: 8),
-              
+
               // Question
               TextField(
                 controller: _questionController,
@@ -201,25 +215,37 @@ class _MultipleChoiceBlockState extends BaseEditableBlockState<MultipleChoiceBlo
                 minLines: 1,
                 decoration: InputDecoration(
                   hintText: 'Question',
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(6)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(6),
+                  ),
                   isDense: true,
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 10,
+                  ),
                 ),
                 onChanged: (_) => _debouncer.call(_saveContentLocal),
               ),
               const SizedBox(height: 8),
-              
+
               ...List.generate(_options.length, (index) {
                 final option = _options[index];
                 final isCorrect = option['isCorrect'] ?? false;
-                
+
                 return Container(
                   margin: const EdgeInsets.only(bottom: 6),
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: isCorrect
-                        ? theme.colorScheme.primaryContainer.withValues(alpha: 0.3)
-                        : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+                        ? theme.colorScheme.primaryContainer.withValues(
+                            alpha: 0.3,
+                          )
+                        : theme.colorScheme.surfaceContainerHighest.withValues(
+                            alpha: 0.3,
+                          ),
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Row(
@@ -235,7 +261,9 @@ class _MultipleChoiceBlockState extends BaseEditableBlockState<MultipleChoiceBlo
                                 ? theme.colorScheme.primary
                                 : Colors.transparent,
                             border: Border.all(
-                              color: theme.colorScheme.outline.withValues(alpha: 0.5),
+                              color: theme.colorScheme.outline.withValues(
+                                alpha: 0.5,
+                              ),
                               width: 1.5,
                             ),
                             borderRadius: BorderRadius.circular(3),
@@ -269,7 +297,11 @@ class _MultipleChoiceBlockState extends BaseEditableBlockState<MultipleChoiceBlo
                       // Delete button
                       if (_options.length > 2)
                         IconButton(
-                          icon: const Icon(IconsaxPlusBold.minus, size: 16, color: Colors.red),
+                          icon: const Icon(
+                            IconsaxPlusBold.minus,
+                            size: 16,
+                            color: Colors.red,
+                          ),
                           onPressed: () => _removeOption(index),
                           padding: EdgeInsets.zero,
                           constraints: const BoxConstraints(),
@@ -279,64 +311,75 @@ class _MultipleChoiceBlockState extends BaseEditableBlockState<MultipleChoiceBlo
                   ),
                 );
               }),
-              
+
               const SizedBox(height: 6),
-              
+
               // Add option button & settings in one row
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
                   OutlinedButton.icon(
                     onPressed: _addOption,
-                    icon: const Icon(IconsaxPlusBold.add, size: 16, fontWeight: FontWeight.bold,),
+                    icon: const Icon(
+                      IconsaxPlusBold.add,
+                      size: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                     label: const Text('Add', style: TextStyle(fontSize: 12)),
                     style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
                       minimumSize: const Size(0, 32),
                     ),
                   ),
-                        FilterChip(
-                          label: const Text('Multi', style: TextStyle(fontSize: 11)),
-                          selected: allowMultiple,
-                          onSelected: (value) {
-                            setState(() {
-                              content['allowMultiple'] = value;
-                            });
-                            _debouncer.call(_saveContentLocal);
-                          },
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                          visualDensity: VisualDensity.compact,
-                        ),
-                        FilterChip(
-                          label: const Text('Shuffle', style: TextStyle(fontSize: 11)),
-                          selected: content['shuffleOptions'] ?? true,
-                          onSelected: (value) {
-                            setState(() {
-                              content['shuffleOptions'] = value;
-                            });
-                            _debouncer.call(_saveContentLocal);
-                          },
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                          visualDensity: VisualDensity.compact,
-                        ),
-                        FilterChip(
-                          label: const Text('Explanation', style: TextStyle(fontSize: 11)),
-                          selected: content['showExplanation'] ?? true,
-                          onSelected: (value) {
-                            setState(() {
-                              content['showExplanation'] = value;
-                            });
-                            _debouncer.call(_saveContentLocal);
-                          },
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                          visualDensity: VisualDensity.compact,
-                        ),
-
+                  FilterChip(
+                    label: const Text('Multi', style: TextStyle(fontSize: 11)),
+                    selected: allowMultiple,
+                    onSelected: (value) {
+                      setState(() {
+                        content['allowMultiple'] = value;
+                      });
+                      _debouncer.call(_saveContentLocal);
+                    },
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    visualDensity: VisualDensity.compact,
+                  ),
+                  FilterChip(
+                    label: const Text(
+                      'Shuffle',
+                      style: TextStyle(fontSize: 11),
+                    ),
+                    selected: content['shuffleOptions'] ?? true,
+                    onSelected: (value) {
+                      setState(() {
+                        content['shuffleOptions'] = value;
+                      });
+                      _debouncer.call(_saveContentLocal);
+                    },
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    visualDensity: VisualDensity.compact,
+                  ),
+                  FilterChip(
+                    label: const Text(
+                      'Explanation',
+                      style: TextStyle(fontSize: 11),
+                    ),
+                    selected: content['showExplanation'] ?? true,
+                    onSelected: (value) {
+                      setState(() {
+                        content['showExplanation'] = value;
+                      });
+                      _debouncer.call(_saveContentLocal);
+                    },
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    visualDensity: VisualDensity.compact,
+                  ),
                 ],
               ),
               const SizedBox(height: 8),
-              
+
               // Explanation
               TextField(
                 controller: _explanationController,
@@ -345,9 +388,14 @@ class _MultipleChoiceBlockState extends BaseEditableBlockState<MultipleChoiceBlo
                 minLines: 1,
                 decoration: InputDecoration(
                   hintText: 'Explanation',
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(6)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(6),
+                  ),
                   isDense: true,
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 10,
+                  ),
                 ),
                 onChanged: (_) => _debouncer.call(_saveContentLocal),
               ),

@@ -4,7 +4,7 @@ import 'package:barruu/features/workspace/domain/entities/document_interaction_s
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Service for tracking user interactions with documents
-/// 
+///
 /// This service tracks:
 /// - Time spent on documents
 /// - Question attempts and accuracy
@@ -16,7 +16,7 @@ class DocumentInteractionService {
   /// Record a session start for a document
   Future<void> startSession(String documentId) async {
     final stats = await getDocumentStats(documentId);
-    
+
     final updatedStats = stats.copyWith(
       lastAccessed: DateTime.now(),
       totalSessions: stats.totalSessions + 1,
@@ -38,24 +38,26 @@ class DocumentInteractionService {
     );
 
     // Update daily interaction
-    final dailyInteractions = List<DailyDocumentInteraction>.from(stats.dailyInteractions);
-    final todayIndex = dailyInteractions.indexWhere((d) => _isSameDay(d.date, today));
+    final dailyInteractions = List<DailyDocumentInteraction>.from(
+      stats.dailyInteractions,
+    );
+    final todayIndex = dailyInteractions.indexWhere(
+      (d) => _isSameDay(d.date, today),
+    );
 
     if (todayIndex != -1) {
       dailyInteractions[todayIndex] = dailyInteractions[todayIndex].merge(
-        DailyDocumentInteraction(
-          date: today,
-          timeSpent: timeSpent,
-        ),
+        DailyDocumentInteraction(date: today, timeSpent: timeSpent),
       );
     } else {
-      dailyInteractions.add(DailyDocumentInteraction(
-        date: today,
-        timeSpent: timeSpent,
-      ));
+      dailyInteractions.add(
+        DailyDocumentInteraction(date: today, timeSpent: timeSpent),
+      );
     }
 
-    await _saveDocumentStats(updatedStats.copyWith(dailyInteractions: dailyInteractions));
+    await _saveDocumentStats(
+      updatedStats.copyWith(dailyInteractions: dailyInteractions),
+    );
     logger.i('Recorded ${timeSpent.inSeconds}s for document: $documentId');
   }
 
@@ -74,20 +76,25 @@ class DocumentInteractionService {
     var updatedStats = stats.copyWith(
       totalQuestionsAttempted: stats.totalQuestionsAttempted + 1,
       totalQuestionsCorrect: stats.totalQuestionsCorrect + (isCorrect ? 1 : 0),
-      totalQuestionsIncorrect: stats.totalQuestionsIncorrect + (isCorrect ? 0 : 1),
+      totalQuestionsIncorrect:
+          stats.totalQuestionsIncorrect + (isCorrect ? 0 : 1),
       lastAccessed: DateTime.now(),
     );
 
     // Update topic performance if topic is provided
     if (topicId != null && topicName != null && topicId.isNotEmpty) {
-      final topicPerformances = Map<String, TopicPerformance>.from(stats.topicPerformances);
+      final topicPerformances = Map<String, TopicPerformance>.from(
+        stats.topicPerformances,
+      );
       final existingTopic = topicPerformances[topicId];
 
       if (existingTopic != null) {
         topicPerformances[topicId] = existingTopic.copyWith(
           questionsAttempted: existingTopic.questionsAttempted + 1,
-          questionsCorrect: existingTopic.questionsCorrect + (isCorrect ? 1 : 0),
-          questionsIncorrect: existingTopic.questionsIncorrect + (isCorrect ? 0 : 1),
+          questionsCorrect:
+              existingTopic.questionsCorrect + (isCorrect ? 1 : 0),
+          questionsIncorrect:
+              existingTopic.questionsIncorrect + (isCorrect ? 0 : 1),
           lastPracticed: DateTime.now(),
         );
       } else {
@@ -101,12 +108,18 @@ class DocumentInteractionService {
         );
       }
 
-      updatedStats = updatedStats.copyWith(topicPerformances: topicPerformances);
+      updatedStats = updatedStats.copyWith(
+        topicPerformances: topicPerformances,
+      );
     }
 
     // Update daily interaction
-    final dailyInteractions = List<DailyDocumentInteraction>.from(stats.dailyInteractions);
-    final todayIndex = dailyInteractions.indexWhere((d) => _isSameDay(d.date, today));
+    final dailyInteractions = List<DailyDocumentInteraction>.from(
+      stats.dailyInteractions,
+    );
+    final todayIndex = dailyInteractions.indexWhere(
+      (d) => _isSameDay(d.date, today),
+    );
 
     final blocksInteracted = <String, int>{};
     if (blockId != null) {
@@ -122,13 +135,19 @@ class DocumentInteractionService {
     );
 
     if (todayIndex != -1) {
-      dailyInteractions[todayIndex] = dailyInteractions[todayIndex].merge(todayInteraction);
+      dailyInteractions[todayIndex] = dailyInteractions[todayIndex].merge(
+        todayInteraction,
+      );
     } else {
       dailyInteractions.add(todayInteraction);
     }
 
-    await _saveDocumentStats(updatedStats.copyWith(dailyInteractions: dailyInteractions));
-    logger.i('Recorded question attempt (${isCorrect ? 'correct' : 'incorrect'}) for document: $documentId');
+    await _saveDocumentStats(
+      updatedStats.copyWith(dailyInteractions: dailyInteractions),
+    );
+    logger.i(
+      'Recorded question attempt (${isCorrect ? 'correct' : 'incorrect'}) for document: $documentId',
+    );
   }
 
   /// Record interaction with a specific block
@@ -137,8 +156,12 @@ class DocumentInteractionService {
     final today = _normalizeDate(DateTime.now());
 
     // Update daily interaction
-    final dailyInteractions = List<DailyDocumentInteraction>.from(stats.dailyInteractions);
-    final todayIndex = dailyInteractions.indexWhere((d) => _isSameDay(d.date, today));
+    final dailyInteractions = List<DailyDocumentInteraction>.from(
+      stats.dailyInteractions,
+    );
+    final todayIndex = dailyInteractions.indexWhere(
+      (d) => _isSameDay(d.date, today),
+    );
 
     final blocksInteracted = <String, int>{blockId: 1};
     final todayInteraction = DailyDocumentInteraction(
@@ -147,15 +170,19 @@ class DocumentInteractionService {
     );
 
     if (todayIndex != -1) {
-      dailyInteractions[todayIndex] = dailyInteractions[todayIndex].merge(todayInteraction);
+      dailyInteractions[todayIndex] = dailyInteractions[todayIndex].merge(
+        todayInteraction,
+      );
     } else {
       dailyInteractions.add(todayInteraction);
     }
 
-    await _saveDocumentStats(stats.copyWith(
-      dailyInteractions: dailyInteractions,
-      lastAccessed: DateTime.now(),
-    ));
+    await _saveDocumentStats(
+      stats.copyWith(
+        dailyInteractions: dailyInteractions,
+        lastAccessed: DateTime.now(),
+      ),
+    );
   }
 
   /// Get statistics for a specific document
@@ -172,7 +199,11 @@ class DocumentInteractionService {
     try {
       return DocumentInteractionStats.fromJson(json.decode(statsJson));
     } catch (e, stackTrace) {
-      logger.e('Failed to parse document stats', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to parse document stats',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return DocumentInteractionStats(documentId: documentId);
     }
   }
@@ -181,7 +212,7 @@ class DocumentInteractionService {
   Future<List<String>> getAllTrackedDocuments() async {
     final prefs = await SharedPreferences.getInstance();
     final keys = prefs.getKeys();
-    
+
     return keys
         .where((key) => key.startsWith(_interactionsKeyPrefix))
         .map((key) => key.substring(_interactionsKeyPrefix.length))
@@ -193,11 +224,11 @@ class DocumentInteractionService {
     List<String> documentIds,
   ) async {
     final Map<String, DocumentInteractionStats> statsMap = {};
-    
+
     for (final documentId in documentIds) {
       statsMap[documentId] = await getDocumentStats(documentId);
     }
-    
+
     return statsMap;
   }
 
@@ -213,13 +244,13 @@ class DocumentInteractionService {
   Future<void> clearAllStats() async {
     final prefs = await SharedPreferences.getInstance();
     final keys = prefs.getKeys();
-    
+
     for (final key in keys) {
       if (key.startsWith(_interactionsKeyPrefix)) {
         await prefs.remove(key);
       }
     }
-    
+
     logger.i('Cleared all document stats');
   }
 

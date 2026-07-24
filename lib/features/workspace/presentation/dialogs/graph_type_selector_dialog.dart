@@ -9,7 +9,7 @@ enum EnhancedGraphType {
   polar,
   bar,
   scatter,
-  
+
   // Syncfusion charts - Business & Analytics
   sfLine,
   sfBar,
@@ -21,7 +21,7 @@ enum EnhancedGraphType {
   sfStepLine,
   sfBubble,
   sfScatter,
-  
+
   // GraphView - Node-based graphs
   flowchart,
   mindMap,
@@ -76,7 +76,7 @@ extension EnhancedGraphTypeExtension on EnhancedGraphType {
         return 'Network';
     }
   }
-  
+
   String get description {
     switch (this) {
       case EnhancedGraphType.line:
@@ -121,7 +121,7 @@ extension EnhancedGraphTypeExtension on EnhancedGraphType {
         return 'Network diagram';
     }
   }
-  
+
   IconData get icon {
     switch (this) {
       case EnhancedGraphType.line:
@@ -157,7 +157,7 @@ extension EnhancedGraphTypeExtension on EnhancedGraphType {
         return IconsaxPlusLinear.blend;
     }
   }
-  
+
   GraphCategory get category {
     switch (this) {
       case EnhancedGraphType.line:
@@ -188,11 +188,7 @@ extension EnhancedGraphTypeExtension on EnhancedGraphType {
 }
 
 /// Categories for organizing graph types
-enum GraphCategory {
-  mathematical,
-  business,
-  diagram,
-}
+enum GraphCategory { mathematical, business, diagram }
 
 extension GraphCategoryExtension on GraphCategory {
   String get displayName {
@@ -205,7 +201,7 @@ extension GraphCategoryExtension on GraphCategory {
         return 'Diagrams & Flowcharts';
     }
   }
-  
+
   Color getColor(BuildContext context) {
     final theme = Theme.of(context);
     switch (this) {
@@ -225,7 +221,8 @@ class GraphTypeSelectorDialog extends StatefulWidget {
   const GraphTypeSelectorDialog({super.key});
 
   @override
-  State<GraphTypeSelectorDialog> createState() => _GraphTypeSelectorDialogState();
+  State<GraphTypeSelectorDialog> createState() =>
+      _GraphTypeSelectorDialogState();
 
   /// Shows the graph type selector as a modal bottom sheet
   static Future<EnhancedGraphType?> show(BuildContext context) {
@@ -241,7 +238,7 @@ class GraphTypeSelectorDialog extends StatefulWidget {
 class _GraphTypeSelectorDialogState extends State<GraphTypeSelectorDialog>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  
+
   @override
   void initState() {
     super.initState();
@@ -250,7 +247,7 @@ class _GraphTypeSelectorDialogState extends State<GraphTypeSelectorDialog>
       vsync: this,
     );
   }
-  
+
   @override
   void dispose() {
     _tabController.dispose();
@@ -282,7 +279,7 @@ class _GraphTypeSelectorDialogState extends State<GraphTypeSelectorDialog>
               borderRadius: BorderRadius.circular(2),
             ),
           ),
-          
+
           // Header
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -311,7 +308,7 @@ class _GraphTypeSelectorDialogState extends State<GraphTypeSelectorDialog>
               ],
             ),
           ),
-          
+
           // Tab bar for categories
           Container(
             decoration: BoxDecoration(
@@ -324,7 +321,9 @@ class _GraphTypeSelectorDialogState extends State<GraphTypeSelectorDialog>
             child: TabBar(
               controller: _tabController,
               labelColor: theme.colorScheme.primary,
-              unselectedLabelColor: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+              unselectedLabelColor: theme.colorScheme.onSurface.withValues(
+                alpha: 0.6,
+              ),
               indicatorColor: theme.colorScheme.primary,
               indicatorWeight: 3,
               labelStyle: theme.textTheme.titleSmall?.copyWith(
@@ -333,16 +332,13 @@ class _GraphTypeSelectorDialogState extends State<GraphTypeSelectorDialog>
               unselectedLabelStyle: theme.textTheme.titleSmall,
               tabs: GraphCategory.values.map((category) {
                 return Tab(
-                  icon: Icon(
-                    _getCategoryIcon(category),
-                    size: 20,
-                  ),
+                  icon: Icon(_getCategoryIcon(category), size: 20),
                   text: category.displayName,
                 );
               }).toList(),
             ),
           ),
-          
+
           // Tab content
           Flexible(
             child: TabBarView(
@@ -356,7 +352,7 @@ class _GraphTypeSelectorDialogState extends State<GraphTypeSelectorDialog>
       ),
     );
   }
-  
+
   IconData _getCategoryIcon(GraphCategory category) {
     switch (category) {
       case GraphCategory.mathematical:
@@ -367,12 +363,12 @@ class _GraphTypeSelectorDialogState extends State<GraphTypeSelectorDialog>
         return IconsaxPlusLinear.diagram;
     }
   }
-  
+
   Widget _buildCategoryContent(BuildContext context, GraphCategory category) {
     final types = EnhancedGraphType.values
         .where((type) => type.category == category)
         .toList();
-    
+
     return GridView.builder(
       padding: const EdgeInsets.all(16),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -446,14 +442,10 @@ class _GraphTypeCard extends StatelessWidget {
                   ],
                 ),
               ),
-              child: Icon(
-                type.icon,
-                size: 32,
-                color: categoryColor,
-              ),
+              child: Icon(type.icon, size: 32, color: categoryColor),
             ),
             const SizedBox(height: 12),
-            
+
             // Name
             Text(
               type.displayName,
@@ -464,7 +456,7 @@ class _GraphTypeCard extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 4),
-            
+
             // Description
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),

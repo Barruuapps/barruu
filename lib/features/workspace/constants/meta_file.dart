@@ -12,7 +12,8 @@ class MetaFile {
   static const String currentPageIdKey = 'currentPageId';
   static const String permissionLevelKey = 'permissionLevel';
   static const String allowedUsersKey = 'allowedUsers';
-  static const String minibookThemeKey = 'minibookTheme'; // Content creator's theme choice
+  static const String minibookThemeKey =
+      'minibookTheme'; // Content creator's theme choice
 
   /// Format version written to every exported .bipy so both apps can detect
   /// and handle future breaking changes without silently corrupting data.
@@ -22,16 +23,17 @@ class MetaFile {
 
   // Social metadata fields for publishing (Phase 2)
   static const String authorIdKey = 'authorId'; // Firebase Auth UID
-  static const String visibilityKey = 'visibility'; // 'private', 'public', 'followers'
+  static const String visibilityKey =
+      'visibility'; // 'private', 'public', 'followers'
   static const String publishedKey = 'published'; // true/false
   static const String publishedAtKey = 'publishedAt'; // ISO 8601 string or null
-  
+
   // Engagement counters (denormalized for performance)
   static const String viewsKey = 'views';
   static const String likesKey = 'likes';
   static const String commentsKey = 'comments';
   static const String sharesKey = 'shares';
-  
+
   // Default values
   static const String defaultVisibility = 'private';
   static const bool defaultPublished = false;
@@ -41,7 +43,7 @@ class MetaFile {
   static const int defaultShares = 0;
 }
 
-class BlockConstants{
+class BlockConstants {
   static const String fileName = 'book.db';
   static const String tableName = 'block';
   static const String idKey = 'id';
@@ -49,12 +51,13 @@ class BlockConstants{
   static const String blockTypeKey = 'block_type';
   static const String styleKey = 'style';
   static const String positionKey = 'position';
-  
+
   // Database version for schema migrations
   static const int databaseVersion = 2;
-  
+
   /// Returns the SQL statement to create the block table schema
-  static String get createTableSql => '''
+  static String get createTableSql =>
+      '''
     CREATE TABLE IF NOT EXISTS $tableName (
       $idKey INTEGER PRIMARY KEY AUTOINCREMENT,
       $contentKey TEXT DEFAULT '{}',
@@ -63,21 +66,23 @@ class BlockConstants{
       $positionKey INTEGER DEFAULT 0
     )
   ''';
-  
+
   /// Returns the SQL statement to create an index on the position column
   /// This optimizes queries that use ORDER BY position
-  static String get createPositionIndexSql => '''
+  static String get createPositionIndexSql =>
+      '''
     CREATE INDEX IF NOT EXISTS idx_${tableName}_$positionKey 
     ON $tableName($positionKey ASC)
   ''';
-  
+
   /// Returns the SQL statement to create a composite index for common query patterns
   /// This optimizes queries that filter by block type and order by position
-  static String get createTypePositionIndexSql => '''
+  static String get createTypePositionIndexSql =>
+      '''
     CREATE INDEX IF NOT EXISTS idx_${tableName}_${blockTypeKey}_$positionKey 
     ON $tableName($blockTypeKey, $positionKey ASC)
   ''';
-  
+
   /// Returns all index creation SQL statements
   static List<String> get allIndexesSql => [
     createPositionIndexSql,
@@ -102,9 +107,10 @@ class PageConstants {
   static const String untitledPageTitle = 'Untitled Screen';
 }
 
-class AppFile{
+class AppFile {
   static const String extension = 'bipy';
-  static const String shareMessage = 'Check out this document exported from Barruu!';
+  static const String shareMessage =
+      'Check out this document exported from Barruu!';
   static const String libraryDirName = 'library';
   static const String imageFolder = 'media/images';
   static const String videoFolder = 'media/videos';

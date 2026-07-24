@@ -625,7 +625,9 @@ class _OrderingExerciseReaderState
                           : 'Tap steps below to arrange in order',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.4,
+                        ),
                         fontSize: 15,
                       ),
                     ),
@@ -738,7 +740,10 @@ class _OrderingExerciseReaderState
           decoration: BoxDecoration(
             color: primary.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: primary.withValues(alpha: 0.35), width: 1.5),
+            border: Border.all(
+              color: primary.withValues(alpha: 0.35),
+              width: 1.5,
+            ),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withValues(alpha: 0.06),
@@ -996,7 +1001,9 @@ class _OrderingExerciseReaderState
         break;
       case 'numbered':
         decoration = BoxDecoration(
-          color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+          color: theme.colorScheme.surfaceContainerHighest.withValues(
+            alpha: 0.5,
+          ),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: theme.colorScheme.outline.withValues(alpha: 0.25),

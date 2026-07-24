@@ -1,5 +1,5 @@
 /// DeepSeek AI integration for Barruu - Professional Knowledge Sharing Platform.
-/// 
+///
 /// This library provides AI-powered content generation capabilities for professionals
 /// and organizations across all fields including:
 /// - Professional document generation (multi-page)
@@ -7,15 +7,15 @@
 /// - Block generation and editing
 /// - Content generation from uploaded documents
 /// - Professional study notes generation
-/// 
+///
 /// ## Usage
-/// 
+///
 /// ```dart
 /// import 'package:barruu/core/services/ai/ai_service.dart';
-/// 
+///
 /// // Use the provider
 /// final aiService = ref.watch(aiContentServiceProvider);
-/// 
+///
 /// // Generate content
 /// final result = await aiService.generate(AIGenerationRequest(
 ///   type: AIGenerationType.page,

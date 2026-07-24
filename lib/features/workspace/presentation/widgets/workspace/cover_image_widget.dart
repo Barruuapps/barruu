@@ -6,19 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:barruu/core/utils/app_logger.dart';
 
 /// A widget that displays a cover image for a document.
-/// 
+///
 /// Supports three types of images:
 /// - Network images (from URLs)
 /// - Local file images
 /// - Default app logo fallback
-/// 
+///
 /// The widget handles loading states and errors gracefully,
 /// always falling back to the default app logo if the image
 /// cannot be loaded.
 class CoverImageWidget extends StatelessWidget {
   /// The URL or path to the cover image
   final String? coverImageUrl;
-  
+
   /// The theme to use for styling
   final ThemeData theme;
 
@@ -47,13 +47,14 @@ class CoverImageWidget extends StatelessWidget {
           height: double.infinity,
           color: theme.colorScheme.surfaceContainerLowest,
           child: Center(
-            child: ShimmerCircularProgress(
-              color: theme.colorScheme.primary,
-            ),
+            child: ShimmerCircularProgress(color: theme.colorScheme.primary),
           ),
         ),
         errorWidget: (context, url, error) {
-          logger.w('Failed to load network image: $coverImageUrl', error: error);
+          logger.w(
+            'Failed to load network image: $coverImageUrl',
+            error: error,
+          );
           return _buildDefaultCover();
         },
       );
@@ -87,10 +88,7 @@ class CoverImageWidget extends StatelessWidget {
           end: Alignment.bottomRight,
         ),
       ),
-      child: Image.asset(
-        'assets/images/app_logo.png',
-        fit: BoxFit.contain,
-      ),
+      child: Image.asset('assets/images/app_logo.png', fit: BoxFit.contain),
     );
   }
 }

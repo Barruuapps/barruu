@@ -52,11 +52,13 @@ class ImageEditControlsWidget extends StatelessWidget {
               tooltip: 'Remove current image',
               onPressed: onRemove,
             ),
-          if (hasImages)
-            const SizedBox(width: 8),
+          if (hasImages) const SizedBox(width: 8),
           // Add local image
           IconButton(
-            icon: Icon(Icons.add_photo_alternate, color: theme.colorScheme.primary),
+            icon: Icon(
+              Icons.add_photo_alternate,
+              color: theme.colorScheme.primary,
+            ),
             style: IconButton.styleFrom(
               backgroundColor: Colors.black54,
               padding: const EdgeInsets.all(8),

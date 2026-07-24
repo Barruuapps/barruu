@@ -72,10 +72,7 @@ class VideoUrlInputWidget extends StatelessWidget {
                   foregroundColor: theme.colorScheme.onPrimary,
                 ),
               ),
-              IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: onCancel,
-              ),
+              IconButton(icon: const Icon(Icons.close), onPressed: onCancel),
             ],
           ),
         ],

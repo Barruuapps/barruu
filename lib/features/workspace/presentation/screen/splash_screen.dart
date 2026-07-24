@@ -13,7 +13,8 @@ class SplashScreen extends ConsumerStatefulWidget {
   ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends ConsumerState<SplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends ConsumerState<SplashScreen>
+    with SingleTickerProviderStateMixin {
   GoRouter? _router;
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
@@ -49,7 +50,11 @@ class _SplashScreenState extends ConsumerState<SplashScreen> with SingleTickerPr
           _router!.go('/');
           logger.i('Navigated from splash to workspace (auth is optional)');
         } catch (e, stackTrace) {
-          logger.e('Splash navigation failed', error: e, stackTrace: stackTrace);
+          logger.e(
+            'Splash navigation failed',
+            error: e,
+            stackTrace: stackTrace,
+          );
         }
       }
     });
@@ -92,7 +97,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen> with SingleTickerPr
                       borderRadius: BorderRadius.circular(24),
                       boxShadow: [
                         BoxShadow(
-                          color: theme.colorScheme.primary.withValues(alpha: 0.3),
+                          color: theme.colorScheme.primary.withValues(
+                            alpha: 0.3,
+                          ),
                           blurRadius: 20,
                           spreadRadius: 5,
                         ),

@@ -18,10 +18,7 @@ Widget buildPageBlockLoadingState(ThemeData theme) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        ShimmerInlineLoading(
-          size: 16,
-          color: theme.colorScheme.primary,
-        ),
+        ShimmerInlineLoading(size: 16, color: theme.colorScheme.primary),
         const SizedBox(width: 12),
         Text(
           'Creating page...',

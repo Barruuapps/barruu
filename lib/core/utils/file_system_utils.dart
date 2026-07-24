@@ -15,7 +15,9 @@ class FileSystemUtils {
         final newPath = path.join(target.path, path.basename(entity.path));
         await entity.copy(newPath);
       } else if (entity is Directory) {
-        final newDir = Directory(path.join(target.path, path.basename(entity.path)));
+        final newDir = Directory(
+          path.join(target.path, path.basename(entity.path)),
+        );
         await copyDirectory(entity, newDir);
       }
     }
@@ -24,7 +26,7 @@ class FileSystemUtils {
   /// Calculates the total size of a directory in bytes
   static Future<int> getDirectorySize(Directory dir) async {
     int size = 0;
-    
+
     await for (var entity in dir.list(recursive: true)) {
       if (entity is File) {
         try {
@@ -36,7 +38,7 @@ class FileSystemUtils {
         }
       }
     }
-    
+
     return size;
   }
 

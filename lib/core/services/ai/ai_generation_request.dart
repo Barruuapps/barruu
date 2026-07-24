@@ -4,14 +4,19 @@ import 'package:barruu/features/workspace/domain/entities/block.dart';
 enum AIGenerationType {
   /// Generate a complete document with multiple pages
   fullDocument,
+
   /// Generate a single page with blocks
   page,
+
   /// Generate a single block
   block,
+
   /// Edit existing blocks
   editBlocks,
+
   /// Generate content from uploaded document
   fromDocument,
+
   /// Generate interactive quiz/notes
   interactiveNotes,
 }

@@ -56,11 +56,7 @@ class ErrorHandler {
     String? userMessage,
   }) {
     // 1. Log to console/file
-    logger.e(
-      'Error occurred',
-      error: error,
-      stackTrace: stackTrace,
-    );
+    logger.e('Error occurred', error: error, stackTrace: stackTrace);
 
     // 2. Send to crash reporting in release mode
     // TODO: Integrate with Firebase Crashlytics when configured

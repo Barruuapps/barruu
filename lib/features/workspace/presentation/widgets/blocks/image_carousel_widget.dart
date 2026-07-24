@@ -32,7 +32,12 @@ class ImageCarouselWidget extends StatelessWidget {
   final double cropBottom;
   final Alignment alignment;
   final ValueChanged<int> onPageChanged;
-  final Widget Function(Map<String, dynamic> imageData, double width, double height) imageBuilder;
+  final Widget Function(
+    Map<String, dynamic> imageData,
+    double width,
+    double height,
+  )
+  imageBuilder;
 
   const ImageCarouselWidget({
     super.key,
@@ -70,9 +75,11 @@ class ImageCarouselWidget extends StatelessWidget {
                     itemCount: images.length,
                     onPageChanged: onPageChanged,
                     itemBuilder: (context, index) {
-                      if (index >= images.length) return const SizedBox.shrink();
+                      if (index >= images.length)
+                        return const SizedBox.shrink();
                       final item = images[index];
-                      if (item is! Map<String, dynamic>) return const SizedBox.shrink();
+                      if (item is! Map<String, dynamic>)
+                        return const SizedBox.shrink();
                       final imageData = item;
                       return imageBuilder(imageData, width, height);
                     },

@@ -21,12 +21,11 @@
 /// ```
 class LatexExpressionFormatter {
   /// Splits a raw expression string on `;` and returns non-empty trimmed parts.
-  static List<String> splitExpressions(String expression) =>
-      expression
-          .split(';')
-          .map((e) => e.trim())
-          .where((e) => e.isNotEmpty)
-          .toList();
+  static List<String> splitExpressions(String expression) => expression
+      .split(';')
+      .map((e) => e.trim())
+      .where((e) => e.isNotEmpty)
+      .toList();
 
   /// Converts a mathematical expression to LaTeX format.
   ///
@@ -74,11 +73,15 @@ class LatexExpressionFormatter {
     if (parts.isEmpty) return r'\text{[Empty graph block]}';
     if (parts.length == 1) return formatExpression(parts.first, 'line');
 
-    final lines = parts.asMap().entries.map((entry) {
-      final index = entry.key + 1;
-      final singleLatex = _rawExpressionToLatex(entry.value);
-      return 'y_{$index} = $singleLatex';
-    }).join(' \\\\ ');
+    final lines = parts
+        .asMap()
+        .entries
+        .map((entry) {
+          final index = entry.key + 1;
+          final singleLatex = _rawExpressionToLatex(entry.value);
+          return 'y_{$index} = $singleLatex';
+        })
+        .join(' \\\\ ');
 
     return '\\begin{cases} $lines \\end{cases}';
   }
@@ -95,8 +98,9 @@ class LatexExpressionFormatter {
     return expression
         // Convert powers: x^2 -> x^{2}
         .replaceAllMapped(
-            RegExp(r'\^(\w+|\d+|\(.+?\))'),
-            (match) => '^{${match.group(1)}}')
+          RegExp(r'\^(\w+|\d+|\(.+?\))'),
+          (match) => '^{${match.group(1)}}',
+        )
         // Convert function calls to LaTeX
         .replaceAllMapped(RegExp(r'(\w+)\((.*?)\)'), (match) {
           final funcName = match.group(1)!;
@@ -121,8 +125,9 @@ class LatexExpressionFormatter {
         .replaceAll('theta', '\\theta')
         // Convert fractions: a/b -> \frac{a}{b}
         .replaceAllMapped(
-            RegExp(r'(\w+|\d+\.?\d*)/(\w+|\d+\.?\d*)'),
-            (match) => '\\frac{${match.group(1)}}{${match.group(2)}}')
+          RegExp(r'(\w+|\d+\.?\d*)/(\w+|\d+\.?\d*)'),
+          (match) => '\\frac{${match.group(1)}}{${match.group(2)}}',
+        )
         // Convert special operators
         .replaceAll('+-', '\\pm')
         .replaceAll('-+', '\\mp')

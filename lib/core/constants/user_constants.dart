@@ -5,24 +5,24 @@ library;
 class AccountType {
   /// Regular user - can read content, follow others, like and comment
   static const String regular = 'regular';
-  
+
   /// Professional account - experts with knowledge who can post content
   /// Must select a profession
   static const String professional = 'professional';
-  
+
   /// Organization account - companies, news outlets, institutions
   static const String organization = 'organization';
-  
+
   /// List of all account types
   static const List<String> all = [regular, professional, organization];
-  
+
   /// Display names for account types
   static const Map<String, String> displayNames = {
     regular: 'Regular User',
     professional: 'Professional',
     organization: 'Organization',
   };
-  
+
   /// Descriptions for account types
   static const Map<String, String> descriptions = {
     regular: 'Read and engage with content based on your interests',
@@ -50,7 +50,7 @@ class Professions {
   static const String consultant = 'Consultant';
   static const String entrepreneur = 'Entrepreneur';
   static const String other = 'Other';
-  
+
   /// List of all professions
   static const List<String> all = [
     doctor,
@@ -105,7 +105,7 @@ class Interests {
   static const String physics = 'Physics';
   static const String chemistry = 'Chemistry';
   static const String biology = 'Biology';
-  
+
   /// List of all interests — delegates to [AppCategories.all] for consistency
   /// across the app.
   static List<String> get all => AppCategories.all;

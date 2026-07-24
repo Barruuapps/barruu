@@ -42,7 +42,8 @@ class VideoBlock extends BaseEditableBlock {
   ConsumerState<VideoBlock> createState() => _VideoBlockState();
 }
 
-class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBindingObserver {
+class _VideoBlockState extends BaseEditableBlockState<VideoBlock>
+    with WidgetsBindingObserver {
   // Block-specific state
   late double rotation;
   late double? widthPercent;
@@ -52,19 +53,19 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
   late TextEditingController _urlController;
   late Debouncer _saveDebouncer;
   late VideoFileService _videoFileService;
-  
+
   // Video player state
   VideoPlayerController? _videoController;
   YoutubePlayerController? _youtubeController;
   final ImagePicker _imagePicker = ImagePicker();
   final Uuid _uuid = const Uuid();
   final double _aspectRatioTolerance = 0.05;
-  
+
   bool _isVideoInitialized = false;
   double _videoDuration = 0;
   bool _isUploading = false;
   bool _showUrlInput = false;
-  
+
   VideoSourceType _sourceType = VideoSourceType.local;
   String _currentVideoPath = '';
   String _currentYoutubeId = '';
@@ -83,32 +84,32 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
   @override
   void initializeBlockSpecifics() {
     WidgetsBinding.instance.addObserver(this);
-    
+
     rotation = widget.block.style.rotation ?? 0;
     widthPercent = widget.block.style.widthPercent;
     heightPercent = widget.block.style.heightPercent;
-    
+
     _caption = (content['caption'] as String?) ?? '';
     _captionController = TextEditingController(text: _caption);
     _urlController = TextEditingController();
     _saveDebouncer = Debouncer(delay: const Duration(milliseconds: 500));
     _videoFileService = VideoFileService();
-    
+
     // Parse source type
     final sourceTypeStr = content['sourceType'] as String? ?? 'local';
     _sourceType = VideoSourceType.values.firstWhere(
       (e) => e.name == sourceTypeStr,
       orElse: () => VideoSourceType.local,
     );
-    
+
     // Ensure startTime and endTime exist
     content['startTime'] = content['startTime'] ?? 0.0;
     content['endTime'] = content['endTime'] ?? 0.0;
-    
+
     // Initialize tracking variables to current state
     _currentVideoPath = content['path'] as String? ?? '';
     _currentYoutubeId = content['youtubeId'] as String? ?? '';
-    
+
     // Initialize video controller if video content exists
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
@@ -117,7 +118,7 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
       }
     });
   }
-  
+
   @override
   void disposeBlockSpecifics() {
     WidgetsBinding.instance.removeObserver(this);
@@ -136,9 +137,9 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
 
   Future<void> _initializeVideoController() async {
     _disposeControllers();
-    
+
     if (!mounted) return;
-    
+
     setState(() {
       _isVideoInitialized = false;
     });
@@ -164,11 +165,9 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
     try {
       _youtubeController = YoutubePlayerController(
         initialVideoId: youtubeId,
-        flags: const YoutubePlayerFlags(
-          autoPlay: false,
-        ),
+        flags: const YoutubePlayerFlags(autoPlay: false),
       );
-      
+
       if (mounted) {
         setState(() {
           _isVideoInitialized = true;
@@ -183,32 +182,35 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
 
   Future<void> _initializeVideoPlayer(String path) async {
     if (!mounted) return;
-    
+
     try {
       String videoSource;
       bool isNetwork = false;
-      
+
       if (_sourceType == VideoSourceType.network) {
         videoSource = path;
         isNetwork = true;
       } else {
         videoSource = '${widget.docDir.path}/$path';
         final file = File(videoSource);
-        
-        if (await FileSystemEntity.type(file.path) == FileSystemEntityType.notFound) {
+
+        if (await FileSystemEntity.type(file.path) ==
+            FileSystemEntityType.notFound) {
           if (mounted) {
             showError('Video file not found');
           }
           return;
         }
       }
-      
+
       if (isNetwork) {
-        _videoController = VideoPlayerController.networkUrl(Uri.parse(videoSource));
+        _videoController = VideoPlayerController.networkUrl(
+          Uri.parse(videoSource),
+        );
       } else {
         _videoController = VideoPlayerController.file(File(videoSource));
       }
-      
+
       try {
         await _videoController!.initialize().timeout(
           const Duration(seconds: 30),
@@ -216,16 +218,18 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
       } on TimeoutException {
         // Handle timeout gracefully
         if (mounted) {
-          showError('Video loading timed out. Please try again or use a different video.');
+          showError(
+            'Video loading timed out. Please try again or use a different video.',
+          );
         }
         return;
       }
-      
+
       if (!mounted) {
         _videoController?.dispose();
         return;
       }
-      
+
       // Check if initialization was successful (with defensive null checks)
       try {
         if (_videoController == null) {
@@ -234,14 +238,16 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
           }
           return;
         }
-        
+
         if (_videoController!.value.hasError) {
           if (mounted) {
-            showError('Video player encountered an error: ${_videoController!.value.errorDescription}');
+            showError(
+              'Video player encountered an error: ${_videoController!.value.errorDescription}',
+            );
           }
           return;
         }
-        
+
         if (!_videoController!.value.isInitialized) {
           if (mounted) {
             showError('Video player failed to initialize');
@@ -255,11 +261,12 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
         }
         return;
       }
-      
+
       setState(() {
         _isVideoInitialized = true;
-        _videoDuration = _videoController!.value.duration.inMilliseconds / 1000.0;
-        
+        _videoDuration =
+            _videoController!.value.duration.inMilliseconds / 1000.0;
+
         // Set end time to video duration if not already set
         if (content['endTime'] == 0.0) {
           content['endTime'] = _videoDuration;
@@ -281,7 +288,7 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
     if (_caption != caption) {
       _caption = caption;
     }
-    
+
     // Sync source type from content
     final sourceTypeStr = content['sourceType'] as String? ?? 'local';
     final contentSourceType = VideoSourceType.values.firstWhere(
@@ -291,13 +298,14 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
     if (contentSourceType != _sourceType) {
       _sourceType = contentSourceType;
     }
-    
+
     // Check for video source changes
     final path = content['path'] as String? ?? '';
     final youtubeId = content['youtubeId'] as String? ?? '';
-    
+
     // Handle video removal
-    if (path.isEmpty && youtubeId.isEmpty && 
+    if (path.isEmpty &&
+        youtubeId.isEmpty &&
         (_currentVideoPath.isNotEmpty || _currentYoutubeId.isNotEmpty)) {
       _disposeControllers();
       _currentVideoPath = '';
@@ -307,14 +315,14 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
       });
       return;
     }
-    
+
     // Check if video source has actually changed
     // For YouTube videos, only reinitialize if the youtubeId changed
     // For other videos, only reinitialize if the path changed
-    final hasNewVideo = 
-        (youtubeId.isNotEmpty && youtubeId != _currentYoutubeId) || 
+    final hasNewVideo =
+        (youtubeId.isNotEmpty && youtubeId != _currentYoutubeId) ||
         (youtubeId.isEmpty && path.isNotEmpty && path != _currentVideoPath);
-    
+
     if (hasNewVideo) {
       _initializeVideoController();
     }
@@ -326,7 +334,9 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
   }
 
   void _updateStyle() {
-    final controller = ref.read(editDocumentControllerProvider(widget.docDir).notifier);
+    final controller = ref.read(
+      editDocumentControllerProvider(widget.docDir).notifier,
+    );
     final updatedStyle = widget.block.style.copyWith(
       rotation: rotation,
       widthPercent: widthPercent,
@@ -339,14 +349,14 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
 
   Future<void> _addVideoFromUrl(String url) async {
     if (url.isEmpty) return;
-    
+
     setState(() {
       _isUploading = true;
     });
-    
+
     try {
       final videoInfo = await _videoFileService.processVideoUrl(url);
-      
+
       if (videoInfo != null) {
         final String newYoutubeId = (videoInfo['youtubeId'] as String?) ?? '';
         final String newPath = (videoInfo['path'] as String?) ?? '';
@@ -354,12 +364,12 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
           (e) => e.name == videoInfo['sourceType'],
           orElse: () => VideoSourceType.network,
         );
-        
+
         // Check if this is the same video that's already loaded
-        final isSameVideo = 
+        final isSameVideo =
             (newYoutubeId.isNotEmpty && newYoutubeId == _currentYoutubeId) ||
             (newPath.isNotEmpty && newPath == _currentVideoPath);
-        
+
         if (isSameVideo) {
           // Video is already loaded, no need to reinitialize
           if (mounted) {
@@ -372,13 +382,15 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
           content['fileName'] = videoInfo['fileName'] ?? '';
           _sourceType = newSourceType;
           content['sourceType'] = _sourceType.name;
-          
+
           saveContent();
-          
+
           if (mounted) {
-            showSuccess(_sourceType == VideoSourceType.youtube 
-                ? 'YouTube video added' 
-                : 'Network video added');
+            showSuccess(
+              _sourceType == VideoSourceType.youtube
+                  ? 'YouTube video added'
+                  : 'Network video added',
+            );
           }
         }
       } else {
@@ -418,80 +430,90 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
 
   Future<void> _pickLocalVideo() async {
     if (_isUploading) return;
-    
+
     try {
-      
-      final picked = await _imagePicker.pickVideo(
-        source: ImageSource.gallery,
-      );
-      
+      final picked = await _imagePicker.pickVideo(source: ImageSource.gallery);
+
       if (picked == null) {
         return;
       }
-      
+
       setState(() {
         _isUploading = true;
       });
-      
+
       final filePath = picked.path;
       final fileName = picked.name;
-      
+
       // Validate video file type
       final validVideoExtensions = [
-        'mp4', 'mov', 'avi', 'mkv', 'webm', 'flv', 'wmv', 'm4v'
+        'mp4',
+        'mov',
+        'avi',
+        'mkv',
+        'webm',
+        'flv',
+        'wmv',
+        'm4v',
       ];
       final extension = fileName.split('.').last.toLowerCase();
-      
+
       if (!validVideoExtensions.contains(extension)) {
         if (mounted) {
           setState(() {
             _isUploading = false;
           });
-          showError('Invalid video format. Supported formats: ${validVideoExtensions.join(", ")}');
+          showError(
+            'Invalid video format. Supported formats: ${validVideoExtensions.join(", ")}',
+          );
         }
         return;
       }
-      
+
       // Validate file size
       final file = File(filePath);
       final fileSize = await file.length();
       const maxSizeBytes = 500 * 1024 * 1024; // 500MB
-      
+
       if (fileSize > maxSizeBytes) {
         if (mounted) {
           setState(() {
             _isUploading = false;
           });
-          showError('Video file is too large (${(fileSize / 1024 / 1024).toStringAsFixed(1)}MB). Maximum size is 500MB');
+          showError(
+            'Video file is too large (${(fileSize / 1024 / 1024).toStringAsFixed(1)}MB). Maximum size is 500MB',
+          );
         }
         return;
       }
-      
+
       // Dispose existing controllers
       _disposeControllers();
-      
+
       // Delete old video if exists
       final oldPath = content['path'] as String? ?? '';
       if (oldPath.isNotEmpty && !oldPath.startsWith('http')) {
         final oldFile = File('${widget.docDir.path}/$oldPath');
-        if (await FileSystemEntity.type(oldFile.path) != FileSystemEntityType.notFound) {
+        if (await FileSystemEntity.type(oldFile.path) !=
+            FileSystemEntityType.notFound) {
           await oldFile.delete();
         }
       }
-      
+
       // Create videos directory
       final videosDir = Directory('${widget.docDir.path}/media/videos');
-      if (await FileSystemEntity.type(videosDir.path) == FileSystemEntityType.notFound) {
+      if (await FileSystemEntity.type(videosDir.path) ==
+          FileSystemEntityType.notFound) {
         await videosDir.create(recursive: true);
       }
-      
+
       // Copy video
       final sanitizedName = fileName.replaceAll(RegExp(r'[^\w\s\-.]'), '_');
       final uniqueName = '${_uuid.v4()}_$sanitizedName';
       final newPath = '${videosDir.path}/$uniqueName';
-      
+
       await file.copy(newPath);
-      
+
       // Update content
       content['path'] = 'media/videos/$uniqueName';
       content['fileName'] = fileName;
@@ -500,10 +522,10 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
       content['endTime'] = 0.0;
       _sourceType = VideoSourceType.local;
       content['sourceType'] = _sourceType.name;
-      
+
       saveContent();
       await _initializeVideoController();
-      
+
       if (mounted) {
         showSuccess('Video uploaded successfully');
       }
@@ -528,7 +550,11 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
     return '${minutes.toString().padLeft(2, '0')}:${secs.toString().padLeft(2, '0')}.$millis';
   }
 
-  Widget _buildVideoPlayer(ThemeData theme, double displayWidth, double displayHeight) {
+  Widget _buildVideoPlayer(
+    ThemeData theme,
+    double displayWidth,
+    double displayHeight,
+  ) {
     if (_sourceType == VideoSourceType.youtube && _youtubeController != null) {
       return ClipRRect(
         borderRadius: BorderRadius.circular(12),
@@ -543,20 +569,23 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
         ),
       );
     }
-    
+
     if (_videoController != null && _isVideoInitialized) {
-      final videoAspectRatio = _videoController!.value.aspectRatio > 0 
-          ? _videoController!.value.aspectRatio 
+      final videoAspectRatio = _videoController!.value.aspectRatio > 0
+          ? _videoController!.value.aspectRatio
           : 16 / 9;
-      
+
       // Calculate the container aspect ratio
       final containerAspectRatio = displayWidth / displayHeight;
-      
+
       // Determine if we should use BoxFit.contain or BoxFit.cover
       // If video aspect ratio differs significantly from container, use cover to fill space
-      final shouldCover = (videoAspectRatio > containerAspectRatio * (1.0 + _aspectRatioTolerance)) || 
-                         (videoAspectRatio < containerAspectRatio * (1.0 - _aspectRatioTolerance));
-      
+      final shouldCover =
+          (videoAspectRatio >
+              containerAspectRatio * (1.0 + _aspectRatioTolerance)) ||
+          (videoAspectRatio <
+              containerAspectRatio * (1.0 - _aspectRatioTolerance));
+
       return ClipRRect(
         borderRadius: BorderRadius.circular(12),
         child: SizedBox(
@@ -605,7 +634,10 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
                           bufferedColor: Colors.white24,
                           backgroundColor: Colors.white12,
                         ),
-                        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 4,
+                          horizontal: 8,
+                        ),
                       ),
                     ),
                   ],
@@ -616,13 +648,15 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
         ),
       );
     }
-    
+
     // Placeholder when no video - show add video button with source options
     return GestureDetector(
       onTap: widget.isEditing ? _showVideoSourceDialog : null,
       child: Container(
         decoration: BoxDecoration(
-          color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+          color: theme.colorScheme.surfaceContainerHighest.withValues(
+            alpha: 0.5,
+          ),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Center(
@@ -647,7 +681,9 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
                 Text(
                   'Choose from gallery, YouTube, or URL',
                   style: TextStyle(
-                    color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
+                    color: theme.colorScheme.onSurfaceVariant.withValues(
+                      alpha: 0.7,
+                    ),
                     fontSize: 12,
                   ),
                 ),
@@ -671,25 +707,24 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
     final youtubeId = content['youtubeId'] as String? ?? '';
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    
+
     final hasVideo = relativePath.isNotEmpty || youtubeId.isNotEmpty;
-    
+
     // Calculate responsive dimensions
     final displayWidth = (widthPercent ?? 0.95) * screenWidth;
     final displayHeight = (heightPercent ?? 0.4) * screenHeight;
 
     // Instagram-style minimal padding
-    final padding = ResponsiveUtils.isMobile(context) 
-        ? const EdgeInsets.symmetric(vertical: 8) 
+    final padding = ResponsiveUtils.isMobile(context)
+        ? const EdgeInsets.symmetric(vertical: 8)
         : const EdgeInsets.symmetric(vertical: 12);
-
 
     return Padding(
       padding: padding,
       child: Column(
         children: [
           Toolbar(block: widget.block, docDir: widget.docDir),
-          
+
           // URL input field
           if (_showUrlInput)
             VideoUrlInputWidget(
@@ -703,7 +738,7 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
               },
               theme: theme,
             ),
-          
+
           // Video display with controls
           Stack(
             children: [
@@ -720,7 +755,7 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
                 isVideoInitialized: _isVideoInitialized,
                 onTap: _showVideoSourceDialog,
               ),
-              
+
               // Edit controls overlay
               if (widget.isEditing && !_isUploading)
                 VideoEditControls(
@@ -732,16 +767,18 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
                       _showUrlInput = !_showUrlInput;
                     });
                   },
-                  onRotateTap: hasVideo ? () {
-                    setState(() {
-                      rotation = (rotation + 90) % 360;
-                      _updateStyle();
-                    });
-                  } : null,
+                  onRotateTap: hasVideo
+                      ? () {
+                          setState(() {
+                            rotation = (rotation + 90) % 360;
+                            _updateStyle();
+                          });
+                        }
+                      : null,
                 ),
             ],
           ),
-          
+
           // Caption
           VideoCaptionWidget(
             controller: _captionController,
@@ -755,7 +792,7 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
               });
             },
           ),
-          
+
           // Sizing controls for edit mode
           if (widget.isEditing && hasVideo) ...[
             const SizedBox(height: 16),
@@ -776,10 +813,12 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
               },
             ),
           ],
-          
+
           // Trimming controls for local/network videos (not YouTube)
-          if (widget.isEditing && _isVideoInitialized && 
-              _videoDuration > 0 && _sourceType != VideoSourceType.youtube) ...[
+          if (widget.isEditing &&
+              _isVideoInitialized &&
+              _videoDuration > 0 &&
+              _sourceType != VideoSourceType.youtube) ...[
             const SizedBox(height: 16),
             VideoTrimmingSection(
               theme: theme,

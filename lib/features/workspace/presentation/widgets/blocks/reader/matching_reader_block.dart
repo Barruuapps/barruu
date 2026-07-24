@@ -855,7 +855,9 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
                       child: Icon(
                         Icons.close_rounded,
                         size: 15,
-                        color: theme.colorScheme.onSurface.withValues(alpha: 0.38),
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.38,
+                        ),
                       ),
                     ),
                   )
@@ -928,7 +930,9 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
                     Icon(
                       Icons.check_rounded,
                       size: 14,
-                      color: theme.colorScheme.secondary.withValues(alpha: 0.65),
+                      color: theme.colorScheme.secondary.withValues(
+                        alpha: 0.65,
+                      ),
                     ),
                 ],
               ),
@@ -1354,7 +1358,9 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
       bgColor = theme.colorScheme.secondary.withValues(alpha: 0.05);
     } else {
       accentColor = theme.colorScheme.outline.withValues(alpha: 0.4);
-      bgColor = theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4);
+      bgColor = theme.colorScheme.surfaceContainerHighest.withValues(
+        alpha: 0.4,
+      );
     }
 
     final evaluateOnMatch = _content['evaluateOnMatch'] as bool? ?? false;
@@ -1453,7 +1459,9 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
       opacity = 1.0;
     } else {
       accentColor = theme.colorScheme.outline.withValues(alpha: 0.3);
-      bgColor = theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4);
+      bgColor = theme.colorScheme.surfaceContainerHighest.withValues(
+        alpha: 0.4,
+      );
       opacity = 1.0;
     }
 
@@ -1510,10 +1518,11 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
         ),
         tilePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
         childrenPadding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
-        backgroundColor: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.35),
-        collapsedBackgroundColor: theme.colorScheme.surfaceContainerHighest.withValues(
-          alpha: 0.18,
+        backgroundColor: theme.colorScheme.surfaceContainerHighest.withValues(
+          alpha: 0.35,
         ),
+        collapsedBackgroundColor: theme.colorScheme.surfaceContainerHighest
+            .withValues(alpha: 0.18),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         collapsedShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -1566,7 +1575,10 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
           decoration: BoxDecoration(
             color: pairBg,
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: pairColor.withValues(alpha: 0.4), width: 1.5),
+            border: Border.all(
+              color: pairColor.withValues(alpha: 0.4),
+              width: 1.5,
+            ),
           ),
           child: Row(
             children: [

@@ -553,7 +553,9 @@ class _EvaluationButtonReaderBlockState
                         '$submittedQuestions of $totalQuestions question${totalQuestions != 1 ? 's' : ''} answered',
                         style: TextStyle(
                           fontSize: 14,
-                          color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                          color: theme.colorScheme.onSurface.withValues(
+                            alpha: 0.7,
+                          ),
                         ),
                       ),
                       if (unansweredQuestions > 0)

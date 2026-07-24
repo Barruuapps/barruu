@@ -5,10 +5,10 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 /// A widget that renders a scatter plot from numeric data
-/// 
+///
 /// This widget parses comma-separated numeric values and displays
 /// them as a scatter plot with support for grid and tooltips.
-/// 
+///
 /// Example usage:
 /// ```dart
 /// GraphScatterChartWidget(
@@ -20,10 +20,10 @@ import 'package:flutter/material.dart';
 class GraphScatterChartWidget extends StatelessWidget {
   /// Comma-separated numeric values (e.g., "10,20,15,30,25")
   final String data;
-  
+
   /// Whether to show grid lines
   final bool showGrid;
-  
+
   /// App theme for styling
   final ThemeData theme;
 
@@ -48,7 +48,7 @@ class GraphScatterChartWidget extends StatelessWidget {
       final spots = <FlSpot>[];
       double minY = double.infinity;
       double maxY = -double.infinity;
-      
+
       for (int i = 0; i < values.length; i++) {
         spots.add(FlSpot(i.toDouble(), values[i]));
         minY = values[i] < minY ? values[i] : minY;
@@ -67,7 +67,7 @@ class GraphScatterChartWidget extends StatelessWidget {
 
       return LineChart(
         LineChartData(
-          gridData: showGrid 
+          gridData: showGrid
               ? GraphUtilities.buildGridData(theme, hInterval, vInterval)
               : const FlGridData(show: false),
           titlesData: GraphUtilities.buildTitlesData(theme),
@@ -108,7 +108,11 @@ class GraphScatterChartWidget extends StatelessWidget {
       logger.e('Invalid scatter plot data format', error: e);
       return _buildEmptyState('Invalid data format');
     } catch (e, stackTrace) {
-      logger.e('Error generating scatter plot', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Error generating scatter plot',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return _buildEmptyState('Error generating plot');
     }
   }

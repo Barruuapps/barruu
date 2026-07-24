@@ -20,11 +20,7 @@ class ImageReaderBlock extends ConsumerStatefulWidget {
   final Block block;
   final Directory? docDir;
 
-  const ImageReaderBlock({
-    super.key,
-    required this.block,
-    this.docDir,
-  });
+  const ImageReaderBlock({super.key, required this.block, this.docDir});
 
   @override
   ConsumerState<ImageReaderBlock> createState() => _ImageReaderBlockState();
@@ -54,7 +50,11 @@ class _ImageReaderBlockState extends ConsumerState<ImageReaderBlock> {
         child: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.image_not_supported_outlined, size: 48, color: Colors.grey),
+            Icon(
+              Icons.image_not_supported_outlined,
+              size: 48,
+              color: Colors.grey,
+            ),
             SizedBox(height: 8),
             Text('No image available', style: TextStyle(color: Colors.grey)),
           ],
@@ -84,10 +84,16 @@ class _ImageReaderBlockState extends ConsumerState<ImageReaderBlock> {
     );
   }
 
-  Widget _buildImage(Map<String, dynamic> imageData, double displayWidth, double displayHeight, BoxFit imageFit, double cropTop) {
+  Widget _buildImage(
+    Map<String, dynamic> imageData,
+    double displayWidth,
+    double displayHeight,
+    BoxFit imageFit,
+    double cropTop,
+  ) {
     final imagePath = imageData['path'] as String? ?? '';
     final imageType = imageData['type'] as String? ?? 'local';
-    
+
     if (imagePath.isEmpty) {
       return _buildEmptyImage(context, ref);
     }
@@ -96,7 +102,9 @@ class _ImageReaderBlockState extends ConsumerState<ImageReaderBlock> {
     // Note: PageView already implements lazy loading by only building nearby pages,
     // so LazyLoadWidget is redundant and causes grey placeholder issues.
     // Memory optimization is maintained through cacheWidth/cacheHeight parameters.
-    if (imageType == 'network' || imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+    if (imageType == 'network' ||
+        imagePath.startsWith('http://') ||
+        imagePath.startsWith('https://')) {
       // Calculate optimal cache dimensions (limit max size to save memory)
       final devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
       final cacheWidth = ((displayWidth * devicePixelRatio).round()).clamp(
@@ -107,7 +115,7 @@ class _ImageReaderBlockState extends ConsumerState<ImageReaderBlock> {
         MediaConstants.minImageCacheSize,
         MediaConstants.maxImageCacheHeight,
       );
-      
+
       return CachedNetworkImage(
         imageUrl: imagePath,
         fit: imageFit,
@@ -129,7 +137,11 @@ class _ImageReaderBlockState extends ConsumerState<ImageReaderBlock> {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.broken_image, size: 64, color: theme.colorScheme.error),
+              Icon(
+                Icons.broken_image,
+                size: 64,
+                color: theme.colorScheme.error,
+              ),
               const SizedBox(height: 8),
               Text(
                 'Failed to load image',
@@ -145,11 +157,11 @@ class _ImageReaderBlockState extends ConsumerState<ImageReaderBlock> {
     // Note: PageView already implements lazy loading by only building nearby pages,
     // so LazyLoadWidget is redundant and causes grey placeholder issues.
     // Memory optimization is maintained through cacheWidth/cacheHeight parameters.
-    final absolutePath = widget.docDir != null 
-        ? '${widget.docDir!.path}/$imagePath' 
+    final absolutePath = widget.docDir != null
+        ? '${widget.docDir!.path}/$imagePath'
         : imagePath;
     final file = File(absolutePath);
-    
+
     if (!file.existsSync()) {
       logger.e('Local image not found: $absolutePath');
       final theme = Theme.of(context);
@@ -176,7 +188,7 @@ class _ImageReaderBlockState extends ConsumerState<ImageReaderBlock> {
       MediaConstants.minImageCacheSize,
       MediaConstants.maxImageCacheSize,
     );
-    
+
     return Image.file(
       file,
       fit: imageFit,
@@ -215,10 +227,16 @@ class _ImageReaderBlockState extends ConsumerState<ImageReaderBlock> {
 
     try {
       if (widget.block.content.isNotEmpty) {
-        content = JsonStringConverter().convertFromJsonString(widget.block.content);
+        content = JsonStringConverter().convertFromJsonString(
+          widget.block.content,
+        );
       }
     } catch (e, stackTrace) {
-      logger.e('Failed to parse JSON block content', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to parse JSON block content',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return _buildErrorImage(context, ref);
     }
 
@@ -239,13 +257,14 @@ class _ImageReaderBlockState extends ConsumerState<ImageReaderBlock> {
       final path = content['path'] as String? ?? '';
       final fileName = content['fileName'] as String? ?? '';
       if (path.isNotEmpty) {
-        final isNetwork = path.startsWith('http://') || path.startsWith('https://');
+        final isNetwork =
+            path.startsWith('http://') || path.startsWith('https://');
         images = [
           {
             'path': path,
             'fileName': fileName,
             'type': isNetwork ? 'network' : 'local',
-          }
+          },
         ];
         logger.d('Converted old single-image format to new format');
       }
@@ -264,7 +283,7 @@ class _ImageReaderBlockState extends ConsumerState<ImageReaderBlock> {
     final fitStr = content['fit'] as String?;
     try {
       imageFit = BoxFit.values.firstWhere(
-            (e) => e.toString().split('.').last == fitStr,
+        (e) => e.toString().split('.').last == fitStr,
         orElse: () => BoxFit.cover,
       );
     } catch (e) {
@@ -280,31 +299,32 @@ class _ImageReaderBlockState extends ConsumerState<ImageReaderBlock> {
 
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    
+
     // Calculate responsive dimensions (use percentage if available, otherwise fall back to absolute or default)
-    final displayWidth = widthPercent != null 
-        ? screenWidth * widthPercent 
+    final displayWidth = widthPercent != null
+        ? screenWidth * widthPercent
         : (width ?? screenWidth * 0.9);
-    
+
     // For BoxFit.contain, use a smaller default height to avoid excessive whitespace
     double calculatedHeight;
     if (imageFit == BoxFit.contain) {
       // Use aspect ratio friendly height for contain mode
-      calculatedHeight = heightPercent != null 
-          ? screenHeight * heightPercent 
-          : (height ?? displayWidth * 0.7); // Use width-based calculation for contain
+      calculatedHeight = heightPercent != null
+          ? screenHeight * heightPercent
+          : (height ??
+                displayWidth * 0.7); // Use width-based calculation for contain
     } else {
-      calculatedHeight = heightPercent != null 
-          ? screenHeight * heightPercent 
+      calculatedHeight = heightPercent != null
+          ? screenHeight * heightPercent
           : (height ?? 400.0);
     }
     final displayHeight = calculatedHeight;
 
     // Platform-aware padding using spacing constants
-    final padding = ResponsiveUtils.isMobile(context) 
-        ? EdgeInsets.symmetric(vertical: ResponsiveUtils.spacing8) 
+    final padding = ResponsiveUtils.isMobile(context)
+        ? EdgeInsets.symmetric(vertical: ResponsiveUtils.spacing8)
         : EdgeInsets.symmetric(vertical: ResponsiveUtils.spacing12);
-    
+
     try {
       return Padding(
         padding: padding,
@@ -344,11 +364,19 @@ class _ImageReaderBlockState extends ConsumerState<ImageReaderBlock> {
                               }
                               final item = images[index];
                               if (item is! Map<String, dynamic>) {
-                                logger.e('Invalid image data type at index $index');
+                                logger.e(
+                                  'Invalid image data type at index $index',
+                                );
                                 return _buildErrorImage(context, ref);
                               }
                               final imageData = item;
-                              return _buildImage(imageData, displayWidth, displayHeight, imageFit, cropTop);
+                              return _buildImage(
+                                imageData,
+                                displayWidth,
+                                displayHeight,
+                                imageFit,
+                                cropTop,
+                              );
                             },
                           ),
                         ),
@@ -368,15 +396,19 @@ class _ImageReaderBlockState extends ConsumerState<ImageReaderBlock> {
                         decoration: BoxDecoration(
                           color: Colors.black54,
                           borderRadius: BorderRadius.circular(
-                            ResponsiveUtils.getPlatformRadius(context, baseRadius: 16.0),
+                            ResponsiveUtils.getPlatformRadius(
+                              context,
+                              baseRadius: 16.0,
+                            ),
                           ),
                         ),
                         child: Text(
                           '${_currentImageIndex + 1}/${images.length}',
                           style: TextStyle(
                             color: Colors.white,
-                            fontWeight: PlatformThemeHelper.isAndroid 
-                                ? FontWeight.w700  // Android: Bold
+                            fontWeight: PlatformThemeHelper.isAndroid
+                                ? FontWeight
+                                      .w700 // Android: Bold
                                 : FontWeight.w600, // Apple: Semibold
                             fontSize: 14,
                           ),
@@ -405,7 +437,11 @@ class _ImageReaderBlockState extends ConsumerState<ImageReaderBlock> {
         ),
       );
     } catch (e, stackTrace) {
-      logger.e('Error building image reader block', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Error building image reader block',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return _buildErrorImage(context, ref);
     }
   }

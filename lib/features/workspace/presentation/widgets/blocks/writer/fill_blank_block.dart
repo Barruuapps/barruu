@@ -60,15 +60,20 @@ class _FillBlankBlockState extends BaseEditableBlockState<FillBlankBlock> {
 
   @override
   void initializeBlockSpecifics() {
-    _templateController = TextEditingController(text: content['template'] ?? '');
-    _explanationController = TextEditingController(text: content['explanation'] ?? '');
+    _templateController = TextEditingController(
+      text: content['template'] ?? '',
+    );
+    _explanationController = TextEditingController(
+      text: content['explanation'] ?? '',
+    );
     _templateFocusNode = FocusNode();
     _explanationFocusNode = FocusNode();
     _debouncer = Debouncer(delay: const Duration(milliseconds: 500));
     _blanks = List<Map<String, dynamic>>.from(content['blanks'] ?? []);
     if (_blanks.isEmpty) {
       _blanks = List<Map<String, dynamic>>.from(
-          getDefaultContent()['blanks'] as List);
+        getDefaultContent()['blanks'] as List,
+      );
     }
   }
 
@@ -140,10 +145,7 @@ class _FillBlankBlockState extends BaseEditableBlockState<FillBlankBlock> {
 
   @override
   Widget buildReader(BuildContext context) {
-    return FillBlankReaderBlock(
-      block: widget.block,
-      docDir: widget.docDir,
-    );
+    return FillBlankReaderBlock(block: widget.block, docDir: widget.docDir);
   }
 
   @override
@@ -162,7 +164,9 @@ class _FillBlankBlockState extends BaseEditableBlockState<FillBlankBlock> {
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
-            border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.2)),
+            border: Border.all(
+              color: theme.colorScheme.outline.withValues(alpha: 0.2),
+            ),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
@@ -171,8 +175,11 @@ class _FillBlankBlockState extends BaseEditableBlockState<FillBlankBlock> {
               // ── Header ──────────────────────────────────────────────
               Row(
                 children: [
-                  Icon(IconsaxPlusBold.edit, size: 18,
-                      color: theme.colorScheme.primary),
+                  Icon(
+                    IconsaxPlusBold.edit,
+                    size: 18,
+                    color: theme.colorScheme.primary,
+                  ),
                   const SizedBox(width: 6),
                   Text(
                     'Fill in the Blank',
@@ -194,10 +201,13 @@ class _FillBlankBlockState extends BaseEditableBlockState<FillBlankBlock> {
                 decoration: InputDecoration(
                   hintText: 'e.g.  How [are] you?  or  The [Sun] is a star.',
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8)),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                   isDense: true,
                   contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 12, vertical: 12),
+                    horizontal: 12,
+                    vertical: 12,
+                  ),
                 ),
                 onChanged: (_) {
                   _syncBlanksFromTemplate();
@@ -225,10 +235,13 @@ class _FillBlankBlockState extends BaseEditableBlockState<FillBlankBlock> {
                 decoration: InputDecoration(
                   hintText: 'Explanation (optional, shown after submission)',
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8)),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                   isDense: true,
                   contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 12, vertical: 10),
+                    horizontal: 12,
+                    vertical: 10,
+                  ),
                 ),
                 onChanged: (_) => _debouncer.call(_saveContentLocal),
               ),

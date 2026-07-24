@@ -39,7 +39,11 @@ class PageNavigationService {
         parentPageId,
       );
     } catch (e, stackTrace) {
-      logger.e('Failed to create nested page', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to create nested page',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return null;
     }
   }
@@ -66,7 +70,11 @@ class PageNavigationService {
     try {
       return await documentService.getDocumentPages(docDir);
     } catch (e, stackTrace) {
-      logger.e('Failed to get document pages', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to get document pages',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return [];
     }
   }
@@ -76,17 +84,19 @@ class PageNavigationService {
   /// This is useful for determining which pages are linked and which are orphaned.
   Future<Set<String>> getReferencedPageIds(Directory docDir) async {
     final referencedPageIds = <String>{};
-    
+
     try {
       final allPages = await getAllPages(docDir);
-      
+
       for (final page in allPages) {
         try {
           final blocks = await documentService.getPageBlocks(docDir, page.id);
           for (final block in blocks) {
             if (block.type == BlockType.page && block.content.isNotEmpty) {
               try {
-                final content = _jsonConverter.convertFromJsonString(block.content);
+                final content = _jsonConverter.convertFromJsonString(
+                  block.content,
+                );
                 final pageId = content['pageId']?.toString();
                 if (pageId != null && pageId.isNotEmpty) {
                   referencedPageIds.add(pageId);
@@ -101,9 +111,13 @@ class PageNavigationService {
         }
       }
     } catch (e, stackTrace) {
-      logger.e('Failed to get referenced page IDs', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to get referenced page IDs',
+        error: e,
+        stackTrace: stackTrace,
+      );
     }
-    
+
     return referencedPageIds;
   }
 
@@ -117,17 +131,19 @@ class PageNavigationService {
   ) async {
     try {
       final allPages = await getAllPages(docDir);
-      
+
       for (final page in allPages) {
         try {
           final blocks = await documentService.getPageBlocks(docDir, page.id);
           for (final block in blocks) {
             // Skip the excluded block
             if (block.id == excludeBlockId) continue;
-            
+
             if (block.type == BlockType.page && block.content.isNotEmpty) {
               try {
-                final content = _jsonConverter.convertFromJsonString(block.content);
+                final content = _jsonConverter.convertFromJsonString(
+                  block.content,
+                );
                 final refPageId = content['pageId']?.toString();
                 if (refPageId == targetPageId) {
                   return true;
@@ -142,9 +158,13 @@ class PageNavigationService {
         }
       }
     } catch (e, stackTrace) {
-      logger.e('Failed to check page references', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to check page references',
+        error: e,
+        stackTrace: stackTrace,
+      );
     }
-    
+
     return false;
   }
 
@@ -163,17 +183,23 @@ class PageNavigationService {
         pageId,
         excludeBlockId,
       );
-      
+
       if (!isReferenced) {
         await documentService.deletePage(docDir, pageId);
         logger.i('Deleted unused auto-created page: $pageId');
         return true;
       } else {
-        logger.i('Not deleting page $pageId as it is referenced by other blocks');
+        logger.i(
+          'Not deleting page $pageId as it is referenced by other blocks',
+        );
         return false;
       }
     } catch (e, stackTrace) {
-      logger.w('Could not delete page: $pageId', error: e, stackTrace: stackTrace);
+      logger.w(
+        'Could not delete page: $pageId',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return false;
     }
   }

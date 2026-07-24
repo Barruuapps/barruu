@@ -21,7 +21,7 @@ class EnhancedGraphEditor extends StatelessWidget {
   Widget build(BuildContext context) {
     final typeString = content['type']?.toString() ?? '';
     final enhancedType = _getEnhancedGraphType(typeString);
-    
+
     if (enhancedType == null) {
       return _buildErrorWidget('Unknown graph type');
     }
@@ -30,7 +30,7 @@ class EnhancedGraphEditor extends StatelessWidget {
     final isWide = MediaQuery.of(context).size.width > 600;
     final containerPadding = isWide ? 16.0 : 12.0;
     final borderRadius = isWide ? 12.0 : 8.0;
-    
+
     return Container(
       padding: EdgeInsets.all(containerPadding),
       decoration: BoxDecoration(
@@ -46,7 +46,7 @@ class EnhancedGraphEditor extends StatelessWidget {
           // Type indicator
           _buildTypeHeader(context, enhancedType, isWide),
           SizedBox(height: isWide ? 16 : 12),
-          
+
           // Editor based on category
           if (enhancedType.category == GraphCategory.business)
             _buildBusinessChartEditor(context, enhancedType, isWide)
@@ -69,11 +69,15 @@ class EnhancedGraphEditor extends StatelessWidget {
     }
   }
 
-  Widget _buildTypeHeader(BuildContext context, EnhancedGraphType type, bool isWide) {
+  Widget _buildTypeHeader(
+    BuildContext context,
+    EnhancedGraphType type,
+    bool isWide,
+  ) {
     final categoryColor = type.category.getColor(context);
     final iconSize = isWide ? 24.0 : 20.0;
     final horizontalPadding = isWide ? 8.0 : 6.0;
-    
+
     return Row(
       children: [
         Container(
@@ -82,11 +86,7 @@ class EnhancedGraphEditor extends StatelessWidget {
             color: categoryColor.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(
-            type.icon,
-            color: categoryColor,
-            size: iconSize,
-          ),
+          child: Icon(type.icon, color: categoryColor, size: iconSize),
         ),
         SizedBox(width: isWide ? 12 : 8),
         Expanded(
@@ -114,8 +114,13 @@ class EnhancedGraphEditor extends StatelessWidget {
     );
   }
 
-  Widget _buildBusinessChartEditor(BuildContext context, EnhancedGraphType type, bool isWide) {
-    final data = (content['data'] as List<dynamic>?)?.cast<Map<String, dynamic>>() ?? [];
+  Widget _buildBusinessChartEditor(
+    BuildContext context,
+    EnhancedGraphType type,
+    bool isWide,
+  ) {
+    final data =
+        (content['data'] as List<dynamic>?)?.cast<Map<String, dynamic>>() ?? [];
     final title = content['title']?.toString() ?? '';
     final xAxisLabel = content['xAxisLabel']?.toString() ?? 'X Axis';
     final yAxisLabel = content['yAxisLabel']?.toString() ?? 'Y Axis';
@@ -125,7 +130,7 @@ class EnhancedGraphEditor extends StatelessWidget {
     // Mobile-friendly spacing
     final verticalSpacing = isWide ? 12.0 : 8.0;
     final borderRadius = isWide ? 8.0 : 6.0;
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -151,7 +156,7 @@ class EnhancedGraphEditor extends StatelessWidget {
           },
         ),
         SizedBox(height: verticalSpacing),
-        
+
         // Axis labels - stacked on mobile for better space usage
         if (isWide)
           Row(
@@ -165,7 +170,10 @@ class EnhancedGraphEditor extends StatelessWidget {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(borderRadius),
                     ),
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 12,
+                    ),
                   ),
                   onChanged: (value) {
                     content['xAxisLabel'] = value;
@@ -183,7 +191,10 @@ class EnhancedGraphEditor extends StatelessWidget {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(borderRadius),
                     ),
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 12,
+                    ),
                   ),
                   onChanged: (value) {
                     content['yAxisLabel'] = value;
@@ -204,7 +215,10 @@ class EnhancedGraphEditor extends StatelessWidget {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(borderRadius),
                   ),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 10,
+                  ),
                 ),
                 style: const TextStyle(fontSize: 13),
                 onChanged: (value) {
@@ -221,7 +235,10 @@ class EnhancedGraphEditor extends StatelessWidget {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(borderRadius),
                   ),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 10,
+                  ),
                 ),
                 style: const TextStyle(fontSize: 13),
                 onChanged: (value) {
@@ -232,7 +249,7 @@ class EnhancedGraphEditor extends StatelessWidget {
             ],
           ),
         SizedBox(height: verticalSpacing),
-        
+
         // Options - more compact on mobile
         if (isWide)
           Row(
@@ -265,7 +282,10 @@ class EnhancedGraphEditor extends StatelessWidget {
           Column(
             children: [
               CheckboxListTile(
-                title: const Text('Show Legend', style: TextStyle(fontSize: 13)),
+                title: const Text(
+                  'Show Legend',
+                  style: TextStyle(fontSize: 13),
+                ),
                 value: showLegend,
                 onChanged: (value) {
                   content['showLegend'] = value ?? true;
@@ -275,7 +295,10 @@ class EnhancedGraphEditor extends StatelessWidget {
                 dense: true,
               ),
               CheckboxListTile(
-                title: const Text('Show Labels', style: TextStyle(fontSize: 13)),
+                title: const Text(
+                  'Show Labels',
+                  style: TextStyle(fontSize: 13),
+                ),
                 value: showDataLabels,
                 onChanged: (value) {
                   content['showDataLabels'] = value ?? false;
@@ -287,7 +310,7 @@ class EnhancedGraphEditor extends StatelessWidget {
             ],
           ),
         SizedBox(height: verticalSpacing),
-        
+
         // Sample data button for empty charts - compact
         if (data.isEmpty)
           ElevatedButton.icon(
@@ -305,7 +328,7 @@ class EnhancedGraphEditor extends StatelessWidget {
             ),
           ),
         SizedBox(height: isWide ? 12 : 8),
-        
+
         // Inline data editor
         InlineChartDataEditor(
           initialData: data,
@@ -422,18 +445,27 @@ class _DiagramEditorWithBulkImport extends StatefulWidget {
   });
 
   @override
-  State<_DiagramEditorWithBulkImport> createState() => _DiagramEditorWithBulkImportState();
+  State<_DiagramEditorWithBulkImport> createState() =>
+      _DiagramEditorWithBulkImportState();
 }
 
-class _DiagramEditorWithBulkImportState extends State<_DiagramEditorWithBulkImport> {
+class _DiagramEditorWithBulkImportState
+    extends State<_DiagramEditorWithBulkImport> {
   bool _showBulkEdit = false;
 
   @override
   Widget build(BuildContext context) {
-    final nodes = (widget.content['nodes'] as List<dynamic>?)?.cast<Map<String, dynamic>>() ?? [];
-    final edges = (widget.content['edges'] as List<dynamic>?)?.cast<Map<String, dynamic>>() ?? [];
+    final nodes =
+        (widget.content['nodes'] as List<dynamic>?)
+            ?.cast<Map<String, dynamic>>() ??
+        [];
+    final edges =
+        (widget.content['edges'] as List<dynamic>?)
+            ?.cast<Map<String, dynamic>>() ??
+        [];
     final title = widget.content['title']?.toString() ?? '';
-    final layoutType = widget.content['layoutType']?.toString() ?? 'hierarchical';
+    final layoutType =
+        widget.content['layoutType']?.toString() ?? 'hierarchical';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -445,9 +477,7 @@ class _DiagramEditorWithBulkImportState extends State<_DiagramEditorWithBulkImpo
             labelText: 'Diagram Title',
             hintText: 'Enter diagram title',
             prefixIcon: const Icon(IconsaxPlusLinear.text),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
           onChanged: (value) {
             widget.content['title'] = value;
@@ -455,7 +485,7 @@ class _DiagramEditorWithBulkImportState extends State<_DiagramEditorWithBulkImpo
           },
         ),
         const SizedBox(height: 16),
-        
+
         // Layout type selector
         Container(
           padding: const EdgeInsets.all(12),
@@ -465,7 +495,11 @@ class _DiagramEditorWithBulkImportState extends State<_DiagramEditorWithBulkImpo
           ),
           child: Row(
             children: [
-              Icon(IconsaxPlusLinear.layer, color: widget.theme.colorScheme.primary, size: 20),
+              Icon(
+                IconsaxPlusLinear.layer,
+                color: widget.theme.colorScheme.primary,
+                size: 20,
+              ),
               const SizedBox(width: 12),
               Text(
                 'Layout:',
@@ -500,7 +534,7 @@ class _DiagramEditorWithBulkImportState extends State<_DiagramEditorWithBulkImpo
           ),
         ),
         const SizedBox(height: 12),
-        
+
         // Diagram stats
         Container(
           padding: const EdgeInsets.all(12),
@@ -511,13 +545,21 @@ class _DiagramEditorWithBulkImportState extends State<_DiagramEditorWithBulkImpo
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildStatItem(IconsaxPlusLinear.box, 'Nodes', nodes.length.toString()),
-              _buildStatItem(IconsaxPlusLinear.link, 'Connections', edges.length.toString()),
+              _buildStatItem(
+                IconsaxPlusLinear.box,
+                'Nodes',
+                nodes.length.toString(),
+              ),
+              _buildStatItem(
+                IconsaxPlusLinear.link,
+                'Connections',
+                edges.length.toString(),
+              ),
             ],
           ),
         ),
         const SizedBox(height: 12),
-        
+
         // Bulk Edit toggle
         if (!_showBulkEdit)
           ElevatedButton.icon(
@@ -532,9 +574,9 @@ class _DiagramEditorWithBulkImportState extends State<_DiagramEditorWithBulkImpo
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             ),
           ),
-        
+
         if (!_showBulkEdit) const SizedBox(height: 10),
-        
+
         // Quick add sample (only when not in bulk edit mode)
         if (!_showBulkEdit)
           ElevatedButton.icon(
@@ -548,7 +590,7 @@ class _DiagramEditorWithBulkImportState extends State<_DiagramEditorWithBulkImpo
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             ),
           ),
-        
+
         // Bulk editor
         if (_showBulkEdit) ...[
           DiagramBulkEditor(
@@ -577,7 +619,7 @@ class _DiagramEditorWithBulkImportState extends State<_DiagramEditorWithBulkImpo
       ],
     );
   }
-  
+
   Widget _buildStatItem(IconData icon, String label, String value) {
     return Column(
       children: [
@@ -598,7 +640,7 @@ class _DiagramEditorWithBulkImportState extends State<_DiagramEditorWithBulkImpo
       ],
     );
   }
-  
+
   String _getDiagramHint(EnhancedGraphType type) {
     switch (type) {
       case EnhancedGraphType.mindMap:
@@ -615,7 +657,7 @@ class _DiagramEditorWithBulkImportState extends State<_DiagramEditorWithBulkImpo
         return 'Add nodes and connections to visualize your diagram. Click "Bulk Edit" for text-based editing.';
     }
   }
-  
+
   void _addSampleDiagramData(EnhancedGraphType type) {
     switch (type) {
       case EnhancedGraphType.flowchart:
@@ -704,4 +746,3 @@ class _DiagramEditorWithBulkImportState extends State<_DiagramEditorWithBulkImpo
     }
   }
 }
-

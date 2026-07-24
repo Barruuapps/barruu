@@ -38,7 +38,7 @@ class SyncfusionPieChartWidget extends StatelessWidget {
         final labelFontSize = isWide ? 12.0 : 10.0;
         final legendFontSize = isWide ? 12.0 : 10.0;
         final explodeOffset = isWide ? '5%' : '3%';
-        
+
         return SfCircularChart(
           title: title.isNotEmpty
               ? ChartTitle(
@@ -65,13 +65,14 @@ class SyncfusionPieChartWidget extends StatelessWidget {
               fontSize: labelFontSize,
             ),
           ),
-          series: isDoughnut 
+          series: isDoughnut
               ? <DoughnutSeries<ChartData, String>>[
                   DoughnutSeries<ChartData, String>(
                     dataSource: chartData,
                     xValueMapper: (ChartData data, _) => data.x,
                     yValueMapper: (ChartData data, _) => data.y,
-                    dataLabelMapper: (ChartData data, _) => '${data.x}: ${data.y}',
+                    dataLabelMapper: (ChartData data, _) =>
+                        '${data.x}: ${data.y}',
                     explode: true,
                     explodeIndex: 0,
                     explodeOffset: explodeOffset,
@@ -89,7 +90,8 @@ class SyncfusionPieChartWidget extends StatelessWidget {
                     dataSource: chartData,
                     xValueMapper: (ChartData data, _) => data.x,
                     yValueMapper: (ChartData data, _) => data.y,
-                    dataLabelMapper: (ChartData data, _) => '${data.x}: ${data.y}',
+                    dataLabelMapper: (ChartData data, _) =>
+                        '${data.x}: ${data.y}',
                     explode: true,
                     explodeIndex: 0,
                     explodeOffset: explodeOffset,

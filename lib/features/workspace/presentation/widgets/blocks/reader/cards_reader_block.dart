@@ -11,12 +11,8 @@ import 'package:barruu/features/workspace/presentation/widgets/blocks/writer/car
 class CardsReaderBlock extends ConsumerWidget {
   final Block block;
   final Directory? docDir;
-  
-  const CardsReaderBlock({
-    required this.block,
-    this.docDir,
-    super.key,
-  });
+
+  const CardsReaderBlock({required this.block, this.docDir, super.key});
 
   Map<String, dynamic> _parseContent() {
     final converter = JsonStringConverter();
@@ -42,15 +38,14 @@ class CardsReaderBlock extends ConsumerWidget {
     final color = parsedColor ?? theme.colorScheme.onSurface;
     final parsedBackground = styleUtils.parseHex(block.style.background);
     final textMultiplier = ResponsiveUtils.getTextSizeMultiplier(context);
-    final baseTextStyle = styleUtils.applyStyle(block.style).copyWith(
-      fontSize: fontSize * textMultiplier,
-      color: color,
-    );
+    final baseTextStyle = styleUtils
+        .applyStyle(block.style)
+        .copyWith(fontSize: fontSize * textMultiplier, color: color);
 
     if (cards.isEmpty) {
       return Container(
         padding: const EdgeInsets.all(16),
-        decoration: parsedBackground != null 
+        decoration: parsedBackground != null
             ? BoxDecoration(
                 color: parsedBackground,
                 borderRadius: BorderRadius.circular(8),
@@ -70,7 +65,7 @@ class CardsReaderBlock extends ConsumerWidget {
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 8),
         padding: parsedBackground != null ? const EdgeInsets.all(8) : null,
-        decoration: parsedBackground != null 
+        decoration: parsedBackground != null
             ? BoxDecoration(
                 color: parsedBackground,
                 borderRadius: BorderRadius.circular(8),
@@ -123,10 +118,16 @@ class CardsReaderBlock extends ConsumerWidget {
     }
   }
 
-  Widget _buildCard(BuildContext context, ThemeData theme, Map<String, dynamic> card, String cardStyle, String cardTemplate) {
+  Widget _buildCard(
+    BuildContext context,
+    ThemeData theme,
+    Map<String, dynamic> card,
+    String cardStyle,
+    String cardTemplate,
+  ) {
     // Build card content based on template
     Widget cardContent;
-    
+
     switch (cardTemplate) {
       case 'horizontal':
         cardContent = buildHorizontalCardTemplate(
@@ -249,10 +250,7 @@ class CardsReaderBlock extends ConsumerWidget {
           clipBehavior: Clip.antiAlias,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
-            side: BorderSide(
-              color: theme.colorScheme.outline,
-              width: 1,
-            ),
+            side: BorderSide(color: theme.colorScheme.outline, width: 1),
           ),
           child: cardContent,
         );
@@ -264,12 +262,7 @@ class CardsReaderBlock extends ConsumerWidget {
           child: cardContent,
         );
       default:
-        return Card(
-          clipBehavior: Clip.antiAlias,
-          child: cardContent,
-        );
+        return Card(clipBehavior: Clip.antiAlias, child: cardContent);
     }
   }
 }
-
-

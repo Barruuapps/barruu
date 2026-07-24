@@ -277,6 +277,8 @@ class _EditDocumentScreenState extends ConsumerState<EditDocumentScreen>
         // Reload tab pages to show the new tab
         await _loadTabPages();
 
+        if (!mounted) return;
+
         // Navigate to the new tab page
         ref.read(currentPageIdProvider(widget.doc.path).notifier).state =
             newPage.id;
@@ -962,7 +964,6 @@ class _EditDocumentScreenState extends ConsumerState<EditDocumentScreen>
       );
     }
 
-    final blocks = ref.watch(editDocumentControllerProvider(widget.doc));
     final navigationStack = ref.watch(
       pageNavigationStackProvider(widget.doc.path),
     );
@@ -1114,7 +1115,9 @@ class _EditDocumentScreenState extends ConsumerState<EditDocumentScreen>
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
+                    color: theme.colorScheme.outlineVariant.withValues(
+                      alpha: 0.5,
+                    ),
                     width: 1,
                   ),
                 ),
@@ -1149,7 +1152,6 @@ class _EditDocumentScreenState extends ConsumerState<EditDocumentScreen>
                           vertical: 8,
                         ),
                         tabs: _tabPages.asMap().entries.map((entry) {
-                          final index = entry.key;
                           final page = entry.value;
                           final isDrawerPage = page.isDrawerPage;
                           // Use the tab-specific display name
@@ -1250,7 +1252,9 @@ class _EditDocumentScreenState extends ConsumerState<EditDocumentScreen>
                                 .withValues(alpha: 0.3),
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(
-                              color: theme.colorScheme.primary.withValues(alpha: 0.3),
+                              color: theme.colorScheme.primary.withValues(
+                                alpha: 0.3,
+                              ),
                               width: 1,
                             ),
                           ),
@@ -1556,14 +1560,16 @@ class _MobileBlockChips extends StatelessWidget {
             runSpacing: 8,
             children: BlockType.values
                 .where((t) => t != BlockType.unsupported)
-                .map((t) => ActionChip(
-                      avatar: Icon(t.icon, size: 18),
-                      label: Text(t.displayName),
-                      onPressed: () {
-                        Navigator.pop(ctx);
-                        onBlockTypeSelected(t, false);
-                      },
-                    ))
+                .map(
+                  (t) => ActionChip(
+                    avatar: Icon(t.icon, size: 18),
+                    label: Text(t.displayName),
+                    onPressed: () {
+                      Navigator.pop(ctx);
+                      onBlockTypeSelected(t, false);
+                    },
+                  ),
+                )
                 .toList(),
           ),
         ),
@@ -1640,7 +1646,9 @@ class _UnsupportedBlockPlaceholder extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
       decoration: BoxDecoration(
         color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-        border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.4)),
+        border: Border.all(
+          color: theme.colorScheme.outline.withValues(alpha: 0.4),
+        ),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(

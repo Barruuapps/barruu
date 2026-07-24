@@ -41,23 +41,24 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
 
   /// Generate username suggestion from email
   void _onEmailChanged(String email) {
-    if (_usernameManuallySet) return; // Don't override if user manually set username
-    
+    if (_usernameManuallySet)
+      return; // Don't override if user manually set username
+
     if (email.isEmpty || !email.contains('@')) {
       _usernameController.text = '';
       return;
     }
-    
+
     final parts = email.split('@');
     if (parts.isEmpty || parts[0].isEmpty) {
       _usernameController.text = '';
       return;
     }
-    
+
     // Clean the username: lowercase, remove special characters except underscore
     String username = parts[0].toLowerCase();
     username = username.replaceAll(RegExp(r'[^a-z0-9_]'), '');
-    
+
     _usernameController.text = username;
   }
 
@@ -67,8 +68,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     }
 
     // Navigate to interests selection screen
-    final username = _usernameController.text.trim().isEmpty 
-        ? null 
+    final username = _usernameController.text.trim().isEmpty
+        ? null
         : _usernameController.text.trim();
 
     Navigator.push(
@@ -89,10 +90,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sign Up'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Sign Up'), centerTitle: true),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -120,7 +118,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     Text(
                       'Join professionals who share expertise',
                       style: theme.textTheme.bodyMedium?.copyWith(
-                        color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.6,
+                        ),
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -251,7 +251,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           ),
                           onPressed: () {
                             setState(() {
-                              _obscureConfirmPassword = !_obscureConfirmPassword;
+                              _obscureConfirmPassword =
+                                  !_obscureConfirmPassword;
                             });
                           },
                         ),
@@ -291,7 +292,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           child: Text(
                             'OR',
                             style: theme.textTheme.bodySmall?.copyWith(
-                              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                              color: theme.colorScheme.onSurface.withValues(
+                                alpha: 0.6,
+                              ),
                             ),
                           ),
                         ),
@@ -302,9 +305,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
 
                     // Login link
                     TextButton(
-                      onPressed: _isLoading
-                          ? null
-                          : () => context.go('/login'),
+                      onPressed: _isLoading ? null : () => context.go('/login'),
                       child: const Text('Already have an account? Sign in'),
                     ),
                   ],
@@ -320,9 +321,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   Widget _buildSectionHeader(ThemeData theme, String title) {
     return Text(
       title,
-      style: theme.textTheme.titleLarge?.copyWith(
-        fontWeight: FontWeight.bold,
-      ),
+      style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
     );
   }
 }

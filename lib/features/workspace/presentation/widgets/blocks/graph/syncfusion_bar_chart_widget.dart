@@ -39,7 +39,7 @@ class SyncfusionBarChartWidget extends StatelessWidget {
         final axisFontSize = isWide ? 13.0 : 11.0;
         final labelFontSize = isWide ? 12.0 : 10.0;
         final legendFontSize = isWide ? 12.0 : 10.0;
-        
+
         return SfCartesianChart(
           title: title.isNotEmpty
               ? ChartTitle(
@@ -90,8 +90,8 @@ class SyncfusionBarChartWidget extends StatelessWidget {
             BarSeries<ChartData, String>(
               dataSource: chartData,
               // For horizontal bar charts: X axis = categories, Y axis = numeric values
-              xValueMapper: (ChartData data, _) => data.x,  // Category name
-              yValueMapper: (ChartData data, _) => data.y,  // Numeric value
+              xValueMapper: (ChartData data, _) => data.x, // Category name
+              yValueMapper: (ChartData data, _) => data.y, // Numeric value
               name: 'Data',
               color: theme.colorScheme.primary,
               borderRadius: const BorderRadius.all(Radius.circular(4)),

@@ -42,10 +42,9 @@ class _BarruuCardState extends State<BarruuCard> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isInteractive = widget.onTap != null || widget.onLongPress != null;
-    final pad = widget.padding ??
-        const EdgeInsets.all(DesignTokens.spacing16);
-    final radius = widget.borderRadius ??
-        BorderRadius.circular(DesignTokens.radiusXLarge);
+    final pad = widget.padding ?? const EdgeInsets.all(DesignTokens.spacing16);
+    final radius =
+        widget.borderRadius ?? BorderRadius.circular(DesignTokens.radiusXLarge);
 
     // Build card contents with decoration
     Widget cardContents = Container(
@@ -59,8 +58,7 @@ class _BarruuCardState extends State<BarruuCard> {
     cardContents = AnimatedScale(
       duration: DesignTokens.durationHover,
       curve: DesignTokens.curveStandard,
-      scale:
-          _isHovered && widget.enableHover && isInteractive ? 1.02 : 1.0,
+      scale: _isHovered && widget.enableHover && isInteractive ? 1.02 : 1.0,
       child: cardContents,
     );
 
@@ -142,8 +140,8 @@ class _BarruuCardState extends State<BarruuCard> {
             color: widget.isSelected
                 ? theme.colorScheme.primary
                 : _isHovered
-                    ? theme.colorScheme.outline
-                    : theme.colorScheme.outlineVariant,
+                ? theme.colorScheme.outline
+                : theme.colorScheme.outlineVariant,
             width: widget.isSelected ? 2.0 : 1.0,
           ),
         );
@@ -189,7 +187,8 @@ class _BarruuListCardState extends State<BarruuListCard> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final pad = widget.padding ??
+    final pad =
+        widget.padding ??
         const EdgeInsets.symmetric(
           horizontal: DesignTokens.spacing12,
           vertical: DesignTokens.spacing8,
@@ -211,10 +210,9 @@ class _BarruuListCardState extends State<BarruuListCard> {
             color: widget.isSelected
                 ? theme.colorScheme.primaryContainer.withValues(alpha: 0.3)
                 : _isHovered
-                    ? theme.colorScheme.surfaceContainerHighest
-                    : Colors.transparent,
-            borderRadius:
-                BorderRadius.circular(DesignTokens.radiusMedium),
+                ? theme.colorScheme.surfaceContainerHighest
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(DesignTokens.radiusMedium),
           ),
           child: Row(
             children: [

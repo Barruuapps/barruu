@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 
 /// Column template styles for the columns block.
-/// 
+///
 /// Provides different visual templates for displaying columns:
 /// - standard: Equal width columns (default)
 /// - sidebar: Narrow sidebar + wide content layout
@@ -25,8 +25,9 @@ Widget buildStandardColumnTemplate({
     crossAxisAlignment: CrossAxisAlignment.start,
     children: List.generate(columns.length, (index) {
       final column = columns[index] as Map<String, dynamic>;
-      final width = (column['width'] as num?)?.toDouble() ?? (1.0 / columns.length);
-      
+      final width =
+          (column['width'] as num?)?.toDouble() ?? (1.0 / columns.length);
+
       return Expanded(
         flex: (width * 100).toInt(),
         child: Padding(
@@ -57,16 +58,14 @@ Widget buildSidebarColumnTemplate({
       final column = columns[index] as Map<String, dynamic>;
       // First column gets 30%, rest evenly share 70%
       // For single column, use 100%
-      final flex = columns.length == 1 
-        ? 100 
-        : (index == 0 ? 30 : (70.0 / (columns.length - 1)).round());
-      
+      final flex = columns.length == 1
+          ? 100
+          : (index == 0 ? 30 : (70.0 / (columns.length - 1)).round());
+
       return Expanded(
         flex: flex,
         child: Padding(
-          padding: EdgeInsets.only(
-            right: index < columns.length - 1 ? gap : 0,
-          ),
+          padding: EdgeInsets.only(right: index < columns.length - 1 ? gap : 0),
           child: _buildColumnContent(theme, column, columnStyle, docDir),
         ),
       );
@@ -90,21 +89,19 @@ Widget buildHeroColumnTemplate({
       final column = columns[index] as Map<String, dynamic>;
       // First column gets 60%, rest evenly share 40%
       // For single column, use 100%
-      final flex = columns.length == 1 
-        ? 100 
-        : (index == 0 ? 60 : (40.0 / (columns.length - 1)).round());
-      
+      final flex = columns.length == 1
+          ? 100
+          : (index == 0 ? 60 : (40.0 / (columns.length - 1)).round());
+
       return Expanded(
         flex: flex,
         child: Padding(
-          padding: EdgeInsets.only(
-            right: index < columns.length - 1 ? gap : 0,
-          ),
+          padding: EdgeInsets.only(right: index < columns.length - 1 ? gap : 0),
           child: Container(
             padding: const EdgeInsets.all(20),
-            decoration: index == 0 
-              ? _getHeroDecoration(theme, columnStyle)
-              : _getColumnDecoration(theme, columnStyle),
+            decoration: index == 0
+                ? _getHeroDecoration(theme, columnStyle)
+                : _getColumnDecoration(theme, columnStyle),
             child: _buildRawColumnContent(theme, column, docDir),
           ),
         ),
@@ -128,13 +125,12 @@ Widget buildGridColumnTemplate({
     children: List.generate(columns.length, (index) {
       final column = columns[index] as Map<String, dynamic>;
       final imagePath = column['imagePath'] as String?;
-      final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
-      
+      final hasImage =
+          imagePath != null && imagePath.isNotEmpty && docDir != null;
+
       return Expanded(
         child: Padding(
-          padding: EdgeInsets.only(
-            right: index < columns.length - 1 ? gap : 0,
-          ),
+          padding: EdgeInsets.only(right: index < columns.length - 1 ? gap : 0),
           child: Container(
             padding: const EdgeInsets.all(20),
             decoration: _getGridDecoration(theme, columnStyle),
@@ -149,7 +145,8 @@ Widget buildGridColumnTemplate({
                       width: double.infinity,
                       height: 100,
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+                      errorBuilder: (context, error, stackTrace) =>
+                          const SizedBox.shrink(),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -173,9 +170,15 @@ Widget buildGridColumnTemplate({
                   data: column['content']?.toString() ?? '',
                   styleSheet: MarkdownStyleSheet(
                     p: theme.textTheme.bodyMedium?.copyWith(height: 1.5),
-                    strong: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-                    em: theme.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
-                    code: theme.textTheme.bodyMedium?.copyWith(fontFamily: 'monospace'),
+                    strong: theme.textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    em: theme.textTheme.bodyMedium?.copyWith(
+                      fontStyle: FontStyle.italic,
+                    ),
+                    code: theme.textTheme.bodyMedium?.copyWith(
+                      fontFamily: 'monospace',
+                    ),
                   ),
                 ),
               ],
@@ -202,37 +205,39 @@ Widget buildCardColumnTemplate({
     children: List.generate(columns.length, (index) {
       final column = columns[index] as Map<String, dynamic>;
       final imagePath = column['imagePath'] as String?;
-      final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
-      
+      final hasImage =
+          imagePath != null && imagePath.isNotEmpty && docDir != null;
+
       return Expanded(
         child: Padding(
-          padding: EdgeInsets.only(
-            right: index < columns.length - 1 ? gap : 0,
-          ),
+          padding: EdgeInsets.only(right: index < columns.length - 1 ? gap : 0),
           child: Card(
             elevation: columnStyle == 'elevated' ? 6 : 0,
             clipBehavior: Clip.antiAlias,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
               side: columnStyle == 'outlined'
-                ? BorderSide(color: theme.colorScheme.primary, width: 2)
-                : BorderSide.none,
+                  ? BorderSide(color: theme.colorScheme.primary, width: 2)
+                  : BorderSide.none,
             ),
-            color: columnStyle == 'filled' 
-              ? theme.colorScheme.surfaceContainerHighest 
-              : null,
+            color: columnStyle == 'filled'
+                ? theme.colorScheme.surfaceContainerHighest
+                : null,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (hasImage)
                   ClipRRect(
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(16),
+                    ),
                     child: Image.file(
                       File('${docDir.path}/$imagePath'),
                       width: double.infinity,
                       height: 160,
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+                      errorBuilder: (context, error, stackTrace) =>
+                          const SizedBox.shrink(),
                     ),
                   )
                 else
@@ -252,7 +257,9 @@ Widget buildCardColumnTemplate({
                     child: Icon(
                       Icons.image_outlined,
                       size: 48,
-                      color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.5),
+                      color: theme.colorScheme.onPrimaryContainer.withValues(
+                        alpha: 0.5,
+                      ),
                     ),
                   ),
                 Padding(
@@ -261,9 +268,15 @@ Widget buildCardColumnTemplate({
                     data: column['content']?.toString() ?? '',
                     styleSheet: MarkdownStyleSheet(
                       p: theme.textTheme.bodyMedium?.copyWith(height: 1.5),
-                      strong: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-                      em: theme.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
-                      code: theme.textTheme.bodyMedium?.copyWith(fontFamily: 'monospace'),
+                      strong: theme.textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                      em: theme.textTheme.bodyMedium?.copyWith(
+                        fontStyle: FontStyle.italic,
+                      ),
+                      code: theme.textTheme.bodyMedium?.copyWith(
+                        fontFamily: 'monospace',
+                      ),
                     ),
                   ),
                 ),
@@ -278,7 +291,12 @@ Widget buildCardColumnTemplate({
 
 // Helper methods
 
-Widget _buildColumnContent(ThemeData theme, Map<String, dynamic> column, String columnStyle, Directory? docDir) {
+Widget _buildColumnContent(
+  ThemeData theme,
+  Map<String, dynamic> column,
+  String columnStyle,
+  Directory? docDir,
+) {
   final imagePath = column['imagePath'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
 
@@ -291,7 +309,7 @@ Widget _buildColumnContent(ThemeData theme, Map<String, dynamic> column, String 
     ),
     child: const Center(child: Text('🖼️', style: TextStyle(fontSize: 40))),
   );
-  
+
   return Container(
     padding: const EdgeInsets.all(16),
     decoration: _getColumnDecoration(theme, columnStyle),
@@ -318,8 +336,12 @@ Widget _buildColumnContent(ThemeData theme, Map<String, dynamic> column, String 
           data: column['content']?.toString() ?? '',
           styleSheet: MarkdownStyleSheet(
             p: theme.textTheme.bodyMedium,
-            strong: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-            em: theme.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
+            strong: theme.textTheme.bodyMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+            em: theme.textTheme.bodyMedium?.copyWith(
+              fontStyle: FontStyle.italic,
+            ),
             code: theme.textTheme.bodyMedium?.copyWith(fontFamily: 'monospace'),
           ),
         ),
@@ -328,7 +350,11 @@ Widget _buildColumnContent(ThemeData theme, Map<String, dynamic> column, String 
   );
 }
 
-Widget _buildRawColumnContent(ThemeData theme, Map<String, dynamic> column, Directory? docDir) {
+Widget _buildRawColumnContent(
+  ThemeData theme,
+  Map<String, dynamic> column,
+  Directory? docDir,
+) {
   final imagePath = column['imagePath'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
 
@@ -341,7 +367,7 @@ Widget _buildRawColumnContent(ThemeData theme, Map<String, dynamic> column, Dire
     ),
     child: const Center(child: Text('🖼️', style: TextStyle(fontSize: 40))),
   );
-  
+
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -365,7 +391,9 @@ Widget _buildRawColumnContent(ThemeData theme, Map<String, dynamic> column, Dire
         data: column['content']?.toString() ?? '',
         styleSheet: MarkdownStyleSheet(
           p: theme.textTheme.bodyMedium,
-          strong: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+          strong: theme.textTheme.bodyMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
           em: theme.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
           code: theme.textTheme.bodyMedium?.copyWith(fontFamily: 'monospace'),
         ),
@@ -385,10 +413,7 @@ BoxDecoration _getColumnDecoration(ThemeData theme, String columnStyle) {
       return BoxDecoration(
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: theme.colorScheme.outline,
-          width: 1,
-        ),
+        border: Border.all(color: theme.colorScheme.outline, width: 1),
       );
     case 'filled':
       return BoxDecoration(
@@ -418,8 +443,8 @@ BoxDecoration _getHeroDecoration(ThemeData theme, String columnStyle) {
     ),
     borderRadius: BorderRadius.circular(12),
     border: columnStyle == 'outlined'
-      ? Border.all(color: theme.colorScheme.outline, width: 2)
-      : null,
+        ? Border.all(color: theme.colorScheme.outline, width: 2)
+        : null,
   );
 }
 
@@ -470,13 +495,12 @@ Widget buildCompactColumnTemplate({
     children: List.generate(columns.length, (index) {
       final column = columns[index] as Map<String, dynamic>;
       final imagePath = column['imagePath'] as String?;
-      final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
-      
+      final hasImage =
+          imagePath != null && imagePath.isNotEmpty && docDir != null;
+
       return Expanded(
         child: Padding(
-          padding: EdgeInsets.only(
-            right: index < columns.length - 1 ? gap : 0,
-          ),
+          padding: EdgeInsets.only(right: index < columns.length - 1 ? gap : 0),
           child: Container(
             padding: const EdgeInsets.all(8),
             decoration: _getColumnDecoration(theme, columnStyle),
@@ -491,7 +515,8 @@ Widget buildCompactColumnTemplate({
                       width: double.infinity,
                       height: 80,
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+                      errorBuilder: (context, error, stackTrace) =>
+                          const SizedBox.shrink(),
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -500,9 +525,15 @@ Widget buildCompactColumnTemplate({
                   data: column['content']?.toString() ?? '',
                   styleSheet: MarkdownStyleSheet(
                     p: theme.textTheme.bodySmall,
-                    strong: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
-                    em: theme.textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic),
-                    code: theme.textTheme.bodySmall?.copyWith(fontFamily: 'monospace'),
+                    strong: theme.textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    em: theme.textTheme.bodySmall?.copyWith(
+                      fontStyle: FontStyle.italic,
+                    ),
+                    code: theme.textTheme.bodySmall?.copyWith(
+                      fontFamily: 'monospace',
+                    ),
                   ),
                 ),
               ],
@@ -529,30 +560,29 @@ Widget buildFeaturedColumnTemplate({
     children: List.generate(columns.length, (index) {
       final column = columns[index] as Map<String, dynamic>;
       final imagePath = column['imagePath'] as String?;
-      final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
+      final hasImage =
+          imagePath != null && imagePath.isNotEmpty && docDir != null;
       final isFeatured = index == 0;
-      
+
       return Expanded(
         flex: isFeatured ? 60 : (40 ~/ (columns.length - 1)),
         child: Padding(
-          padding: EdgeInsets.only(
-            right: index < columns.length - 1 ? gap : 0,
-          ),
+          padding: EdgeInsets.only(right: index < columns.length - 1 ? gap : 0),
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: isFeatured
-              ? BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      theme.colorScheme.primaryContainer,
-                      theme.colorScheme.secondaryContainer,
-                    ],
-                  ),
-                  borderRadius: BorderRadius.circular(12),
-                )
-              : _getColumnDecoration(theme, columnStyle),
+                ? BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        theme.colorScheme.primaryContainer,
+                        theme.colorScheme.secondaryContainer,
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  )
+                : _getColumnDecoration(theme, columnStyle),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -568,7 +598,8 @@ Widget buildFeaturedColumnTemplate({
                       width: double.infinity,
                       height: isFeatured ? 150 : 100,
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+                      errorBuilder: (context, error, stackTrace) =>
+                          const SizedBox.shrink(),
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -577,14 +608,25 @@ Widget buildFeaturedColumnTemplate({
                   data: column['content']?.toString() ?? '',
                   styleSheet: MarkdownStyleSheet(
                     p: isFeatured
-                        ? theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500)
+                        ? theme.textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.w500,
+                          )
                         : theme.textTheme.bodyMedium,
-                    strong: (isFeatured ? theme.textTheme.bodyLarge : theme.textTheme.bodyMedium)
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                    em: (isFeatured ? theme.textTheme.bodyLarge : theme.textTheme.bodyMedium)
-                        ?.copyWith(fontStyle: FontStyle.italic),
-                    code: (isFeatured ? theme.textTheme.bodyLarge : theme.textTheme.bodyMedium)
-                        ?.copyWith(fontFamily: 'monospace'),
+                    strong:
+                        (isFeatured
+                                ? theme.textTheme.bodyLarge
+                                : theme.textTheme.bodyMedium)
+                            ?.copyWith(fontWeight: FontWeight.bold),
+                    em:
+                        (isFeatured
+                                ? theme.textTheme.bodyLarge
+                                : theme.textTheme.bodyMedium)
+                            ?.copyWith(fontStyle: FontStyle.italic),
+                    code:
+                        (isFeatured
+                                ? theme.textTheme.bodyLarge
+                                : theme.textTheme.bodyMedium)
+                            ?.copyWith(fontFamily: 'monospace'),
                   ),
                 ),
               ],
@@ -610,13 +652,12 @@ Widget buildOverlayColumnTemplate({
     children: List.generate(columns.length, (index) {
       final column = columns[index] as Map<String, dynamic>;
       final imagePath = column['imagePath'] as String?;
-      final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
-      
+      final hasImage =
+          imagePath != null && imagePath.isNotEmpty && docDir != null;
+
       return Expanded(
         child: Padding(
-          padding: EdgeInsets.only(
-            right: index < columns.length - 1 ? gap : 0,
-          ),
+          padding: EdgeInsets.only(right: index < columns.length - 1 ? gap : 0),
           child: Stack(
             children: [
               Container(
@@ -640,7 +681,8 @@ Widget buildOverlayColumnTemplate({
                     child: Image.file(
                       File('${docDir.path}/$imagePath'),
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+                      errorBuilder: (context, error, stackTrace) =>
+                          const SizedBox.shrink(),
                     ),
                   ),
                 ),
@@ -659,7 +701,9 @@ Widget buildOverlayColumnTemplate({
                         Colors.black.withValues(alpha: 0.7),
                       ],
                     ),
-                    borderRadius: const BorderRadius.vertical(bottom: Radius.circular(12)),
+                    borderRadius: const BorderRadius.vertical(
+                      bottom: Radius.circular(12),
+                    ),
                   ),
                   child: MarkdownBody(
                     data: column['content']?.toString() ?? '',
@@ -706,13 +750,12 @@ Widget buildMagazineColumnTemplate({
     children: List.generate(columns.length, (index) {
       final column = columns[index] as Map<String, dynamic>;
       final imagePath = column['imagePath'] as String?;
-      final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
-      
+      final hasImage =
+          imagePath != null && imagePath.isNotEmpty && docDir != null;
+
       return Expanded(
         child: Padding(
-          padding: EdgeInsets.only(
-            right: index < columns.length - 1 ? gap : 0,
-          ),
+          padding: EdgeInsets.only(right: index < columns.length - 1 ? gap : 0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -725,7 +768,8 @@ Widget buildMagazineColumnTemplate({
                       File('${docDir.path}/$imagePath'),
                       height: 120,
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+                      errorBuilder: (context, error, stackTrace) =>
+                          const SizedBox.shrink(),
                     ),
                   ),
                 ),
@@ -739,9 +783,15 @@ Widget buildMagazineColumnTemplate({
                     data: column['content']?.toString() ?? '',
                     styleSheet: MarkdownStyleSheet(
                       p: theme.textTheme.bodyMedium,
-                      strong: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-                      em: theme.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
-                      code: theme.textTheme.bodyMedium?.copyWith(fontFamily: 'monospace'),
+                      strong: theme.textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                      em: theme.textTheme.bodyMedium?.copyWith(
+                        fontStyle: FontStyle.italic,
+                      ),
+                      code: theme.textTheme.bodyMedium?.copyWith(
+                        fontFamily: 'monospace',
+                      ),
                     ),
                   ),
                 ),
@@ -786,12 +836,13 @@ Widget buildSplitColumnTemplate({
           ),
         );
       }
-      
+
       final columnIndex = index ~/ 2;
       final column = columns[columnIndex] as Map<String, dynamic>;
       final imagePath = column['imagePath'] as String?;
-      final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
-      
+      final hasImage =
+          imagePath != null && imagePath.isNotEmpty && docDir != null;
+
       return Expanded(
         child: Container(
           padding: const EdgeInsets.all(16),
@@ -807,7 +858,8 @@ Widget buildSplitColumnTemplate({
                     width: double.infinity,
                     height: 100,
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+                    errorBuilder: (context, error, stackTrace) =>
+                        const SizedBox.shrink(),
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -816,9 +868,15 @@ Widget buildSplitColumnTemplate({
                 data: column['content']?.toString() ?? '',
                 styleSheet: MarkdownStyleSheet(
                   p: theme.textTheme.bodyMedium,
-                  strong: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-                  em: theme.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
-                  code: theme.textTheme.bodyMedium?.copyWith(fontFamily: 'monospace'),
+                  strong: theme.textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                  em: theme.textTheme.bodyMedium?.copyWith(
+                    fontStyle: FontStyle.italic,
+                  ),
+                  code: theme.textTheme.bodyMedium?.copyWith(
+                    fontFamily: 'monospace',
+                  ),
                 ),
               ),
             ],
@@ -844,10 +902,7 @@ Widget buildBannerColumnTemplate({
       gradient: LinearGradient(
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
-        colors: [
-          theme.colorScheme.primary,
-          theme.colorScheme.tertiary,
-        ],
+        colors: [theme.colorScheme.primary, theme.colorScheme.tertiary],
       ),
       borderRadius: BorderRadius.circular(12),
     ),
@@ -855,7 +910,7 @@ Widget buildBannerColumnTemplate({
       crossAxisAlignment: CrossAxisAlignment.center,
       children: List.generate(columns.length, (index) {
         final column = columns[index] as Map<String, dynamic>;
-        
+
         return Expanded(
           child: Padding(
             padding: EdgeInsets.only(
@@ -904,13 +959,12 @@ Widget buildAvatarColumnTemplate({
     children: List.generate(columns.length, (index) {
       final column = columns[index] as Map<String, dynamic>;
       final imagePath = column['imagePath'] as String?;
-      final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
-      
+      final hasImage =
+          imagePath != null && imagePath.isNotEmpty && docDir != null;
+
       return Expanded(
         child: Padding(
-          padding: EdgeInsets.only(
-            right: index < columns.length - 1 ? gap : 0,
-          ),
+          padding: EdgeInsets.only(right: index < columns.length - 1 ? gap : 0),
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: _getColumnDecoration(theme, columnStyle),
@@ -931,7 +985,11 @@ Widget buildAvatarColumnTemplate({
                           shape: BoxShape.circle,
                           color: theme.colorScheme.primaryContainer,
                         ),
-                        child: Icon(Icons.person, size: 40, color: theme.colorScheme.onPrimaryContainer),
+                        child: Icon(
+                          Icons.person,
+                          size: 40,
+                          color: theme.colorScheme.onPrimaryContainer,
+                        ),
                       ),
                     ),
                   )
@@ -943,16 +1001,26 @@ Widget buildAvatarColumnTemplate({
                       shape: BoxShape.circle,
                       color: theme.colorScheme.primaryContainer,
                     ),
-                    child: Icon(Icons.person, size: 40, color: theme.colorScheme.onPrimaryContainer),
+                    child: Icon(
+                      Icons.person,
+                      size: 40,
+                      color: theme.colorScheme.onPrimaryContainer,
+                    ),
                   ),
                 const SizedBox(height: 12),
                 MarkdownBody(
                   data: column['content']?.toString() ?? '',
                   styleSheet: MarkdownStyleSheet(
                     p: theme.textTheme.bodyMedium,
-                    strong: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-                    em: theme.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
-                    code: theme.textTheme.bodyMedium?.copyWith(fontFamily: 'monospace'),
+                    strong: theme.textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    em: theme.textTheme.bodyMedium?.copyWith(
+                      fontStyle: FontStyle.italic,
+                    ),
+                    code: theme.textTheme.bodyMedium?.copyWith(
+                      fontFamily: 'monospace',
+                    ),
                     textAlign: WrapAlignment.center,
                   ),
                 ),
@@ -974,20 +1042,24 @@ Widget buildIconColumnTemplate({
   required Directory? docDir,
   required double gap,
 }) {
-  final icons = [Icons.star, Icons.favorite, Icons.lightbulb, Icons.rocket_launch];
-  
+  final icons = [
+    Icons.star,
+    Icons.favorite,
+    Icons.lightbulb,
+    Icons.rocket_launch,
+  ];
+
   return Row(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: List.generate(columns.length, (index) {
       final column = columns[index] as Map<String, dynamic>;
       final imagePath = column['imagePath'] as String?;
-      final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
-      
+      final hasImage =
+          imagePath != null && imagePath.isNotEmpty && docDir != null;
+
       return Expanded(
         child: Padding(
-          padding: EdgeInsets.only(
-            right: index < columns.length - 1 ? gap : 0,
-          ),
+          padding: EdgeInsets.only(right: index < columns.length - 1 ? gap : 0),
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: _getColumnDecoration(theme, columnStyle),
@@ -1002,7 +1074,8 @@ Widget buildIconColumnTemplate({
                       width: double.infinity,
                       height: 80,
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+                      errorBuilder: (context, error, stackTrace) =>
+                          const SizedBox.shrink(),
                     ),
                   )
                 else
@@ -1031,9 +1104,15 @@ Widget buildIconColumnTemplate({
                   data: column['content']?.toString() ?? '',
                   styleSheet: MarkdownStyleSheet(
                     p: theme.textTheme.bodyMedium,
-                    strong: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-                    em: theme.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
-                    code: theme.textTheme.bodyMedium?.copyWith(fontFamily: 'monospace'),
+                    strong: theme.textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    em: theme.textTheme.bodyMedium?.copyWith(
+                      fontStyle: FontStyle.italic,
+                    ),
+                    code: theme.textTheme.bodyMedium?.copyWith(
+                      fontFamily: 'monospace',
+                    ),
                     textAlign: WrapAlignment.center,
                   ),
                 ),

@@ -7,9 +7,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///
 /// This controls the overall app appearance (light/dark/system) and is separate
 /// from minibook themes which are used for content reading.
-final appThemeModeProvider = StateNotifierProvider.autoDispose<AppThemeModeNotifier, AppThemeMode>(
-  (ref) => AppThemeModeNotifier(),
-);
+final appThemeModeProvider =
+    StateNotifierProvider.autoDispose<AppThemeModeNotifier, AppThemeMode>(
+      (ref) => AppThemeModeNotifier(),
+    );
 
 /// Manages the application's system theme mode state and persists the selection.
 ///
@@ -72,7 +73,9 @@ class AppThemeModeNotifier extends StateNotifier<AppThemeMode> {
       return AppThemeMode.values.firstWhere(
         (mode) => mode.name == themeModeName,
         orElse: () {
-          logger.w('Invalid theme mode name in preferences: $themeModeName, using default');
+          logger.w(
+            'Invalid theme mode name in preferences: $themeModeName, using default',
+          );
           return AppThemeMode.system;
         },
       );
@@ -85,5 +88,4 @@ class AppThemeModeNotifier extends StateNotifier<AppThemeMode> {
       return AppThemeMode.system;
     }
   }
-
 }

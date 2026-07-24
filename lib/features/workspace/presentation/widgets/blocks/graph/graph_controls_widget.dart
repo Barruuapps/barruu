@@ -27,31 +27,31 @@ import 'package:flutter/material.dart';
 class GraphControlsWidget extends StatelessWidget {
   /// Current zoom level (used to enable/disable zoom buttons)
   final double zoomLevel;
-  
+
   /// Whether the grid is currently visible
   final bool showGrid;
-  
+
   /// Whether intercept markers are currently visible
   final bool showIntercepts;
-  
+
   /// Whether the info panel is currently visible
   final bool showInfoPanel;
-  
+
   /// Callback when zoom in button is pressed
   final VoidCallback onZoomIn;
-  
+
   /// Callback when zoom out button is pressed
   final VoidCallback onZoomOut;
-  
+
   /// Callback when reset view button is pressed
   final VoidCallback onResetView;
-  
+
   /// Callback when grid toggle button is pressed
   final VoidCallback onToggleGrid;
-  
+
   /// Callback when intercepts toggle button is pressed
   final VoidCallback onToggleIntercepts;
-  
+
   /// Callback when info panel toggle button is pressed
   final VoidCallback onToggleInfoPanel;
 
@@ -72,7 +72,7 @@ class GraphControlsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Padding(
       padding: const EdgeInsets.only(top: 8),
       child: Wrap(
@@ -105,7 +105,9 @@ class GraphControlsWidget extends StatelessWidget {
             theme: theme,
           ),
           _buildControlButton(
-            icon: showIntercepts ? Icons.scatter_plot : Icons.scatter_plot_outlined,
+            icon: showIntercepts
+                ? Icons.scatter_plot
+                : Icons.scatter_plot_outlined,
             tooltip: showIntercepts ? 'Hide intercepts' : 'Show intercepts',
             onPressed: onToggleIntercepts,
             theme: theme,
@@ -138,11 +140,7 @@ class GraphControlsWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           child: Padding(
             padding: const EdgeInsets.all(8),
-            child: Icon(
-              icon,
-              size: 20,
-              color: theme.colorScheme.onSurface,
-            ),
+            child: Icon(icon, size: 20, color: theme.colorScheme.onSurface),
           ),
         ),
       ),

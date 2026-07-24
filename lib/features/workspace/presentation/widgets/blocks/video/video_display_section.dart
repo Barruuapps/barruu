@@ -82,8 +82,10 @@ class VideoDisplaySection extends StatelessWidget {
       final containerAspectRatio = displayWidth / displayHeight;
 
       final shouldCover =
-          (videoAspectRatio > containerAspectRatio * (1.0 + aspectRatioTolerance)) ||
-          (videoAspectRatio < containerAspectRatio * (1.0 - aspectRatioTolerance));
+          (videoAspectRatio >
+              containerAspectRatio * (1.0 + aspectRatioTolerance)) ||
+          (videoAspectRatio <
+              containerAspectRatio * (1.0 - aspectRatioTolerance));
 
       return ClipRRect(
         borderRadius: BorderRadius.circular(12),
@@ -110,7 +112,9 @@ class VideoDisplaySection extends StatelessWidget {
       onTap: isEditing ? onTap : null,
       child: Container(
         decoration: BoxDecoration(
-          color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+          color: theme.colorScheme.surfaceContainerHighest.withValues(
+            alpha: 0.5,
+          ),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Center(
@@ -135,7 +139,9 @@ class VideoDisplaySection extends StatelessWidget {
                 Text(
                   'Choose from gallery, YouTube, or URL',
                   style: TextStyle(
-                    color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
+                    color: theme.colorScheme.onSurfaceVariant.withValues(
+                      alpha: 0.7,
+                    ),
                     fontSize: 12,
                   ),
                 ),
@@ -207,7 +213,8 @@ class _VideoPlayerWithControls extends StatefulWidget {
   });
 
   @override
-  State<_VideoPlayerWithControls> createState() => _VideoPlayerWithControlsState();
+  State<_VideoPlayerWithControls> createState() =>
+      _VideoPlayerWithControlsState();
 }
 
 class _VideoPlayerWithControlsState extends State<_VideoPlayerWithControls> {

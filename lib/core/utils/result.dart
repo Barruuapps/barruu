@@ -87,10 +87,7 @@ sealed class Result<T> {
   ///   .flatMap((doc) => saveDocument(doc));
   /// ```
   Result<R> flatMap<R>(Result<R> Function(T value) transform) {
-    return when(
-      success: transform,
-      error: (message) => Result.error(message),
-    );
+    return when(success: transform, error: (message) => Result.error(message));
   }
 
   /// Gets the success value or returns the provided default.
@@ -100,10 +97,7 @@ sealed class Result<T> {
   /// final doc = result.getOrElse(Document.empty());
   /// ```
   T getOrElse(T defaultValue) {
-    return when(
-      success: (value) => value,
-      error: (_) => defaultValue,
-    );
+    return when(success: (value) => value, error: (_) => defaultValue);
   }
 
   /// Gets the success value or null if this is an error.
@@ -114,10 +108,7 @@ sealed class Result<T> {
   /// if (doc != null) { /* use doc */ }
   /// ```
   T? getOrNull() {
-    return when(
-      success: (value) => value,
-      error: (_) => null,
-    );
+    return when(success: (value) => value, error: (_) => null);
   }
 
   /// Gets the error message or null if this is a success.
@@ -128,10 +119,7 @@ sealed class Result<T> {
   /// if (error != null) { /* handle error */ }
   /// ```
   String? errorOrNull() {
-    return when(
-      success: (_) => null,
-      error: (message) => message,
-    );
+    return when(success: (_) => null, error: (message) => message);
   }
 }
 

@@ -55,7 +55,9 @@ class DocumentPageManager {
 
       final appDir = await getApplicationDocumentsDirectory();
       if (!_isValidDocumentDirectory(doc, appDir)) {
-        logger.e('Attempt to access directory outside app boundaries: ${doc.path}');
+        logger.e(
+          'Attempt to access directory outside app boundaries: ${doc.path}',
+        );
         return [];
       }
 
@@ -95,8 +97,11 @@ class DocumentPageManager {
       logger.i('Retrieved ${pages.length} pages for: ${doc.path}');
       return pages;
     } catch (e, stackTrace) {
-      logger.e('Failed to retrieve pages: ${doc.path}',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to retrieve pages: ${doc.path}',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return [];
     }
   }
@@ -119,7 +124,8 @@ class DocumentPageManager {
       if (await oldBookDb.exists()) {
         // Rename book.db to page_page_1.db
         final newPageDb = File(
-            '${doc.path}/${PageConstants.getPageFileName(PageConstants.defaultPageId)}');
+          '${doc.path}/${PageConstants.getPageFileName(PageConstants.defaultPageId)}',
+        );
         await oldBookDb.copy(newPageDb.path);
         await oldBookDb.delete();
         logger.i('Migrated book.db to ${newPageDb.path}');
@@ -139,8 +145,11 @@ class DocumentPageManager {
 
       return [defaultPage];
     } catch (e, stackTrace) {
-      logger.e('Failed to migrate document to multi-page: ${doc.path}',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to migrate document to multi-page: ${doc.path}',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return [];
     }
   }
@@ -164,8 +173,11 @@ class DocumentPageManager {
       logger.i('Saved ${pages.length} pages metadata for: ${doc.path}');
       return true;
     } catch (e, stackTrace) {
-      logger.e('Failed to save pages metadata: ${doc.path}',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to save pages metadata: ${doc.path}',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return false;
     }
   }
@@ -191,7 +203,9 @@ class DocumentPageManager {
 
       final appDir = await getApplicationDocumentsDirectory();
       if (!_isValidDocumentDirectory(doc, appDir)) {
-        logger.e('Attempt to access directory outside app boundaries: ${doc.path}');
+        logger.e(
+          'Attempt to access directory outside app boundaries: ${doc.path}',
+        );
         return null;
       }
 
@@ -222,8 +236,11 @@ class DocumentPageManager {
       logger.i('Created new page: ${newPage.title} (${newPage.id})');
       return newPage;
     } catch (e, stackTrace) {
-      logger.e('Failed to create page: $title',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to create page: $title',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return null;
     }
   }
@@ -241,7 +258,10 @@ class DocumentPageManager {
   /// - The parent page doesn't exist
   /// - An error occurs
   Future<DocumentPage?> createNestedPage(
-      Directory doc, String title, String parentPageId) async {
+    Directory doc,
+    String title,
+    String parentPageId,
+  ) async {
     try {
       if (kIsWeb) {
         logger.w('Page creation not supported on web');
@@ -250,7 +270,9 @@ class DocumentPageManager {
 
       final appDir = await getApplicationDocumentsDirectory();
       if (!_isValidDocumentDirectory(doc, appDir)) {
-        logger.e('Attempt to access directory outside app boundaries: ${doc.path}');
+        logger.e(
+          'Attempt to access directory outside app boundaries: ${doc.path}',
+        );
         return null;
       }
 
@@ -286,11 +308,16 @@ class DocumentPageManager {
       pages.add(newPage);
       await _savePages(doc, pages);
 
-      logger.i('Created new nested page: ${newPage.title} (${newPage.id}) under parent $parentPageId');
+      logger.i(
+        'Created new nested page: ${newPage.title} (${newPage.id}) under parent $parentPageId',
+      );
       return newPage;
     } catch (e, stackTrace) {
-      logger.e('Failed to create nested page: $title',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to create nested page: $title',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return null;
     }
   }
@@ -316,7 +343,9 @@ class DocumentPageManager {
 
       final appDir = await getApplicationDocumentsDirectory();
       if (!_isValidDocumentDirectory(doc, appDir)) {
-        logger.e('Attempt to access directory outside app boundaries: ${doc.path}');
+        logger.e(
+          'Attempt to access directory outside app boundaries: ${doc.path}',
+        );
         return null;
       }
 
@@ -350,8 +379,11 @@ class DocumentPageManager {
       logger.i('Created new tab page: ${newPage.title} (${newPage.id})');
       return newPage;
     } catch (e, stackTrace) {
-      logger.e('Failed to create tab page: $title',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to create tab page: $title',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return null;
     }
   }
@@ -372,7 +404,10 @@ class DocumentPageManager {
   /// - The parent page doesn't exist
   /// - An error occurs
   Future<DocumentPage?> createNestedTabPage(
-      Directory doc, String title, String parentPageId) async {
+    Directory doc,
+    String title,
+    String parentPageId,
+  ) async {
     try {
       if (kIsWeb) {
         logger.w('Page creation not supported on web');
@@ -381,7 +416,9 @@ class DocumentPageManager {
 
       final appDir = await getApplicationDocumentsDirectory();
       if (!_isValidDocumentDirectory(doc, appDir)) {
-        logger.e('Attempt to access directory outside app boundaries: ${doc.path}');
+        logger.e(
+          'Attempt to access directory outside app boundaries: ${doc.path}',
+        );
         return null;
       }
 
@@ -418,11 +455,16 @@ class DocumentPageManager {
       pages.add(newPage);
       await _savePages(doc, pages);
 
-      logger.i('Created new nested tab page: ${newPage.title} (${newPage.id}) under parent $parentPageId');
+      logger.i(
+        'Created new nested tab page: ${newPage.title} (${newPage.id}) under parent $parentPageId',
+      );
       return newPage;
     } catch (e, stackTrace) {
-      logger.e('Failed to create nested tab page: $title',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to create nested tab page: $title',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return null;
     }
   }
@@ -450,7 +492,9 @@ class DocumentPageManager {
 
       final appDir = await getApplicationDocumentsDirectory();
       if (!_isValidDocumentDirectory(doc, appDir)) {
-        logger.e('Attempt to access directory outside app boundaries: ${doc.path}');
+        logger.e(
+          'Attempt to access directory outside app boundaries: ${doc.path}',
+        );
         return false;
       }
 
@@ -464,8 +508,9 @@ class DocumentPageManager {
       }
 
       // Delete page database file and all its data
-      final pageDb =
-          File('${doc.path}/${PageConstants.getPageFileName(pageId)}');
+      final pageDb = File(
+        '${doc.path}/${PageConstants.getPageFileName(pageId)}',
+      );
       if (await pageDb.exists()) {
         try {
           // Close any open database connections by opening and closing
@@ -476,13 +521,19 @@ class DocumentPageManager {
           await pageDb.delete();
           logger.i('Deleted page database file: ${pageDb.path}');
         } catch (e, stackTrace) {
-          logger.e('Failed to delete page database file: ${pageDb.path}',
-              error: e, stackTrace: stackTrace);
+          logger.e(
+            'Failed to delete page database file: ${pageDb.path}',
+            error: e,
+            stackTrace: stackTrace,
+          );
           // Try to delete anyway even if closing failed
           try {
             await pageDb.delete();
           } catch (deleteError) {
-            logger.e('Failed to force delete database file', error: deleteError);
+            logger.e(
+              'Failed to force delete database file',
+              error: deleteError,
+            );
             return false;
           }
         }
@@ -504,8 +555,11 @@ class DocumentPageManager {
       logger.i('Successfully deleted page: $pageId');
       return true;
     } catch (e, stackTrace) {
-      logger.e('Failed to delete page: $pageId',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to delete page: $pageId',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return false;
     }
   }
@@ -527,7 +581,10 @@ class DocumentPageManager {
   /// - The page doesn't exist
   /// - An error occurs
   Future<bool> updatePageTitle(
-      Directory doc, String pageId, String newTitle) async {
+    Directory doc,
+    String pageId,
+    String newTitle,
+  ) async {
     try {
       if (kIsWeb) {
         logger.w('Page update not supported on web');
@@ -536,7 +593,9 @@ class DocumentPageManager {
 
       final appDir = await getApplicationDocumentsDirectory();
       if (!_isValidDocumentDirectory(doc, appDir)) {
-        logger.e('Attempt to access directory outside app boundaries: ${doc.path}');
+        logger.e(
+          'Attempt to access directory outside app boundaries: ${doc.path}',
+        );
         return false;
       }
 
@@ -564,11 +623,16 @@ class DocumentPageManager {
         await _updateOrCreateFirstHeaderBlock(doc, pageId, trimmedTitle);
       }
 
-      logger.i('Updated page title: $pageId -> ${trimmedTitle.isEmpty ? "(untitled)" : trimmedTitle}');
+      logger.i(
+        'Updated page title: $pageId -> ${trimmedTitle.isEmpty ? "(untitled)" : trimmedTitle}',
+      );
       return true;
     } catch (e, stackTrace) {
-      logger.e('Failed to update page title: $pageId',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to update page title: $pageId',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return false;
     }
   }
@@ -594,7 +658,10 @@ class DocumentPageManager {
   /// - The page doesn't exist
   /// - An error occurs
   Future<bool> updateTabTitleOnly(
-      Directory doc, String pageId, String newTabName) async {
+    Directory doc,
+    String pageId,
+    String newTabName,
+  ) async {
     try {
       if (kIsWeb) {
         logger.w('Page update not supported on web');
@@ -603,7 +670,9 @@ class DocumentPageManager {
 
       final appDir = await getApplicationDocumentsDirectory();
       if (!_isValidDocumentDirectory(doc, appDir)) {
-        logger.e('Attempt to access directory outside app boundaries: ${doc.path}');
+        logger.e(
+          'Attempt to access directory outside app boundaries: ${doc.path}',
+        );
         return false;
       }
 
@@ -629,11 +698,16 @@ class DocumentPageManager {
       // Save updated pages list
       await _savePages(doc, pages);
 
-      logger.i('Updated tab display name only: $pageId -> ${trimmedTabName.isEmpty ? "(default)" : trimmedTabName}');
+      logger.i(
+        'Updated tab display name only: $pageId -> ${trimmedTabName.isEmpty ? "(default)" : trimmedTabName}',
+      );
       return true;
     } catch (e, stackTrace) {
-      logger.e('Failed to update tab display name: $pageId',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to update tab display name: $pageId',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return false;
     }
   }
@@ -648,7 +722,10 @@ class DocumentPageManager {
   /// If a header block exists at position 0, it updates its content.
   /// If no header block exists at position 0, it inserts one at the beginning.
   Future<void> _updateOrCreateFirstHeaderBlock(
-      Directory doc, String pageId, String title) async {
+    Directory doc,
+    String pageId,
+    String title,
+  ) async {
     try {
       final pageDbPath = '${doc.path}/${PageConstants.getPageFileName(pageId)}';
       final pageDb = File(pageDbPath);
@@ -668,20 +745,21 @@ class DocumentPageManager {
       // Check if there's already a header block at position 0
       if (results.isNotEmpty) {
         final firstBlock = results.first;
-        final firstBlockType = firstBlock[BlockConstants.blockTypeKey] as String? ?? 'paragraph';
+        final firstBlockType =
+            firstBlock[BlockConstants.blockTypeKey] as String? ?? 'paragraph';
 
         if (BlockTypeExtension.fromJson(firstBlockType) == BlockType.header &&
             (firstBlock[BlockConstants.positionKey] as int? ?? 0) == 0) {
           // Update the existing header block content
           final blockId = firstBlock[BlockConstants.idKey];
-          
+
           await db.update(
             BlockConstants.tableName,
             {BlockConstants.contentKey: _createHeaderBlockContent(title)},
             where: '${BlockConstants.idKey} = ?',
             whereArgs: [blockId],
           );
-          
+
           logger.i('Updated first header block with title: $title');
         } else {
           // Shift all existing blocks down by 1
@@ -702,8 +780,11 @@ class DocumentPageManager {
 
       await _databaseManager.closeDatabase(db);
     } catch (e, stackTrace) {
-      logger.e('Failed to update/create first header block',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to update/create first header block',
+        error: e,
+        stackTrace: stackTrace,
+      );
     }
   }
 
@@ -732,7 +813,10 @@ class DocumentPageManager {
   /// - The page doesn't exist
   /// - An error occurs
   Future<bool> updatePageIcon(
-      Directory doc, String pageId, String? iconName) async {
+    Directory doc,
+    String pageId,
+    String? iconName,
+  ) async {
     try {
       if (kIsWeb) {
         logger.w('Page update not supported on web');
@@ -741,7 +825,9 @@ class DocumentPageManager {
 
       final appDir = await getApplicationDocumentsDirectory();
       if (!_isValidDocumentDirectory(doc, appDir)) {
-        logger.e('Attempt to access directory outside app boundaries: ${doc.path}');
+        logger.e(
+          'Attempt to access directory outside app boundaries: ${doc.path}',
+        );
         return false;
       }
 
@@ -768,8 +854,11 @@ class DocumentPageManager {
       logger.i('Updated page icon: $pageId -> ${iconName ?? 'none'}');
       return true;
     } catch (e, stackTrace) {
-      logger.e('Failed to update page icon: $pageId',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to update page icon: $pageId',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return false;
     }
   }
@@ -796,12 +885,13 @@ class DocumentPageManager {
 
       final appDir = await getApplicationDocumentsDirectory();
       if (!_isValidDocumentDirectory(doc, appDir)) {
-        logger.e('Attempt to access directory outside app boundaries: ${doc.path}');
+        logger.e(
+          'Attempt to access directory outside app boundaries: ${doc.path}',
+        );
         return [];
       }
 
-      final pageDbPath =
-          '${doc.path}/${PageConstants.getPageFileName(pageId)}';
+      final pageDbPath = '${doc.path}/${PageConstants.getPageFileName(pageId)}';
       final pageDb = File(pageDbPath);
       if (!await pageDb.exists()) {
         logger.w('Page database not found: $pageDbPath');
@@ -809,19 +899,26 @@ class DocumentPageManager {
       }
 
       final db = await _databaseManager.openPageDatabase(pageDbPath);
-      final results = await db.query(BlockConstants.tableName,
-          orderBy: BlockConstants.positionKey);
+      final results = await db.query(
+        BlockConstants.tableName,
+        orderBy: BlockConstants.positionKey,
+      );
       await _databaseManager.closeDatabase(db);
 
       final blocks = results.map((row) {
         return Block.fromDatabaseMap(Map<String, dynamic>.from(row));
       }).toList();
 
-      logger.i('Retrieved ${blocks.length} blocks for page $pageId in: ${doc.path}');
+      logger.i(
+        'Retrieved ${blocks.length} blocks for page $pageId in: ${doc.path}',
+      );
       return blocks;
     } catch (e, stackTrace) {
-      logger.e('Failed to retrieve blocks for page $pageId: ${doc.path}',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to retrieve blocks for page $pageId: ${doc.path}',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return [];
     }
   }
@@ -840,7 +937,10 @@ class DocumentPageManager {
   /// - The directory is invalid
   /// - An error occurs
   Future<bool> savePageBlocks(
-      Directory doc, String pageId, List<Block> blocks) async {
+    Directory doc,
+    String pageId,
+    List<Block> blocks,
+  ) async {
     try {
       if (kIsWeb) {
         logger.w('Block saving not supported on web');
@@ -849,12 +949,13 @@ class DocumentPageManager {
 
       final appDir = await getApplicationDocumentsDirectory();
       if (!_isValidDocumentDirectory(doc, appDir)) {
-        logger.e('Attempt to access directory outside app boundaries: ${doc.path}');
+        logger.e(
+          'Attempt to access directory outside app boundaries: ${doc.path}',
+        );
         return false;
       }
 
-      final pageDbPath =
-          '${doc.path}/${PageConstants.getPageFileName(pageId)}';
+      final pageDbPath = '${doc.path}/${PageConstants.getPageFileName(pageId)}';
       final db = await _databaseManager.openPageDatabase(pageDbPath);
 
       await db.delete(BlockConstants.tableName);
@@ -868,11 +969,16 @@ class DocumentPageManager {
       }
       await _databaseManager.closeDatabase(db);
 
-      logger.i('Saved ${blocks.length} blocks for page $pageId in: ${doc.path}');
+      logger.i(
+        'Saved ${blocks.length} blocks for page $pageId in: ${doc.path}',
+      );
       return true;
     } catch (e, stackTrace) {
-      logger.e('Failed to save blocks for page $pageId: ${doc.path}',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to save blocks for page $pageId: ${doc.path}',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return false;
     }
   }

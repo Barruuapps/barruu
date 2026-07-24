@@ -1,4 +1,3 @@
-
 import 'package:barruu/features/workspace/data/repositories/workspace_repository_impl.dart';
 import 'package:barruu/features/workspace/domain/entities/block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/blocks/writer/paragraph_template_selector.dart';
@@ -31,13 +30,13 @@ class ParagraphControls extends ConsumerWidget {
       // Insert the markdown link at cursor position
       final currentText = textController!.text;
       final selection = textController!.selection;
-      
+
       final newText = currentText.replaceRange(
         selection.start,
         selection.end,
         result,
       );
-      
+
       textController!.value = TextEditingValue(
         text: newText,
         selection: TextSelection.collapsed(
@@ -65,12 +64,16 @@ class ParagraphControls extends ConsumerWidget {
               Navigator.of(context).pop();
             }
           } catch (e, stackTrace) {
-            logger.e('Failed to update paragraph template',
-                error: e, stackTrace: stackTrace);
+            logger.e(
+              'Failed to update paragraph template',
+              error: e,
+              stackTrace: stackTrace,
+            );
             if (context.mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                    content: Text('Error updating paragraph template: $e')),
+                  content: Text('Error updating paragraph template: $e'),
+                ),
               );
             }
           }
@@ -83,7 +86,7 @@ class ParagraphControls extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [

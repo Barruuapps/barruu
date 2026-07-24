@@ -108,8 +108,7 @@ class PdfExportService {
       final sanitized = documentTitle
           .replaceAll(RegExp(r'[^\w\s\-]'), '')
           .trim();
-      final fileName =
-          '${sanitized.isEmpty ? 'document' : sanitized}.pdf';
+      final fileName = '${sanitized.isEmpty ? 'document' : sanitized}.pdf';
       final pdfFile = File('${tempDir.path}/$fileName');
       await pdfFile.writeAsBytes(await pdf.save());
       logger.i('PDF exported to ${pdfFile.path}');
@@ -124,11 +123,7 @@ class PdfExportService {
   // Page header / footer
   // ---------------------------------------------------------------------------
 
-  pw.Widget _buildHeader(
-    pw.Context ctx,
-    String title,
-    pw.Font fontBold,
-  ) {
+  pw.Widget _buildHeader(pw.Context ctx, String title, pw.Font fontBold) {
     return pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
@@ -271,10 +266,7 @@ class PdfExportService {
     );
   }
 
-  pw.Widget _buildBlockquoteBlock(
-    Map<String, dynamic> content,
-    pw.Font font,
-  ) {
+  pw.Widget _buildBlockquoteBlock(Map<String, dynamic> content, pw.Font font) {
     final text = (content['content'] as String? ?? '').trim();
     final author = (content['author'] as String? ?? '').trim();
 
@@ -425,17 +417,21 @@ class PdfExportService {
   ) async {
     final caption = (content['caption'] as String? ?? '').trim();
     final rawImages = content['images'];
-    final images =
-        rawImages is List ? List<dynamic>.from(rawImages) : <dynamic>[];
+    final images = rawImages is List
+        ? List<dynamic>.from(rawImages)
+        : <dynamic>[];
 
     if (images.isEmpty) {
       return caption.isNotEmpty
-          ? pw.Text(caption,
+          ? pw.Text(
+              caption,
               style: pw.TextStyle(
-                  font: font,
-                  fontSize: 10,
-                  fontStyle: pw.FontStyle.italic,
-                  color: PdfColors.grey500))
+                font: font,
+                fontSize: 10,
+                fontStyle: pw.FontStyle.italic,
+                color: PdfColors.grey500,
+              ),
+            )
           : null;
     }
 
@@ -446,8 +442,7 @@ class PdfExportService {
 
     pw.ImageProvider? imageProvider;
     try {
-      if (imagePath.startsWith('http://') ||
-          imagePath.startsWith('https://')) {
+      if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
         imageProvider = await networkImage(imagePath);
       } else {
         // Resolve relative path against the document directory.
@@ -524,10 +519,11 @@ class PdfExportService {
               child: pw.Text(
                 caption,
                 style: pw.TextStyle(
-                    font: font,
-                    fontSize: 10,
-                    fontStyle: pw.FontStyle.italic,
-                    color: PdfColors.blueGrey500),
+                  font: font,
+                  fontSize: 10,
+                  fontStyle: pw.FontStyle.italic,
+                  color: PdfColors.blueGrey500,
+                ),
               ),
             ),
         ],
@@ -544,16 +540,21 @@ class PdfExportService {
     final rawRows = content['rows'];
     final rows = rawRows is List
         ? rawRows
-            .map((r) =>
-                r is List ? r.map((c) => c.toString()).toList() : <String>[])
-            .toList()
+              .map(
+                (r) => r is List
+                    ? r.map((c) => c.toString()).toList()
+                    : <String>[],
+              )
+              .toList()
         : <List<String>>[];
 
     if (rows.isEmpty) return pw.SizedBox();
 
     // Determine column count.
-    final colCount =
-        rows.fold<int>(0, (max, r) => r.length > max ? r.length : max);
+    final colCount = rows.fold<int>(
+      0,
+      (max, r) => r.length > max ? r.length : max,
+    );
     if (colCount == 0) return pw.SizedBox();
 
     final tableRows = rows.asMap().entries.map((entry) {
@@ -564,8 +565,7 @@ class PdfExportService {
             ? const pw.BoxDecoration(color: PdfColors.blueGrey100)
             : null,
         children: List.generate(colCount, (ci) {
-          final cellText =
-              ci < cells.length ? cells[ci] : '';
+          final cellText = ci < cells.length ? cells[ci] : '';
           return pw.Padding(
             padding: const pw.EdgeInsets.all(6),
             child: pw.Text(
@@ -588,29 +588,24 @@ class PdfExportService {
             padding: const pw.EdgeInsets.only(bottom: 4),
             child: pw.Text(
               header,
-              style: pw.TextStyle(
-                  font: fontBold, fontSize: 12),
+              style: pw.TextStyle(font: fontBold, fontSize: 12),
             ),
           ),
         pw.Table(
-          border: pw.TableBorder.all(
-              color: PdfColors.blueGrey200, width: 0.5),
+          border: pw.TableBorder.all(color: PdfColors.blueGrey200, width: 0.5),
           children: tableRows,
         ),
       ],
     );
   }
 
-  pw.Widget _buildCheckboxBlock(
-    Map<String, dynamic> content,
-    pw.Font font,
-  ) {
+  pw.Widget _buildCheckboxBlock(Map<String, dynamic> content, pw.Font font) {
     final header = (content['header'] as String? ?? '').trim();
     final rawItems = content['items'];
     final items = rawItems is List
         ? rawItems
-            .map((e) => e is Map<String, dynamic> ? e : <String, dynamic>{})
-            .toList()
+              .map((e) => e is Map<String, dynamic> ? e : <String, dynamic>{})
+              .toList()
         : <Map<String, dynamic>>[];
 
     if (items.isEmpty && header.isEmpty) return pw.SizedBox();
@@ -624,43 +619,39 @@ class PdfExportService {
             child: pw.Text(
               header,
               style: pw.TextStyle(
-                  font: font,
-                  fontSize: 12,
-                  fontWeight: pw.FontWeight.bold),
+                font: font,
+                fontSize: 12,
+                fontWeight: pw.FontWeight.bold,
+              ),
             ),
           ),
         ...items.map((item) {
           final checked = item['checked'] as bool? ?? false;
-          final label = (item['label'] as String? ??
-                  item['text'] as String? ??
-                  '')
-              .trim();
+          final label =
+              (item['label'] as String? ?? item['text'] as String? ?? '')
+                  .trim();
           return pw.Padding(
-            padding:
-                const pw.EdgeInsets.only(left: 8, bottom: 3),
+            padding: const pw.EdgeInsets.only(left: 8, bottom: 3),
             child: pw.Row(
               crossAxisAlignment: pw.CrossAxisAlignment.center,
               children: [
                 pw.Container(
                   width: 12,
                   height: 12,
-                  margin:
-                      const pw.EdgeInsets.only(right: 6),
+                  margin: const pw.EdgeInsets.only(right: 6),
                   decoration: pw.BoxDecoration(
-                    border:
-                        pw.Border.all(color: PdfColors.blueGrey400),
-                    color: checked
-                        ? PdfColors.blue600
-                        : PdfColors.white,
+                    border: pw.Border.all(color: PdfColors.blueGrey400),
+                    color: checked ? PdfColors.blue600 : PdfColors.white,
                   ),
                   child: checked
                       ? pw.Center(
                           child: pw.Text(
                             '✓',
                             style: pw.TextStyle(
-                                font: font,
-                                fontSize: 8,
-                                color: PdfColors.white),
+                              font: font,
+                              fontSize: 8,
+                              color: PdfColors.white,
+                            ),
                           ),
                         )
                       : null,
@@ -679,10 +670,7 @@ class PdfExportService {
     );
   }
 
-  pw.Widget _buildChatBlock(
-    Map<String, dynamic> content,
-    pw.Font font,
-  ) {
+  pw.Widget _buildChatBlock(Map<String, dynamic> content, pw.Font font) {
     final message = (content['message'] as String? ?? '').trim();
     final profile = (content['profileName'] as String? ?? '').trim();
     if (message.isEmpty) return pw.SizedBox();
@@ -702,14 +690,14 @@ class PdfExportService {
               child: pw.Text(
                 profile,
                 style: pw.TextStyle(
-                    font: font,
-                    fontSize: 10,
-                    fontWeight: pw.FontWeight.bold,
-                    color: PdfColors.blue800),
+                  font: font,
+                  fontSize: 10,
+                  fontWeight: pw.FontWeight.bold,
+                  color: PdfColors.blue800,
+                ),
               ),
             ),
-          pw.Text(message,
-              style: pw.TextStyle(font: font, fontSize: 11)),
+          pw.Text(message, style: pw.TextStyle(font: font, fontSize: 11)),
         ],
       ),
     );
@@ -731,10 +719,7 @@ class PdfExportService {
         borderRadius: const pw.BorderRadius.all(pw.Radius.circular(6)),
         color: PdfColors.blueGrey50,
       ),
-      child: pw.Text(
-        text,
-        style: pw.TextStyle(font: font, fontSize: 12),
-      ),
+      child: pw.Text(text, style: pw.TextStyle(font: font, fontSize: 12)),
     );
   }
 }

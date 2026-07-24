@@ -141,7 +141,11 @@ class _CommandPaletteState extends State<CommandPalette> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   _buildSearchInput(theme),
-                  Divider(height: 1, thickness: 1, color: theme.colorScheme.outlineVariant),
+                  Divider(
+                    height: 1,
+                    thickness: 1,
+                    color: theme.colorScheme.outlineVariant,
+                  ),
                   Flexible(
                     child: filtered.isEmpty
                         ? _buildEmptyState(theme)
@@ -167,8 +171,11 @@ class _CommandPaletteState extends State<CommandPalette> {
       ),
       child: Row(
         children: [
-          Icon(Icons.search_rounded,
-              size: DesignTokens.iconCompact, color: theme.colorScheme.onSurfaceVariant),
+          Icon(
+            Icons.search_rounded,
+            size: DesignTokens.iconCompact,
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
           const SizedBox(width: DesignTokens.spacing12),
           Expanded(
             child: TextField(
@@ -183,8 +190,9 @@ class _CommandPaletteState extends State<CommandPalette> {
               decoration: InputDecoration(
                 hintText: widget.searchPlaceholder,
                 border: InputBorder.none,
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: DesignTokens.spacing12),
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: DesignTokens.spacing12,
+                ),
                 hintStyle: theme.textTheme.bodyLarge?.copyWith(
                   color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                 ),
@@ -204,9 +212,12 @@ class _CommandPaletteState extends State<CommandPalette> {
               borderRadius: BorderRadius.circular(DesignTokens.radiusSmall),
               border: Border.all(color: theme.colorScheme.outlineVariant),
             ),
-            child: Text('esc',
-                style: theme.textTheme.labelSmall
-                    ?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
+            child: Text(
+              'esc',
+              style: theme.textTheme.labelSmall?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
           ),
           const SizedBox(width: DesignTokens.spacing4),
         ],
@@ -220,14 +231,19 @@ class _CommandPaletteState extends State<CommandPalette> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.search_off_rounded,
-              size: DesignTokens.icon3XLarge,
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.6)),
+          Icon(
+            Icons.search_off_rounded,
+            size: DesignTokens.icon3XLarge,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+          ),
           const SizedBox(height: DesignTokens.spacing16),
-          Text('No commands found',
-              style: theme.textTheme.titleMedium?.copyWith(
-                  color: theme.colorScheme.onSurface,
-                  fontWeight: DesignTokens.weightSemiBold)),
+          Text(
+            'No commands found',
+            style: theme.textTheme.titleMedium?.copyWith(
+              color: theme.colorScheme.onSurface,
+              fontWeight: DesignTokens.weightSemiBold,
+            ),
+          ),
         ],
       ),
     );
@@ -259,7 +275,9 @@ class _CommandPaletteState extends State<CommandPalette> {
       ),
       decoration: BoxDecoration(
         color: theme.colorScheme.surfaceContainerLowest,
-        border: Border(top: BorderSide(color: theme.colorScheme.outlineVariant)),
+        border: Border(
+          top: BorderSide(color: theme.colorScheme.outlineVariant),
+        ),
       ),
       child: Row(
         children: [
@@ -267,9 +285,12 @@ class _CommandPaletteState extends State<CommandPalette> {
           const SizedBox(width: DesignTokens.spacing12),
           _buildKeyHint(theme, '\u21B5', 'Open'),
           const Spacer(),
-          Text('$totalCount command${totalCount == 1 ? '' : 's'}',
-              style: theme.textTheme.labelSmall
-                  ?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
+          Text(
+            '$totalCount command${totalCount == 1 ? '' : 's'}',
+            style: theme.textTheme.labelSmall?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
         ],
       ),
     );
@@ -289,15 +310,21 @@ class _CommandPaletteState extends State<CommandPalette> {
             borderRadius: BorderRadius.circular(DesignTokens.radiusSmall),
             border: Border.all(color: theme.colorScheme.outlineVariant),
           ),
-          child: Text(key,
-              style: theme.textTheme.labelSmall?.copyWith(
-                  fontWeight: DesignTokens.weightSemiBold,
-                  color: theme.colorScheme.onSurface)),
+          child: Text(
+            key,
+            style: theme.textTheme.labelSmall?.copyWith(
+              fontWeight: DesignTokens.weightSemiBold,
+              color: theme.colorScheme.onSurface,
+            ),
+          ),
         ),
         const SizedBox(width: DesignTokens.spacing8),
-        Text(label,
-            style: theme.textTheme.labelSmall
-                ?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
+        Text(
+          label,
+          style: theme.textTheme.labelSmall?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+        ),
       ],
     );
   }
@@ -349,13 +376,17 @@ class _CommandResultTile extends StatelessWidget {
                       color: isSelected
                           ? theme.colorScheme.primaryContainer
                           : theme.colorScheme.surfaceContainerHighest,
-                      borderRadius: BorderRadius.circular(DesignTokens.radiusMedium),
+                      borderRadius: BorderRadius.circular(
+                        DesignTokens.radiusMedium,
+                      ),
                     ),
-                    child: Icon(command.icon,
-                        size: DesignTokens.iconCompact,
-                        color: isSelected
-                            ? theme.colorScheme.primary
-                            : theme.colorScheme.onSurfaceVariant),
+                    child: Icon(
+                      command.icon,
+                      size: DesignTokens.iconCompact,
+                      color: isSelected
+                          ? theme.colorScheme.primary
+                          : theme.colorScheme.onSurfaceVariant,
+                    ),
                   ),
                   const SizedBox(width: DesignTokens.spacing12),
                   Expanded(
@@ -363,20 +394,27 @@ class _CommandResultTile extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(command.title,
-                            style: theme.textTheme.titleSmall?.copyWith(
-                                fontWeight: isSelected
-                                    ? DesignTokens.weightSemiBold
-                                    : DesignTokens.weightMedium,
-                                color: theme.colorScheme.onSurface)),
+                        Text(
+                          command.title,
+                          style: theme.textTheme.titleSmall?.copyWith(
+                            fontWeight: isSelected
+                                ? DesignTokens.weightSemiBold
+                                : DesignTokens.weightMedium,
+                            color: theme.colorScheme.onSurface,
+                          ),
+                        ),
                         if (command.subtitle != null) ...[
                           const SizedBox(height: DesignTokens.spacing4),
-                          Text(command.subtitle!,
-                              style: theme.textTheme.bodySmall?.copyWith(
-                                  color: theme.colorScheme.onSurface
-                                      .withValues(alpha: 0.6)),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis),
+                          Text(
+                            command.subtitle!,
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: theme.colorScheme.onSurface.withValues(
+                                alpha: 0.6,
+                              ),
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ],
                       ],
                     ),
@@ -389,13 +427,20 @@ class _CommandResultTile extends StatelessWidget {
                       ),
                       decoration: BoxDecoration(
                         color: theme.colorScheme.surfaceContainerHighest,
-                        borderRadius: BorderRadius.circular(DesignTokens.radiusSmall),
-                        border: Border.all(color: theme.colorScheme.outlineVariant),
+                        borderRadius: BorderRadius.circular(
+                          DesignTokens.radiusSmall,
+                        ),
+                        border: Border.all(
+                          color: theme.colorScheme.outlineVariant,
+                        ),
                       ),
-                      child: Text(command.shortcutLabel!,
-                          style: theme.textTheme.labelSmall?.copyWith(
-                              fontWeight: DesignTokens.weightSemiBold,
-                              color: theme.colorScheme.onSurfaceVariant)),
+                      child: Text(
+                        command.shortcutLabel!,
+                        style: theme.textTheme.labelSmall?.copyWith(
+                          fontWeight: DesignTokens.weightSemiBold,
+                          color: theme.colorScheme.onSurfaceVariant,
+                        ),
+                      ),
                     ),
                 ],
               ),

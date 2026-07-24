@@ -38,7 +38,7 @@ class _HeaderBlockState extends BaseEditableBlockState<HeaderBlock> {
   void initializeBlockSpecifics() {
     _textController = TextEditingController(text: content['content'] ?? '');
     _saveDebouncer = Debouncer(delay: const Duration(milliseconds: 500));
-    
+
     // Additional scale animation for headers
     _scaleAnimation = Tween<double>(begin: 0.95, end: 1.0).animate(
       CurvedAnimation(parent: animationController, curve: Curves.easeOutBack),
@@ -69,7 +69,10 @@ class _HeaderBlockState extends BaseEditableBlockState<HeaderBlock> {
     final color = parsedColor ?? theme.colorScheme.onSurface;
     final textAlign = styleUtils.textAlignFromStyle(widget.block.style);
     final lineHeight = ResponsiveUtils.getLineHeight(context, baseHeight: 1.3);
-    final letterSpacing = ResponsiveUtils.getLetterSpacing(context, baseSpacing: 0.3);
+    final letterSpacing = ResponsiveUtils.getLetterSpacing(
+      context,
+      baseSpacing: 0.3,
+    );
     final textMultiplier = ResponsiveUtils.getTextSizeMultiplier(context);
     final alignment = textAlign == TextAlign.center
         ? Alignment.center
@@ -84,13 +87,15 @@ class _HeaderBlockState extends BaseEditableBlockState<HeaderBlock> {
         controller: _textController,
         focusNode: _focusNode,
         maxLines: null,
-        style: styleUtils.applyStyle(widget.block.style).copyWith(
-          fontSize: fontSize * textMultiplier,
-          fontWeight: FontWeight.bold,
-          color: color,
-          letterSpacing: letterSpacing,
-          height: lineHeight,
-        ),
+        style: styleUtils
+            .applyStyle(widget.block.style)
+            .copyWith(
+              fontSize: fontSize * textMultiplier,
+              fontWeight: FontWeight.bold,
+              color: color,
+              letterSpacing: letterSpacing,
+              height: lineHeight,
+            ),
         textAlign: textAlign,
         decoration: InputDecoration(
           border: InputBorder.none,
@@ -116,15 +121,20 @@ class _HeaderBlockState extends BaseEditableBlockState<HeaderBlock> {
     ThemeData theme,
   ) {
     final headerStyle = widget.block.style.headerStyle ?? 'normal';
-    final parsedBorderColor = styleUtils.parseHex(widget.block.style.borderColor);
+    final parsedBorderColor = styleUtils.parseHex(
+      widget.block.style.borderColor,
+    );
     final borderColor = parsedBorderColor ?? theme.colorScheme.primary;
     final borderWidth = widget.block.style.borderWidth;
-    
+
     final isWide = MediaQuery.of(context).size.width > 600;
     final isDesktop = ResponsiveUtils.isDesktop(context);
     final horizontalPadding = isDesktop ? 20.0 : (isWide ? 12.0 : 0.0);
     final verticalPadding = isDesktop ? 12.0 : (isWide ? 8.0 : 6.0);
-    final padding = EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding);
+    final padding = EdgeInsets.symmetric(
+      horizontal: horizontalPadding,
+      vertical: verticalPadding,
+    );
     final verticalMargin = ResponsiveUtils.getBlockSpacing(context);
     final margin = EdgeInsets.symmetric(vertical: verticalMargin);
     const maxWidth = double.infinity;
@@ -255,14 +265,24 @@ class _HeaderBlockState extends BaseEditableBlockState<HeaderBlock> {
               colors: () {
                 try {
                   return widget.block.style.gradientColors
-                      ?.map((hex) => styleUtils.parseHex(hex) ?? borderColor)
-                      .toList() ??
+                          ?.map(
+                            (hex) => styleUtils.parseHex(hex) ?? borderColor,
+                          )
+                          .toList() ??
                       [
-                        theme.colorScheme.primaryContainer.withValues(alpha: 0.6),
-                        theme.colorScheme.secondaryContainer.withValues(alpha: 0.1),
+                        theme.colorScheme.primaryContainer.withValues(
+                          alpha: 0.6,
+                        ),
+                        theme.colorScheme.secondaryContainer.withValues(
+                          alpha: 0.1,
+                        ),
                       ];
                 } catch (e, stackTrace) {
-                  logger.e('Failed to parse gradient colors', error: e, stackTrace: stackTrace);
+                  logger.e(
+                    'Failed to parse gradient colors',
+                    error: e,
+                    stackTrace: stackTrace,
+                  );
                   return [
                     theme.colorScheme.primaryContainer.withValues(alpha: 0.6),
                     theme.colorScheme.secondaryContainer.withValues(alpha: 0.1),
@@ -272,15 +292,9 @@ class _HeaderBlockState extends BaseEditableBlockState<HeaderBlock> {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            border: Border.all(
-              color: borderColor,
-              width: borderWidth,
-            ),
+            border: Border.all(color: borderColor, width: borderWidth),
           ),
-          child: SizedBox(
-            width: maxWidth,
-            child: headerTextWidget,
-          ),
+          child: SizedBox(width: maxWidth, child: headerTextWidget),
         );
       case 'featured':
         return Container(
@@ -297,9 +311,7 @@ class _HeaderBlockState extends BaseEditableBlockState<HeaderBlock> {
                 theme.colorScheme.tertiary.withValues(alpha: 0.15),
               ],
             ),
-            border: Border(
-              left: BorderSide(color: borderColor, width: 4),
-            ),
+            border: Border(left: BorderSide(color: borderColor, width: 4)),
           ),
           child: headerTextWidget,
         );
@@ -309,7 +321,9 @@ class _HeaderBlockState extends BaseEditableBlockState<HeaderBlock> {
           padding: padding,
           margin: margin,
           decoration: BoxDecoration(
-            color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+            color: theme.colorScheme.surfaceContainerHighest.withValues(
+              alpha: 0.5,
+            ),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
@@ -330,16 +344,16 @@ class _HeaderBlockState extends BaseEditableBlockState<HeaderBlock> {
       case 'hero':
         return Container(
           constraints: const BoxConstraints(),
-          padding: padding.copyWith(top: verticalPadding * 1.5, bottom: verticalPadding * 1.5),
+          padding: padding.copyWith(
+            top: verticalPadding * 1.5,
+            bottom: verticalPadding * 1.5,
+          ),
           margin: margin,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [
-                theme.colorScheme.primary,
-                theme.colorScheme.secondary,
-              ],
+              colors: [theme.colorScheme.primary, theme.colorScheme.secondary],
             ),
             borderRadius: BorderRadius.circular(8),
           ),
@@ -380,10 +394,7 @@ class _HeaderBlockState extends BaseEditableBlockState<HeaderBlock> {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [
-                      borderColor,
-                      theme.colorScheme.tertiary,
-                    ],
+                    colors: [borderColor, theme.colorScheme.tertiary],
                   ),
                   borderRadius: BorderRadius.circular(2),
                 ),
@@ -401,7 +412,10 @@ class _HeaderBlockState extends BaseEditableBlockState<HeaderBlock> {
           child: Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
                   color: borderColor,
                   borderRadius: BorderRadius.circular(6),
@@ -428,7 +442,9 @@ class _HeaderBlockState extends BaseEditableBlockState<HeaderBlock> {
               padding: padding.copyWith(left: horizontalPadding + 24),
               margin: margin.copyWith(top: verticalMargin + 12),
               decoration: BoxDecoration(
-                color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                color: theme.colorScheme.surfaceContainerHighest.withValues(
+                  alpha: 0.5,
+                ),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: headerTextWidget,
@@ -437,7 +453,10 @@ class _HeaderBlockState extends BaseEditableBlockState<HeaderBlock> {
               left: horizontalPadding,
               top: verticalMargin,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   color: borderColor,
                   borderRadius: const BorderRadius.only(
@@ -469,18 +488,11 @@ class _HeaderBlockState extends BaseEditableBlockState<HeaderBlock> {
           decoration: BoxDecoration(
             color: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: borderColor,
-              width: borderWidth,
-            ),
+            border: Border.all(color: borderColor, width: borderWidth),
           ),
           child: Row(
             children: [
-              Icon(
-                Icons.info_outline,
-                color: borderColor,
-                size: 20,
-              ),
+              Icon(Icons.info_outline, color: borderColor, size: 20),
               const SizedBox(width: 10),
               Expanded(child: headerTextWidget),
             ],
@@ -507,7 +519,12 @@ class _HeaderBlockState extends BaseEditableBlockState<HeaderBlock> {
     final theme = Theme.of(context);
 
     final headerTextWidget = _buildHeaderTextField(context, styleUtils, theme);
-    final contentWidget = _buildStyledContent(context, headerTextWidget, styleUtils, theme);
+    final contentWidget = _buildStyledContent(
+      context,
+      headerTextWidget,
+      styleUtils,
+      theme,
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -16,26 +16,66 @@ import 'package:image_picker/image_picker.dart';
 
 /// Template type for document creation
 enum DocTemplate {
-  blank('Blank Document', IconsaxPlusLinear.document_text,
-      'A clean slate to start from scratch', 'Start with an empty page'),
-  meetingNotes('Meeting Notes', IconsaxPlusLinear.calendar_2,
-      'Structured meeting notes with agenda', 'Capture decisions and action items'),
-  lectureNotes('Lecture Notes', IconsaxPlusLinear.book,
-      'Organized study notes with highlights', 'Review and retain knowledge'),
-  book('Book', IconsaxPlusLinear.book_square,
-      'Long-form structured content', 'Write chapters and sections'),
-  research('Research', IconsaxPlusLinear.search_normal,
-      'References, methodology, findings', 'Academic and professional research'),
-  documentation('Documentation', IconsaxPlusLinear.code_1,
-      'Technical docs with code blocks', 'API docs, guides, references'),
-  course('Course', IconsaxPlusLinear.teacher,
-      'Interactive learning content', 'Lessons, quizzes, and exercises'),
-  journal('Journal', IconsaxPlusLinear.edit,
-      'Personal daily entries', 'Track thoughts and reflections'),
-  checklist('Checklist', IconsaxPlusLinear.task_square,
-      'Task lists with due dates', 'Manage projects and todos'),
-  kanban('Kanban', IconsaxPlusLinear.element_3,
-      'Visual board for workflows', 'Track progress visually');
+  blank(
+    'Blank Document',
+    IconsaxPlusLinear.document_text,
+    'A clean slate to start from scratch',
+    'Start with an empty page',
+  ),
+  meetingNotes(
+    'Meeting Notes',
+    IconsaxPlusLinear.calendar_2,
+    'Structured meeting notes with agenda',
+    'Capture decisions and action items',
+  ),
+  lectureNotes(
+    'Lecture Notes',
+    IconsaxPlusLinear.book,
+    'Organized study notes with highlights',
+    'Review and retain knowledge',
+  ),
+  book(
+    'Book',
+    IconsaxPlusLinear.book_square,
+    'Long-form structured content',
+    'Write chapters and sections',
+  ),
+  research(
+    'Research',
+    IconsaxPlusLinear.search_normal,
+    'References, methodology, findings',
+    'Academic and professional research',
+  ),
+  documentation(
+    'Documentation',
+    IconsaxPlusLinear.code_1,
+    'Technical docs with code blocks',
+    'API docs, guides, references',
+  ),
+  course(
+    'Course',
+    IconsaxPlusLinear.teacher,
+    'Interactive learning content',
+    'Lessons, quizzes, and exercises',
+  ),
+  journal(
+    'Journal',
+    IconsaxPlusLinear.edit,
+    'Personal daily entries',
+    'Track thoughts and reflections',
+  ),
+  checklist(
+    'Checklist',
+    IconsaxPlusLinear.task_square,
+    'Task lists with due dates',
+    'Manage projects and todos',
+  ),
+  kanban(
+    'Kanban',
+    IconsaxPlusLinear.element_3,
+    'Visual board for workflows',
+    'Track progress visually',
+  );
 
   const DocTemplate(this.label, this.icon, this.description, this.exampleUse);
   final String label;
@@ -167,9 +207,9 @@ class _CreateDocumentScreenState extends ConsumerState<CreateDocumentScreen> {
             Text(
               'Creating document...',
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
             ),
           ],
         ),
@@ -212,9 +252,12 @@ class _CreateDocumentScreenState extends ConsumerState<CreateDocumentScreen> {
     UIUtils.showSnackBar(context, message, isError: isError);
   }
 
-  Future<bool> _onWillPop() async {
-    if (!_isSubmitting) return true;
-    return await showDialog<bool>(
+  Future<void> _handlePopRequest() async {
+    if (!_isSubmitting) {
+      if (mounted) context.pop();
+      return;
+    }
+    final shouldPop = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
         shape: RoundedRectangleBorder(
@@ -222,7 +265,8 @@ class _CreateDocumentScreenState extends ConsumerState<CreateDocumentScreen> {
         ),
         title: const Text('Cancel Creation'),
         content: const Text(
-            'A document is being created. Are you sure you want to cancel?'),
+          'A document is being created. Are you sure you want to cancel?',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
@@ -234,8 +278,10 @@ class _CreateDocumentScreenState extends ConsumerState<CreateDocumentScreen> {
           ),
         ],
       ),
-    ) ??
-        false;
+    );
+    if (shouldPop == true && mounted) {
+      context.pop();
+    }
   }
 
   // ─── Build ────────────────────────────────────────────────────────────
@@ -243,8 +289,11 @@ class _CreateDocumentScreenState extends ConsumerState<CreateDocumentScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return WillPopScope(
-      onWillPop: _onWillPop,
+    return PopScope(
+      canPop: !_isSubmitting,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) _handlePopRequest();
+      },
       child: Scaffold(
         backgroundColor: theme.colorScheme.surfaceContainerLowest,
         appBar: _buildAppBar(theme),
@@ -310,8 +359,10 @@ class _CreateDocumentScreenState extends ConsumerState<CreateDocumentScreen> {
         ),
       ),
       leading: IconButton(
-        icon: Icon(IconsaxPlusLinear.arrow_left,
-            color: theme.colorScheme.primary),
+        icon: Icon(
+          IconsaxPlusLinear.arrow_left,
+          color: theme.colorScheme.primary,
+        ),
         onPressed: _isSubmitting ? null : () => context.pop(),
         tooltip: 'Back',
       ),
@@ -331,17 +382,11 @@ class _CreateDocumentScreenState extends ConsumerState<CreateDocumentScreen> {
             height: DesignTokens.icon3XLarge + 32,
             decoration: BoxDecoration(
               color: theme.colorScheme.surfaceContainerHighest,
-              borderRadius:
-                  BorderRadius.circular(DesignTokens.radius2XLarge),
-              border: Border.all(
-                color: theme.colorScheme.outlineVariant,
-              ),
+              borderRadius: BorderRadius.circular(DesignTokens.radius2XLarge),
+              border: Border.all(color: theme.colorScheme.outlineVariant),
             ),
             child: Center(
-              child: Text(
-                _emoji,
-                style: const TextStyle(fontSize: 40),
-              ),
+              child: Text(_emoji, style: const TextStyle(fontSize: 40)),
             ),
           ),
         ),
@@ -370,8 +415,9 @@ class _CreateDocumentScreenState extends ConsumerState<CreateDocumentScreen> {
             hintText: 'Untitled Document',
             hintStyle: theme.textTheme.headlineSmall?.copyWith(
               fontWeight: DesignTokens.weightBold,
-              color: theme.colorScheme.onSurface
-                  .withValues(alpha: DesignTokens.opacityInactive),
+              color: theme.colorScheme.onSurface.withValues(
+                alpha: DesignTokens.opacityInactive,
+              ),
             ),
             border: InputBorder.none,
             contentPadding: const EdgeInsets.symmetric(
@@ -393,8 +439,28 @@ class _CreateDocumentScreenState extends ConsumerState<CreateDocumentScreen> {
   }
 
   Widget _buildEmojiGrid(ThemeData theme) {
-    final emojis = ['📄', '📋', '📖', '📚', '🔬', '📘', '🎓', '📓', '✅', '📌',
-        '📝', '💡', '🎯', '🚀', '💻', '🎨', '📊', '🗂️', '✍️', '🧠'];
+    final emojis = [
+      '📄',
+      '📋',
+      '📖',
+      '📚',
+      '🔬',
+      '📘',
+      '🎓',
+      '📓',
+      '✅',
+      '📌',
+      '📝',
+      '💡',
+      '🎯',
+      '🚀',
+      '💻',
+      '🎨',
+      '📊',
+      '🗂️',
+      '✍️',
+      '🧠',
+    ];
     return Container(
       padding: const EdgeInsets.all(DesignTokens.spacing12),
       decoration: BoxDecoration(
@@ -420,8 +486,7 @@ class _CreateDocumentScreenState extends ConsumerState<CreateDocumentScreen> {
                 color: isSelected
                     ? theme.colorScheme.primaryContainer
                     : Colors.transparent,
-                borderRadius:
-                    BorderRadius.circular(DesignTokens.radiusMedium),
+                borderRadius: BorderRadius.circular(DesignTokens.radiusMedium),
               ),
               child: Text(e, style: const TextStyle(fontSize: 28)),
             ),
@@ -455,8 +520,7 @@ class _CreateDocumentScreenState extends ConsumerState<CreateDocumentScreen> {
                   fit: BoxFit.cover,
                   width: double.infinity,
                   height: double.infinity,
-                  errorBuilder: (_, __, ___) =>
-                      _coverPlaceholder(theme),
+                  errorBuilder: (_, __, ___) => _coverPlaceholder(theme),
                 )
               : _coverPlaceholder(theme),
         ),
@@ -486,8 +550,9 @@ class _CreateDocumentScreenState extends ConsumerState<CreateDocumentScreen> {
             child: Text(
               'Recommended: 1200×800px',
               style: theme.textTheme.labelSmall?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant
-                    .withValues(alpha: DesignTokens.opacitySubtle),
+                color: theme.colorScheme.onSurfaceVariant.withValues(
+                  alpha: DesignTokens.opacitySubtle,
+                ),
               ),
             ),
           ),
@@ -570,9 +635,7 @@ class _CreateDocumentScreenState extends ConsumerState<CreateDocumentScreen> {
                   color: c,
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: isSelected
-                        ? c
-                        : Colors.transparent,
+                    color: isSelected ? c : Colors.transparent,
                     width: 2,
                   ),
                   boxShadow: isSelected
@@ -581,14 +644,16 @@ class _CreateDocumentScreenState extends ConsumerState<CreateDocumentScreen> {
                             color: c.withValues(alpha: 0.4),
                             blurRadius: 8,
                             offset: const Offset(0, 2),
-                          )
+                          ),
                         ]
                       : null,
                 ),
                 child: isSelected
-                    ? const Icon(Icons.check_rounded,
+                    ? const Icon(
+                        Icons.check_rounded,
                         size: DesignTokens.iconSmall,
-                        color: Colors.white)
+                        color: Colors.white,
+                      )
                     : null,
               ),
             );
@@ -639,9 +704,7 @@ class _CreateDocumentScreenState extends ConsumerState<CreateDocumentScreen> {
     return FilledButton(
       onPressed: _isSubmitting ? null : _submitForm,
       style: FilledButton.styleFrom(
-        padding: const EdgeInsets.symmetric(
-          vertical: DesignTokens.spacing16,
-        ),
+        padding: const EdgeInsets.symmetric(vertical: DesignTokens.spacing16),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(DesignTokens.radiusLarge),
         ),
@@ -704,16 +767,15 @@ class _TemplateCardState extends State<_TemplateCard> {
             color: widget.isSelected
                 ? theme.colorScheme.primaryContainer.withValues(alpha: 0.3)
                 : _isHovered
-                    ? theme.colorScheme.surfaceContainerHigh
-                    : theme.colorScheme.surfaceContainer,
-            borderRadius:
-                BorderRadius.circular(DesignTokens.radiusXLarge),
+                ? theme.colorScheme.surfaceContainerHigh
+                : theme.colorScheme.surfaceContainer,
+            borderRadius: BorderRadius.circular(DesignTokens.radiusXLarge),
             border: Border.all(
               color: widget.isSelected
                   ? theme.colorScheme.primary
                   : _isHovered
-                      ? theme.colorScheme.outline
-                      : theme.colorScheme.outlineVariant,
+                  ? theme.colorScheme.outline
+                  : theme.colorScheme.outlineVariant,
               width: widget.isSelected ? 2.0 : 1.0,
             ),
             boxShadow: _isHovered
@@ -738,8 +800,9 @@ class _TemplateCardState extends State<_TemplateCard> {
                   color: widget.isSelected
                       ? theme.colorScheme.primaryContainer
                       : theme.colorScheme.surfaceContainerHighest,
-                  borderRadius:
-                      BorderRadius.circular(DesignTokens.radiusMedium),
+                  borderRadius: BorderRadius.circular(
+                    DesignTokens.radiusMedium,
+                  ),
                 ),
                 child: Icon(
                   widget.template.icon,
@@ -764,8 +827,9 @@ class _TemplateCardState extends State<_TemplateCard> {
                 child: Text(
                   widget.template.description,
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant
-                        .withValues(alpha: DesignTokens.opacitySubtle),
+                    color: theme.colorScheme.onSurfaceVariant.withValues(
+                      alpha: DesignTokens.opacitySubtle,
+                    ),
                     height: DesignTokens.lineHeightLabel,
                   ),
                   maxLines: 3,

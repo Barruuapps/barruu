@@ -20,13 +20,13 @@ import 'package:flutter/material.dart';
 class AudioAppearanceWidget extends StatelessWidget {
   /// Current width value (null means default)
   final double? width;
-  
+
   /// Current height value (null means default)
   final double? height;
-  
+
   /// Callback when width is changed
   final ValueChanged<double> onWidthChanged;
-  
+
   /// Callback when height is changed
   final ValueChanged<double> onHeightChanged;
 

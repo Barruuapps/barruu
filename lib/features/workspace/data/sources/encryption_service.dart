@@ -41,7 +41,11 @@ class EncryptionService {
   static List<String> get _envLegacyBipyKeys {
     final raw = dotenv.env['BARRUU_BIPY_LEGACY_KEYS'];
     if (raw == null || raw.trim().isEmpty) return [];
-    return raw.split(',').map((k) => k.trim()).where((k) => k.isNotEmpty).toList();
+    return raw
+        .split(',')
+        .map((k) => k.trim())
+        .where((k) => k.isNotEmpty)
+        .toList();
   }
 
   enc.Key? _cachedKey;
@@ -118,13 +122,19 @@ class EncryptionService {
     final encryptedBytes = Uint8List.fromList(encryptedData.sublist(16));
     try {
       final encrypter = enc.Encrypter(enc.AES(key, mode: enc.AESMode.cbc));
-      final decrypted = encrypter.decryptBytes(enc.Encrypted(encryptedBytes), iv: iv);
+      final decrypted = encrypter.decryptBytes(
+        enc.Encrypted(encryptedBytes),
+        iv: iv,
+      );
       logger.i('Decrypted ${encryptedData.length} bytes (CBC)');
       return decrypted;
     } catch (_) {
       logger.w('CBC decryption failed, retrying with legacy SIC mode');
       final encrypter = enc.Encrypter(enc.AES(key, mode: enc.AESMode.sic));
-      final decrypted = encrypter.decryptBytes(enc.Encrypted(encryptedBytes), iv: iv);
+      final decrypted = encrypter.decryptBytes(
+        enc.Encrypted(encryptedBytes),
+        iv: iv,
+      );
       logger.i('Decrypted ${encryptedData.length} bytes (SIC legacy)');
       return decrypted;
     }
@@ -178,13 +188,17 @@ class EncryptionService {
     for (final (key, mode, label) in candidates) {
       try {
         final encrypter = enc.Encrypter(enc.AES(key, mode: mode));
-        final decrypted =
-            encrypter.decryptBytes(enc.Encrypted(encryptedBytes), iv: iv);
+        final decrypted = encrypter.decryptBytes(
+          enc.Encrypted(encryptedBytes),
+          iv: iv,
+        );
         // Valid ZIP starts with PK magic bytes (0x50 0x4B).
         if (decrypted.length >= 2 &&
             decrypted[0] == 0x50 &&
             decrypted[1] == 0x4B) {
-          logger.i('Decrypted .bipy (${encryptedData.length} bytes) with $label');
+          logger.i(
+            'Decrypted .bipy (${encryptedData.length} bytes) with $label',
+          );
           return decrypted;
         }
         logger.w('$label produced non-ZIP output; trying next candidate');
@@ -207,7 +221,10 @@ class EncryptionService {
 
   static const int _maxFileSize = 100 * 1024 * 1024; // 100 MB
 
-  Future<File> encryptLargeFile(File inputFile, {Function(double)? onProgress}) async {
+  Future<File> encryptLargeFile(
+    File inputFile, {
+    Function(double)? onProgress,
+  }) async {
     if (kIsWeb) throw Exception('File encryption not supported on web');
 
     final key = await _key;
@@ -229,15 +246,17 @@ class EncryptionService {
     outputSink.add(iv.bytes);
 
     await inputStream
-        .transform(StreamTransformer<List<int>, List<int>>.fromHandlers(
-          handleData: (data, sink) {
-            final encrypted = encrypter.encryptBytes(data, iv: iv);
-            sink.add(encrypted.bytes);
-            bytesProcessed += data.length;
-            onProgress?.call(bytesProcessed / inputSize);
-          },
-          handleDone: (sink) => sink.close(),
-        ))
+        .transform(
+          StreamTransformer<List<int>, List<int>>.fromHandlers(
+            handleData: (data, sink) {
+              final encrypted = encrypter.encryptBytes(data, iv: iv);
+              sink.add(encrypted.bytes);
+              bytesProcessed += data.length;
+              onProgress?.call(bytesProcessed / inputSize);
+            },
+            handleDone: (sink) => sink.close(),
+          ),
+        )
         .pipe(outputSink);
 
     await outputSink.close();
@@ -245,11 +264,13 @@ class EncryptionService {
     return outputFile;
   }
 
-  Future<File> decryptLargeFile(File encryptedFile, {Function(double)? onProgress}) async {
+  Future<File> decryptLargeFile(
+    File encryptedFile, {
+    Function(double)? onProgress,
+  }) async {
     if (kIsWeb) throw Exception('File decryption not supported on web');
 
-    final ivBytes =
-        await encryptedFile.openRead(0, 16).reduce((a, b) => a + b);
+    final ivBytes = await encryptedFile.openRead(0, 16).reduce((a, b) => a + b);
     if (ivBytes.length < 16) {
       throw Exception('Invalid encrypted file: IV incomplete');
     }
@@ -268,18 +289,20 @@ class EncryptionService {
     final outputSink = outputFile.openWrite();
 
     await dataStream
-        .transform(StreamTransformer<List<int>, List<int>>.fromHandlers(
-          handleData: (data, sink) {
-            final decrypted = encrypter.decryptBytes(
-              enc.Encrypted(Uint8List.fromList(data)),
-              iv: iv,
-            );
-            sink.add(decrypted);
-            bytesProcessed += data.length;
-            onProgress?.call(bytesProcessed / inputSize);
-          },
-          handleDone: (sink) => sink.close(),
-        ))
+        .transform(
+          StreamTransformer<List<int>, List<int>>.fromHandlers(
+            handleData: (data, sink) {
+              final decrypted = encrypter.decryptBytes(
+                enc.Encrypted(Uint8List.fromList(data)),
+                iv: iv,
+              );
+              sink.add(decrypted);
+              bytesProcessed += data.length;
+              onProgress?.call(bytesProcessed / inputSize);
+            },
+            handleDone: (sink) => sink.close(),
+          ),
+        )
         .pipe(outputSink);
 
     await outputSink.close();

@@ -56,7 +56,8 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
     _authorController = TextEditingController(text: content['author'] ?? '');
     _avatarUrlController = TextEditingController();
     _saveDebouncer = Debouncer(delay: const Duration(milliseconds: 500));
-    _showAuthorField = (content['author'] as String?)?.isNotEmpty == true ||
+    _showAuthorField =
+        (content['author'] as String?)?.isNotEmpty == true ||
         widget.block.style.authorName?.isNotEmpty == true ||
         widget.block.style.authorAvatar?.isNotEmpty == true;
   }
@@ -91,14 +92,18 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
     final updatedBlock = widget.block.copyWith(
       style: widget.block.style.copyWith(quoteType: type),
     );
-    ref.read(editDocumentControllerProvider(widget.docDir).notifier).saveBlock(updatedBlock);
+    ref
+        .read(editDocumentControllerProvider(widget.docDir).notifier)
+        .saveBlock(updatedBlock);
   }
 
   void _updateQuoteTemplate(String template) {
     final updatedBlock = widget.block.copyWith(
       style: widget.block.style.copyWith(quoteTemplate: template),
     );
-    ref.read(editDocumentControllerProvider(widget.docDir).notifier).saveBlock(updatedBlock);
+    ref
+        .read(editDocumentControllerProvider(widget.docDir).notifier)
+        .saveBlock(updatedBlock);
   }
 
   void _validateAndPromptForAuthor() {
@@ -123,7 +128,9 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
     final updatedBlock = widget.block.copyWith(
       style: widget.block.style.copyWith(authorAvatar: url),
     );
-    ref.read(editDocumentControllerProvider(widget.docDir).notifier).saveBlock(updatedBlock);
+    ref
+        .read(editDocumentControllerProvider(widget.docDir).notifier)
+        .saveBlock(updatedBlock);
 
     setState(() {
       _showAvatarUrlInput = false;
@@ -159,9 +166,13 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
       await File(picked.path).copy(newPath);
 
       final updatedBlock = widget.block.copyWith(
-        style: widget.block.style.copyWith(authorAvatar: 'media/avatars/$uniqueName'),
+        style: widget.block.style.copyWith(
+          authorAvatar: 'media/avatars/$uniqueName',
+        ),
       );
-      ref.read(editDocumentControllerProvider(widget.docDir).notifier).saveBlock(updatedBlock);
+      ref
+          .read(editDocumentControllerProvider(widget.docDir).notifier)
+          .saveBlock(updatedBlock);
 
       showSuccess('Avatar image added');
     } catch (e) {
@@ -175,7 +186,9 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
     final updatedBlock = widget.block.copyWith(
       style: widget.block.style.copyWith(authorAvatar: ''),
     );
-    ref.read(editDocumentControllerProvider(widget.docDir).notifier).saveBlock(updatedBlock);
+    ref
+        .read(editDocumentControllerProvider(widget.docDir).notifier)
+        .saveBlock(updatedBlock);
     showSuccess('Avatar removed');
   }
 
@@ -193,9 +206,14 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
               children: [
                 Text(
                   'Add Avatar Image',
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ) ?? const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style:
+                      theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ) ??
+                      const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
                 const SizedBox(height: 16),
                 ListTile(
@@ -209,7 +227,10 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.photo_library, color: theme.colorScheme.primary),
+                  leading: Icon(
+                    Icons.photo_library,
+                    color: theme.colorScheme.primary,
+                  ),
                   title: const Text('From Gallery'),
                   onTap: () {
                     Navigator.pop(context);
@@ -224,7 +245,11 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
     );
   }
 
-  Widget _buildAvatarWidget(String? avatarPath, ThemeData theme, {double size = 40}) {
+  Widget _buildAvatarWidget(
+    String? avatarPath,
+    ThemeData theme, {
+    double size = 40,
+  }) {
     if (avatarPath == null || avatarPath.isEmpty) {
       return CircleAvatar(
         radius: size / 2,
@@ -342,8 +367,12 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
     final config = QuoteTypes.getConfig(quoteType);
 
     final fontSize = widget.block.style.fontSize;
-    final borderColor = styleUtils.parseHex(widget.block.style.borderColor) ?? config.getBorderColor(isDark);
-    final backgroundColor = styleUtils.parseHex(widget.block.style.background) ?? config.getBackgroundColor(isDark);
+    final borderColor =
+        styleUtils.parseHex(widget.block.style.borderColor) ??
+        config.getBorderColor(isDark);
+    final backgroundColor =
+        styleUtils.parseHex(widget.block.style.background) ??
+        config.getBackgroundColor(isDark);
     final iconColor = config.getIconColor(isDark);
     final parsedColor = styleUtils.parseHex(widget.block.style.color);
     final color = parsedColor ?? theme.colorScheme.onSurface;
@@ -352,7 +381,10 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
     final isDesktop = ResponsiveUtils.isDesktop(context);
     final horizontalPadding = isDesktop ? 20.0 : (isWide ? 16.0 : 8.0);
     final verticalPadding = isDesktop ? 16.0 : (isWide ? 12.0 : 8.0);
-    final padding = EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding);
+    final padding = EdgeInsets.symmetric(
+      horizontal: horizontalPadding,
+      vertical: verticalPadding,
+    );
     final verticalMargin = ResponsiveUtils.getBlockSpacing(context);
     final margin = EdgeInsets.symmetric(vertical: verticalMargin);
     final lineHeight = ResponsiveUtils.getLineHeight(context, baseHeight: 1.5);
@@ -367,7 +399,10 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
             children: [
               Toolbar(block: widget.block, docDir: widget.docDir),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 4.0,
+                ),
                 child: Row(
                   children: [
                     Expanded(child: _buildQuoteTypeSelector(theme, quoteType)),
@@ -389,7 +424,10 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
                       icon: const Icon(IconsaxPlusLinear.gallery, size: 16),
                       label: const Text('Style'),
                       style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
                         minimumSize: const Size(0, 32),
                       ),
                     ),
@@ -437,8 +475,11 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
     double verticalPadding,
     EdgeInsets margin,
   ) {
-    final padding = EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding);
-    
+    final padding = EdgeInsets.symmetric(
+      horizontal: horizontalPadding,
+      vertical: verticalPadding,
+    );
+
     switch (template) {
       case 'bordered':
         return Container(
@@ -449,7 +490,19 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
             border: Border.all(color: borderColor, width: 2),
           ),
           padding: padding,
-          child: _buildQuoteContent(context, theme, styleUtils, config, iconColor, color, fontSize, textMultiplier, lineHeight, horizontalPadding, verticalPadding),
+          child: _buildQuoteContent(
+            context,
+            theme,
+            styleUtils,
+            config,
+            iconColor,
+            color,
+            fontSize,
+            textMultiplier,
+            lineHeight,
+            horizontalPadding,
+            verticalPadding,
+          ),
         );
       case 'highlighted':
         return Container(
@@ -465,23 +518,42 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
             border: Border.all(color: borderColor, width: 1.5),
           ),
           padding: padding,
-          child: _buildQuoteContent(context, theme, styleUtils, config, iconColor, color, fontSize, textMultiplier, lineHeight, horizontalPadding, verticalPadding),
+          child: _buildQuoteContent(
+            context,
+            theme,
+            styleUtils,
+            config,
+            iconColor,
+            color,
+            fontSize,
+            textMultiplier,
+            lineHeight,
+            horizontalPadding,
+            verticalPadding,
+          ),
         );
       case 'modern':
         return Container(
           margin: margin,
           decoration: BoxDecoration(
-            color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+            color: theme.colorScheme.surfaceContainerHighest.withValues(
+              alpha: 0.5,
+            ),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: horizontalPadding - 8, top: verticalPadding),
+                padding: EdgeInsets.only(
+                  left: horizontalPadding - 8,
+                  top: verticalPadding,
+                ),
                 child: Container(
                   width: 3,
-                  constraints: const BoxConstraints(minHeight: _kMinAccentHeightSmall),
+                  constraints: const BoxConstraints(
+                    minHeight: _kMinAccentHeightSmall,
+                  ),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
@@ -495,7 +567,19 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
               Expanded(
                 child: Padding(
                   padding: padding,
-                  child: _buildQuoteContent(context, theme, styleUtils, config, iconColor, color, fontSize, textMultiplier, lineHeight, horizontalPadding, verticalPadding),
+                  child: _buildQuoteContent(
+                    context,
+                    theme,
+                    styleUtils,
+                    config,
+                    iconColor,
+                    color,
+                    fontSize,
+                    textMultiplier,
+                    lineHeight,
+                    horizontalPadding,
+                    verticalPadding,
+                  ),
                 ),
               ),
             ],
@@ -519,9 +603,25 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Icon(Icons.format_quote, color: iconColor.withValues(alpha: 0.5), size: 28),
+              Icon(
+                Icons.format_quote,
+                color: iconColor.withValues(alpha: 0.5),
+                size: 28,
+              ),
               const SizedBox(height: 6),
-              _buildQuoteContent(context, theme, styleUtils, config, iconColor, color, fontSize, textMultiplier, lineHeight, horizontalPadding, verticalPadding),
+              _buildQuoteContent(
+                context,
+                theme,
+                styleUtils,
+                config,
+                iconColor,
+                color,
+                fontSize,
+                textMultiplier,
+                lineHeight,
+                horizontalPadding,
+                verticalPadding,
+              ),
             ],
           ),
         );
@@ -543,11 +643,27 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
                   color: borderColor,
                   shape: BoxShape.circle,
                 ),
-                child: Icon(Icons.info_outline, color: theme.colorScheme.onPrimary, size: 20),
+                child: Icon(
+                  Icons.info_outline,
+                  color: theme.colorScheme.onPrimary,
+                  size: 20,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: _buildQuoteContent(context, theme, styleUtils, config, iconColor, color, fontSize, textMultiplier, lineHeight, horizontalPadding, verticalPadding),
+                child: _buildQuoteContent(
+                  context,
+                  theme,
+                  styleUtils,
+                  config,
+                  iconColor,
+                  color,
+                  fontSize,
+                  textMultiplier,
+                  lineHeight,
+                  horizontalPadding,
+                  verticalPadding,
+                ),
               ),
             ],
           ),
@@ -559,7 +675,9 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
             children: [
               Container(
                 width: 6,
-                constraints: const BoxConstraints(minHeight: _kMinAccentHeightLarge),
+                constraints: const BoxConstraints(
+                  minHeight: _kMinAccentHeightLarge,
+                ),
                 margin: margin,
                 decoration: BoxDecoration(
                   color: borderColor,
@@ -580,7 +698,19 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
                     ),
                   ),
                   padding: padding,
-                  child: _buildQuoteContent(context, theme, styleUtils, config, iconColor, color, fontSize, textMultiplier, lineHeight, horizontalPadding, verticalPadding),
+                  child: _buildQuoteContent(
+                    context,
+                    theme,
+                    styleUtils,
+                    config,
+                    iconColor,
+                    color,
+                    fontSize,
+                    textMultiplier,
+                    lineHeight,
+                    horizontalPadding,
+                    verticalPadding,
+                  ),
                 ),
               ),
             ],
@@ -599,9 +729,7 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
               ],
             ),
             borderRadius: BorderRadius.circular(8),
-            border: Border(
-              left: BorderSide(color: borderColor, width: 4),
-            ),
+            border: Border(left: BorderSide(color: borderColor, width: 4)),
           ),
           padding: padding,
           child: Row(
@@ -610,7 +738,19 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
               Icon(IconsaxPlusBold.quote_up, color: iconColor, size: 28),
               const SizedBox(width: 12),
               Expanded(
-                child: _buildQuoteContent(context, theme, styleUtils, config, iconColor, color, fontSize, textMultiplier, lineHeight, horizontalPadding, verticalPadding),
+                child: _buildQuoteContent(
+                  context,
+                  theme,
+                  styleUtils,
+                  config,
+                  iconColor,
+                  color,
+                  fontSize,
+                  textMultiplier,
+                  lineHeight,
+                  horizontalPadding,
+                  verticalPadding,
+                ),
               ),
             ],
           ),
@@ -642,7 +782,19 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
                 child: Icon(config.icon, color: iconColor, size: 20),
               ),
               const SizedBox(height: 12),
-              _buildQuoteContent(context, theme, styleUtils, config, iconColor, color, fontSize, textMultiplier, lineHeight, horizontalPadding, verticalPadding),
+              _buildQuoteContent(
+                context,
+                theme,
+                styleUtils,
+                config,
+                iconColor,
+                color,
+                fontSize,
+                textMultiplier,
+                lineHeight,
+                horizontalPadding,
+                verticalPadding,
+              ),
             ],
           ),
         );
@@ -653,21 +805,34 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
           decoration: BoxDecoration(
             color: backgroundColor,
             borderRadius: BorderRadius.circular(8),
-            border: Border(
-              left: BorderSide(color: borderColor, width: 4),
-            ),
+            border: Border(left: BorderSide(color: borderColor, width: 4)),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: horizontalPadding - 8, top: verticalPadding),
+                padding: EdgeInsets.only(
+                  left: horizontalPadding - 8,
+                  top: verticalPadding,
+                ),
                 child: Icon(config.icon, color: iconColor, size: 24),
               ),
               Expanded(
                 child: Padding(
                   padding: padding,
-                  child: _buildQuoteContent(context, theme, styleUtils, config, iconColor, color, fontSize, textMultiplier, lineHeight, horizontalPadding, verticalPadding),
+                  child: _buildQuoteContent(
+                    context,
+                    theme,
+                    styleUtils,
+                    config,
+                    iconColor,
+                    color,
+                    fontSize,
+                    textMultiplier,
+                    lineHeight,
+                    horizontalPadding,
+                    verticalPadding,
+                  ),
                 ),
               ),
             ],
@@ -696,12 +861,14 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
           controller: _textController,
           focusNode: _focusNode,
           maxLines: null,
-          style: styleUtils.applyStyle(widget.block.style).copyWith(
-            fontSize: fontSize * textMultiplier,
-            color: color,
-            height: lineHeight,
-            fontStyle: FontStyle.italic,
-          ),
+          style: styleUtils
+              .applyStyle(widget.block.style)
+              .copyWith(
+                fontSize: fontSize * textMultiplier,
+                color: color,
+                height: lineHeight,
+                fontStyle: FontStyle.italic,
+              ),
           decoration: InputDecoration(
             border: InputBorder.none,
             isCollapsed: true,
@@ -710,20 +877,28 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
           ),
           onChanged: (value) => _saveQuoteContent(),
         ),
-        if (_showAuthorField || widget.block.style.authorAvatar?.isNotEmpty == true) ...[
+        if (_showAuthorField ||
+            widget.block.style.authorAvatar?.isNotEmpty == true) ...[
           const SizedBox(height: 12),
           Row(
             children: [
               if (widget.block.style.authorAvatar?.isNotEmpty == true)
                 Padding(
                   padding: const EdgeInsets.only(right: 8),
-                  child: _buildAvatarWidget(widget.block.style.authorAvatar, theme, size: 32),
+                  child: _buildAvatarWidget(
+                    widget.block.style.authorAvatar,
+                    theme,
+                    size: 32,
+                  ),
                 ),
               Expanded(
                 child: TextField(
                   controller: _authorController,
                   focusNode: _authorFocusNode,
-                  style: TextStyle(fontSize: 14, color: color.withValues(alpha: 0.8)),
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: color.withValues(alpha: 0.8),
+                  ),
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     isCollapsed: true,
@@ -783,7 +958,10 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
                 icon: const Icon(Icons.person_add, size: 16),
                 label: const Text('Add Author', style: TextStyle(fontSize: 12)),
                 style: TextButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
                   minimumSize: const Size(0, 28),
                 ),
               ),
@@ -793,7 +971,10 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
                 icon: const Icon(Icons.add_photo_alternate, size: 16),
                 label: const Text('Add Avatar', style: TextStyle(fontSize: 12)),
                 style: TextButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
                   minimumSize: const Size(0, 28),
                 ),
               )
@@ -801,9 +982,15 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
               TextButton.icon(
                 onPressed: _removeAvatar,
                 icon: const Icon(Icons.delete, size: 16),
-                label: const Text('Remove Avatar', style: TextStyle(fontSize: 12)),
+                label: const Text(
+                  'Remove Avatar',
+                  style: TextStyle(fontSize: 12),
+                ),
                 style: TextButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
                   minimumSize: const Size(0, 28),
                 ),
               ),
@@ -815,7 +1002,10 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
 
   @override
   Widget buildReader(BuildContext context) {
-    return BlockQuoteReaderBlock(block: widget.block, docDir: widget.docDir, allowSelection: false);
+    return BlockQuoteReaderBlock(
+      block: widget.block,
+      docDir: widget.docDir,
+      allowSelection: false,
+    );
   }
 }
-

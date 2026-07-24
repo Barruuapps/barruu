@@ -23,7 +23,10 @@ class BlockOrderingService {
   /// [currentBlocks] - The current list of blocks
   ///
   /// Returns a tuple of (new block ID, updated blocks list)
-  Future<(String?, List<Block>)> duplicateBlock(Block block, List<Block> currentBlocks) async {
+  Future<(String?, List<Block>)> duplicateBlock(
+    Block block,
+    List<Block> currentBlocks,
+  ) async {
     try {
       final newBlock = Block(
         content: block.content,
@@ -33,16 +36,20 @@ class BlockOrderingService {
       );
       final id = await repository.addBlock(newBlock);
       final updatedBlock = newBlock.copyWith(id: id);
-      
+
       final newBlocks = List<Block>.from(currentBlocks);
       newBlocks.insert(block.position + 1, updatedBlock);
       final reindexedBlocks = _reindexBlocks(newBlocks);
-      
+
       await repository.updateBlocks(reindexedBlocks);
       logger.i('Block duplicated: $id from original: ${block.id}');
       return (id, reindexedBlocks);
     } catch (e, stackTrace) {
-      logger.e('Failed to duplicate block: ${block.id}', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to duplicate block: ${block.id}',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return (null, currentBlocks);
     }
   }
@@ -55,22 +62,29 @@ class BlockOrderingService {
   /// [currentBlocks] - The current list of blocks
   ///
   /// Returns the updated blocks list
-  Future<List<Block>> moveBlockUp(Block block, List<Block> currentBlocks) async {
+  Future<List<Block>> moveBlockUp(
+    Block block,
+    List<Block> currentBlocks,
+  ) async {
     final index = currentBlocks.indexOf(block);
     if (index <= 0) return currentBlocks;
-    
+
     try {
       final newBlocks = List<Block>.from(currentBlocks);
       final temp = newBlocks[index - 1];
       newBlocks[index - 1] = newBlocks[index];
       newBlocks[index] = temp;
-      
+
       final reindexedBlocks = _reindexBlocks(newBlocks);
       await repository.updateBlocks(reindexedBlocks);
       logger.i('Block moved up: ${block.id}');
       return reindexedBlocks;
     } catch (e, stackTrace) {
-      logger.e('Failed to move block up: ${block.id}', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to move block up: ${block.id}',
+        error: e,
+        stackTrace: stackTrace,
+      );
       rethrow;
     }
   }
@@ -83,22 +97,29 @@ class BlockOrderingService {
   /// [currentBlocks] - The current list of blocks
   ///
   /// Returns the updated blocks list
-  Future<List<Block>> moveBlockDown(Block block, List<Block> currentBlocks) async {
+  Future<List<Block>> moveBlockDown(
+    Block block,
+    List<Block> currentBlocks,
+  ) async {
     final index = currentBlocks.indexOf(block);
     if (index < 0 || index >= currentBlocks.length - 1) return currentBlocks;
-    
+
     try {
       final newBlocks = List<Block>.from(currentBlocks);
       final temp = newBlocks[index + 1];
       newBlocks[index + 1] = newBlocks[index];
       newBlocks[index] = temp;
-      
+
       final reindexedBlocks = _reindexBlocks(newBlocks);
       await repository.updateBlocks(reindexedBlocks);
       logger.i('Block moved down: ${block.id}');
       return reindexedBlocks;
     } catch (e, stackTrace) {
-      logger.e('Failed to move block down: ${block.id}', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to move block down: ${block.id}',
+        error: e,
+        stackTrace: stackTrace,
+      );
       rethrow;
     }
   }

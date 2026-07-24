@@ -424,7 +424,9 @@ class _TrueFalseReaderBlockState extends ConsumerState<TrueFalseReaderBlock> {
       contentColor = theme.colorScheme.primary;
     } else {
       borderColor = theme.colorScheme.outline.withValues(alpha: 0.4);
-      bgColor = theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5);
+      bgColor = theme.colorScheme.surfaceContainerHighest.withValues(
+        alpha: 0.5,
+      );
       contentColor = theme.colorScheme.onSurface.withValues(alpha: 0.65);
     }
 
@@ -893,10 +895,11 @@ class _TrueFalseReaderBlockState extends ConsumerState<TrueFalseReaderBlock> {
         ),
         tilePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
         childrenPadding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
-        backgroundColor: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.35),
-        collapsedBackgroundColor: theme.colorScheme.surfaceContainerHighest.withValues(
-          alpha: 0.18,
+        backgroundColor: theme.colorScheme.surfaceContainerHighest.withValues(
+          alpha: 0.35,
         ),
+        collapsedBackgroundColor: theme.colorScheme.surfaceContainerHighest
+            .withValues(alpha: 0.18),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         collapsedShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),

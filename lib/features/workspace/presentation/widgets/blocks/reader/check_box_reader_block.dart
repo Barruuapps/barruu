@@ -26,7 +26,8 @@ class CheckBoxReaderBlock extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<CheckBoxReaderBlock> createState() => _CheckBoxReaderBlockState();
+  ConsumerState<CheckBoxReaderBlock> createState() =>
+      _CheckBoxReaderBlockState();
 }
 
 class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
@@ -51,10 +52,16 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
     Map<String, dynamic> content = {'header': '', 'items': []};
     try {
       if (widget.block.content.isNotEmpty) {
-        content = JsonStringConverter().convertFromJsonString(widget.block.content);
+        content = JsonStringConverter().convertFromJsonString(
+          widget.block.content,
+        );
       }
     } catch (e, stackTrace) {
-      logger.e('Failed to parse block content', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to parse block content',
+        error: e,
+        stackTrace: stackTrace,
+      );
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error loading checklist content: $e')),
@@ -73,7 +80,12 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
   }
 
   /// Parse markdown in checkbox item text
-  Widget _buildItemText(String text, TextStyle baseStyle, ThemeData theme, bool allowSelection) {
+  Widget _buildItemText(
+    String text,
+    TextStyle baseStyle,
+    ThemeData theme,
+    bool allowSelection,
+  ) {
     if (!text.contains(':')) {
       return MarkdownBody(
         data: text,
@@ -136,14 +148,20 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
   Widget build(BuildContext context) {
     final styleUtils = ref.read(styleUtilsProvider);
     final theme = Theme.of(context);
-    final color = styleUtils.parseHex(widget.block.style.color) ?? theme.colorScheme.onSurface;
-    final baseTextStyle = styleUtils.applyStyle(widget.block.style).copyWith(color: color);
+    final color =
+        styleUtils.parseHex(widget.block.style.color) ??
+        theme.colorScheme.onSurface;
+    final baseTextStyle = styleUtils
+        .applyStyle(widget.block.style)
+        .copyWith(color: color);
     final checkboxTemplate = widget.block.style.checkboxTemplate ?? 'default';
 
     if (_items.isEmpty) return const SizedBox.shrink();
 
     final isWide = MediaQuery.of(context).size.width > 600;
-    final padding = isWide ? const EdgeInsets.symmetric(horizontal: 4, vertical: 4) : const EdgeInsets.symmetric(horizontal: 16, vertical: 6);
+    final padding = isWide
+        ? const EdgeInsets.symmetric(horizontal: 4, vertical: 4)
+        : const EdgeInsets.symmetric(horizontal: 16, vertical: 6);
     const margin = EdgeInsets.symmetric(vertical: 4);
 
     BoxDecoration containerDecoration;
@@ -151,7 +169,9 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
       case 'card':
         containerDecoration = BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: styleUtils.parseHex(widget.block.style.background) ?? theme.colorScheme.surface,
+          color:
+              styleUtils.parseHex(widget.block.style.background) ??
+              theme.colorScheme.surface,
           boxShadow: [
             BoxShadow(
               color: theme.colorScheme.shadow.withValues(alpha: 0.1),
@@ -171,16 +191,14 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
         containerDecoration = BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: styleUtils.parseHex(widget.block.style.background),
-          border: Border.all(
-            color: theme.colorScheme.primary,
-            width: 1.5,
-          ),
+          border: Border.all(color: theme.colorScheme.primary, width: 1.5),
         );
         break;
       case 'modern':
         containerDecoration = BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: styleUtils.parseHex(widget.block.style.background) ??
+          color:
+              styleUtils.parseHex(widget.block.style.background) ??
               theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
         );
         break;
@@ -201,7 +219,8 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
       case 'progress':
         containerDecoration = BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: styleUtils.parseHex(widget.block.style.background) ??
+          color:
+              styleUtils.parseHex(widget.block.style.background) ??
               theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
         );
         break;
@@ -227,9 +246,12 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
     // Header widget — default is plain/minimal, no icon, no border, no bold
     Widget? buildHeader() {
       if (_header.isEmpty) return null;
-      if (checkboxTemplate == 'default' || checkboxTemplate == 'minimal' ||
-          checkboxTemplate == 'compact' || checkboxTemplate == 'split' ||
-          checkboxTemplate == 'progress' || checkboxTemplate == 'priority') {
+      if (checkboxTemplate == 'default' ||
+          checkboxTemplate == 'minimal' ||
+          checkboxTemplate == 'compact' ||
+          checkboxTemplate == 'split' ||
+          checkboxTemplate == 'progress' ||
+          checkboxTemplate == 'priority') {
         return Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
           child: Text(
@@ -252,11 +274,7 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
         ),
         child: Row(
           children: [
-            Icon(
-              Icons.checklist,
-              color: theme.colorScheme.primary,
-              size: 20,
-            ),
+            Icon(Icons.checklist, color: theme.colorScheme.primary, size: 20),
             const SizedBox(width: 8),
             Expanded(
               child: Text(
@@ -277,7 +295,11 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
     final headerWidget = buildHeader();
 
     // Helper to build a single checkbox item widget
-    Widget buildCheckboxItem(int index, {EdgeInsets? padding, BoxDecoration? decoration}) {
+    Widget buildCheckboxItem(
+      int index, {
+      EdgeInsets? padding,
+      BoxDecoration? decoration,
+    }) {
       final item = _items[index];
       final text = item['text']?.toString() ?? '';
       final checked = item['checked'] == true;
@@ -312,23 +334,45 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
                     onChanged: (bool? newValue) {
                       HapticFeedback.selectionClick();
                       if (widget.docDir == null) {
-                        setState(() { _items[index]['checked'] = newValue; });
+                        setState(() {
+                          _items[index]['checked'] = newValue;
+                        });
                         return;
                       }
-                      setState(() { _items[index]['checked'] = newValue; });
+                      setState(() {
+                        _items[index]['checked'] = newValue;
+                      });
                       try {
-                        final updatedContent = {'header': _header, 'items': _items};
-                        final jsonContent = JsonStringConverter().convertToJsonString(updatedContent);
-                        final updatedBlock = widget.block.copyWith(content: jsonContent);
+                        final updatedContent = {
+                          'header': _header,
+                          'items': _items,
+                        };
+                        final jsonContent = JsonStringConverter()
+                            .convertToJsonString(updatedContent);
+                        final updatedBlock = widget.block.copyWith(
+                          content: jsonContent,
+                        );
                         ref
-                            .read(editDocumentControllerProvider(widget.docDir!).notifier)
+                            .read(
+                              editDocumentControllerProvider(
+                                widget.docDir!,
+                              ).notifier,
+                            )
                             .saveBlock(updatedBlock);
-                        logger.i('Checkbox state updated for block: ${widget.block.id}');
+                        logger.i(
+                          'Checkbox state updated for block: ${widget.block.id}',
+                        );
                       } catch (e, stackTrace) {
-                        logger.e('Failed to save checkbox state', error: e, stackTrace: stackTrace);
+                        logger.e(
+                          'Failed to save checkbox state',
+                          error: e,
+                          stackTrace: stackTrace,
+                        );
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Error saving checkbox state: $e')),
+                            SnackBar(
+                              content: Text('Error saving checkbox state: $e'),
+                            ),
                           );
                         }
                       }
@@ -336,7 +380,9 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
                     materialTapTargetSize: MaterialTapTargetSize.padded,
                     activeColor: theme.colorScheme.primary,
                     checkColor: theme.colorScheme.onPrimary,
-                    semanticLabel: checked ? 'Checked item: $text' : 'Unchecked item: $text',
+                    semanticLabel: checked
+                        ? 'Checked item: $text'
+                        : 'Unchecked item: $text',
                   ),
                 ),
               ),
@@ -346,7 +392,9 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
               child: _buildItemText(
                 text,
                 baseTextStyle.copyWith(
-                  decoration: checked ? TextDecoration.lineThrough : TextDecoration.none,
+                  decoration: checked
+                      ? TextDecoration.lineThrough
+                      : TextDecoration.none,
                   color: checked ? color.withValues(alpha: 0.6) : color,
                   height: 1.5,
                 ),
@@ -382,8 +430,12 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
                     child: LinearProgressIndicator(
                       value: progress,
                       minHeight: 6,
-                      backgroundColor: theme.colorScheme.outline.withValues(alpha: 0.2),
-                      valueColor: AlwaysStoppedAnimation<Color>(theme.colorScheme.primary),
+                      backgroundColor: theme.colorScheme.outline.withValues(
+                        alpha: 0.2,
+                      ),
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        theme.colorScheme.primary,
+                      ),
                     ),
                   ),
                 ),
@@ -398,7 +450,10 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
               ],
             ),
             const SizedBox(height: 8),
-            ...List.generate(_items.length, (index) => buildCheckboxItem(index)),
+            ...List.generate(
+              _items.length,
+              (index) => buildCheckboxItem(index),
+            ),
           ],
         ),
       );
@@ -441,8 +496,16 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
 
     // ── Split template (pending vs done) ──────────────────────────────────
     if (checkboxTemplate == 'split') {
-      final pending = _items.asMap().entries.where((e) => e.value['checked'] != true).toList();
-      final done = _items.asMap().entries.where((e) => e.value['checked'] == true).toList();
+      final pending = _items
+          .asMap()
+          .entries
+          .where((e) => e.value['checked'] != true)
+          .toList();
+      final done = _items
+          .asMap()
+          .entries
+          .where((e) => e.value['checked'] == true)
+          .toList();
 
       return Container(
         padding: padding,
@@ -459,30 +522,38 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
               if (pending.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 6),
-                  child: Row(children: [
-                    Expanded(
-                      child: Divider(
-                        color: theme.colorScheme.outline.withValues(alpha: 0.4),
-                        thickness: 1,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(
-                        'Done',
-                        style: baseTextStyle.copyWith(
-                          fontSize: 11,
-                          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          color: theme.colorScheme.outline.withValues(
+                            alpha: 0.4,
+                          ),
+                          thickness: 1,
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: Divider(
-                        color: theme.colorScheme.outline.withValues(alpha: 0.4),
-                        thickness: 1,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Text(
+                          'Done',
+                          style: baseTextStyle.copyWith(
+                            fontSize: 11,
+                            color: theme.colorScheme.onSurface.withValues(
+                              alpha: 0.5,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ]),
+                      Expanded(
+                        child: Divider(
+                          color: theme.colorScheme.outline.withValues(
+                            alpha: 0.4,
+                          ),
+                          thickness: 1,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               for (final e in done) buildCheckboxItem(e.key),
             ],
@@ -501,10 +572,13 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (headerWidget != null) headerWidget,
-            ...List.generate(_items.length, (index) => buildCheckboxItem(
-              index,
-              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-            )),
+            ...List.generate(
+              _items.length,
+              (index) => buildCheckboxItem(
+                index,
+                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+              ),
+            ),
           ],
         ),
       );
@@ -532,7 +606,9 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
                     ResponsiveUtils.getPlatformRadius(context, baseRadius: 8.0),
                   ),
                   color: checked
-                      ? theme.colorScheme.primaryContainer.withValues(alpha: 0.2)
+                      ? theme.colorScheme.primaryContainer.withValues(
+                          alpha: 0.2,
+                        )
                       : theme.colorScheme.surface,
                   boxShadow: [
                     BoxShadow(
@@ -548,7 +624,11 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
                   borderRadius: BorderRadius.circular(
                     ResponsiveUtils.getPlatformRadius(context, baseRadius: 8.0),
                   ),
-                  color: checked ? theme.colorScheme.primaryContainer.withValues(alpha: 0.1) : Colors.transparent,
+                  color: checked
+                      ? theme.colorScheme.primaryContainer.withValues(
+                          alpha: 0.1,
+                        )
+                      : Colors.transparent,
                   border: Border.all(
                     color: theme.colorScheme.outline.withValues(alpha: 0.3),
                   ),
@@ -560,8 +640,12 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
                     ResponsiveUtils.getPlatformRadius(context, baseRadius: 8.0),
                   ),
                   color: checked
-                      ? theme.colorScheme.primaryContainer.withValues(alpha: 0.3)
-                      : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.2),
+                      ? theme.colorScheme.primaryContainer.withValues(
+                          alpha: 0.3,
+                        )
+                      : theme.colorScheme.surfaceContainerHighest.withValues(
+                          alpha: 0.2,
+                        ),
                 );
                 break;
               default:
@@ -570,7 +654,9 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
                     ResponsiveUtils.getPlatformRadius(context, baseRadius: 8.0),
                   ),
                   color: checked
-                      ? theme.colorScheme.primaryContainer.withValues(alpha: 0.1)
+                      ? theme.colorScheme.primaryContainer.withValues(
+                          alpha: 0.1,
+                        )
                       : Colors.transparent,
                 );
             }
@@ -609,7 +695,7 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
                           onChanged: (bool? newValue) {
                             // Add haptic feedback for interactivity (Apple HIG guideline)
                             HapticFeedback.selectionClick();
-                            
+
                             if (widget.docDir == null) {
                               setState(() {
                                 _items[index]['checked'] = newValue;
@@ -627,27 +713,47 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
                                 'items': _items,
                               };
 
-                              final jsonContent = JsonStringConverter().convertToJsonString(updatedContent);
-                              final updatedBlock = widget.block.copyWith(content: jsonContent);
+                              final jsonContent = JsonStringConverter()
+                                  .convertToJsonString(updatedContent);
+                              final updatedBlock = widget.block.copyWith(
+                                content: jsonContent,
+                              );
 
                               ref
-                                  .read(editDocumentControllerProvider(widget.docDir!).notifier)
+                                  .read(
+                                    editDocumentControllerProvider(
+                                      widget.docDir!,
+                                    ).notifier,
+                                  )
                                   .saveBlock(updatedBlock);
 
-                              logger.i('Checkbox state updated for block: ${widget.block.id}');
+                              logger.i(
+                                'Checkbox state updated for block: ${widget.block.id}',
+                              );
                             } catch (e, stackTrace) {
-                              logger.e('Failed to save checkbox state', error: e, stackTrace: stackTrace);
+                              logger.e(
+                                'Failed to save checkbox state',
+                                error: e,
+                                stackTrace: stackTrace,
+                              );
                               if (context.mounted) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Error saving checkbox state: $e')),
+                                  SnackBar(
+                                    content: Text(
+                                      'Error saving checkbox state: $e',
+                                    ),
+                                  ),
                                 );
                               }
                             }
                           },
-                          materialTapTargetSize: MaterialTapTargetSize.padded, // Changed for proper touch targets
+                          materialTapTargetSize: MaterialTapTargetSize
+                              .padded, // Changed for proper touch targets
                           activeColor: theme.colorScheme.primary,
                           checkColor: theme.colorScheme.onPrimary,
-                          semanticLabel: checked ? 'Checked item: $text' : 'Unchecked item: $text',
+                          semanticLabel: checked
+                              ? 'Checked item: $text'
+                              : 'Unchecked item: $text',
                         ),
                       ),
                     ),
@@ -657,7 +763,9 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
                     child: _buildItemText(
                       text,
                       baseTextStyle.copyWith(
-                        decoration: checked ? TextDecoration.lineThrough : TextDecoration.none,
+                        decoration: checked
+                            ? TextDecoration.lineThrough
+                            : TextDecoration.none,
                         color: checked ? color.withValues(alpha: 0.6) : color,
                         height: 1.5,
                       ),

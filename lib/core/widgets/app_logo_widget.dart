@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 class AppLogoWidget extends StatelessWidget {
   /// Size of the logo (width and height)
   final double size;
-  
+
   /// Fallback icon to show if image fails to load
   final IconData fallbackIcon;
-  
+
   /// Opacity of the shadow effect
   final double shadowOpacity;
-  
+
   /// Blur radius of the shadow
   final double shadowBlur;
-  
+
   /// Spread radius of the shadow
   final double shadowSpread;
 
@@ -30,7 +30,7 @@ class AppLogoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Container(
       width: size,
       height: size,
@@ -46,10 +46,7 @@ class AppLogoWidget extends StatelessWidget {
         ],
       ),
       child: Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-        ),
+        decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
         child: ClipOval(
           child: Image.asset(
             'assets/images/app_logo.png',

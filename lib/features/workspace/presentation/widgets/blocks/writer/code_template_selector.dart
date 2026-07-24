@@ -31,9 +31,17 @@ class CodeTemplateSelector extends StatelessWidget {
             _buildTemplateOption('minimal', 'Minimal', _buildMinimalPreview()),
             _buildTemplateOption('default', 'Default', _buildDefaultPreview()),
             _buildTemplateOption('card', 'Card', _buildCardPreview()),
-            _buildTemplateOption('terminal', 'Terminal', _buildTerminalPreview()),
+            _buildTemplateOption(
+              'terminal',
+              'Terminal',
+              _buildTerminalPreview(),
+            ),
             _buildTemplateOption('github', 'GitHub', _buildGithubPreview()),
-            _buildTemplateOption('bordered', 'Bordered', _buildBorderedPreview()),
+            _buildTemplateOption(
+              'bordered',
+              'Bordered',
+              _buildBorderedPreview(),
+            ),
             _buildTemplateOption('dracula', 'Dracula', _buildDraculaPreview()),
             _buildTemplateOption('monokai', 'Monokai', _buildMonokaiPreview()),
             _buildTemplateOption('vscode', 'VS Code', _buildVscodePreview()),
@@ -81,7 +89,9 @@ class CodeTemplateSelector extends StatelessWidget {
               decoration: BoxDecoration(
                 color: isSelected
                     ? theme.colorScheme.primary.withValues(alpha: 0.1)
-                    : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                    : theme.colorScheme.surfaceContainerHighest.withValues(
+                        alpha: 0.5,
+                      ),
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(7),
                   bottomRight: Radius.circular(7),
@@ -134,7 +144,9 @@ class CodeTemplateSelector extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
-        border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
+        border: Border.all(
+          color: theme.colorScheme.outline.withValues(alpha: 0.3),
+        ),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Column(
@@ -151,13 +163,21 @@ class CodeTemplateSelector extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Icon(Icons.code, size: 8, color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.7)),
+                Icon(
+                  Icons.code,
+                  size: 8,
+                  color: theme.colorScheme.onSurfaceVariant.withValues(
+                    alpha: 0.7,
+                  ),
+                ),
                 const SizedBox(width: 3),
                 Expanded(
                   child: Container(
                     height: 2.5,
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
+                      color: theme.colorScheme.onSurfaceVariant.withValues(
+                        alpha: 0.4,
+                      ),
                       borderRadius: BorderRadius.circular(1),
                     ),
                   ),
@@ -172,9 +192,15 @@ class CodeTemplateSelector extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _codeLine(0.7, theme.colorScheme.primary.withValues(alpha: 0.6)),
+                  _codeLine(
+                    0.7,
+                    theme.colorScheme.primary.withValues(alpha: 0.6),
+                  ),
                   const SizedBox(height: 3),
-                  _codeLine(0.9, theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+                  _codeLine(
+                    0.9,
+                    theme.colorScheme.onSurface.withValues(alpha: 0.4),
+                  ),
                 ],
               ),
             ),
@@ -212,7 +238,11 @@ class CodeTemplateSelector extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Icon(Icons.code, size: 8, color: theme.colorScheme.primary.withValues(alpha: 0.8)),
+                Icon(
+                  Icons.code,
+                  size: 8,
+                  color: theme.colorScheme.primary.withValues(alpha: 0.8),
+                ),
                 const SizedBox(width: 3),
                 Expanded(
                   child: Container(
@@ -233,9 +263,15 @@ class CodeTemplateSelector extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _codeLine(0.6, theme.colorScheme.primary.withValues(alpha: 0.6)),
+                  _codeLine(
+                    0.6,
+                    theme.colorScheme.primary.withValues(alpha: 0.6),
+                  ),
                   const SizedBox(height: 3),
-                  _codeLine(0.8, theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+                  _codeLine(
+                    0.8,
+                    theme.colorScheme.onSurface.withValues(alpha: 0.4),
+                  ),
                 ],
               ),
             ),
@@ -316,7 +352,10 @@ class CodeTemplateSelector extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 1),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 3,
+                    vertical: 1,
+                  ),
                   decoration: BoxDecoration(
                     border: Border.all(color: const Color(0xFFD0D7DE)),
                     borderRadius: BorderRadius.circular(3),
@@ -340,9 +379,15 @@ class CodeTemplateSelector extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _codeLine(0.7, const Color(0xFF0550AE).withValues(alpha: 0.8)),
+                  _codeLine(
+                    0.7,
+                    const Color(0xFF0550AE).withValues(alpha: 0.8),
+                  ),
                   const SizedBox(height: 3),
-                  _codeLine(0.9, const Color(0xFF24292F).withValues(alpha: 0.5)),
+                  _codeLine(
+                    0.9,
+                    const Color(0xFF24292F).withValues(alpha: 0.5),
+                  ),
                 ],
               ),
             ),
@@ -360,9 +405,15 @@ class CodeTemplateSelector extends StatelessWidget {
         borderRadius: BorderRadius.circular(6),
         border: Border(
           left: BorderSide(color: theme.colorScheme.primary, width: 3),
-          top: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
-          right: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
-          bottom: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
+          top: BorderSide(
+            color: theme.colorScheme.outline.withValues(alpha: 0.3),
+          ),
+          right: BorderSide(
+            color: theme.colorScheme.outline.withValues(alpha: 0.3),
+          ),
+          bottom: BorderSide(
+            color: theme.colorScheme.outline.withValues(alpha: 0.3),
+          ),
         ),
       ),
       clipBehavior: Clip.antiAlias,
@@ -374,7 +425,11 @@ class CodeTemplateSelector extends StatelessWidget {
             color: theme.colorScheme.primary.withValues(alpha: 0.08),
             child: Row(
               children: [
-                Icon(Icons.code, size: 8, color: theme.colorScheme.primary.withValues(alpha: 0.8)),
+                Icon(
+                  Icons.code,
+                  size: 8,
+                  color: theme.colorScheme.primary.withValues(alpha: 0.8),
+                ),
                 const SizedBox(width: 3),
                 Expanded(
                   child: Container(
@@ -395,11 +450,20 @@ class CodeTemplateSelector extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _codeLine(0.6, theme.colorScheme.primary.withValues(alpha: 0.7)),
+                  _codeLine(
+                    0.6,
+                    theme.colorScheme.primary.withValues(alpha: 0.7),
+                  ),
                   const SizedBox(height: 3),
-                  _codeLine(0.8, theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+                  _codeLine(
+                    0.8,
+                    theme.colorScheme.onSurface.withValues(alpha: 0.4),
+                  ),
                   const SizedBox(height: 3),
-                  _codeLine(0.5, theme.colorScheme.onSurface.withValues(alpha: 0.4)),
+                  _codeLine(
+                    0.5,
+                    theme.colorScheme.onSurface.withValues(alpha: 0.4),
+                  ),
                 ],
               ),
             ),
@@ -461,7 +525,10 @@ class CodeTemplateSelector extends StatelessWidget {
                   const SizedBox(height: 3),
                   _codeLine(0.8, textColor.withValues(alpha: 0.5)),
                   const SizedBox(height: 3),
-                  _codeLine(0.5, const Color(0xFF50FA7B).withValues(alpha: 0.7)),
+                  _codeLine(
+                    0.5,
+                    const Color(0xFF50FA7B).withValues(alpha: 0.7),
+                  ),
                 ],
               ),
             ),
@@ -526,7 +593,10 @@ class CodeTemplateSelector extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _codeLine(0.6, const Color(0xFFF92672).withValues(alpha: 0.8)),
+                  _codeLine(
+                    0.6,
+                    const Color(0xFFF92672).withValues(alpha: 0.8),
+                  ),
                   const SizedBox(height: 3),
                   _codeLine(0.8, textColor.withValues(alpha: 0.5)),
                   const SizedBox(height: 3),
@@ -567,7 +637,10 @@ class CodeTemplateSelector extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 3,
+                  ),
                   decoration: BoxDecoration(
                     color: bg,
                     border: const Border(
@@ -597,7 +670,10 @@ class CodeTemplateSelector extends StatelessWidget {
                   const SizedBox(height: 3),
                   _codeLine(0.8, textColor.withValues(alpha: 0.4)),
                   const SizedBox(height: 3),
-                  _codeLine(0.5, const Color(0xFF9CDCFE).withValues(alpha: 0.7)),
+                  _codeLine(
+                    0.5,
+                    const Color(0xFF9CDCFE).withValues(alpha: 0.7),
+                  ),
                 ],
               ),
             ),
@@ -626,10 +702,7 @@ class CodeTemplateSelector extends StatelessWidget {
     return Container(
       width: 5,
       height: 5,
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
-      ),
+      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
     );
   }
 }

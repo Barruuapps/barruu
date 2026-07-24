@@ -40,9 +40,9 @@ class VideoFileService {
       final XFile? pickedFile = await _imagePicker.pickVideo(
         source: ImageSource.gallery,
       );
-      
+
       if (pickedFile == null) return null;
-      
+
       return await _saveVideoFile(pickedFile, docDir);
     } catch (e) {
       return null;
@@ -62,9 +62,9 @@ class VideoFileService {
       final XFile? pickedFile = await _imagePicker.pickVideo(
         source: ImageSource.camera,
       );
-      
+
       if (pickedFile == null) return null;
-      
+
       return await _saveVideoFile(pickedFile, docDir);
     } catch (e) {
       return null;
@@ -84,14 +84,15 @@ class VideoFileService {
   /// Returns null if the URL is empty.
   Future<Map<String, dynamic>?> processVideoUrl(String url) async {
     if (url.isEmpty) return null;
-    
+
     // Check if it's a YouTube URL
     final youtubeId = extractYoutubeId(url);
-    
+
     if (youtubeId != null) {
       return {
         'youtubeId': youtubeId,
-        'path': '', // Don't store URL in path for YouTube videos to avoid confusion
+        'path':
+            '', // Don't store URL in path for YouTube videos to avoid confusion
         'fileName': 'YouTube Video',
         'sourceType': VideoSourceType.youtube.name,
       };
@@ -146,17 +147,17 @@ class VideoFileService {
       final fileName = generateUniqueFilename();
       final relativePath = 'media/$fileName';
       final destinationPath = '${docDir.path}/$relativePath';
-      
+
       // Ensure media directory exists
       final mediaDir = Directory('${docDir.path}/media');
       if (!await mediaDir.exists()) {
         await mediaDir.create(recursive: true);
       }
-      
+
       // Copy the video file
       final File sourceFile = File(pickedFile.path);
       await sourceFile.copy(destinationPath);
-      
+
       return {
         'path': relativePath,
         'fileName': fileName,
@@ -184,9 +185,9 @@ class VideoFileService {
       if (sourceType != VideoSourceType.local.name) {
         return true; // Nothing to delete for network/youtube videos
       }
-      
+
       if (relativePath.isEmpty) return true;
-      
+
       final file = File('${docDir.path}/$relativePath');
       if (await file.exists()) {
         await file.delete();

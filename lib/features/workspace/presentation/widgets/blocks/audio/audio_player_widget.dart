@@ -31,7 +31,7 @@ import 'package:just_audio/just_audio.dart';
 class AudioPlayerWidget extends ConsumerStatefulWidget {
   /// The absolute path to the audio file to play
   final String audioPath;
-  
+
   /// Whether to automatically start playing when the audio is loaded
   final bool autoPlay;
 
@@ -45,7 +45,7 @@ class AudioPlayerWidget extends ConsumerStatefulWidget {
   ConsumerState<AudioPlayerWidget> createState() => _AudioPlayerWidgetState();
 }
 
-class _AudioPlayerWidgetState extends ConsumerState<AudioPlayerWidget> 
+class _AudioPlayerWidgetState extends ConsumerState<AudioPlayerWidget>
     with WidgetsBindingObserver {
   late AudioPlayer _player;
   bool _isInitialized = false;
@@ -68,7 +68,8 @@ class _AudioPlayerWidgetState extends ConsumerState<AudioPlayerWidget>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     // Pause audio when app goes to background for better resource management
-    if (state == AppLifecycleState.paused || state == AppLifecycleState.inactive) {
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.inactive) {
       if (_isPlaying) {
         _player.pause();
       }
@@ -96,12 +97,16 @@ class _AudioPlayerWidgetState extends ConsumerState<AudioPlayerWidget>
       }
 
       // Add timeout to prevent indefinite hanging
-      await _player.setFilePath(file.path).timeout(
-        const Duration(seconds: 30),
-        onTimeout: () {
-          throw Exception('Audio initialization timed out after 30 seconds');
-        },
-      );
+      await _player
+          .setFilePath(file.path)
+          .timeout(
+            const Duration(seconds: 30),
+            onTimeout: () {
+              throw Exception(
+                'Audio initialization timed out after 30 seconds',
+              );
+            },
+          );
 
       // Set up listeners
       _player.durationStream.listen((duration) {
@@ -282,12 +287,16 @@ class _AudioPlayerWidgetState extends ConsumerState<AudioPlayerWidget>
               Expanded(
                 child: Slider(
                   value: _position.inMilliseconds.toDouble(),
-                  max: _duration.inMilliseconds.toDouble() > 0 ? _duration.inMilliseconds.toDouble() : 1.0,
+                  max: _duration.inMilliseconds.toDouble() > 0
+                      ? _duration.inMilliseconds.toDouble()
+                      : 1.0,
                   onChanged: (value) {
                     _seek(Duration(milliseconds: value.toInt()));
                   },
                   activeColor: theme.colorScheme.primary,
-                  inactiveColor: theme.colorScheme.primary.withValues(alpha: 0.2),
+                  inactiveColor: theme.colorScheme.primary.withValues(
+                    alpha: 0.2,
+                  ),
                 ),
               ),
               Text(
@@ -335,7 +344,9 @@ class _AudioPlayerWidgetState extends ConsumerState<AudioPlayerWidget>
               // Volume control
               PopupMenuButton<double>(
                 icon: Icon(
-                  _volume > 0.5 ? Icons.volume_up : (_volume > 0 ? Icons.volume_down : Icons.volume_off),
+                  _volume > 0.5
+                      ? Icons.volume_up
+                      : (_volume > 0 ? Icons.volume_down : Icons.volume_off),
                   color: theme.colorScheme.primary,
                 ),
                 tooltip: 'Volume',
@@ -381,27 +392,69 @@ class _AudioPlayerWidgetState extends ConsumerState<AudioPlayerWidget>
                 itemBuilder: (context) => [
                   PopupMenuItem(
                     value: 0.5,
-                    child: Text('0.5x', style: TextStyle(fontWeight: _playbackSpeed == 0.5 ? FontWeight.bold : FontWeight.normal)),
+                    child: Text(
+                      '0.5x',
+                      style: TextStyle(
+                        fontWeight: _playbackSpeed == 0.5
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                      ),
+                    ),
                   ),
                   PopupMenuItem(
                     value: 0.75,
-                    child: Text('0.75x', style: TextStyle(fontWeight: _playbackSpeed == 0.75 ? FontWeight.bold : FontWeight.normal)),
+                    child: Text(
+                      '0.75x',
+                      style: TextStyle(
+                        fontWeight: _playbackSpeed == 0.75
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                      ),
+                    ),
                   ),
                   PopupMenuItem(
                     value: 1.0,
-                    child: Text('Normal', style: TextStyle(fontWeight: _playbackSpeed == 1.0 ? FontWeight.bold : FontWeight.normal)),
+                    child: Text(
+                      'Normal',
+                      style: TextStyle(
+                        fontWeight: _playbackSpeed == 1.0
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                      ),
+                    ),
                   ),
                   PopupMenuItem(
                     value: 1.25,
-                    child: Text('1.25x', style: TextStyle(fontWeight: _playbackSpeed == 1.25 ? FontWeight.bold : FontWeight.normal)),
+                    child: Text(
+                      '1.25x',
+                      style: TextStyle(
+                        fontWeight: _playbackSpeed == 1.25
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                      ),
+                    ),
                   ),
                   PopupMenuItem(
                     value: 1.5,
-                    child: Text('1.5x', style: TextStyle(fontWeight: _playbackSpeed == 1.5 ? FontWeight.bold : FontWeight.normal)),
+                    child: Text(
+                      '1.5x',
+                      style: TextStyle(
+                        fontWeight: _playbackSpeed == 1.5
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                      ),
+                    ),
                   ),
                   PopupMenuItem(
                     value: 2.0,
-                    child: Text('2.0x', style: TextStyle(fontWeight: _playbackSpeed == 2.0 ? FontWeight.bold : FontWeight.normal)),
+                    child: Text(
+                      '2.0x',
+                      style: TextStyle(
+                        fontWeight: _playbackSpeed == 2.0
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                      ),
+                    ),
                   ),
                 ],
               ),

@@ -13,11 +13,7 @@ class AutoSaveIndicator extends StatelessWidget {
   final AutoSaveStatus status;
   final VoidCallback? onTap;
 
-  const AutoSaveIndicator({
-    super.key,
-    required this.status,
-    this.onTap,
-  });
+  const AutoSaveIndicator({super.key, required this.status, this.onTap});
 
   @override
   Widget build(BuildContext context) {

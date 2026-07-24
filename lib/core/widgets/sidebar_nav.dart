@@ -57,10 +57,9 @@ class _SidebarNavItemState extends State<SidebarNavItem> {
             color: widget.isActive
                 ? theme.colorScheme.primaryContainer.withValues(alpha: 0.2)
                 : _isHovered
-                    ? theme.colorScheme.surfaceContainerHighest
-                    : Colors.transparent,
-            borderRadius:
-                BorderRadius.circular(DesignTokens.radiusMedium),
+                ? theme.colorScheme.surfaceContainerHighest
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(DesignTokens.radiusMedium),
           ),
           child: Row(
             children: [
@@ -69,9 +68,7 @@ class _SidebarNavItemState extends State<SidebarNavItem> {
                 Container(
                   width: 3,
                   height: 20,
-                  margin: const EdgeInsets.only(
-                    right: DesignTokens.spacing8,
-                  ),
+                  margin: const EdgeInsets.only(right: DesignTokens.spacing8),
                   decoration: BoxDecoration(
                     color: theme.colorScheme.primary,
                     borderRadius: BorderRadius.circular(2),
@@ -133,11 +130,10 @@ class _SidebarNavItemState extends State<SidebarNavItem> {
                     vertical: DesignTokens.spacing2,
                   ),
                   decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(DesignTokens.radiusSmall),
-                    border: Border.all(
-                      color: theme.colorScheme.outlineVariant,
+                    borderRadius: BorderRadius.circular(
+                      DesignTokens.radiusSmall,
                     ),
+                    border: Border.all(color: theme.colorScheme.outlineVariant),
                   ),
                   child: Text(
                     widget.shortcutLabel!,
@@ -290,8 +286,9 @@ class SidebarShell extends StatelessWidget {
                     height: 28,
                     decoration: BoxDecoration(
                       color: theme.colorScheme.primaryContainer,
-                      borderRadius:
-                          BorderRadius.circular(DesignTokens.radiusSmall),
+                      borderRadius: BorderRadius.circular(
+                        DesignTokens.radiusSmall,
+                      ),
                     ),
                     child: Icon(
                       Icons.workspaces_rounded,
@@ -336,10 +333,7 @@ class SidebarShell extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
               horizontal: DesignTokens.spacing12,
             ),
-            child: Divider(
-              height: 1,
-              color: theme.colorScheme.outlineVariant,
-            ),
+            child: Divider(height: 1, color: theme.colorScheme.outlineVariant),
           ),
           // Nav items
           Expanded(

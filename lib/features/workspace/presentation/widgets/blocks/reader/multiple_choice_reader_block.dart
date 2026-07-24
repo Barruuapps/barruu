@@ -480,7 +480,9 @@ class _MultipleChoiceReaderBlockState
           badgeColor = theme.colorScheme.primary;
         } else {
           borderColor = theme.colorScheme.outline.withValues(alpha: 0.3);
-          bgColor = theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5);
+          bgColor = theme.colorScheme.surfaceContainerHighest.withValues(
+            alpha: 0.5,
+          );
           badgeColor = theme.colorScheme.onSurface.withValues(alpha: 0.45);
         }
 
@@ -619,7 +621,9 @@ class _MultipleChoiceReaderBlockState
                           ? _kCorrectColor
                           : (isSelected
                                 ? theme.colorScheme.error
-                                : theme.colorScheme.onSurface.withValues(alpha: 0.5)))
+                                : theme.colorScheme.onSurface.withValues(
+                                    alpha: 0.5,
+                                  )))
                     : null,
                 fontWeight: (_isSubmitted && isCorrect)
                     ? FontWeight.w600
@@ -1045,10 +1049,11 @@ class _MultipleChoiceReaderBlockState
         ),
         tilePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
         childrenPadding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
-        backgroundColor: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.35),
-        collapsedBackgroundColor: theme.colorScheme.surfaceContainerHighest.withValues(
-          alpha: 0.18,
+        backgroundColor: theme.colorScheme.surfaceContainerHighest.withValues(
+          alpha: 0.35,
         ),
+        collapsedBackgroundColor: theme.colorScheme.surfaceContainerHighest
+            .withValues(alpha: 0.18),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         collapsedShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),

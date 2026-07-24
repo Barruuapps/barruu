@@ -3,10 +3,10 @@
 enum AppThemeMode {
   /// Light mode for the entire app
   light,
-  
+
   /// Dark mode for the entire app
   dark,
-  
+
   /// Follow system settings
   system,
 }
@@ -23,7 +23,7 @@ extension AppThemeModeExtension on AppThemeMode {
         return 'System';
     }
   }
-  
+
   /// Get description for the theme mode
   String get description {
     switch (this) {

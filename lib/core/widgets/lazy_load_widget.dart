@@ -118,8 +118,7 @@ class _LazyLoadWidgetState extends State<LazyLoadWidget> {
     try {
       final viewport = RenderAbstractViewport.of(renderObject);
 
-      // Get the widget's position and size
-      final size = renderObject.size;
+      // Get the widget's position in the viewport
       final viewportHeight = viewport.paintBounds.height;
 
       // Calculate reveal offsets for top and bottom of widget

@@ -31,12 +31,12 @@ Future<DocumentPage?> showPageSelectorDialog({
 }) async {
   try {
     final allPages = await navigationService.getAllPages(docDir);
-    
+
     // Filter out the current page to avoid circular references
     final availablePages = allPages
         .where((page) => page.id != currentPageId)
         .toList();
-    
+
     if (availablePages.isEmpty) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -45,12 +45,14 @@ Future<DocumentPage?> showPageSelectorDialog({
       }
       return null;
     }
-    
+
     // Get referenced page IDs
-    final referencedPageIds = await navigationService.getReferencedPageIds(docDir);
-    
+    final referencedPageIds = await navigationService.getReferencedPageIds(
+      docDir,
+    );
+
     if (!context.mounted) return null;
-    
+
     return await showDialog<DocumentPage>(
       context: context,
       builder: (context) => _PageSelectorDialog(
@@ -60,9 +62,9 @@ Future<DocumentPage?> showPageSelectorDialog({
     );
   } catch (e) {
     if (context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error loading pages: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Error loading pages: $e')));
     }
     return null;
   }
@@ -90,7 +92,9 @@ class _PageSelectorDialog extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.3),
+                color: Theme.of(
+                  context,
+                ).colorScheme.primaryContainer.withValues(alpha: 0.3),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Row(
@@ -120,10 +124,12 @@ class _PageSelectorDialog extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final page = availablePages[index];
                   final isReferenced = referencedPageIds.contains(page.id);
-                  
+
                   return ListTile(
                     leading: Icon(
-                      page.isDrawerPage ? IconsaxPlusLinear.document : IconsaxPlusLinear.folder_open,
+                      page.isDrawerPage
+                          ? IconsaxPlusLinear.document
+                          : IconsaxPlusLinear.folder_open,
                       color: Theme.of(context).colorScheme.primary,
                     ),
                     title: Row(
@@ -131,9 +137,14 @@ class _PageSelectorDialog extends StatelessWidget {
                         Expanded(child: Text(page.title)),
                         if (isReferenced)
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
                             decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.secondaryContainer,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.secondaryContainer,
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Row(
@@ -142,22 +153,29 @@ class _PageSelectorDialog extends StatelessWidget {
                                 Icon(
                                   IconsaxPlusLinear.link_1,
                                   size: 12,
-                                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSecondaryContainer,
                                 ),
                                 const SizedBox(width: 4),
                                 Text(
                                   'Linked',
-                                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                                    color: Theme.of(context).colorScheme.onSecondaryContainer,
-                                    fontSize: 10,
-                                  ),
+                                  style: Theme.of(context).textTheme.labelSmall
+                                      ?.copyWith(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSecondaryContainer,
+                                        fontSize: 10,
+                                      ),
                                 ),
                               ],
                             ),
                           ),
                       ],
                     ),
-                    subtitle: Text(page.isDrawerPage ? 'Main Page' : 'Nested Page'),
+                    subtitle: Text(
+                      page.isDrawerPage ? 'Main Page' : 'Nested Page',
+                    ),
                     onTap: () => Navigator.of(context).pop(page),
                   );
                 },

@@ -1,4 +1,3 @@
-
 import 'package:barruu/core/widgets/blocks/base_editable_block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/blocks/block_empty_state.dart';
 import 'package:barruu/features/workspace/presentation/widgets/blocks/reader/table_reader_block.dart';
@@ -44,20 +43,28 @@ class _TableBlockState extends BaseEditableBlockState<TableBlock> {
     _debouncer = Debouncer(delay: const Duration(milliseconds: 500));
 
     if (content['rows'] == null || content['rows'] is! List) {
-      content['rows'] = [['', ''], ['', '']];
+      content['rows'] = [
+        ['', ''],
+        ['', ''],
+      ];
     }
     if (content['header'] == null) {
       content['header'] = '';
     }
 
-    _headerController = TextEditingController(text: content['header']?.toString() ?? '');
+    _headerController = TextEditingController(
+      text: content['header']?.toString() ?? '',
+    );
     _initCellControllers();
   }
 
   @override
   void onContentChanged() {
     if (content['rows'] == null || content['rows'] is! List) {
-      content['rows'] = [['', ''], ['', '']];
+      content['rows'] = [
+        ['', ''],
+        ['', ''],
+      ];
     }
     if (content['header'] == null) {
       content['header'] = '';
@@ -71,7 +78,8 @@ class _TableBlockState extends BaseEditableBlockState<TableBlock> {
     final newNumCols = newNumRows > 0 ? (rows[0] as List).length : 0;
 
     if (_cellControllers.length != newNumRows ||
-        (_cellControllers.isNotEmpty && _cellControllers[0].length != newNumCols)) {
+        (_cellControllers.isNotEmpty &&
+            _cellControllers[0].length != newNumCols)) {
       _disposeCellControllers();
       _initCellControllers();
     } else {
@@ -102,7 +110,9 @@ class _TableBlockState extends BaseEditableBlockState<TableBlock> {
     for (final row in rows) {
       final rowList = row as List;
       _cellControllers.add(
-        rowList.map((cell) => TextEditingController(text: cell?.toString() ?? '')).toList(),
+        rowList
+            .map((cell) => TextEditingController(text: cell?.toString() ?? ''))
+            .toList(),
       );
     }
   }
@@ -140,7 +150,9 @@ class _TableBlockState extends BaseEditableBlockState<TableBlock> {
     rows.add(newRow);
     content['rows'] = rows;
     setState(() {
-      _cellControllers.add(newRow.map((c) => TextEditingController(text: c)).toList());
+      _cellControllers.add(
+        newRow.map((c) => TextEditingController(text: c)).toList(),
+      );
     });
     saveContent();
   }
@@ -165,7 +177,9 @@ class _TableBlockState extends BaseEditableBlockState<TableBlock> {
   void _addColumn() {
     if (_numCols >= _maxColumns) return;
     final rows = List<List<dynamic>>.from(
-      (content['rows'] as List).map((r) => List<dynamic>.from(r as List)..add('')),
+      (content['rows'] as List).map(
+        (r) => List<dynamic>.from(r as List)..add(''),
+      ),
     );
     content['rows'] = rows;
     setState(() {
@@ -234,7 +248,10 @@ class _TableBlockState extends BaseEditableBlockState<TableBlock> {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            style: textStyle.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
+            style: textStyle.copyWith(
+              fontWeight: FontWeight.w600,
+              fontSize: 16,
+            ),
             onChanged: (_) => _debouncer.call(_saveFromGrid),
           ),
         ),
@@ -261,43 +278,52 @@ class _TableBlockState extends BaseEditableBlockState<TableBlock> {
                       color: theme.colorScheme.outline.withValues(alpha: 0.4),
                     ),
                     columnWidths: {
-                      for (int c = 0; c < numCols; c++) c: const FixedColumnWidth(120),
+                      for (int c = 0; c < numCols; c++)
+                        c: const FixedColumnWidth(120),
                     },
-                  children: List.generate(rows.length, (rowIdx) {
-                    final isFirstRow = rowIdx == 0;
-                    return TableRow(
-                      decoration: isFirstRow
-                          ? BoxDecoration(
-                              color: theme.colorScheme.primaryContainer.withValues(alpha: 0.4),
-                            )
-                          : null,
-                      children: List.generate(numCols, (colIdx) {
-                        if (rowIdx >= _cellControllers.length ||
-                            colIdx >= _cellControllers[rowIdx].length) {
-                          return const SizedBox.shrink();
-                        }
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                          child: TextField(
-                            controller: _cellControllers[rowIdx][colIdx],
-                            style: textStyle.copyWith(
-                              fontSize: 13,
-                              fontWeight: isFirstRow ? FontWeight.w600 : FontWeight.w400,
+                    children: List.generate(rows.length, (rowIdx) {
+                      final isFirstRow = rowIdx == 0;
+                      return TableRow(
+                        decoration: isFirstRow
+                            ? BoxDecoration(
+                                color: theme.colorScheme.primaryContainer
+                                    .withValues(alpha: 0.4),
+                              )
+                            : null,
+                        children: List.generate(numCols, (colIdx) {
+                          if (rowIdx >= _cellControllers.length ||
+                              colIdx >= _cellControllers[rowIdx].length) {
+                            return const SizedBox.shrink();
+                          }
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 4,
+                              vertical: 2,
                             ),
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              isCollapsed: true,
-                              contentPadding: EdgeInsets.symmetric(vertical: 6),
+                            child: TextField(
+                              controller: _cellControllers[rowIdx][colIdx],
+                              style: textStyle.copyWith(
+                                fontSize: 13,
+                                fontWeight: isFirstRow
+                                    ? FontWeight.w600
+                                    : FontWeight.w400,
+                              ),
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                isCollapsed: true,
+                                contentPadding: EdgeInsets.symmetric(
+                                  vertical: 6,
+                                ),
+                              ),
+                              maxLines: null,
+                              onChanged: (_) => _debouncer.call(_saveFromGrid),
                             ),
-                            maxLines: null,
-                            onChanged: (_) => _debouncer.call(_saveFromGrid),
-                          ),
-                        );
-                      }),
-                    );
-                  }),
+                          );
+                        }),
+                      );
+                    }),
+                  ),
                 ),
-              ),
 
               const SizedBox(height: 8),
 
@@ -311,7 +337,10 @@ class _TableBlockState extends BaseEditableBlockState<TableBlock> {
                     icon: const Icon(Icons.add, size: 16),
                     label: const Text('Add Row'),
                     style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 6,
+                      ),
                       minimumSize: const Size(0, 32),
                     ),
                   ),
@@ -320,7 +349,10 @@ class _TableBlockState extends BaseEditableBlockState<TableBlock> {
                     icon: const Icon(Icons.remove, size: 16),
                     label: const Text('Remove Row'),
                     style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 6,
+                      ),
                       minimumSize: const Size(0, 32),
                     ),
                   ),
@@ -329,7 +361,10 @@ class _TableBlockState extends BaseEditableBlockState<TableBlock> {
                     icon: const Icon(Icons.view_column, size: 16),
                     label: const Text('Add Col'),
                     style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 6,
+                      ),
                       minimumSize: const Size(0, 32),
                     ),
                   ),
@@ -338,7 +373,10 @@ class _TableBlockState extends BaseEditableBlockState<TableBlock> {
                     icon: const Icon(Icons.remove_circle_outline, size: 16),
                     label: const Text('Remove Col'),
                     style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 6,
+                      ),
                       minimumSize: const Size(0, 32),
                     ),
                   ),

@@ -42,9 +42,7 @@ class UIUtils {
         behavior: SnackBarBehavior.floating,
         duration: duration,
         margin: const EdgeInsets.all(12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         backgroundColor: isError
             ? Colors.red
             : Theme.of(context).colorScheme.primary,
@@ -86,9 +84,9 @@ class UIUtils {
             Text(
               message,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontWeight: FontWeight.w600,
-                  ),
+                color: Theme.of(context).colorScheme.onSurface,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ],
         ),
@@ -193,9 +191,9 @@ class UIUtils {
               Text(
                 details,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Colors.grey,
-                      fontFamily: 'monospace',
-                    ),
+                  color: Colors.grey,
+                  fontFamily: 'monospace',
+                ),
               ),
             ],
           ],

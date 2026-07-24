@@ -80,8 +80,9 @@ final recentDocumentServiceProvider = Provider<RecentDocumentService>((ref) {
   return RecentDocumentService();
 });
 
-final recentDocumentProvider =
-    FutureProvider.autoDispose<RecentDocumentEntry?>((ref) async {
-  final svc = ref.read(recentDocumentServiceProvider);
-  return svc.load();
-});
+final recentDocumentProvider = FutureProvider.autoDispose<RecentDocumentEntry?>(
+  (ref) async {
+    final svc = ref.read(recentDocumentServiceProvider);
+    return svc.load();
+  },
+);

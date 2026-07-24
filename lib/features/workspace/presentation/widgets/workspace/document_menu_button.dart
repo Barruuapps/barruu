@@ -8,7 +8,7 @@ import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:barruu/core/utils/app_logger.dart';
 
 /// A popup menu button widget for document actions.
-/// 
+///
 /// Provides actions for:
 /// - Editing document info
 /// - Publishing the document
@@ -17,16 +17,16 @@ import 'package:barruu/core/utils/app_logger.dart';
 class DocumentMenuButton extends ConsumerWidget {
   /// The directory containing the document
   final Directory doc;
-  
+
   /// Callback for showing edit info dialog
   final Future<void> Function(Directory doc) onEditInfo;
-  
+
   /// Callback for showing publish dialog
   final Future<void> Function(Directory doc) onPublish;
-  
+
   /// Callback for showing snackbar messages
   final void Function(String message, {bool isError}) onShowSnackBar;
-  
+
   /// Callback for reloading documents
   final VoidCallback onReloadDocuments;
 
@@ -49,9 +49,7 @@ class DocumentMenuButton extends ConsumerWidget {
         color: theme.colorScheme.onSurfaceVariant,
       ),
       padding: EdgeInsets.zero,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation: 0,
       color: theme.colorScheme.surfaceContainerLowest,
       onSelected: (value) => _handleMenuAction(context, ref, value),
@@ -61,9 +59,12 @@ class DocumentMenuButton extends ConsumerWidget {
   }
 
   /// Builds the menu items
-  List<PopupMenuEntry<String>> _buildMenuItems(BuildContext context, WidgetRef ref) {
+  List<PopupMenuEntry<String>> _buildMenuItems(
+    BuildContext context,
+    WidgetRef ref,
+  ) {
     final menuTheme = Theme.of(context);
-    
+
     return [
       PopupMenuItem(
         value: 'edit',
@@ -73,7 +74,9 @@ class DocumentMenuButton extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: menuTheme.colorScheme.primaryContainer.withValues(alpha: 0.5),
+                color: menuTheme.colorScheme.primaryContainer.withValues(
+                  alpha: 0.5,
+                ),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(
@@ -101,7 +104,9 @@ class DocumentMenuButton extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: menuTheme.colorScheme.tertiaryContainer.withValues(alpha: 0.5),
+                color: menuTheme.colorScheme.tertiaryContainer.withValues(
+                  alpha: 0.5,
+                ),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(
@@ -157,7 +162,9 @@ class DocumentMenuButton extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: menuTheme.colorScheme.secondaryContainer.withValues(alpha: 0.5),
+                color: menuTheme.colorScheme.secondaryContainer.withValues(
+                  alpha: 0.5,
+                ),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(
@@ -185,7 +192,9 @@ class DocumentMenuButton extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: menuTheme.colorScheme.errorContainer.withValues(alpha: 0.5),
+                color: menuTheme.colorScheme.errorContainer.withValues(
+                  alpha: 0.5,
+                ),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(
@@ -209,7 +218,11 @@ class DocumentMenuButton extends ConsumerWidget {
   }
 
   /// Handles menu action selection
-  Future<void> _handleMenuAction(BuildContext context, WidgetRef ref, String value) async {
+  Future<void> _handleMenuAction(
+    BuildContext context,
+    WidgetRef ref,
+    String value,
+  ) async {
     final documentService = ref.read(documentServiceProvider);
     try {
       if (value == 'edit') {
@@ -249,73 +262,91 @@ class DocumentMenuButton extends ConsumerWidget {
   /// Shows delete confirmation dialog
   Future<bool> _showDeleteConfirmation(BuildContext context) async {
     return await showDialog<bool>(
-      context: context,
-      builder: (ctx) {
-        final dialogTheme = Theme.of(ctx);
-        return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          backgroundColor: dialogTheme.colorScheme.surfaceContainerLowest,
-          title: Text(
-            'Delete Document',
-            style: dialogTheme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              letterSpacing: -0.3,
-              color: dialogTheme.colorScheme.onSurface,
-            ),
-          ),
-          content: Text(
-            'Are you sure? This action cannot be undone.',
-            style: dialogTheme.textTheme.bodyMedium?.copyWith(
-              color: dialogTheme.colorScheme.onSurfaceVariant,
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(ctx).pop(false),
-              style: TextButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          context: context,
+          builder: (ctx) {
+            final dialogTheme = Theme.of(ctx);
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
               ),
-              child: Text(
-                'Cancel',
-                style: dialogTheme.textTheme.labelMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            const SizedBox(width: 8),
-            ElevatedButton(
-              onPressed: () => Navigator.of(ctx).pop(true),
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                backgroundColor: dialogTheme.colorScheme.error,
-                foregroundColor: dialogTheme.colorScheme.onError,
-                elevation: 0,
-              ),
-              child: Text(
-                'Delete',
-                style: dialogTheme.textTheme.labelMedium?.copyWith(
+              backgroundColor: dialogTheme.colorScheme.surfaceContainerLowest,
+              title: Text(
+                'Delete Document',
+                style: dialogTheme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: dialogTheme.colorScheme.onError,
+                  letterSpacing: -0.3,
+                  color: dialogTheme.colorScheme.onSurface,
                 ),
               ),
-            ),
-          ],
-        );
-      },
-    ) ?? false;
+              content: Text(
+                'Are you sure? This action cannot be undone.',
+                style: dialogTheme.textTheme.bodyMedium?.copyWith(
+                  color: dialogTheme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(ctx).pop(false),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 12,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: Text(
+                    'Cancel',
+                    style: dialogTheme.textTheme.labelMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                ElevatedButton(
+                  onPressed: () => Navigator.of(ctx).pop(true),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 12,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    backgroundColor: dialogTheme.colorScheme.error,
+                    foregroundColor: dialogTheme.colorScheme.onError,
+                    elevation: 0,
+                  ),
+                  child: Text(
+                    'Delete',
+                    style: dialogTheme.textTheme.labelMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: dialogTheme.colorScheme.onError,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        ) ??
+        false;
   }
 
   /// Handles document export
-  Future<void> _handleExport(BuildContext context, DocumentService documentService) async {
+  Future<void> _handleExport(
+    BuildContext context,
+    DocumentService documentService,
+  ) async {
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (ctx) {
         final dialogTheme = Theme.of(ctx);
         return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
           backgroundColor: dialogTheme.colorScheme.surfaceContainerLowest,
           content: Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
@@ -347,7 +378,7 @@ class DocumentMenuButton extends ConsumerWidget {
         );
       },
     );
-    
+
     final bipyFilePath = await documentService.exportDocumentEncrypted(doc);
     if (context.mounted) {
       Navigator.of(context).pop();
@@ -360,14 +391,19 @@ class DocumentMenuButton extends ConsumerWidget {
   }
 
   /// Handles document export as PDF
-  Future<void> _handleExportPdf(BuildContext context, DocumentService documentService) async {
+  Future<void> _handleExportPdf(
+    BuildContext context,
+    DocumentService documentService,
+  ) async {
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (ctx) {
         final dialogTheme = Theme.of(ctx);
         return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
           backgroundColor: dialogTheme.colorScheme.surfaceContainerLowest,
           content: Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
@@ -410,5 +446,4 @@ class DocumentMenuButton extends ConsumerWidget {
       }
     }
   }
-
 }

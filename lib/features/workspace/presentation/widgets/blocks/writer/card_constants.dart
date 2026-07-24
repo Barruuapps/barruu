@@ -1,5 +1,5 @@
 /// Constants for card block templates.
-/// 
+///
 /// Shared constants used across card template widgets to ensure consistency.
 library;
 

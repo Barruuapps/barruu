@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -196,26 +195,31 @@ class _GraphExpressionMenu extends ConsumerWidget {
     // Check if expression is a function with parentheses
     if (expr.contains('(') && expr.endsWith(')')) {
       // For functions like 'sin(x)', insert as-is
-      newText = currentText.substring(0, cursorPosition) +
+      newText =
+          currentText.substring(0, cursorPosition) +
           expr +
           currentText.substring(cursorPosition);
       newCursorPosition = cursorPosition + expr.length;
     } else if (expr == '()') {
       // For empty parentheses, place cursor inside
-      newText = '${currentText.substring(0, cursorPosition)}()${currentText.substring(cursorPosition)}';
+      newText =
+          '${currentText.substring(0, cursorPosition)}()${currentText.substring(cursorPosition)}';
       newCursorPosition = cursorPosition + 1;
     } else if (expr.trim() == '+' || expr.trim() == '-') {
       // For operators with spaces, insert as-is
-      newText = currentText.substring(0, cursorPosition) +
+      newText =
+          currentText.substring(0, cursorPosition) +
           expr +
           currentText.substring(cursorPosition);
       newCursorPosition = cursorPosition + expr.length;
     } else {
       // For everything else, insert with space if needed
-      final needsSpace = cursorPosition < currentText.length &&
+      final needsSpace =
+          cursorPosition < currentText.length &&
           currentText[cursorPosition] != ' ' &&
           currentText[cursorPosition] != ')';
-      newText = currentText.substring(0, cursorPosition) +
+      newText =
+          currentText.substring(0, cursorPosition) +
           expr +
           (needsSpace ? ' ' : '') +
           currentText.substring(cursorPosition);

@@ -41,10 +41,16 @@ class CheckboxControls extends ConsumerWidget {
                   Navigator.of(context).pop();
                 }
               } catch (e, stackTrace) {
-                logger.e('Failed to update checkbox template', error: e, stackTrace: stackTrace);
+                logger.e(
+                  'Failed to update checkbox template',
+                  error: e,
+                  stackTrace: stackTrace,
+                );
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Error updating checkbox template: $e')),
+                    SnackBar(
+                      content: Text('Error updating checkbox template: $e'),
+                    ),
                   );
                 }
               }

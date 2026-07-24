@@ -20,7 +20,7 @@ final List<Map<String, dynamic>> pageIconOptions = [
 /// Returns [IconsaxPlusLinear.document_text] as the default icon if no custom icon is specified.
 IconData getPageIcon(String? customIcon) {
   if (customIcon == null) return IconsaxPlusLinear.document_text;
-  
+
   final iconOption = pageIconOptions.firstWhere(
     (option) => option['name'] == customIcon,
     orElse: () => pageIconOptions[0],

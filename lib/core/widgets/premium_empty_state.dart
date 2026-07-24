@@ -127,10 +127,7 @@ class PremiumEmptyState extends StatelessWidget {
     );
   }
 
-  factory PremiumEmptyState.error({
-    String? message,
-    VoidCallback? onRetry,
-  }) {
+  factory PremiumEmptyState.error({String? message, VoidCallback? onRetry}) {
     return PremiumEmptyState(
       icon: Icons.error_outline_rounded,
       title: 'Something went wrong',
@@ -154,14 +151,11 @@ class PremiumEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final iconSize = compact
-        ? DesignTokens.icon2XLarge
-        : DesignTokens.iconHero;
+    final iconSize = compact ? DesignTokens.icon2XLarge : DesignTokens.iconHero;
     final circleSize = compact ? 80.0 : 120.0;
-    final spacing = compact
-        ? DesignTokens.spacing16
-        : DesignTokens.spacing24;
-    final bgColor = iconBackgroundColor ??
+    final spacing = compact ? DesignTokens.spacing16 : DesignTokens.spacing24;
+    final bgColor =
+        iconBackgroundColor ??
         theme.colorScheme.primaryContainer.withValues(alpha: 0.25);
     final fgColor = iconColor ?? theme.colorScheme.primary;
 
@@ -189,11 +183,7 @@ class PremiumEmptyState extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Icon(
-                icon,
-                size: iconSize,
-                color: fgColor,
-              ),
+              child: Icon(icon, size: iconSize, color: fgColor),
             ),
 
             SizedBox(height: spacing),
@@ -201,14 +191,15 @@ class PremiumEmptyState extends StatelessWidget {
             // Title
             Text(
               title,
-              style: (compact
-                      ? theme.textTheme.titleLarge
-                      : theme.textTheme.headlineSmall)
-                  ?.copyWith(
-                fontWeight: FontWeight.w700,
-                color: theme.colorScheme.onSurface,
-                height: DesignTokens.lineHeightHeading,
-              ),
+              style:
+                  (compact
+                          ? theme.textTheme.titleLarge
+                          : theme.textTheme.headlineSmall)
+                      ?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: theme.colorScheme.onSurface,
+                        height: DesignTokens.lineHeightHeading,
+                      ),
               textAlign: TextAlign.center,
             ),
 
@@ -219,14 +210,16 @@ class PremiumEmptyState extends StatelessWidget {
               constraints: const BoxConstraints(maxWidth: 420),
               child: Text(
                 subtitle,
-                style: (compact
-                        ? theme.textTheme.bodyMedium
-                        : theme.textTheme.bodyLarge)
-                    ?.copyWith(
-                  color: theme.colorScheme.onSurface
-                      .withValues(alpha: DesignTokens.opacitySubtle),
-                  height: DesignTokens.lineHeightBody,
-                ),
+                style:
+                    (compact
+                            ? theme.textTheme.bodyMedium
+                            : theme.textTheme.bodyLarge)
+                        ?.copyWith(
+                          color: theme.colorScheme.onSurface.withValues(
+                            alpha: DesignTokens.opacitySubtle,
+                          ),
+                          height: DesignTokens.lineHeightBody,
+                        ),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -252,8 +245,9 @@ class PremiumEmptyState extends StatelessWidget {
                         label: Text(actionLabel!),
                         style: FilledButton.styleFrom(
                           padding: EdgeInsets.symmetric(
-                            vertical:
-                                compact ? DesignTokens.spacing12 : DesignTokens.spacing16,
+                            vertical: compact
+                                ? DesignTokens.spacing12
+                                : DesignTokens.spacing16,
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
@@ -276,8 +270,9 @@ class PremiumEmptyState extends StatelessWidget {
                         label: Text(secondaryActionLabel!),
                         style: OutlinedButton.styleFrom(
                           padding: EdgeInsets.symmetric(
-                            vertical:
-                                compact ? DesignTokens.spacing12 : DesignTokens.spacing16,
+                            vertical: compact
+                                ? DesignTokens.spacing12
+                                : DesignTokens.spacing16,
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(

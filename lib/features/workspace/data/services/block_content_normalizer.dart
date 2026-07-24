@@ -35,11 +35,13 @@ class BlockContentNormalizer {
   ///
   /// Returns a normalized copy of the block.
   Block normalizeBlockContent(Block block) {
-    if (block.type == BlockType.image || block.type == BlockType.audio || block.type == BlockType.video) {
+    if (block.type == BlockType.image ||
+        block.type == BlockType.audio ||
+        block.type == BlockType.video) {
       try {
         final json = jsonDecode(block.content) as Map<String, dynamic>;
         logger.d('Normalized JSON content for block ${block.id}: $json');
-        
+
         // For image blocks, handle both old (path) and new (images array) formats
         if (block.type == BlockType.image) {
           // Handle old single-path format - migrate to new images array format
@@ -48,7 +50,9 @@ class BlockContentNormalizer {
             final oldFileName = json['fileName'] as String? ?? '';
             if (oldPath.isNotEmpty) {
               // Detect if network image before converting to relative path
-              final isNetwork = oldPath.startsWith('http://') || oldPath.startsWith('https://');
+              final isNetwork =
+                  oldPath.startsWith('http://') ||
+                  oldPath.startsWith('https://');
               final relativePath = !isNetwork && oldPath.startsWith(docDir.path)
                   ? oldPath.replaceFirst('${docDir.path}/', '')
                   : oldPath;
@@ -57,7 +61,7 @@ class BlockContentNormalizer {
                   'path': relativePath,
                   'fileName': oldFileName,
                   'type': isNetwork ? 'network' : 'local',
-                }
+                },
               ];
             } else {
               json['images'] = [];
@@ -65,31 +69,43 @@ class BlockContentNormalizer {
             json.remove('path');
             json.remove('fileName');
           }
-          
+
           // Normalize paths in images array
           if (json['images'] is List) {
             final images = json['images'] as List<dynamic>;
             for (var i = 0; i < images.length; i++) {
               if (images[i] is Map<String, dynamic>) {
                 final imageData = images[i] as Map<String, dynamic>;
-                if (imageData['path'] != null && 
+                if (imageData['path'] != null &&
                     imageData['path'].toString().startsWith(docDir.path)) {
-                  imageData['path'] = imageData['path'].toString().replaceFirst('${docDir.path}/', '');
+                  imageData['path'] = imageData['path'].toString().replaceFirst(
+                    '${docDir.path}/',
+                    '',
+                  );
                 }
               }
             }
           }
         } else {
           // For audio/video, ensure path is relative
-          if (json['path'] != null && json['path'].toString().startsWith(docDir.path)) {
-            json['path'] = json['path'].toString().replaceFirst('${docDir.path}/', '');
+          if (json['path'] != null &&
+              json['path'].toString().startsWith(docDir.path)) {
+            json['path'] = json['path'].toString().replaceFirst(
+              '${docDir.path}/',
+              '',
+            );
           }
         }
-        
+
         return block.copyWith(content: jsonEncode(json));
       } catch (e, stackTrace) {
-        logger.w('Invalid JSON content for block ${block.id}: ${block.content}, error: $e', stackTrace: stackTrace);
-        return block.copyWith(content: jsonEncode(_getDefaultMediaContent(block.type)));
+        logger.w(
+          'Invalid JSON content for block ${block.id}: ${block.content}, error: $e',
+          stackTrace: stackTrace,
+        );
+        return block.copyWith(
+          content: jsonEncode(_getDefaultMediaContent(block.type)),
+        );
       }
     } else if (block.type == BlockType.graph) {
       try {
@@ -97,7 +113,10 @@ class BlockContentNormalizer {
         logger.d('Normalized JSON content for graph block ${block.id}: $json');
         return block;
       } catch (e, stackTrace) {
-        logger.w('Invalid JSON content for graph block ${block.id}: ${block.content}, error: $e', stackTrace: stackTrace);
+        logger.w(
+          'Invalid JSON content for graph block ${block.id}: ${block.content}, error: $e',
+          stackTrace: stackTrace,
+        );
         return block.copyWith(content: jsonEncode(_getDefaultGraphContent()));
       }
     }
@@ -114,18 +133,20 @@ class BlockContentNormalizer {
   ///
   /// Returns true if content is valid, false otherwise.
   bool validateMediaBlockContent(Block block) {
-    if (block.type != BlockType.image && block.type != BlockType.video && block.type != BlockType.audio) {
+    if (block.type != BlockType.image &&
+        block.type != BlockType.video &&
+        block.type != BlockType.audio) {
       return true;
     }
 
     try {
       final json = jsonDecode(block.content) as Map<String, dynamic>;
-      
+
       // For image blocks, check for either new images array or old path format
       if (block.type == BlockType.image) {
         return json.containsKey('images') || json.containsKey('path');
       }
-      
+
       // For audio/video, check that path field exists (can be empty)
       return json.containsKey('path');
     } catch (e) {
@@ -177,19 +198,10 @@ class BlockContentNormalizer {
         'fit': 'cover',
       };
     } else if (type == BlockType.audio) {
-      return {
-        'path': '',
-        'customTitle': '',
-        'caption': '',
-        'fileName': ''
-      };
+      return {'path': '', 'customTitle': '', 'caption': '', 'fileName': ''};
     } else {
       // Video
-      return {
-        'path': '',
-        'caption': '',
-        'fileName': ''
-      };
+      return {'path': '', 'caption': '', 'fileName': ''};
     }
   }
 

@@ -4,7 +4,7 @@ import 'package:barruu/features/workspace/domain/usecases/base_use_case.dart';
 import 'package:barruu/features/workspace/domain/repositories/i_document_repository.dart';
 
 /// Use case for updating an existing block
-/// 
+///
 /// This use case handles block update logic, including validation
 /// and error handling.
 class UpdateBlockUseCase extends UseCase<bool, UpdateBlockParams> {
@@ -22,7 +22,7 @@ class UpdateBlockUseCase extends UseCase<bool, UpdateBlockParams> {
 
       // Update the block
       final success = await _repository.updateBlock(params.block);
-      
+
       if (!success) {
         return Result.error('Failed to update block: Block not found');
       }

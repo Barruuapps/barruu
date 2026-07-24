@@ -3,12 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
 /// Singleton repository provider — shared across the whole app.
-final learningProgressRepositoryProvider =
-    Provider<LearningProgressRepository>((ref) {
-  final repo = LearningProgressRepository();
-  ref.onDispose(repo.close);
-  return repo;
-});
+final learningProgressRepositoryProvider = Provider<LearningProgressRepository>(
+  (ref) {
+    final repo = LearningProgressRepository();
+    ref.onDispose(repo.close);
+    return repo;
+  },
+);
 
 /// Notifier that exposes [recordAttempt] and the current list of entries for
 /// a document.  Use [learningProgressProvider(documentId)] to watch progress.
@@ -56,10 +57,12 @@ class LearningProgressNotifier
 }
 
 /// Family provider: one notifier per documentId.
-final learningProgressProvider = StateNotifierProvider.family<
-    LearningProgressNotifier, List<LearningProgressEntry>, String>(
-  (ref, documentId) {
-    final repo = ref.watch(learningProgressRepositoryProvider);
-    return LearningProgressNotifier(repo, documentId);
-  },
-);
+final learningProgressProvider =
+    StateNotifierProvider.family<
+      LearningProgressNotifier,
+      List<LearningProgressEntry>,
+      String
+    >((ref, documentId) {
+      final repo = ref.watch(learningProgressRepositoryProvider);
+      return LearningProgressNotifier(repo, documentId);
+    });

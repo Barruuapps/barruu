@@ -111,10 +111,10 @@ class MarkdownUtils {
     ];
 
     int currentPos = 0;
-    
+
     while (currentPos < text.length) {
       bool foundPattern = false;
-      
+
       for (final pattern in patterns) {
         final match = pattern.regex.matchAsPrefix(text, currentPos);
         if (match != null) {
@@ -124,7 +124,7 @@ class MarkdownUtils {
           break;
         }
       }
-      
+
       if (!foundPattern) {
         // Find the next markdown character
         int nextPos = text.length;
@@ -134,16 +134,19 @@ class MarkdownUtils {
             break;
           }
         }
-        
-        spans.add(TextSpan(
-          text: text.substring(currentPos, nextPos),
-          style: baseStyle,
-        ));
+
+        spans.add(
+          TextSpan(text: text.substring(currentPos, nextPos), style: baseStyle),
+        );
         currentPos = nextPos;
       }
     }
 
-    return TextSpan(children: spans.isEmpty ? [TextSpan(text: text, style: baseStyle)] : spans);
+    return TextSpan(
+      children: spans.isEmpty
+          ? [TextSpan(text: text, style: baseStyle)]
+          : spans,
+    );
   }
 }
 

@@ -19,10 +19,7 @@ class DocumentPermissionManager {
   final PermissionService _permissionService;
   final DocumentMetadataService _metadataService;
 
-  DocumentPermissionManager(
-    this._permissionService,
-    this._metadataService,
-  );
+  DocumentPermissionManager(this._permissionService, this._metadataService);
 
   /// Updates document permissions.
   ///
@@ -42,7 +39,9 @@ class DocumentPermissionManager {
     try {
       final metadata = await _metadataService.getDocumentMetadata(doc);
       if (metadata == null) {
-        logger.w('Cannot update permissions: metadata not found for ${doc.path}');
+        logger.w(
+          'Cannot update permissions: metadata not found for ${doc.path}',
+        );
         return false;
       }
 
@@ -56,11 +55,16 @@ class DocumentPermissionManager {
       // Write updated metadata
       await _metadataService.writeDocumentMetadata(doc, metadata);
 
-      logger.i('Updated permissions for document: ${doc.path} to level: ${permissionLevel.name}');
+      logger.i(
+        'Updated permissions for document: ${doc.path} to level: ${permissionLevel.name}',
+      );
       return true;
     } catch (e, stackTrace) {
-      logger.e('Failed to update document permissions: ${doc.path}',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to update document permissions: ${doc.path}',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return false;
     }
   }
@@ -80,8 +84,11 @@ class DocumentPermissionManager {
 
       return await _permissionService.canEdit(metadata);
     } catch (e, stackTrace) {
-      logger.e('Failed to check edit permission: ${doc.path}',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to check edit permission: ${doc.path}',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return false;
     }
   }
@@ -101,8 +108,11 @@ class DocumentPermissionManager {
 
       return await _permissionService.canDelete(metadata);
     } catch (e, stackTrace) {
-      logger.e('Failed to check delete permission: ${doc.path}',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to check delete permission: ${doc.path}',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return false;
     }
   }
@@ -122,8 +132,11 @@ class DocumentPermissionManager {
 
       return await _permissionService.getUserPermission(metadata);
     } catch (e, stackTrace) {
-      logger.e('Failed to get user permission level: ${doc.path}',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to get user permission level: ${doc.path}',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return null;
     }
   }

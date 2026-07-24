@@ -12,10 +12,7 @@ import 'package:barruu/features/workspace/presentation/dialogs/edit_document_inf
 import 'package:barruu/features/workspace/presentation/widgets/workspace/document_card.dart';
 import 'package:barruu/features/workspace/presentation/widgets/workspace/cover_image_widget.dart';
 import 'package:barruu/features/workspace/presentation/widgets/workspace/document_menu_button.dart';
-import 'package:barruu/core/services/user_service.dart';
-import 'package:barruu/core/models/user_profile.dart';
 import 'package:barruu/router/app_router.dart';
-import 'package:barruu/features/workspace/data/sources/user_identity_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -64,12 +61,16 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
         await ref.read(documentsProvider.notifier).loadDocuments();
         if (widget.docDir != null) {
           final docPath = Uri.encodeComponent(widget.docDir!.path);
+          if (!mounted) return;
           await context.push('/preview-document/$docPath');
           ref.read(documentsProvider.notifier).loadDocuments();
         }
       } catch (e, stackTrace) {
-        logger.e('Workspace initialization failed',
-            error: e, stackTrace: stackTrace);
+        logger.e(
+          'Workspace initialization failed',
+          error: e,
+          stackTrace: stackTrace,
+        );
         _showSnackBar('Failed to initialize workspace');
       }
     });
@@ -79,7 +80,8 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
     _debounce?.cancel();
     _debounce = Timer(const Duration(milliseconds: 250), () {
       setState(
-          () => _searchQuery = _searchController.text.trim().toLowerCase());
+        () => _searchQuery = _searchController.text.trim().toLowerCase(),
+      );
     });
   }
 
@@ -106,18 +108,21 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
       return {
         MetaFile.nameKey:
             meta[MetaFile.nameKey]?.toString().trim().isNotEmpty == true
-                ? meta[MetaFile.nameKey]
-                : 'Untitled Document',
+            ? meta[MetaFile.nameKey]
+            : 'Untitled Document',
         MetaFile.descriptionKey:
             meta[MetaFile.descriptionKey]?.toString() ?? '',
         MetaFile.coverKey: meta[MetaFile.coverKey]?.toString(),
-        MetaFile.coverOriginalNameKey:
-            meta[MetaFile.coverOriginalNameKey]?.toString(),
+        MetaFile.coverOriginalNameKey: meta[MetaFile.coverOriginalNameKey]
+            ?.toString(),
         'lastModified': lastModified,
       };
     } catch (e, stackTrace) {
-      logger.e('Failed to load metadata for ${doc.path}',
-          error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to load metadata for ${doc.path}',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return {MetaFile.nameKey: 'Untitled Document'};
     }
   }
@@ -126,45 +131,13 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
 
   Future<void> _showEditInfoDialog(Directory doc) async {
     final meta = await _loadMeta(doc);
+    if (!mounted) return;
     await showEditDocumentInfoDialog(
       context: context,
       doc: doc,
       meta: meta,
       onShowSnackBar: _showSnackBar,
     );
-  }
-
-  Future<void> _ensureUserProfile(String userId) async {
-    try {
-      final userService = ref.read(userServiceProvider);
-      final identityService = ref.read(userIdentityServiceProvider);
-      final profileResult = await userService.getProfile(userId);
-      if (profileResult.isError) {
-        logger.i('Creating local user profile for $userId');
-        final userName = await identityService.getUserName();
-        final username = userName != null && userName.isNotEmpty
-            ? userName.replaceAll(' ', '_').toLowerCase()
-            : 'local_user';
-        final newProfile = UserProfile.create(
-          uid: userId,
-          username: username,
-          displayName: userName ?? 'Local User',
-        );
-        final createResult = await userService.createProfile(newProfile);
-        if (createResult.isError) {
-          final errorMsg = createResult.when(
-            success: (_) => 'Unknown error',
-            error: (msg) => msg,
-          );
-          throw Exception('Failed to create user profile: $errorMsg');
-        }
-        logger.i('User profile created successfully');
-      }
-    } catch (e, stackTrace) {
-      logger.e('Error ensuring user profile',
-          error: e, stackTrace: stackTrace);
-      rethrow;
-    }
   }
 
   // ─── Actions ──────────────────────────────────────────────────────────
@@ -190,8 +163,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
       await context.push('/create-document');
       ref.read(documentsProvider.notifier).loadDocuments();
     } catch (e, stackTrace) {
-      logger.e('Create document failed',
-          error: e, stackTrace: stackTrace);
+      logger.e('Create document failed', error: e, stackTrace: stackTrace);
       _showSnackBar('Navigation error');
     }
   }
@@ -217,10 +189,8 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
             // Content
             Expanded(
               child: documentsState.when(
-                loading: () =>
-                    _buildLoadingState(theme),
-                error: (error, _) =>
-                    _buildErrorState(error, theme),
+                loading: () => _buildLoadingState(theme),
+                error: (error, _) => _buildErrorState(error, theme),
                 data: (docs) =>
                     _buildDocumentsView(docs, theme, textTheme, colorScheme),
               ),
@@ -273,9 +243,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
               ? IconsaxPlusLinear.close_circle
               : IconsaxPlusLinear.search_normal_1,
           tooltip: _showSearch ? 'Hide Search' : 'Search Documents',
-          highlightColor: _showSearch
-              ? colorScheme.primaryContainer
-              : null,
+          highlightColor: _showSearch ? colorScheme.primaryContainer : null,
           onPressed: () {
             setState(() {
               _showSearch = !_showSearch;
@@ -320,8 +288,9 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
               child: Container(
                 decoration: BoxDecoration(
                   color: theme.colorScheme.surfaceContainerHighest,
-                  borderRadius:
-                      BorderRadius.circular(DesignTokens.radiusXLarge),
+                  borderRadius: BorderRadius.circular(
+                    DesignTokens.radiusXLarge,
+                  ),
                   boxShadow: [
                     BoxShadow(
                       color: theme.colorScheme.shadow.withValues(alpha: 0.04),
@@ -336,8 +305,9 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
                   decoration: InputDecoration(
                     hintText: 'Search documents by name...',
                     hintStyle: theme.textTheme.bodyMedium?.copyWith(
-                      color: theme.colorScheme.onSurface
-                          .withValues(alpha: DesignTokens.opacitySubtle),
+                      color: theme.colorScheme.onSurface.withValues(
+                        alpha: DesignTokens.opacitySubtle,
+                      ),
                     ),
                     prefixIcon: Icon(
                       IconsaxPlusLinear.search_normal,
@@ -382,10 +352,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
           SizedBox(height: DesignTokens.spacing16),
           Text(
             'Loading documents...',
-            style: TextStyle(
-              color: Colors.grey,
-              fontWeight: FontWeight.w500,
-            ),
+            style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w500),
           ),
         ],
       ),
@@ -395,10 +362,10 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
   Widget _buildErrorState(Object error, ThemeData theme) {
     logger.e('Failed to load documents', error: error);
     return PremiumEmptyState.error(
-      message: 'Unable to load your documents. '
+      message:
+          'Unable to load your documents. '
           'Please check your permissions and try again.',
-      onRetry: () =>
-          ref.read(documentsProvider.notifier).loadDocuments(),
+      onRetry: () => ref.read(documentsProvider.notifier).loadDocuments(),
     );
   }
 
@@ -421,10 +388,8 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
         ? docs
         : docs.where((doc) {
             final meta =
-                ref.read(documentsProvider.notifier).getCachedMeta(doc) ??
-                    {};
-            final name =
-                meta[MetaFile.nameKey]?.toString().toLowerCase() ?? '';
+                ref.read(documentsProvider.notifier).getCachedMeta(doc) ?? {};
+            final name = meta[MetaFile.nameKey]?.toString().toLowerCase() ?? '';
             return name.contains(_searchQuery);
           }).toList();
 
@@ -441,12 +406,11 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
 
     // Sort alphabetically
     filteredDocs.sort((a, b) {
-      final aMeta =
-          ref.read(documentsProvider.notifier).getCachedMeta(a) ?? {};
-      final bMeta =
-          ref.read(documentsProvider.notifier).getCachedMeta(b) ?? {};
-      return (aMeta[MetaFile.nameKey] ?? 'Untitled')
-          .compareTo(bMeta[MetaFile.nameKey] ?? 'Untitled');
+      final aMeta = ref.read(documentsProvider.notifier).getCachedMeta(a) ?? {};
+      final bMeta = ref.read(documentsProvider.notifier).getCachedMeta(b) ?? {};
+      return (aMeta[MetaFile.nameKey] ?? 'Untitled').compareTo(
+        bMeta[MetaFile.nameKey] ?? 'Untitled',
+      );
     });
 
     return FadeTransition(
@@ -466,8 +430,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
             final children = <Widget>[];
             if (showWelcome) {
               children.add(
-                _buildWelcomeHeader(
-                    theme, textTheme, colorScheme, docs.length),
+                _buildWelcomeHeader(theme, textTheme, colorScheme, docs.length),
               );
             }
             // Build grid of document cards
@@ -493,8 +456,12 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
                           padding: const EdgeInsets.only(
                             bottom: DesignTokens.spacing24,
                           ),
-                          child: _buildWelcomeHeader(theme, textTheme,
-                              colorScheme, docs.length),
+                          child: _buildWelcomeHeader(
+                            theme,
+                            textTheme,
+                            colorScheme,
+                            docs.length,
+                          ),
                         )
                       else
                         Padding(
@@ -504,8 +471,9 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
                           child: Text(
                             '${filteredDocs.length} document${filteredDocs.length == 1 ? '' : 's'} found',
                             style: textTheme.titleMedium?.copyWith(
-                              color: colorScheme.onSurface
-                                  .withValues(alpha: DesignTokens.opacitySubtle),
+                              color: colorScheme.onSurface.withValues(
+                                alpha: DesignTokens.opacitySubtle,
+                              ),
                               fontWeight: DesignTokens.weightMedium,
                             ),
                           ),
@@ -513,8 +481,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
                       GridView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate:
-                            SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: crossAxisCount,
                           childAspectRatio: aspectRatio,
                           crossAxisSpacing: spacing,
@@ -522,7 +489,10 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
                         ),
                         itemCount: filteredDocs.length,
                         itemBuilder: (context, index) => _buildDocumentCard(
-                            context, filteredDocs[index], theme),
+                          context,
+                          filteredDocs[index],
+                          theme,
+                        ),
                       ),
                     ],
                   ),
@@ -547,15 +517,21 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
                     bottom: DesignTokens.spacing16,
                   ),
                   child: _buildWelcomeCompact(
-                      theme, textTheme, colorScheme, docs.length),
+                    theme,
+                    textTheme,
+                    colorScheme,
+                    docs.length,
+                  ),
                 );
               }
               final docIndex = showWelcome ? index - 1 : index;
               return Padding(
-                padding:
-                    const EdgeInsets.only(bottom: DesignTokens.spacing12),
+                padding: const EdgeInsets.only(bottom: DesignTokens.spacing12),
                 child: _buildDocumentItem(
-                    context, filteredDocs[docIndex], theme),
+                  context,
+                  filteredDocs[docIndex],
+                  theme,
+                ),
               );
             },
           );
@@ -592,8 +568,9 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
                   Text(
                     'You have $docCount document${docCount == 1 ? '' : 's'} in your workspace',
                     style: textTheme.bodyLarge?.copyWith(
-                      color: colorScheme.onSurface
-                          .withValues(alpha: DesignTokens.opacitySubtle),
+                      color: colorScheme.onSurface.withValues(
+                        alpha: DesignTokens.opacitySubtle,
+                      ),
                     ),
                   ),
                 ],
@@ -637,8 +614,9 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
         Text(
           '$docCount document${docCount == 1 ? '' : 's'}',
           style: textTheme.bodyMedium?.copyWith(
-            color: colorScheme.onSurface
-                .withValues(alpha: DesignTokens.opacitySubtle),
+            color: colorScheme.onSurface.withValues(
+              alpha: DesignTokens.opacitySubtle,
+            ),
           ),
         ),
         const SizedBox(height: DesignTokens.spacing8),
@@ -664,16 +642,16 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
   // ─── Document Card (Grid) ───────────────────────────────────────────
 
   Widget _buildDocumentCard(
-      BuildContext context, Directory doc, ThemeData theme) {
-    final meta =
-        ref.read(documentsProvider.notifier).getCachedMeta(doc) ?? {};
+    BuildContext context,
+    Directory doc,
+    ThemeData theme,
+  ) {
+    final meta = ref.read(documentsProvider.notifier).getCachedMeta(doc) ?? {};
     return WorkspaceDocumentCard(
       doc: doc,
       meta: meta,
-      buildCoverImage: (coverImageUrl, theme) => CoverImageWidget(
-        coverImageUrl: coverImageUrl,
-        theme: theme,
-      ),
+      buildCoverImage: (coverImageUrl, theme) =>
+          CoverImageWidget(coverImageUrl: coverImageUrl, theme: theme),
       buildPopupMenuButton: (doc) => DocumentMenuButton(
         doc: doc,
         onEditInfo: _showEditInfoDialog,
@@ -691,13 +669,14 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
   // ─── Document Item (List) ────────────────────────────────────────────
 
   Widget _buildDocumentItem(
-      BuildContext context, Directory doc, ThemeData theme) {
-    final meta =
-        ref.read(documentsProvider.notifier).getCachedMeta(doc) ?? {};
+    BuildContext context,
+    Directory doc,
+    ThemeData theme,
+  ) {
+    final meta = ref.read(documentsProvider.notifier).getCachedMeta(doc) ?? {};
     final title =
         meta[MetaFile.nameKey]?.toString().trim() ?? 'Untitled Document';
-    final lastModified =
-        meta['lastModified'] as DateTime? ?? DateTime.now();
+    final lastModified = meta['lastModified'] as DateTime? ?? DateTime.now();
     final coverImageUrl = meta[MetaFile.coverKey]?.toString();
     final formattedDate = DateFormat('MMM d, yyyy').format(lastModified);
 
@@ -707,10 +686,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
         child: SizedBox(
           width: 48,
           height: 48,
-          child: CoverImageWidget(
-            coverImageUrl: coverImageUrl,
-            theme: theme,
-          ),
+          child: CoverImageWidget(coverImageUrl: coverImageUrl, theme: theme),
         ),
       ),
       title: Text(
@@ -742,8 +718,11 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
           await context.push('/preview-document/$docPath');
           ref.read(documentsProvider.notifier).loadDocuments();
         } catch (e, stackTrace) {
-          logger.e('Navigation error: ${doc.path}',
-              error: e, stackTrace: stackTrace);
+          logger.e(
+            'Navigation error: ${doc.path}',
+            error: e,
+            stackTrace: stackTrace,
+          );
           _showSnackBar('Failed to open document');
         }
       },
@@ -772,13 +751,17 @@ class _BarruuAppBarIconButton extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(right: DesignTokens.spacing4),
       decoration: BoxDecoration(
-        color: highlightColor ??
+        color:
+            highlightColor ??
             theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.6),
         borderRadius: BorderRadius.circular(DesignTokens.radiusLarge),
       ),
       child: IconButton(
-        icon: Icon(icon,
-            size: DesignTokens.iconCompact, color: theme.colorScheme.primary),
+        icon: Icon(
+          icon,
+          size: DesignTokens.iconCompact,
+          color: theme.colorScheme.primary,
+        ),
         tooltip: tooltip,
         onPressed: onPressed,
         splashRadius: DesignTokens.iconCompact,
@@ -823,9 +806,11 @@ class _QuickActionChip extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(icon,
-                  size: DesignTokens.iconSmall,
-                  color: theme.colorScheme.primary),
+              Icon(
+                icon,
+                size: DesignTokens.iconSmall,
+                color: theme.colorScheme.primary,
+              ),
               const SizedBox(width: DesignTokens.spacing8),
               Text(
                 label,

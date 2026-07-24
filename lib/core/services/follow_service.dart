@@ -24,7 +24,10 @@ class FollowService {
     return Result.error('Follow feature requires cloud backend');
   }
 
-  Future<Result<void>> unfollowUser(String followerId, String followingId) async {
+  Future<Result<void>> unfollowUser(
+    String followerId,
+    String followingId,
+  ) async {
     return Result.error('Follow feature requires cloud backend');
   }
 

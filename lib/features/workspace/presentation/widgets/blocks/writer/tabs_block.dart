@@ -73,8 +73,9 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
 
     _selectedIndex = (content['activeTab'] as num?)?.toInt() ?? 0;
     _tabTemplate = content['tabTemplate']?.toString() ?? kDefaultTabTemplate;
-    _contentHeight = (content['contentHeight'] as num?)?.toDouble() ?? _defaultContentHeight;
-    
+    _contentHeight =
+        (content['contentHeight'] as num?)?.toDouble() ?? _defaultContentHeight;
+
     // Initialize controllers for existing tabs
     _initializeTabControllers();
   }
@@ -82,8 +83,9 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
   @override
   void onContentChanged() {
     _tabTemplate = content['tabTemplate']?.toString() ?? kDefaultTabTemplate;
-    _contentHeight = (content['contentHeight'] as num?)?.toDouble() ?? _defaultContentHeight;
-    
+    _contentHeight =
+        (content['contentHeight'] as num?)?.toDouble() ?? _defaultContentHeight;
+
     // Update controllers when content changes externally
     _updateTabControllers();
   }
@@ -92,7 +94,7 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
   void disposeBlockSpecifics() {
     _disposeTabControllers();
   }
-  
+
   void _initializeTabControllers() {
     final tabs = content['tabs'] as List;
     for (int i = 0; i < tabs.length; i++) {
@@ -100,15 +102,17 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
         final tab = tabs[i] as Map<String, dynamic>;
         _tabControllers[i] = {
           'title': TextEditingController(text: tab['title']?.toString() ?? ''),
-          'content': TextEditingController(text: tab['content']?.toString() ?? ''),
+          'content': TextEditingController(
+            text: tab['content']?.toString() ?? '',
+          ),
         };
       }
     }
   }
-  
+
   void _updateTabControllers() {
     final tabs = content['tabs'] as List;
-    
+
     // Remove controllers for tabs that no longer exist
     _tabControllers.removeWhere((key, controllers) {
       if (key >= tabs.length) {
@@ -119,18 +123,18 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
       }
       return false;
     });
-    
+
     // Update existing controllers and create new ones
     for (int i = 0; i < tabs.length; i++) {
       final tab = tabs[i] as Map<String, dynamic>;
-      
+
       if (_tabControllers.containsKey(i)) {
         // Only update if text is different to avoid cursor reset
         final titleText = tab['title']?.toString() ?? '';
         if (_tabControllers[i]!['title']!.text != titleText) {
           _tabControllers[i]!['title']!.text = titleText;
         }
-        
+
         final contentText = tab['content']?.toString() ?? '';
         if (_tabControllers[i]!['content']!.text != contentText) {
           _tabControllers[i]!['content']!.text = contentText;
@@ -138,12 +142,14 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
       } else {
         _tabControllers[i] = {
           'title': TextEditingController(text: tab['title']?.toString() ?? ''),
-          'content': TextEditingController(text: tab['content']?.toString() ?? ''),
+          'content': TextEditingController(
+            text: tab['content']?.toString() ?? '',
+          ),
         };
       }
     }
   }
-  
+
   void _disposeTabControllers() {
     for (var controllers in _tabControllers.values) {
       for (var controller in controllers.values) {
@@ -157,20 +163,16 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
     // Add tab with content field
     final tabs = List<Map<String, dynamic>>.from(content['tabs'] as List);
     final newIndex = tabs.length;
-    tabs.add({
-      'title': '',
-      'icon': 'document',
-      'content': '',
-    });
+    tabs.add({'title': '', 'icon': 'document', 'content': ''});
 
     content['tabs'] = tabs;
-    
+
     // Create controllers for new tab
     _tabControllers[newIndex] = {
       'title': TextEditingController(text: ''),
       'content': TextEditingController(text: ''),
     };
-    
+
     await saveContent();
   }
 
@@ -194,7 +196,7 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
       }
       _tabControllers.remove(index);
     }
-    
+
     // Reindex remaining controllers
     final newControllers = <int, Map<String, TextEditingController>>{};
     for (var entry in _tabControllers.entries) {
@@ -218,7 +220,9 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
         action: SnackBarAction(
           label: 'Undo',
           onPressed: () {
-            final currentTabs = List<Map<String, dynamic>>.from(content['tabs'] as List);
+            final currentTabs = List<Map<String, dynamic>>.from(
+              content['tabs'] as List,
+            );
             currentTabs.insert(index, removedTab);
             content['tabs'] = currentTabs;
 
@@ -247,7 +251,8 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
     // Reindex controllers without disposing to preserve text/focus state
     final n = tabs.length;
     final controllerList = List<Map<String, TextEditingController>?>.generate(
-      n, (i) => _tabControllers[i],
+      n,
+      (i) => _tabControllers[i],
     );
     final movedCtrl = controllerList.removeAt(oldIndex);
     controllerList.insert(newIndex, movedCtrl);
@@ -290,7 +295,9 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
   /// Returns the nearest preset height value (250/400/600) for the SegmentedButton selection.
   double _nearestPreset(double height) {
     const presets = [250.0, 400.0, 600.0];
-    return presets.reduce((a, b) => (height - a).abs() < (height - b).abs() ? a : b);
+    return presets.reduce(
+      (a, b) => (height - a).abs() < (height - b).abs() ? a : b,
+    );
   }
 
   @override
@@ -315,157 +322,178 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
           child: Toolbar(block: widget.block, docDir: widget.docDir),
         ),
         Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Header section
-              Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(_spacingMedium),
-                    decoration: BoxDecoration(
-                      color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
-                      borderRadius: BorderRadius.circular(_spacingMedium),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Header section
+            Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(_spacingMedium),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.primaryContainer.withValues(
+                      alpha: 0.3,
                     ),
-                    child: Icon(
-                      IconsaxPlusLinear.task_square,
-                      color: theme.colorScheme.primary,
-                      size: 24,
-                    ),
+                    borderRadius: BorderRadius.circular(_spacingMedium),
                   ),
-                  SizedBox(width: _spacingLarge),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Tabs Block',
-                          style: theme.textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                  child: Icon(
+                    IconsaxPlusLinear.task_square,
+                    color: theme.colorScheme.primary,
+                    size: 24,
+                  ),
+                ),
+                SizedBox(width: _spacingLarge),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Tabs Block',
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
                         ),
-                        SizedBox(height: _spacingXSmall),
-                        Text(
-                          'Create tabbed content sections',
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  // Template selector button
-                  OutlinedButton.icon(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => TabTemplateSelector(
-                          selectedTemplate: _tabTemplate,
-                          onTemplateSelected: (value) {
-                            _updateTabTemplate(value);
-                            Navigator.of(context).pop();
-                          },
-                          theme: theme,
-                        ),
-                      );
-                    },
-                    icon: const Icon(IconsaxPlusLinear.gallery, size: 16),
-                    label: Text(_getTemplateDisplayName(_tabTemplate)),
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                      minimumSize: const Size(0, 32),
-                    ),
-                  ),
-                ],
-              ),
-
-              SizedBox(height: _spacingXLarge),
-
-              // Height preset selector (Small / Medium / Large)
-              Row(
-                children: [
-                  Icon(
-                    IconsaxPlusLinear.arrow_up_3,
-                    size: 18,
-                    color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-                  ),
-                  SizedBox(width: _spacingSmall),
-                  Text(
-                    'Height:',
-                    style: theme.textTheme.labelMedium?.copyWith(
-                      color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
-                    ),
-                  ),
-                  SizedBox(width: _spacingSmall),
-                  Expanded(
-                    child: SegmentedButton<double>(
-                      style: ButtonStyle(
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        visualDensity: VisualDensity.compact,
                       ),
-                      segments: const [
-                        ButtonSegment(value: 250.0, label: Text('S', style: TextStyle(fontSize: 12))),
-                        ButtonSegment(value: 400.0, label: Text('M', style: TextStyle(fontSize: 12))),
-                        ButtonSegment(value: 600.0, label: Text('L', style: TextStyle(fontSize: 12))),
-                      ],
-                      selected: {_nearestPreset(_contentHeight)},
-                      onSelectionChanged: (values) => _updateContentHeight(values.first),
-                    ),
+                      SizedBox(height: _spacingXSmall),
+                      Text(
+                        'Create tabbed content sections',
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: theme.colorScheme.onSurface.withValues(
+                            alpha: 0.6,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-
-              SizedBox(height: _spacingMedium),
-
-              // Tab list
-              if (tabs.isEmpty)
-                BlockEmptyState(
-                  icon: IconsaxPlusLinear.task_square,
-                  message: 'No tabs yet',
-                  actionLabel: 'Add Tab',
-                  onAction: () { _addTab(); },
-                )
-              else
-                ReorderableListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: tabs.length,
-                  onReorder: _reorderTabs,
-                  itemBuilder: (context, index) {
-                    final tab = tabs[index] as Map<String, dynamic>;
-                    return KeyedSubtree(
-                      key: ValueKey('tab_$index'),
-                      child: _buildTabItem(theme, tab, index),
+                ),
+                // Template selector button
+                OutlinedButton.icon(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => TabTemplateSelector(
+                        selectedTemplate: _tabTemplate,
+                        onTemplateSelected: (value) {
+                          _updateTabTemplate(value);
+                          Navigator.of(context).pop();
+                        },
+                        theme: theme,
+                      ),
                     );
                   },
-                ),
-
-              SizedBox(height: _spacingLarge),
-
-              // Add tab button
-              SizedBox(
-                width: double.infinity,
-                child: OutlinedButton.icon(
-                  onPressed: _addTab,
-                  icon: const Icon(IconsaxPlusLinear.add),
-                  label: const Text(
-                    'Add Tab',
-                    style: TextStyle(fontWeight: FontWeight.w600),
-                  ),
+                  icon: const Icon(IconsaxPlusLinear.gallery, size: 16),
+                  label: Text(_getTemplateDisplayName(_tabTemplate)),
                   style: OutlinedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: _spacingLarge, horizontal: _spacingXXLarge),
-                    side: BorderSide(
-                      color: theme.colorScheme.primary.withValues(alpha: 0.5),
-                      width: 2,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                    minimumSize: const Size(0, 32),
+                  ),
+                ),
+              ],
+            ),
+
+            SizedBox(height: _spacingXLarge),
+
+            // Height preset selector (Small / Medium / Large)
+            Row(
+              children: [
+                Icon(
+                  IconsaxPlusLinear.arrow_up_3,
+                  size: 18,
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                ),
+                SizedBox(width: _spacingSmall),
+                Text(
+                  'Height:',
+                  style: theme.textTheme.labelMedium?.copyWith(
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                  ),
+                ),
+                SizedBox(width: _spacingSmall),
+                Expanded(
+                  child: SegmentedButton<double>(
+                    style: ButtonStyle(
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      visualDensity: VisualDensity.compact,
                     ),
+                    segments: const [
+                      ButtonSegment(
+                        value: 250.0,
+                        label: Text('S', style: TextStyle(fontSize: 12)),
+                      ),
+                      ButtonSegment(
+                        value: 400.0,
+                        label: Text('M', style: TextStyle(fontSize: 12)),
+                      ),
+                      ButtonSegment(
+                        value: 600.0,
+                        label: Text('L', style: TextStyle(fontSize: 12)),
+                      ),
+                    ],
+                    selected: {_nearestPreset(_contentHeight)},
+                    onSelectionChanged: (values) =>
+                        _updateContentHeight(values.first),
+                  ),
+                ),
+              ],
+            ),
+
+            SizedBox(height: _spacingMedium),
+
+            // Tab list
+            if (tabs.isEmpty)
+              BlockEmptyState(
+                icon: IconsaxPlusLinear.task_square,
+                message: 'No tabs yet',
+                actionLabel: 'Add Tab',
+                onAction: () {
+                  _addTab();
+                },
+              )
+            else
+              ReorderableListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: tabs.length,
+                onReorder: _reorderTabs,
+                itemBuilder: (context, index) {
+                  final tab = tabs[index] as Map<String, dynamic>;
+                  return KeyedSubtree(
+                    key: ValueKey('tab_$index'),
+                    child: _buildTabItem(theme, tab, index),
+                  );
+                },
+              ),
+
+            SizedBox(height: _spacingLarge),
+
+            // Add tab button
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: _addTab,
+                icon: const Icon(IconsaxPlusLinear.add),
+                label: const Text(
+                  'Add Tab',
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                style: OutlinedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(
+                    vertical: _spacingLarge,
+                    horizontal: _spacingXXLarge,
+                  ),
+                  side: BorderSide(
+                    color: theme.colorScheme.primary.withValues(alpha: 0.5),
+                    width: 2,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),
-            ],
-          ),
-
+            ),
+          ],
+        ),
       ],
     );
   }
@@ -478,12 +506,13 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
     if (!_tabControllers.containsKey(index)) {
       _tabControllers[index] = {
         'title': TextEditingController(text: tab['title']?.toString() ?? ''),
-        'content': TextEditingController(text: tab['content']?.toString() ?? ''),
+        'content': TextEditingController(
+          text: tab['content']?.toString() ?? '',
+        ),
       };
     }
 
     return Container(
-
       margin: EdgeInsets.only(bottom: _spacingMedium),
       padding: EdgeInsets.all(_spacingLarge),
       decoration: BoxDecoration(
@@ -520,7 +549,9 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
                   ),
                 ),
                 onSelected: (String newIconName) {
-                  final tabs = List<Map<String, dynamic>>.from(content['tabs'] as List);
+                  final tabs = List<Map<String, dynamic>>.from(
+                    content['tabs'] as List,
+                  );
                   tabs[index]['icon'] = newIconName;
                   content['tabs'] = tabs;
                   setState(() {});
@@ -535,19 +566,29 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
                     child: Row(
                       children: [
                         if (optIcon != null)
-                          Icon(optIcon, size: 18, color: theme.colorScheme.onSurface)
+                          Icon(
+                            optIcon,
+                            size: 18,
+                            color: theme.colorScheme.onSurface,
+                          )
                         else
                           const SizedBox(width: 18),
                         const SizedBox(width: 10),
                         Text(
                           optLabel,
                           style: theme.textTheme.bodyMedium?.copyWith(
-                            fontWeight: optName == currentIconName ? FontWeight.bold : null,
+                            fontWeight: optName == currentIconName
+                                ? FontWeight.bold
+                                : null,
                           ),
                         ),
                         if (optName == currentIconName) ...[
                           const Spacer(),
-                          Icon(Icons.check, size: 14, color: theme.colorScheme.primary),
+                          Icon(
+                            Icons.check,
+                            size: 14,
+                            color: theme.colorScheme.primary,
+                          ),
                         ],
                       ],
                     ),
@@ -571,16 +612,21 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
                     ),
                   ),
                   onChanged: (value) {
-                    final tabs = List<Map<String, dynamic>>.from(content['tabs'] as List);
+                    final tabs = List<Map<String, dynamic>>.from(
+                      content['tabs'] as List,
+                    );
                     tabs[index]['title'] = value;
                     content['tabs'] = tabs;
                     saveContent();
                   },
                   onEditingComplete: () {
                     // Trim on blur / submit
-                    final trimmed = _tabControllers[index]!['title']!.text.trim();
+                    final trimmed = _tabControllers[index]!['title']!.text
+                        .trim();
                     _tabControllers[index]!['title']!.text = trimmed;
-                    final tabs = List<Map<String, dynamic>>.from(content['tabs'] as List);
+                    final tabs = List<Map<String, dynamic>>.from(
+                      content['tabs'] as List,
+                    );
                     tabs[index]['title'] = trimmed;
                     content['tabs'] = tabs;
                     saveContent();
@@ -617,7 +663,9 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
               contentPadding: EdgeInsets.all(_spacingMedium),
             ),
             onChanged: (value) {
-              final tabs = List<Map<String, dynamic>>.from(content['tabs'] as List);
+              final tabs = List<Map<String, dynamic>>.from(
+                content['tabs'] as List,
+              );
               tabs[index]['content'] = value;
               content['tabs'] = tabs;
               saveContent();
@@ -629,6 +677,7 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
   }
 
   String _getTemplateDisplayName(String template) {
-    return kTabTemplateNames[template] ?? kTabTemplateNames[kDefaultTabTemplate]!;
+    return kTabTemplateNames[template] ??
+        kTabTemplateNames[kDefaultTabTemplate]!;
   }
 }

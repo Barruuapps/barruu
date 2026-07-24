@@ -24,11 +24,7 @@ class AIGenerationState {
   final String? error;
   final AIGenerationResult? result;
 
-  const AIGenerationState({
-    this.isLoading = false,
-    this.error,
-    this.result,
-  });
+  const AIGenerationState({this.isLoading = false, this.error, this.result});
 
   AIGenerationState copyWith({
     bool? isLoading,
@@ -61,10 +57,7 @@ class AIGenerationNotifier extends StateNotifier<AIGenerationState> {
         error: result.success ? null : result.error,
       );
     } catch (e) {
-      state = state.copyWith(
-        isLoading: false,
-        error: 'Generation failed: $e',
-      );
+      state = state.copyWith(isLoading: false, error: 'Generation failed: $e');
     }
   }
 
@@ -74,12 +67,14 @@ class AIGenerationNotifier extends StateNotifier<AIGenerationState> {
     String? context,
     int pageCount = 3,
   }) async {
-    await generate(AIGenerationRequest(
-      type: AIGenerationType.fullDocument,
-      prompt: prompt,
-      context: context,
-      pageCount: pageCount,
-    ));
+    await generate(
+      AIGenerationRequest(
+        type: AIGenerationType.fullDocument,
+        prompt: prompt,
+        context: context,
+        pageCount: pageCount,
+      ),
+    );
   }
 
   /// Generate a single page
@@ -88,12 +83,14 @@ class AIGenerationNotifier extends StateNotifier<AIGenerationState> {
     String? context,
     List<String>? preferredBlockTypes,
   }) async {
-    await generate(AIGenerationRequest(
-      type: AIGenerationType.page,
-      prompt: prompt,
-      context: context,
-      preferredBlockTypes: preferredBlockTypes,
-    ));
+    await generate(
+      AIGenerationRequest(
+        type: AIGenerationType.page,
+        prompt: prompt,
+        context: context,
+        preferredBlockTypes: preferredBlockTypes,
+      ),
+    );
   }
 
   /// Generate blocks
@@ -102,12 +99,14 @@ class AIGenerationNotifier extends StateNotifier<AIGenerationState> {
     String? context,
     List<String>? preferredBlockTypes,
   }) async {
-    await generate(AIGenerationRequest(
-      type: AIGenerationType.block,
-      prompt: prompt,
-      context: context,
-      preferredBlockTypes: preferredBlockTypes,
-    ));
+    await generate(
+      AIGenerationRequest(
+        type: AIGenerationType.block,
+        prompt: prompt,
+        context: context,
+        preferredBlockTypes: preferredBlockTypes,
+      ),
+    );
   }
 
   /// Generate interactive notes
@@ -115,11 +114,13 @@ class AIGenerationNotifier extends StateNotifier<AIGenerationState> {
     required String prompt,
     String? context,
   }) async {
-    await generate(AIGenerationRequest(
-      type: AIGenerationType.interactiveNotes,
-      prompt: prompt,
-      context: context,
-    ));
+    await generate(
+      AIGenerationRequest(
+        type: AIGenerationType.interactiveNotes,
+        prompt: prompt,
+        context: context,
+      ),
+    );
   }
 
   /// Generate content from uploaded document
@@ -128,12 +129,14 @@ class AIGenerationNotifier extends StateNotifier<AIGenerationState> {
     required String prompt,
     String? context,
   }) async {
-    await generate(AIGenerationRequest(
-      type: AIGenerationType.fromDocument,
-      prompt: prompt,
-      documentContent: documentContent,
-      context: context,
-    ));
+    await generate(
+      AIGenerationRequest(
+        type: AIGenerationType.fromDocument,
+        prompt: prompt,
+        documentContent: documentContent,
+        context: context,
+      ),
+    );
   }
 
   /// Clear the current state
@@ -145,12 +148,15 @@ class AIGenerationNotifier extends StateNotifier<AIGenerationState> {
 /// Provider for AI generation state notifier
 final aiGenerationProvider =
     StateNotifierProvider<AIGenerationNotifier, AIGenerationState>((ref) {
-  final service = ref.watch(aiContentServiceProvider);
-  return AIGenerationNotifier(service);
-});
+      final service = ref.watch(aiContentServiceProvider);
+      return AIGenerationNotifier(service);
+    });
 
 /// Provider for generating a summary
-final aiSummaryProvider = FutureProvider.family<String, String>((ref, content) async {
+final aiSummaryProvider = FutureProvider.family<String, String>((
+  ref,
+  content,
+) async {
   final service = ref.watch(aiContentServiceProvider);
   return service.generateSummary(content);
 });

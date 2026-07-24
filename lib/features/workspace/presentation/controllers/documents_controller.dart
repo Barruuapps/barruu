@@ -7,9 +7,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
 /// Provider for managing workspace documents state
-final documentsProvider = StateNotifierProvider<DocumentsNotifier, AsyncValue<List<Directory>>>((ref) {
-  return DocumentsNotifier(ref.read(documentServiceProvider));
-});
+final documentsProvider =
+    StateNotifierProvider<DocumentsNotifier, AsyncValue<List<Directory>>>((
+      ref,
+    ) {
+      return DocumentsNotifier(ref.read(documentServiceProvider));
+    });
 
 /// Manages the state of documents in the workspace
 /// Handles loading, caching metadata, and providing document information
@@ -26,28 +29,37 @@ class DocumentsNotifier extends StateNotifier<AsyncValue<List<Directory>>> {
     state = const AsyncValue.loading();
     try {
       final documents = await _documentService.listDocuments();
-      
+
       // Use batch loading for better performance
-      final metadataMap = await _documentService.batchGetDocumentMetadata(documents);
-      
+      final metadataMap = await _documentService.batchGetDocumentMetadata(
+        documents,
+      );
+
       // Cache the loaded metadata
       for (final entry in metadataMap.entries) {
         final doc = entry.key;
         final meta = entry.value;
         _metaCache[doc.path] = {
-          MetaFile.nameKey: meta[MetaFile.nameKey]?.toString().trim().isNotEmpty == true
+          MetaFile.nameKey:
+              meta[MetaFile.nameKey]?.toString().trim().isNotEmpty == true
               ? meta[MetaFile.nameKey]
               : 'Untitled Document',
-          MetaFile.descriptionKey: meta[MetaFile.descriptionKey]?.toString() ?? '',
+          MetaFile.descriptionKey:
+              meta[MetaFile.descriptionKey]?.toString() ?? '',
           MetaFile.coverKey: meta[MetaFile.coverKey]?.toString(),
-          MetaFile.coverOriginalNameKey: meta[MetaFile.coverOriginalNameKey]?.toString(),
+          MetaFile.coverOriginalNameKey: meta[MetaFile.coverOriginalNameKey]
+              ?.toString(),
           'lastModified': meta['lastModified'] ?? DateTime.now(),
         };
       }
-      
+
       state = AsyncValue.data(documents);
     } catch (error, stackTrace) {
-      logger.e('Failed to load documents', error: error, stackTrace: stackTrace);
+      logger.e(
+        'Failed to load documents',
+        error: error,
+        stackTrace: stackTrace,
+      );
       state = AsyncValue.error(error, stackTrace);
     }
   }

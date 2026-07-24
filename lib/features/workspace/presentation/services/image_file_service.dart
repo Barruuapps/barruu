@@ -25,7 +25,14 @@ class ImageFileService {
 
   /// Valid image file extensions
   static const List<String> validImageExtensions = [
-    'jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'heic', 'heif'
+    'jpg',
+    'jpeg',
+    'png',
+    'gif',
+    'bmp',
+    'webp',
+    'heic',
+    'heif',
   ];
 
   /// Maximum file size in bytes (50MB)
@@ -38,35 +45,37 @@ class ImageFileService {
   /// - 'path': Relative path within the document directory
   /// - 'fileName': Original filename
   /// - 'type': 'local'
-  Future<List<Map<String, dynamic>>?> pickAndSaveImages(Directory docDir) async {
+  Future<List<Map<String, dynamic>>?> pickAndSaveImages(
+    Directory docDir,
+  ) async {
     try {
       final picked = await _imagePicker.pickMultiImage(imageQuality: 85);
-      
+
       if (picked.isEmpty) return null;
-      
+
       // Validate image files
       final validImages = await _validateImages(picked);
-      
+
       if (validImages.isEmpty) {
         return null;
       }
-      
+
       // Create images directory if it doesn't exist
       final imagesDir = Directory('${docDir.path}/media/images');
       if (!await imagesDir.exists()) {
         await imagesDir.create(recursive: true);
       }
-      
+
       // Save images and create data list
       final imageDataList = <Map<String, dynamic>>[];
-      
+
       for (final pickedImage in validImages) {
         final imageData = await _saveImage(pickedImage, imagesDir);
         if (imageData != null) {
           imageDataList.add(imageData);
         }
       }
-      
+
       return imageDataList.isNotEmpty ? imageDataList : null;
     } catch (e) {
       return null;
@@ -78,13 +87,13 @@ class ImageFileService {
   /// Returns only the images that pass validation.
   Future<List<XFile>> _validateImages(List<XFile> picked) async {
     final validImages = <XFile>[];
-    
+
     for (final image in picked) {
       if (await _isValidImage(image)) {
         validImages.add(image);
       }
     }
-    
+
     return validImages;
   }
 
@@ -92,36 +101,39 @@ class ImageFileService {
   Future<bool> _isValidImage(XFile image) async {
     final fileName = image.name;
     final extension = fileName.split('.').last.toLowerCase();
-    
+
     if (!validImageExtensions.contains(extension)) {
       return false;
     }
-    
+
     final file = File(image.path);
     final fileSize = await file.length();
-    
+
     if (fileSize > maxSizeBytes) {
       return false;
     }
-    
+
     return true;
   }
 
   /// Saves an image file to the images directory with a unique name.
   ///
   /// Returns a map with image data or null if saving failed.
-  Future<Map<String, dynamic>?> _saveImage(XFile pickedImage, Directory imagesDir) async {
+  Future<Map<String, dynamic>?> _saveImage(
+    XFile pickedImage,
+    Directory imagesDir,
+  ) async {
     try {
       final filePath = pickedImage.path;
       final fileName = pickedImage.name;
       final file = File(filePath);
-      
+
       final sanitizedName = fileName.replaceAll(RegExp(r'[^\w\s\-.]'), '_');
       final uniqueName = '${_uuid.v4()}_$sanitizedName';
       final newPath = '${imagesDir.path}/$uniqueName';
-      
+
       await file.copy(newPath);
-      
+
       return {
         'path': 'media/images/$uniqueName',
         'fileName': fileName,
@@ -137,17 +149,13 @@ class ImageFileService {
   /// Returns the image data map or null if the URL is invalid.
   Map<String, dynamic>? createNetworkImageData(String url) {
     if (url.isEmpty) return null;
-    
+
     // Validate URL format
     if (!url.startsWith('http://') && !url.startsWith('https://')) {
       return null;
     }
-    
-    return {
-      'path': url,
-      'fileName': url.split('/').last,
-      'type': 'network',
-    };
+
+    return {'path': url, 'fileName': url.split('/').last, 'type': 'network'};
   }
 
   /// Validates if a URL is a valid image URL.

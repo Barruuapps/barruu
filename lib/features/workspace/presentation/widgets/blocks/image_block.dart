@@ -55,11 +55,11 @@ class _ImageBlockState extends BaseEditableBlockState<ImageBlock> {
   double _cropBottom = 0.0;
   BoxFit _imageFit = BoxFit.cover;
   final Alignment _alignment = Alignment.center;
-  
+
   // Multi-image support
   int _currentImageIndex = 0;
   late PageController _pageController;
-  
+
   // Image source mode
   bool _showUrlInput = false;
 
@@ -81,7 +81,7 @@ class _ImageBlockState extends BaseEditableBlockState<ImageBlock> {
   /// ```
   List<dynamic> _getImagesList() {
     final imagesRaw = content['images'];
-    
+
     if (imagesRaw is List) {
       // Return a mutable copy to avoid issues with fixed-length or typed lists
       return List<dynamic>.from(imagesRaw);
@@ -110,26 +110,27 @@ class _ImageBlockState extends BaseEditableBlockState<ImageBlock> {
     height = widget.block.style.height;
     widthPercent = widget.block.style.widthPercent;
     heightPercent = widget.block.style.heightPercent;
-    
+
     _imageFileService = ImageFileService();
     _pageController = PageController();
     _caption = content['caption'] ?? '';
     _captionController = TextEditingController(text: _caption);
     _urlController = TextEditingController();
     _saveDebouncer = Debouncer(delay: const Duration(milliseconds: 500));
-    
+
     // Handle migration from old single-image format to new multi-image format
     if (content.containsKey('path') && !content.containsKey('images')) {
       final oldPath = content['path'] as String? ?? '';
       final oldFileName = content['fileName'] as String? ?? '';
       if (oldPath.isNotEmpty) {
-        final isNetwork = oldPath.startsWith('http://') || oldPath.startsWith('https://');
+        final isNetwork =
+            oldPath.startsWith('http://') || oldPath.startsWith('https://');
         content['images'] = [
           {
             'path': oldPath,
             'fileName': oldFileName,
             'type': isNetwork ? 'network' : 'local',
-          }
+          },
         ];
       } else {
         content['images'] = [];
@@ -137,30 +138,32 @@ class _ImageBlockState extends BaseEditableBlockState<ImageBlock> {
       content.remove('path');
       content.remove('fileName');
     }
-    
+
     // Ensure images field exists and has type field
     if (!content.containsKey('images')) {
       content['images'] = [];
     }
-    
+
     // Use helper to get images list (handles type mismatches)
     final images = _getImagesList();
-    
+
     // Migrate old images without type field
     for (int i = 0; i < images.length; i++) {
       if (images[i] is Map<String, dynamic>) {
         final img = images[i] as Map<String, dynamic>;
         if (!img.containsKey('type')) {
           final path = img['path'] as String? ?? '';
-          img['type'] = (path.startsWith('http://') || path.startsWith('https://')) 
-              ? 'network' : 'local';
+          img['type'] =
+              (path.startsWith('http://') || path.startsWith('https://'))
+              ? 'network'
+              : 'local';
         }
       }
     }
-    
+
     // Update content with normalized list
     content['images'] = images;
-    
+
     _cropTop = (content['cropTop'] as num?)?.toDouble() ?? 0.0;
     _cropBottom = (content['cropBottom'] as num?)?.toDouble() ?? 0.0;
     final fitStr = content['fit'] as String?;
@@ -202,7 +205,9 @@ class _ImageBlockState extends BaseEditableBlockState<ImageBlock> {
   }
 
   void _updateStyle() {
-    final controller = ref.read(editDocumentControllerProvider(widget.docDir).notifier);
+    final controller = ref.read(
+      editDocumentControllerProvider(widget.docDir).notifier,
+    );
     final updatedStyle = widget.block.style.copyWith(
       rotation: rotation,
       width: width,
@@ -216,7 +221,7 @@ class _ImageBlockState extends BaseEditableBlockState<ImageBlock> {
 
   Future<void> _addNetworkImage(String url) async {
     final imageData = _imageFileService.createNetworkImageData(url);
-    
+
     if (imageData == null) {
       showError('Please enter a valid URL starting with http:// or https://');
       return;
@@ -224,10 +229,10 @@ class _ImageBlockState extends BaseEditableBlockState<ImageBlock> {
 
     // Get current images list safely
     final images = _getImagesList();
-    
+
     // Add network image
     images.add(imageData);
-    
+
     setState(() {
       content['images'] = images;
       _currentImageIndex = images.length - 1;
@@ -235,12 +240,12 @@ class _ImageBlockState extends BaseEditableBlockState<ImageBlock> {
       _showUrlInput = false;
     });
     _saveImageContent();
-    
+
     // Jump to last image
     if (_pageController.hasClients) {
       _pageController.jumpToPage(_currentImageIndex);
     }
-    
+
     showSuccess('Network image added');
   }
 
@@ -259,14 +264,14 @@ class _ImageBlockState extends BaseEditableBlockState<ImageBlock> {
               children: [
                 const Text(
                   'Add Image',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 16),
                 ListTile(
-                  leading: Icon(Icons.photo_library, color: theme.colorScheme.primary),
+                  leading: Icon(
+                    Icons.photo_library,
+                    color: theme.colorScheme.primary,
+                  ),
                   title: const Text('Choose from Gallery'),
                   subtitle: const Text('Select images from your device'),
                   onTap: () {
@@ -295,44 +300,48 @@ class _ImageBlockState extends BaseEditableBlockState<ImageBlock> {
 
   Future<void> _pickLocalImages() async {
     try {
-      final imageDataList = await _imageFileService.pickAndSaveImages(widget.docDir);
-      
+      final imageDataList = await _imageFileService.pickAndSaveImages(
+        widget.docDir,
+      );
+
       if (imageDataList == null || imageDataList.isEmpty) {
         showError('No valid images selected');
         return;
       }
-      
+
       final images = _getImagesList();
-      
+
       // Add new images
       images.addAll(imageDataList);
-      
+
       setState(() {
         content['images'] = images;
         _currentImageIndex = images.length - 1;
       });
       _saveImageContent();
-      
+
       if (_pageController.hasClients) {
         _pageController.jumpToPage(_currentImageIndex);
       }
-      
+
       showSuccess('${imageDataList.length} image(s) uploaded successfully');
     } catch (e) {
-      showError('Error uploading images: ${e.toString().replaceAll('Exception: ', '')}');
+      showError(
+        'Error uploading images: ${e.toString().replaceAll('Exception: ', '')}',
+      );
     }
   }
 
   Future<void> _removeCurrentImage() async {
     try {
       final images = _getImagesList();
-      
+
       if (images.isEmpty || _currentImageIndex >= images.length) return;
-      
+
       final imageToRemove = images[_currentImageIndex] as Map<String, dynamic>;
       final imagePath = imageToRemove['path'] as String? ?? '';
       final imageType = imageToRemove['type'] as String? ?? 'local';
-      
+
       // Only delete local files
       if (imageType == 'local' && imagePath.isNotEmpty) {
         final file = File('${widget.docDir.path}/$imagePath');
@@ -340,30 +349,34 @@ class _ImageBlockState extends BaseEditableBlockState<ImageBlock> {
           await file.delete();
         }
       }
-      
+
       images.removeAt(_currentImageIndex);
-      
+
       if (_currentImageIndex >= images.length && images.isNotEmpty) {
         _currentImageIndex = images.length - 1;
       } else if (images.isEmpty) {
         _currentImageIndex = 0;
       }
-      
+
       setState(() {
         content['images'] = images;
       });
       _saveImageContent();
-      
+
       showSuccess('Image removed');
     } catch (e) {
       showError('Error removing image: ${e.toString()}');
     }
   }
 
-  Widget _buildImage(Map<String, dynamic> imageData, double displayWidth, double displayHeight) {
+  Widget _buildImage(
+    Map<String, dynamic> imageData,
+    double displayWidth,
+    double displayHeight,
+  ) {
     final imagePath = imageData['path'] as String? ?? '';
     final imageType = imageData['type'] as String? ?? 'local';
-    
+
     if (imagePath.isEmpty) {
       return _buildPlaceholder(Theme.of(context));
     }
@@ -380,7 +393,7 @@ class _ImageBlockState extends BaseEditableBlockState<ImageBlock> {
         MediaConstants.minImageCacheSize,
         MediaConstants.maxImageCacheHeight,
       );
-      
+
       return CachedNetworkImage(
         imageUrl: imagePath,
         fit: _imageFit,
@@ -407,10 +420,7 @@ class _ImageBlockState extends BaseEditableBlockState<ImageBlock> {
             children: [
               Icon(Icons.broken_image, size: 80, color: Colors.red),
               SizedBox(height: 8),
-              Text(
-                'Failed to load image',
-                style: TextStyle(color: Colors.red),
-              ),
+              Text('Failed to load image', style: TextStyle(color: Colors.red)),
             ],
           );
         },
@@ -428,10 +438,7 @@ class _ImageBlockState extends BaseEditableBlockState<ImageBlock> {
         children: [
           Icon(Icons.broken_image, size: 80, color: Colors.red),
           SizedBox(height: 8),
-          Text(
-            'Image not found',
-            style: TextStyle(color: Colors.red),
-          ),
+          Text('Image not found', style: TextStyle(color: Colors.red)),
         ],
       );
     }
@@ -446,7 +453,7 @@ class _ImageBlockState extends BaseEditableBlockState<ImageBlock> {
       MediaConstants.minImageCacheSize,
       MediaConstants.maxImageCacheSize,
     );
-    
+
     return Image.file(
       file,
       fit: _imageFit,
@@ -459,10 +466,7 @@ class _ImageBlockState extends BaseEditableBlockState<ImageBlock> {
           children: [
             Icon(Icons.broken_image, size: 80, color: Colors.red),
             SizedBox(height: 8),
-            Text(
-              'Error loading image',
-              style: TextStyle(color: Colors.red),
-            ),
+            Text('Error loading image', style: TextStyle(color: Colors.red)),
           ],
         );
       },
@@ -476,8 +480,8 @@ class _ImageBlockState extends BaseEditableBlockState<ImageBlock> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
-            Icons.add_photo_alternate, 
-            size: 64, 
+            Icons.add_photo_alternate,
+            size: 64,
             color: theme.colorScheme.onSurfaceVariant,
           ),
           const SizedBox(height: 16),
@@ -493,7 +497,9 @@ class _ImageBlockState extends BaseEditableBlockState<ImageBlock> {
             Text(
               'Choose from gallery or enter URL',
               style: TextStyle(
-                color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
+                color: theme.colorScheme.onSurfaceVariant.withValues(
+                  alpha: 0.7,
+                ),
                 fontSize: 12,
               ),
             ),
@@ -516,29 +522,30 @@ class _ImageBlockState extends BaseEditableBlockState<ImageBlock> {
 
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    
+
     // Calculate responsive dimensions
-    final displayWidth = widthPercent != null 
-        ? screenWidth * widthPercent! 
+    final displayWidth = widthPercent != null
+        ? screenWidth * widthPercent!
         : (width ?? screenWidth * 0.9);
-    
+
     // For BoxFit.contain, use a smaller default height to avoid excessive whitespace
     double calculatedHeight;
     if (_imageFit == BoxFit.contain) {
       // Use aspect ratio friendly height for contain mode
-      calculatedHeight = heightPercent != null 
-          ? screenHeight * heightPercent! 
-          : (height ?? displayWidth * 0.7); // Use width-based calculation for contain
+      calculatedHeight = heightPercent != null
+          ? screenHeight * heightPercent!
+          : (height ??
+                displayWidth * 0.7); // Use width-based calculation for contain
     } else {
-      calculatedHeight = heightPercent != null 
-          ? screenHeight * heightPercent! 
+      calculatedHeight = heightPercent != null
+          ? screenHeight * heightPercent!
           : (height ?? 400.0);
     }
     final displayHeight = calculatedHeight;
 
     // Instagram-style minimal padding
-    final padding = ResponsiveUtils.isMobile(context) 
-        ? const EdgeInsets.symmetric(vertical: 8) 
+    final padding = ResponsiveUtils.isMobile(context)
+        ? const EdgeInsets.symmetric(vertical: 8)
         : const EdgeInsets.symmetric(vertical: 12);
 
     return Padding(
@@ -546,7 +553,7 @@ class _ImageBlockState extends BaseEditableBlockState<ImageBlock> {
       child: Column(
         children: [
           Toolbar(block: widget.block, docDir: widget.docDir),
-          
+
           // URL input field (when adding network image)
           if (_showUrlInput)
             ImageUrlInputWidget(
@@ -560,7 +567,7 @@ class _ImageBlockState extends BaseEditableBlockState<ImageBlock> {
                 });
               },
             ),
-          
+
           Stack(
             alignment: Alignment.center,
             children: [

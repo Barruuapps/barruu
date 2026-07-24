@@ -9,18 +9,34 @@ import 'package:barruu/features/workspace/domain/entities/page.dart';
 import 'package:barruu/features/workspace/data/sources/document_local_source.dart';
 
 /// The default icon option (no icon).
-const Map<String, dynamic> _defaultIconOption = {'name': 'none', 'icon': null, 'label': 'No Icon'};
+const Map<String, dynamic> _defaultIconOption = {
+  'name': 'none',
+  'icon': null,
+  'label': 'No Icon',
+};
 
 /// Available page icon options with their display names.
 /// Default is 'none' which means no icon is shown.
 const List<Map<String, dynamic>> drawerPageIconOptions = [
   _defaultIconOption,
-  {'name': 'document', 'icon': IconsaxPlusLinear.document_text, 'label': 'Document'},
+  {
+    'name': 'document',
+    'icon': IconsaxPlusLinear.document_text,
+    'label': 'Document',
+  },
   {'name': 'folder', 'icon': IconsaxPlusLinear.folder_2, 'label': 'Folder'},
   {'name': 'note', 'icon': IconsaxPlusLinear.note, 'label': 'Note'},
   {'name': 'bookmark', 'icon': IconsaxPlusLinear.bookmark, 'label': 'Bookmark'},
-  {'name': 'clipboard', 'icon': IconsaxPlusLinear.clipboard_text, 'label': 'Clipboard'},
-  {'name': 'archive', 'icon': IconsaxPlusLinear.archive_book, 'label': 'Archive'},
+  {
+    'name': 'clipboard',
+    'icon': IconsaxPlusLinear.clipboard_text,
+    'label': 'Clipboard',
+  },
+  {
+    'name': 'archive',
+    'icon': IconsaxPlusLinear.archive_book,
+    'label': 'Archive',
+  },
   {'name': 'star', 'icon': IconsaxPlusLinear.star, 'label': 'Star'},
   {'name': 'heart', 'icon': IconsaxPlusLinear.heart, 'label': 'Heart'},
   {'name': 'category', 'icon': IconsaxPlusLinear.category, 'label': 'Category'},
@@ -63,10 +79,7 @@ class PageDrawerWidget extends ConsumerWidget {
   /// Creates a page drawer widget.
   ///
   /// [docDir] is the directory of the document whose pages should be displayed.
-  const PageDrawerWidget({
-    super.key,
-    required this.docDir,
-  });
+  const PageDrawerWidget({super.key, required this.docDir});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -79,15 +92,15 @@ class PageDrawerWidget extends ConsumerWidget {
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(
-              child: ShimmerCircularProgress(
-                color: theme.colorScheme.primary,
-              ),
+              child: ShimmerCircularProgress(color: theme.colorScheme.primary),
             );
           }
 
           final allPages = snapshot.data!;
           // Filter to show only drawer pages (root pages without parent)
-          final drawerPages = allPages.where((page) => page.isDrawerPage).toList();
+          final drawerPages = allPages
+              .where((page) => page.isDrawerPage)
+              .toList();
           final currentPageId = ref.watch(currentPageIdProvider(docDir.path));
 
           return Column(
@@ -131,7 +144,10 @@ class PageDrawerWidget extends ConsumerWidget {
                 ),
               ),
               IconButton(
-                icon: Icon(IconsaxPlusLinear.home, color: theme.colorScheme.primary),
+                icon: Icon(
+                  IconsaxPlusLinear.home,
+                  color: theme.colorScheme.primary,
+                ),
                 tooltip: 'Back to Workspace',
                 onPressed: () {
                   Navigator.pop(context);
@@ -159,11 +175,25 @@ class PageDrawerWidget extends ConsumerWidget {
       itemBuilder: (context, index) {
         // Last item is the "Add Page" tile
         if (index == drawerPages.length) {
-          return _buildAddPageTile(context, ref, theme, drawerPages, documentService);
+          return _buildAddPageTile(
+            context,
+            ref,
+            theme,
+            drawerPages,
+            documentService,
+          );
         }
 
         final page = drawerPages[index];
-        return _buildPageTile(context, ref, theme, page, currentPageId, drawerPages, documentService);
+        return _buildPageTile(
+          context,
+          ref,
+          theme,
+          page,
+          currentPageId,
+          drawerPages,
+          documentService,
+        );
       },
     );
   }
@@ -177,7 +207,10 @@ class PageDrawerWidget extends ConsumerWidget {
     DocumentService documentService,
   ) {
     return ListTile(
-      leading: Icon(IconsaxPlusLinear.add_circle, color: theme.colorScheme.primary),
+      leading: Icon(
+        IconsaxPlusLinear.add_circle,
+        color: theme.colorScheme.primary,
+      ),
       title: Text(
         'Add New Page',
         style: TextStyle(
@@ -191,8 +224,12 @@ class PageDrawerWidget extends ConsumerWidget {
         final newPage = await documentService.createPage(docDir, defaultTitle);
 
         if (newPage != null && context.mounted) {
-          UIUtils.showSnackBar(context, 'Page "${newPage.displayTitle}" created');
-          ref.read(currentPageIdProvider(docDir.path).notifier).state = newPage.id;
+          UIUtils.showSnackBar(
+            context,
+            'Page "${newPage.displayTitle}" created',
+          );
+          ref.read(currentPageIdProvider(docDir.path).notifier).state =
+              newPage.id;
           Navigator.pop(context);
         } else if (context.mounted) {
           UIUtils.showSnackBar(context, 'Failed to create page', isError: true);
@@ -227,10 +264,19 @@ class PageDrawerWidget extends ConsumerWidget {
         style: TextStyle(
           fontWeight: isCurrentPage ? FontWeight.bold : FontWeight.normal,
           color: isCurrentPage ? theme.colorScheme.primary : null,
-          fontStyle: page.title.trim().isEmpty ? FontStyle.italic : FontStyle.normal,
+          fontStyle: page.title.trim().isEmpty
+              ? FontStyle.italic
+              : FontStyle.normal,
         ),
       ),
-      trailing: _buildPageActionsMenu(context, ref, theme, page, drawerPages, documentService),
+      trailing: _buildPageActionsMenu(
+        context,
+        ref,
+        theme,
+        page,
+        drawerPages,
+        documentService,
+      ),
       selected: isCurrentPage,
       selectedTileColor: theme.colorScheme.primary.withValues(alpha: 0.1),
       onTap: () {
@@ -260,7 +306,7 @@ class PageDrawerWidget extends ConsumerWidget {
       onSelected: (value) async {
         // Get the navigator before any async operations
         final navigator = Navigator.of(context);
-        
+
         switch (value) {
           case 'rename':
             // Show dialog first, then close drawer
@@ -308,7 +354,11 @@ class PageDrawerWidget extends ConsumerWidget {
           value: 'rename',
           child: Row(
             children: [
-              Icon(IconsaxPlusLinear.edit, size: 18, color: theme.colorScheme.onSurface),
+              Icon(
+                IconsaxPlusLinear.edit,
+                size: 18,
+                color: theme.colorScheme.onSurface,
+              ),
               const SizedBox(width: 12),
               const Text('Rename Page'),
             ],
@@ -319,7 +369,9 @@ class PageDrawerWidget extends ConsumerWidget {
           child: Row(
             children: [
               Icon(
-                page.hasIcon ? IconsaxPlusLinear.paintbucket : IconsaxPlusLinear.add_circle,
+                page.hasIcon
+                    ? IconsaxPlusLinear.paintbucket
+                    : IconsaxPlusLinear.add_circle,
                 size: 18,
                 color: theme.colorScheme.onSurface,
               ),
@@ -333,9 +385,16 @@ class PageDrawerWidget extends ConsumerWidget {
             value: 'delete',
             child: Row(
               children: [
-                Icon(IconsaxPlusLinear.trash, size: 18, color: theme.colorScheme.error),
+                Icon(
+                  IconsaxPlusLinear.trash,
+                  size: 18,
+                  color: theme.colorScheme.error,
+                ),
                 const SizedBox(width: 12),
-                Text('Delete Page', style: TextStyle(color: theme.colorScheme.error)),
+                Text(
+                  'Delete Page',
+                  style: TextStyle(color: theme.colorScheme.error),
+                ),
               ],
             ),
           ),
@@ -361,19 +420,28 @@ class PageDialogHelper {
   ) async {
     final result = await showDialog<String?>(
       context: context,
-      builder: (dialogContext) => _EditPageTitleDialog(initialTitle: page.title),
+      builder: (dialogContext) =>
+          _EditPageTitleDialog(initialTitle: page.title),
     );
 
     if (result != null && context.mounted) {
       // Allow empty string - will be displayed as "Untitled Screen"
-      final success = await documentService.updatePageTitle(docDir, page.id, result.isEmpty ? '' : result);
+      final success = await documentService.updatePageTitle(
+        docDir,
+        page.id,
+        result.isEmpty ? '' : result,
+      );
 
       if (success && context.mounted) {
         final displayTitle = result.isEmpty ? 'Untitled Screen' : result;
         UIUtils.showSnackBar(context, 'Page title updated to "$displayTitle"');
         return true;
       } else if (context.mounted) {
-        UIUtils.showSnackBar(context, 'Failed to update page title', isError: true);
+        UIUtils.showSnackBar(
+          context,
+          'Failed to update page title',
+          isError: true,
+        );
       }
     }
     return false;
@@ -390,12 +458,14 @@ class PageDialogHelper {
     DocumentService documentService,
   ) async {
     final theme = Theme.of(context);
-    
+
     final result = await showDialog<String?>(
       context: context,
       builder: (dialogContext) {
         return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
           title: const Text('Choose Page Icon'),
           content: SizedBox(
             width: 280,
@@ -407,7 +477,7 @@ class PageDialogHelper {
                 final icon = option['icon'] as IconData?;
                 final label = option['label'] as String;
                 final isSelected = _isIconSelected(page.icon, iconName);
-                
+
                 return Tooltip(
                   message: label,
                   child: InkWell(
@@ -420,7 +490,8 @@ class PageDialogHelper {
                         borderRadius: BorderRadius.circular(8),
                         color: isSelected
                             ? theme.colorScheme.primary.withValues(alpha: 0.2)
-                            : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+                            : theme.colorScheme.surfaceContainerHighest
+                                  .withValues(alpha: 0.3),
                         border: Border.all(
                           color: isSelected
                               ? theme.colorScheme.primary
@@ -466,14 +537,22 @@ class PageDialogHelper {
     if (result != null && context.mounted) {
       // Pass null for 'none' to remove the icon
       final iconValue = result == 'none' ? null : result;
-      final success = await documentService.updatePageIcon(docDir, page.id, iconValue);
+      final success = await documentService.updatePageIcon(
+        docDir,
+        page.id,
+        iconValue,
+      );
 
       if (success && context.mounted) {
         final iconLabel = _getIconLabel(result);
         UIUtils.showSnackBar(context, 'Page icon changed to "$iconLabel"');
         return true;
       } else if (context.mounted) {
-        UIUtils.showSnackBar(context, 'Failed to update page icon', isError: true);
+        UIUtils.showSnackBar(
+          context,
+          'Failed to update page icon',
+          isError: true,
+        );
       }
     }
     return false;
@@ -507,7 +586,9 @@ class PageDialogHelper {
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: const Text('Delete Page?'),
-        content: Text('Are you sure you want to delete "${page.displayTitle}"? This action cannot be undone.'),
+        content: Text(
+          'Are you sure you want to delete "${page.displayTitle}"? This action cannot be undone.',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
@@ -531,7 +612,8 @@ class PageDialogHelper {
         if (currentPageId == page.id) {
           final pages = await documentService.getDocumentPages(docDir);
           if (pages.isNotEmpty) {
-            ref.read(currentPageIdProvider(docDir.path).notifier).state = pages.first.id;
+            ref.read(currentPageIdProvider(docDir.path).notifier).state =
+                pages.first.id;
           }
         }
         return true;

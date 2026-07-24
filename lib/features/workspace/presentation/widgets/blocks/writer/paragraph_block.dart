@@ -21,16 +21,14 @@ class ParagraphBlock extends BaseEditableBlock {
   });
 
   @override
-  ConsumerState<ParagraphBlock> createState() =>
-      _ParagraphBlockState();
+  ConsumerState<ParagraphBlock> createState() => _ParagraphBlockState();
 }
 
-class _ParagraphBlockState
-    extends BaseEditableBlockState<ParagraphBlock> {
+class _ParagraphBlockState extends BaseEditableBlockState<ParagraphBlock> {
   // Block-specific state (only what's unique to paragraph blocks)
   late TextEditingController _textController;
   final FocusNode _focusNode = FocusNode();
-  
+
   // Debouncer to prevent excessive save operations during rapid typing
   late Debouncer _saveDebouncer;
 
@@ -66,8 +64,10 @@ class _ParagraphBlockState
 
   bool get _isImageTemplate {
     final t = widget.block.style.paragraphTemplate;
-    return t == 'image_left' || t == 'image_right' ||
-        t == 'image_float_left' || t == 'image_float_right';
+    return t == 'image_left' ||
+        t == 'image_right' ||
+        t == 'image_float_left' ||
+        t == 'image_float_right';
   }
 
   Future<void> _pickImage(BuildContext context) async {
@@ -80,11 +80,15 @@ class _ParagraphBlockState
         if (mounted) setState(() {});
       }
     } catch (e, stackTrace) {
-      logger.e('Failed to pick image for paragraph', error: e, stackTrace: stackTrace);
+      logger.e(
+        'Failed to pick image for paragraph',
+        error: e,
+        stackTrace: stackTrace,
+      );
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error picking image: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error picking image: $e')));
       }
     }
   }
@@ -131,8 +135,9 @@ class _ParagraphBlockState
   @override
   Widget buildEditor(BuildContext context) {
     final styleUtils = ref.read(styleUtilsProvider);
-    final controller =
-        ref.read(editDocumentControllerProvider(widget.docDir).notifier);
+    final controller = ref.read(
+      editDocumentControllerProvider(widget.docDir).notifier,
+    );
     final theme = Theme.of(context);
 
     final fontSize = widget.block.style.fontSize;
@@ -180,7 +185,9 @@ class _ParagraphBlockState
                   label: const Text('Pick Image'),
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 6),
+                      horizontal: 10,
+                      vertical: 6,
+                    ),
                     textStyle: theme.textTheme.bodySmall,
                   ),
                 ),
@@ -191,7 +198,9 @@ class _ParagraphBlockState
                   label: const Text('Image URL'),
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 6),
+                      horizontal: 10,
+                      vertical: 6,
+                    ),
                     textStyle: theme.textTheme.bodySmall,
                   ),
                 ),
@@ -223,7 +232,9 @@ class _ParagraphBlockState
             controller: _textController,
             focusNode: _focusNode,
             maxLines: null,
-            style: styleUtils.applyStyle(widget.block.style).copyWith(
+            style: styleUtils
+                .applyStyle(widget.block.style)
+                .copyWith(
                   fontSize: fontSize * textMultiplier,
                   color: color,
                   height: lineHeight,

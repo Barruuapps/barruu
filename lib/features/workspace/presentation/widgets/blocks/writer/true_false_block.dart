@@ -7,7 +7,7 @@ import 'package:barruu/features/workspace/presentation/widgets/utils/toolbar.dar
 import 'package:barruu/features/workspace/utils/debouncer.dart';
 
 /// True/False question block for creating binary choice questions.
-/// 
+///
 /// Content format:
 /// ```json
 /// {
@@ -53,8 +53,12 @@ class _TrueFalseBlockState extends BaseEditableBlockState<TrueFalseBlock> {
 
   @override
   void initializeBlockSpecifics() {
-    _statementController = TextEditingController(text: (content['statement'] as String?) ?? '');
-    _explanationController = TextEditingController(text: (content['explanation'] as String?) ?? '');
+    _statementController = TextEditingController(
+      text: (content['statement'] as String?) ?? '',
+    );
+    _explanationController = TextEditingController(
+      text: (content['explanation'] as String?) ?? '',
+    );
     _statementFocusNode = FocusNode();
     _explanationFocusNode = FocusNode();
     _debouncer = Debouncer(delay: const Duration(milliseconds: 500));
@@ -87,10 +91,7 @@ class _TrueFalseBlockState extends BaseEditableBlockState<TrueFalseBlock> {
 
   @override
   Widget buildReader(BuildContext context) {
-    return TrueFalseReaderBlock(
-      block: widget.block,
-      docDir: widget.docDir,
-    );
+    return TrueFalseReaderBlock(block: widget.block, docDir: widget.docDir);
   }
 
   @override
@@ -105,12 +106,14 @@ class _TrueFalseBlockState extends BaseEditableBlockState<TrueFalseBlock> {
           opacity: toolbarOpacity,
           child: Toolbar(block: widget.block, docDir: widget.docDir),
         ),
-        
+
         Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
-            border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.2)),
+            border: Border.all(
+              color: theme.colorScheme.outline.withValues(alpha: 0.2),
+            ),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
@@ -119,7 +122,11 @@ class _TrueFalseBlockState extends BaseEditableBlockState<TrueFalseBlock> {
               // Header
               Row(
                 children: [
-                  Icon(IconsaxPlusBold.tick_circle, size: 18, color: theme.colorScheme.primary),
+                  Icon(
+                    IconsaxPlusBold.tick_circle,
+                    size: 18,
+                    color: theme.colorScheme.primary,
+                  ),
                   const SizedBox(width: 6),
                   Text(
                     'True/False',
@@ -131,7 +138,7 @@ class _TrueFalseBlockState extends BaseEditableBlockState<TrueFalseBlock> {
                 ],
               ),
               const SizedBox(height: 8),
-              
+
               // Statement
               TextField(
                 controller: _statementController,
@@ -140,14 +147,19 @@ class _TrueFalseBlockState extends BaseEditableBlockState<TrueFalseBlock> {
                 minLines: 1,
                 decoration: InputDecoration(
                   hintText: 'Statement',
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(6)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(6),
+                  ),
                   isDense: true,
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 10,
+                  ),
                 ),
                 onChanged: (_) => _debouncer.call(_saveContentLocal),
               ),
               const SizedBox(height: 8),
-              
+
               // Correct Answer
               Row(
                 children: [
@@ -167,7 +179,8 @@ class _TrueFalseBlockState extends BaseEditableBlockState<TrueFalseBlock> {
                           decoration: BoxDecoration(
                             color: correctAnswer
                                 ? theme.colorScheme.primary
-                                : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                                : theme.colorScheme.surfaceContainerHighest
+                                      .withValues(alpha: 0.5),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Row(
@@ -214,7 +227,8 @@ class _TrueFalseBlockState extends BaseEditableBlockState<TrueFalseBlock> {
                           decoration: BoxDecoration(
                             color: !correctAnswer
                                 ? theme.colorScheme.primary
-                                : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                                : theme.colorScheme.surfaceContainerHighest
+                                      .withValues(alpha: 0.5),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Row(
@@ -247,12 +261,15 @@ class _TrueFalseBlockState extends BaseEditableBlockState<TrueFalseBlock> {
                 ],
               ),
               const SizedBox(height: 8),
-              
+
               // Show Explanation toggle + Explanation field
               Row(
                 children: [
                   FilterChip(
-                    label: const Text('Explanation', style: TextStyle(fontSize: 11)),
+                    label: const Text(
+                      'Explanation',
+                      style: TextStyle(fontSize: 11),
+                    ),
                     selected: content['showExplanation'] as bool? ?? true,
                     onSelected: (value) {
                       setState(() {
@@ -274,9 +291,14 @@ class _TrueFalseBlockState extends BaseEditableBlockState<TrueFalseBlock> {
                   minLines: 1,
                   decoration: InputDecoration(
                     hintText: 'Explanation',
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(6)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
                     isDense: true,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 10,
+                    ),
                   ),
                   onChanged: (_) => _debouncer.call(_saveContentLocal),
                 ),
