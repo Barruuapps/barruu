@@ -217,7 +217,7 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
               readOnly: true,
               wrap: false,
               gutterStyle: CodeBlockStyle.gutterStyle(
-                theme.colorScheme.onSurfaceVariant.withOpacity(0.5),
+                theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
               ),
               textStyle: CodeBlockStyle.codeTextStyle(),
             ),
@@ -228,7 +228,7 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
               IconButton(
                 icon: Icon(
                   Icons.copy_outlined,
-                  color: theme.colorScheme.onSurfaceVariant.withOpacity(0.6),
+                  color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
                   size: 14,
                 ),
                 tooltip: 'Copy code',
@@ -350,7 +350,7 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
         border: Border.all(color: borderColor, width: 1),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.shadow.withOpacity(0.12),
+            color: theme.colorScheme.shadow.withValues(alpha: 0.12),
             blurRadius: 8,
             offset: const Offset(0, 3),
           ),
@@ -363,7 +363,7 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
             decoration: BoxDecoration(
-              color: theme.colorScheme.primaryContainer.withOpacity(0.4),
+              color: theme.colorScheme.primaryContainer.withValues(alpha: 0.4),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -386,7 +386,7 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
                 ),
                 ResponsiveUtils.ensureTouchTarget(
                   IconButton(
-                    icon: Icon(Icons.copy_outlined, color: theme.colorScheme.primary.withOpacity(0.8), size: 16),
+                    icon: Icon(Icons.copy_outlined, color: theme.colorScheme.primary.withValues(alpha: 0.8), size: 16),
                     tooltip: 'Copy code',
                     padding: const EdgeInsets.all(4),
                     constraints: const BoxConstraints(),
@@ -469,7 +469,7 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
               enabled: false,
               readOnly: true,
               wrap: false,
-              gutterStyle: CodeBlockStyle.gutterStyle(const Color(0xFFABB2BF).withOpacity(0.4)),
+              gutterStyle: CodeBlockStyle.gutterStyle(const Color(0xFFABB2BF).withValues(alpha: 0.4)),
               textStyle: CodeBlockStyle.codeTextStyle().copyWith(color: const Color(0xFFABB2BF)),
             ),
           ),
@@ -558,7 +558,7 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
               enabled: false,
               readOnly: true,
               wrap: false,
-              gutterStyle: CodeBlockStyle.gutterStyle(const Color(0xFF24292F).withOpacity(0.4)),
+              gutterStyle: CodeBlockStyle.gutterStyle(const Color(0xFF24292F).withValues(alpha: 0.4)),
               textStyle: CodeBlockStyle.codeTextStyle(),
             ),
           ),
@@ -601,7 +601,7 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               decoration: BoxDecoration(
-                color: theme.colorScheme.primary.withOpacity(0.08),
+                color: theme.colorScheme.primary.withValues(alpha: 0.08),
                 border: Border(bottom: BorderSide(color: borderColor)),
               ),
               child: Row(
@@ -627,7 +627,7 @@ class _CodeReaderBlockState extends ConsumerState<CodeReaderBlock> {
                     IconButton(
                       icon: Icon(
                         Icons.copy_outlined,
-                        color: theme.colorScheme.primary.withOpacity(0.8),
+                        color: theme.colorScheme.primary.withValues(alpha: 0.8),
                         size: 16,
                       ),
                       tooltip: 'Copy code',

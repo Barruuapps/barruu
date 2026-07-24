@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:barruu/core/widgets/blocks/base_editable_block.dart';
-import 'package:barruu/features/workspace/domain/entities/block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/blocks/reader/matching_reader_block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/utils/toolbar.dart';
 import 'package:barruu/features/workspace/utils/debouncer.dart';
@@ -204,7 +203,7 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
-            border: Border.all(color: theme.colorScheme.outline.withOpacity(0.2)),
+            border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.2)),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
@@ -253,7 +252,7 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
                         'LEFT',
                         textAlign: TextAlign.center,
                         style: theme.textTheme.labelSmall?.copyWith(
-                          color: theme.colorScheme.onSurface.withOpacity(0.45),
+                          color: theme.colorScheme.onSurface.withValues(alpha: 0.45),
                           fontWeight: FontWeight.w700,
                           letterSpacing: 0.8,
                         ),
@@ -266,7 +265,7 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
                         'RIGHT',
                         textAlign: TextAlign.center,
                         style: theme.textTheme.labelSmall?.copyWith(
-                          color: theme.colorScheme.onSurface.withOpacity(0.45),
+                          color: theme.colorScheme.onSurface.withValues(alpha: 0.45),
                           fontWeight: FontWeight.w700,
                           letterSpacing: 0.8,
                         ),
@@ -284,7 +283,7 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
                   margin: const EdgeInsets.only(bottom: 6),
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+                    color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Row(
@@ -311,7 +310,7 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
                         child: Icon(
                           Icons.arrow_forward_rounded,
                           size: 15,
-                          color: theme.colorScheme.primary.withOpacity(0.6),
+                          color: theme.colorScheme.primary.withValues(alpha: 0.6),
                         ),
                       ),
                       // Right input
@@ -339,7 +338,7 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
                           if (index > 0)
                             _actionIconButton(
                               icon: Icons.keyboard_arrow_up_rounded,
-                              color: theme.colorScheme.onSurface.withOpacity(0.5),
+                              color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                               onTap: () => _movePair(index, -1),
                             )
                           else
@@ -348,7 +347,7 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
                           if (index < _leftColumn.length - 1)
                             _actionIconButton(
                               icon: Icons.keyboard_arrow_down_rounded,
-                              color: theme.colorScheme.onSurface.withOpacity(0.5),
+                              color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                               onTap: () => _movePair(index, 1),
                             )
                           else
@@ -359,7 +358,7 @@ class _MatchingBlockState extends BaseEditableBlockState<MatchingBlock> {
                       if (_leftColumn.length > 2)
                         _actionIconButton(
                           icon: IconsaxPlusBold.minus,
-                          color: theme.colorScheme.error.withOpacity(0.7),
+                          color: theme.colorScheme.error.withValues(alpha: 0.7),
                           onTap: () => _removePair(index),
                         )
                       else

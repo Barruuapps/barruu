@@ -135,7 +135,7 @@ class PlatformThemeHelper {
     if (isAndroid) {
       // Material Design shadows (more pronounced)
       return BoxShadow(
-        color: Colors.black.withOpacity(isDark ? 0.5 : 0.2),
+        color: Colors.black.withValues(alpha: isDark ? 0.5 : 0.2),
         blurRadius: level * 3.0,
         offset: Offset(0, level * 2.0),
         spreadRadius: level > 2 ? 1.0 : 0.0,
@@ -143,7 +143,7 @@ class PlatformThemeHelper {
     } else {
       // Apple subtle shadows
       return BoxShadow(
-        color: Colors.black.withOpacity(isDark ? 0.3 : 0.12),
+        color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.12),
         blurRadius: level == 1 ? 3.0 : level == 2 ? 6.0 : 20.0,
         offset: Offset(0, level == 1 ? 1.0 : level == 2 ? 4.0 : 10.0),
       );

@@ -374,7 +374,7 @@ class _ListBlockState extends BaseEditableBlockState<ListBlock> {
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: 'List item ${index + 1}',
-                hintStyle: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.5)),
+                hintStyle: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
               ),
               onChanged: (value) => _onTextFieldChanged(index, value),
               onSubmitted: (_) {
@@ -677,7 +677,7 @@ class _ListBlockState extends BaseEditableBlockState<ListBlock> {
             decoration: InputDecoration(
               border: InputBorder.none,
               hintText: 'List Title (optional)',
-              hintStyle: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.5)),
+              hintStyle: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
             ),
             style: styleUtils.applyStyle(widget.block.style).copyWith(
               fontWeight: FontWeight.bold,

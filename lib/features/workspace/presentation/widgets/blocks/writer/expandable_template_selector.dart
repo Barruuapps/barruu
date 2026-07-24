@@ -57,12 +57,12 @@ class ExpandableTemplateSelector extends StatelessWidget {
           border: Border.all(
             color: isSelected
                 ? theme.colorScheme.primary
-                : theme.colorScheme.outline.withOpacity(0.3),
+                : theme.colorScheme.outline.withValues(alpha: 0.3),
             width: isSelected ? 2.5 : 1,
           ),
           borderRadius: BorderRadius.circular(8),
           color: isSelected
-              ? theme.colorScheme.primaryContainer.withOpacity(0.2)
+              ? theme.colorScheme.primaryContainer.withValues(alpha: 0.2)
               : null,
         ),
         child: Column(
@@ -78,8 +78,8 @@ class ExpandableTemplateSelector extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
               decoration: BoxDecoration(
                 color: isSelected
-                    ? theme.colorScheme.primary.withOpacity(0.1)
-                    : theme.colorScheme.surfaceVariant.withOpacity(0.5),
+                    ? theme.colorScheme.primary.withValues(alpha: 0.1)
+                    : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(7),
                   bottomRight: Radius.circular(7),
@@ -109,7 +109,7 @@ class ExpandableTemplateSelector extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        border: Border.all(color: theme.colorScheme.outline.withOpacity(0.4)),
+        border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.4)),
         borderRadius: BorderRadius.circular(6),
       ),
       padding: const EdgeInsets.all(6),
@@ -120,12 +120,12 @@ class ExpandableTemplateSelector extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(height: 3, width: 30, decoration: BoxDecoration(color: theme.colorScheme.onSurface.withOpacity(0.7), borderRadius: BorderRadius.circular(2))),
-              Icon(Icons.keyboard_arrow_down_rounded, size: 12, color: theme.colorScheme.onSurface.withOpacity(0.5)),
+              Container(height: 3, width: 30, decoration: BoxDecoration(color: theme.colorScheme.onSurface.withValues(alpha: 0.7), borderRadius: BorderRadius.circular(2))),
+              Icon(Icons.keyboard_arrow_down_rounded, size: 12, color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
             ],
           ),
           const SizedBox(height: 3),
-          Container(height: 1.5, width: double.infinity, color: theme.colorScheme.outline.withOpacity(0.3)),
+          Container(height: 1.5, width: double.infinity, color: theme.colorScheme.outline.withValues(alpha: 0.3)),
         ],
       ),
     );
@@ -134,7 +134,7 @@ class ExpandableTemplateSelector extends StatelessWidget {
   Widget _buildFilledPreview() {
     return Container(
       decoration: BoxDecoration(
-        color: theme.colorScheme.primaryContainer.withOpacity(0.3),
+        color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(6),
       ),
       padding: const EdgeInsets.all(6),
@@ -145,8 +145,8 @@ class ExpandableTemplateSelector extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(height: 3, width: 30, decoration: BoxDecoration(color: theme.colorScheme.primary.withOpacity(0.8), borderRadius: BorderRadius.circular(2))),
-              Icon(Icons.keyboard_arrow_down_rounded, size: 12, color: theme.colorScheme.primary.withOpacity(0.7)),
+              Container(height: 3, width: 30, decoration: BoxDecoration(color: theme.colorScheme.primary.withValues(alpha: 0.8), borderRadius: BorderRadius.circular(2))),
+              Icon(Icons.keyboard_arrow_down_rounded, size: 12, color: theme.colorScheme.primary.withValues(alpha: 0.7)),
             ],
           ),
         ],
@@ -162,12 +162,12 @@ class ExpandableTemplateSelector extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(height: 3, width: 30, decoration: BoxDecoration(color: theme.colorScheme.onSurface.withOpacity(0.7), borderRadius: BorderRadius.circular(2))),
-            Icon(Icons.keyboard_arrow_down_rounded, size: 12, color: theme.colorScheme.onSurface.withOpacity(0.5)),
+            Container(height: 3, width: 30, decoration: BoxDecoration(color: theme.colorScheme.onSurface.withValues(alpha: 0.7), borderRadius: BorderRadius.circular(2))),
+            Icon(Icons.keyboard_arrow_down_rounded, size: 12, color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
           ],
         ),
         const SizedBox(height: 3),
-        Divider(height: 4, color: theme.colorScheme.outline.withOpacity(0.5)),
+        Divider(height: 4, color: theme.colorScheme.outline.withValues(alpha: 0.5)),
       ],
     );
   }
@@ -177,7 +177,7 @@ class ExpandableTemplateSelector extends StatelessWidget {
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(6),
-        boxShadow: [BoxShadow(color: theme.colorScheme.shadow.withOpacity(0.12), blurRadius: 4, offset: const Offset(0, 2))],
+        boxShadow: [BoxShadow(color: theme.colorScheme.shadow.withValues(alpha: 0.12), blurRadius: 4, offset: const Offset(0, 2))],
       ),
       padding: const EdgeInsets.all(6),
       child: Column(
@@ -187,8 +187,8 @@ class ExpandableTemplateSelector extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(height: 3, width: 30, decoration: BoxDecoration(color: theme.colorScheme.onSurface.withOpacity(0.7), borderRadius: BorderRadius.circular(2))),
-              Icon(Icons.keyboard_arrow_down_rounded, size: 12, color: theme.colorScheme.onSurface.withOpacity(0.5)),
+              Container(height: 3, width: 30, decoration: BoxDecoration(color: theme.colorScheme.onSurface.withValues(alpha: 0.7), borderRadius: BorderRadius.circular(2))),
+              Icon(Icons.keyboard_arrow_down_rounded, size: 12, color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
             ],
           ),
         ],
@@ -200,7 +200,7 @@ class ExpandableTemplateSelector extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.transparent,
-        border: Border.all(color: theme.colorScheme.primary.withOpacity(0.5), width: 1.5),
+        border: Border.all(color: theme.colorScheme.primary.withValues(alpha: 0.5), width: 1.5),
         borderRadius: BorderRadius.circular(6),
       ),
       padding: const EdgeInsets.all(6),
@@ -211,8 +211,8 @@ class ExpandableTemplateSelector extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(height: 3, width: 30, decoration: BoxDecoration(color: theme.colorScheme.primary.withOpacity(0.7), borderRadius: BorderRadius.circular(2))),
-              Icon(Icons.keyboard_arrow_down_rounded, size: 12, color: theme.colorScheme.primary.withOpacity(0.7)),
+              Container(height: 3, width: 30, decoration: BoxDecoration(color: theme.colorScheme.primary.withValues(alpha: 0.7), borderRadius: BorderRadius.circular(2))),
+              Icon(Icons.keyboard_arrow_down_rounded, size: 12, color: theme.colorScheme.primary.withValues(alpha: 0.7)),
             ],
           ),
         ],
@@ -233,13 +233,13 @@ class ExpandableTemplateSelector extends StatelessWidget {
         const SizedBox(width: 4),
         Expanded(
           child: Container(
-            color: theme.colorScheme.primaryContainer.withOpacity(0.1),
+            color: theme.colorScheme.primaryContainer.withValues(alpha: 0.1),
             padding: const EdgeInsets.all(4),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(height: 3, width: 25, decoration: BoxDecoration(color: theme.colorScheme.onSurface.withOpacity(0.7), borderRadius: BorderRadius.circular(2))),
-                Icon(Icons.keyboard_arrow_down_rounded, size: 10, color: theme.colorScheme.onSurface.withOpacity(0.5)),
+                Container(height: 3, width: 25, decoration: BoxDecoration(color: theme.colorScheme.onSurface.withValues(alpha: 0.7), borderRadius: BorderRadius.circular(2))),
+                Icon(Icons.keyboard_arrow_down_rounded, size: 10, color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
               ],
             ),
           ),

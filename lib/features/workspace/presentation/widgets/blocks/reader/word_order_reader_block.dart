@@ -594,19 +594,19 @@ class _OrderingExerciseReaderState
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.surfaceContainerHighest.withOpacity(
-                    0.3,
+                  color: theme.colorScheme.surfaceContainerHighest.withValues(
+                    alpha: 0.3,
                   ),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: theme.colorScheme.outline.withOpacity(0.2),
+                    color: theme.colorScheme.outline.withValues(alpha: 0.2),
                   ),
                 ),
                 child: Text(
                   translation,
                   style: TextStyle(
                     fontStyle: FontStyle.italic,
-                    color: theme.colorScheme.onSurface.withOpacity(0.8),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
                   ),
                 ),
               ),
@@ -625,7 +625,7 @@ class _OrderingExerciseReaderState
                           : 'Tap steps below to arrange in order',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: theme.colorScheme.onSurface.withOpacity(0.4),
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
                         fontSize: 15,
                       ),
                     ),
@@ -736,12 +736,12 @@ class _OrderingExerciseReaderState
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           decoration: BoxDecoration(
-            color: primary.withOpacity(0.1),
+            color: primary.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: primary.withOpacity(0.35), width: 1.5),
+            border: Border.all(color: primary.withValues(alpha: 0.35), width: 1.5),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.06),
+                color: Colors.black.withValues(alpha: 0.06),
                 blurRadius: 4,
                 offset: const Offset(0, 2),
               ),
@@ -760,7 +760,7 @@ class _OrderingExerciseReaderState
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
           decoration: BoxDecoration(
-            color: primary.withOpacity(0.15),
+            color: primary.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(20),
           ),
           child: Text(
@@ -776,7 +776,7 @@ class _OrderingExerciseReaderState
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
           decoration: BoxDecoration(
-            color: primary.withOpacity(0.07),
+            color: primary.withValues(alpha: 0.07),
             borderRadius: BorderRadius.circular(4),
             border: Border.all(color: primary, width: 2),
           ),
@@ -793,9 +793,9 @@ class _OrderingExerciseReaderState
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
           decoration: BoxDecoration(
-            color: primary.withOpacity(0.08),
+            color: primary.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(6),
-            border: Border.all(color: primary.withOpacity(0.3), width: 1),
+            border: Border.all(color: primary.withValues(alpha: 0.3), width: 1),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -847,7 +847,7 @@ class _OrderingExerciseReaderState
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           decoration: BoxDecoration(
-            color: primary.withOpacity(0.18),
+            color: primary.withValues(alpha: 0.18),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Text(
@@ -863,9 +863,9 @@ class _OrderingExerciseReaderState
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
           decoration: BoxDecoration(
-            color: primary.withOpacity(0.08),
+            color: primary.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(6),
-            border: Border.all(color: primary.withOpacity(0.3), width: 1),
+            border: Border.all(color: primary.withValues(alpha: 0.3), width: 1),
           ),
           child: Text(
             text,
@@ -947,7 +947,7 @@ class _OrderingExerciseReaderState
       final dragHandle = Icon(
         Icons.drag_handle,
         size: 20,
-        color: theme.colorScheme.onSurface.withOpacity(0.3),
+        color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
       );
 
       return Row(
@@ -966,12 +966,12 @@ class _OrderingExerciseReaderState
     switch (template) {
       case 'card':
         decoration = BoxDecoration(
-          color: primary.withOpacity(0.07),
+          color: primary.withValues(alpha: 0.07),
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: primary.withOpacity(0.2), width: 1.5),
+          border: Border.all(color: primary.withValues(alpha: 0.2), width: 1.5),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.06),
+              color: Colors.black.withValues(alpha: 0.06),
               blurRadius: 4,
               offset: const Offset(0, 2),
             ),
@@ -981,14 +981,14 @@ class _OrderingExerciseReaderState
         break;
       case 'bubble':
         decoration = BoxDecoration(
-          color: primary.withOpacity(0.12),
+          color: primary.withValues(alpha: 0.12),
           borderRadius: BorderRadius.circular(24),
         );
         padding = const EdgeInsets.symmetric(vertical: 10, horizontal: 16);
         break;
       case 'tile':
         decoration = BoxDecoration(
-          color: primary.withOpacity(0.05),
+          color: primary.withValues(alpha: 0.05),
           borderRadius: BorderRadius.circular(4),
           border: Border.all(color: primary, width: 2),
         );
@@ -996,10 +996,10 @@ class _OrderingExerciseReaderState
         break;
       case 'numbered':
         decoration = BoxDecoration(
-          color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.5),
+          color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: theme.colorScheme.outline.withOpacity(0.25),
+            color: theme.colorScheme.outline.withValues(alpha: 0.25),
             width: 1,
           ),
         );
@@ -1009,7 +1009,7 @@ class _OrderingExerciseReaderState
         // Plain row with only a bottom separator – no card
         decoration = BoxDecoration(
           border: Border(
-            bottom: BorderSide(color: primary.withOpacity(0.2), width: 1),
+            bottom: BorderSide(color: primary.withValues(alpha: 0.2), width: 1),
           ),
         );
         padding = const EdgeInsets.symmetric(vertical: 10, horizontal: 4);
@@ -1017,7 +1017,7 @@ class _OrderingExerciseReaderState
       case 'highlight':
         // Left-accent coloured bar with tinted background
         decoration = BoxDecoration(
-          color: primary.withOpacity(0.08),
+          color: primary.withValues(alpha: 0.08),
           borderRadius: const BorderRadius.only(
             topRight: Radius.circular(6),
             bottomRight: Radius.circular(6),
@@ -1049,7 +1049,7 @@ class _OrderingExerciseReaderState
     ThemeData theme, {
     String template = 'default',
   }) {
-    final outline = theme.colorScheme.outline.withOpacity(0.25);
+    final outline = theme.colorScheme.outline.withValues(alpha: 0.25);
     final surface = theme.colorScheme.surfaceContainerHighest;
 
     BoxDecoration decoration;
@@ -1067,7 +1067,7 @@ class _OrderingExerciseReaderState
           border: Border.all(color: Colors.transparent),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.07),
+              color: Colors.black.withValues(alpha: 0.07),
               blurRadius: 4,
               offset: const Offset(0, 2),
             ),
@@ -1091,7 +1091,7 @@ class _OrderingExerciseReaderState
         break;
       case 'numbered':
         decoration = BoxDecoration(
-          color: surface.withOpacity(0.6),
+          color: surface.withValues(alpha: 0.6),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: outline, width: 1),
         );
@@ -1102,14 +1102,14 @@ class _OrderingExerciseReaderState
         decoration = const BoxDecoration();
         padding = const EdgeInsets.symmetric(horizontal: 4, vertical: 6);
         textStyle = TextStyle(
-          color: theme.colorScheme.onSurface.withOpacity(0.75),
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.75),
           fontSize: 15,
         );
         break;
       case 'highlight':
         // Marker-highlight style for available words
         decoration = BoxDecoration(
-          color: theme.colorScheme.secondary.withOpacity(0.12),
+          color: theme.colorScheme.secondary.withValues(alpha: 0.12),
           borderRadius: BorderRadius.circular(4),
         );
         padding = const EdgeInsets.symmetric(horizontal: 8, vertical: 4);

@@ -17,7 +17,6 @@ import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:barruu/core/widgets/app_icon_widget.dart';
 
 /// Screen to view another user's profile
 ///
@@ -351,7 +350,7 @@ class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
           colors: [
             theme.colorScheme.primary,
             theme.colorScheme.secondary,
-            theme.colorScheme.tertiary.withOpacity(0.8),
+            theme.colorScheme.tertiary.withValues(alpha: 0.8),
           ],
         ),
       ),
@@ -392,7 +391,7 @@ class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
             ),
             boxShadow: [
               BoxShadow(
-                color: theme.colorScheme.primary.withOpacity(0.3),
+                color: theme.colorScheme.primary.withValues(alpha: 0.3),
                 blurRadius: 16,
                 spreadRadius: 2,
               ),
@@ -689,8 +688,8 @@ class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            backgroundColor: theme.colorScheme.secondaryContainer.withOpacity(
-              0.7,
+            backgroundColor: theme.colorScheme.secondaryContainer.withValues(
+              alpha: 0.7,
             ),
             side: BorderSide.none,
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -752,7 +751,7 @@ class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.onSurfaceVariant.withOpacity(0.4),
+                  color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),

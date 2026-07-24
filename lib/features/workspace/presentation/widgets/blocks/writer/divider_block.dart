@@ -111,7 +111,7 @@ class _DividerBlockState extends BaseEditableBlockState<DividerBlock> {
               size: Size(double.infinity, _thickness),
               painter: DividerPainter(
                 style: _dividerStyle,
-                color: _color.withOpacity(0.7),
+                color: _color.withValues(alpha: 0.7),
                 thickness: _thickness,
               ),
             ),

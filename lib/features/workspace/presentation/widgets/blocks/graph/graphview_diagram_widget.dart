@@ -218,7 +218,7 @@ class _GraphViewDiagramWidgetState extends State<GraphViewDiagramWidget> {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [color.withOpacity(0.8), color.withOpacity(0.6)],
+          colors: [color.withValues(alpha: 0.8), color.withValues(alpha: 0.6)],
         ),
         borderRadius: BorderRadius.circular(borderRadius),
         border: Border.all(color: color, width: isMobile ? 1.5 : 2),

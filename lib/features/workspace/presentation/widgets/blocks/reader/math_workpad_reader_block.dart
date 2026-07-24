@@ -46,7 +46,7 @@ class _MathWorkpadReaderBlockState
   String? _savedAiExplanation;
 
   final List<TextEditingController> _scratchControllers = [];
-  bool _showSolution = false;
+  final bool _showSolution = false;
 
   @override
   void initState() {
@@ -56,7 +56,9 @@ class _MathWorkpadReaderBlockState
 
   @override
   void dispose() {
-    for (final c in _scratchControllers) c.dispose();
+    for (final c in _scratchControllers) {
+      c.dispose();
+    }
     super.dispose();
   }
 
@@ -296,10 +298,10 @@ class _MathWorkpadReaderBlockState
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: theme.colorScheme.outline.withOpacity(0.3)),
+        border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
+            color: Colors.black.withValues(alpha: 0.02),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -366,13 +368,13 @@ class _MathWorkpadReaderBlockState
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             color: _placedStepIndices.isNotEmpty
-                ? theme.colorScheme.surfaceContainerHighest.withOpacity(0.4)
-                : theme.colorScheme.surfaceContainerHighest.withOpacity(0.15),
+                ? theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4)
+                : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               color: _placedStepIndices.isNotEmpty
                   ? Colors.transparent
-                  : theme.colorScheme.outline.withOpacity(0.3),
+                  : theme.colorScheme.outline.withValues(alpha: 0.3),
             ),
           ),
           child: _placedStepIndices.isEmpty
@@ -435,9 +437,9 @@ class _MathWorkpadReaderBlockState
                     vertical: 8,
                   ),
                   decoration: BoxDecoration(
-                    color: _kCorrectColor.withOpacity(0.1),
+                    color: _kCorrectColor.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: _kCorrectColor.withOpacity(0.3)),
+                    border: Border.all(color: _kCorrectColor.withValues(alpha: 0.3)),
                   ),
                   child: const Text(
                     'All steps placed!',
@@ -498,7 +500,7 @@ class _MathWorkpadReaderBlockState
     required VoidCallback onTap,
   }) {
     Color bgColor = theme.colorScheme.surface;
-    Color borderColor = theme.colorScheme.outline.withOpacity(0.3);
+    Color borderColor = theme.colorScheme.outline.withValues(alpha: 0.3);
     Color textColor = theme.colorScheme.onSurface;
     TextDecoration decoration = TextDecoration.none;
 
@@ -513,7 +515,7 @@ class _MathWorkpadReaderBlockState
       decoration = TextDecoration.lineThrough;
     } else if (isPlaced) {
       bgColor = theme.colorScheme.surface;
-      borderColor = theme.colorScheme.outline.withOpacity(0.3);
+      borderColor = theme.colorScheme.outline.withValues(alpha: 0.3);
     }
 
     return Material(

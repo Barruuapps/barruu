@@ -110,7 +110,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: _isLoading 
-                    ? theme.colorScheme.onSurface.withOpacity(0.3)
+                    ? theme.colorScheme.onSurface.withValues(alpha: 0.3)
                     : theme.colorScheme.primary,
               ),
             ),

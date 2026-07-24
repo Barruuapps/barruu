@@ -114,7 +114,7 @@ class PageDrawerWidget extends ConsumerWidget {
   Widget _buildHeader(BuildContext context, ThemeData theme) {
     return DrawerHeader(
       decoration: BoxDecoration(
-        color: theme.colorScheme.primary.withOpacity(0.1),
+        color: theme.colorScheme.primary.withValues(alpha: 0.1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -232,7 +232,7 @@ class PageDrawerWidget extends ConsumerWidget {
       ),
       trailing: _buildPageActionsMenu(context, ref, theme, page, drawerPages, documentService),
       selected: isCurrentPage,
-      selectedTileColor: theme.colorScheme.primary.withOpacity(0.1),
+      selectedTileColor: theme.colorScheme.primary.withValues(alpha: 0.1),
       onTap: () {
         ref.read(currentPageIdProvider(docDir.path).notifier).state = page.id;
         Navigator.pop(context);
@@ -253,7 +253,7 @@ class PageDrawerWidget extends ConsumerWidget {
       icon: Icon(
         IconsaxPlusLinear.more,
         size: 20,
-        color: theme.colorScheme.onSurface.withOpacity(0.6),
+        color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
       ),
       tooltip: 'Page Options',
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -419,8 +419,8 @@ class PageDialogHelper {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
                         color: isSelected
-                            ? theme.colorScheme.primary.withOpacity(0.2)
-                            : theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
+                            ? theme.colorScheme.primary.withValues(alpha: 0.2)
+                            : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
                         border: Border.all(
                           color: isSelected
                               ? theme.colorScheme.primary

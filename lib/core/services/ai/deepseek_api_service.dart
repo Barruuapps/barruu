@@ -4,32 +4,26 @@ import 'package:http/http.dart' as http;
 import 'package:barruu/core/utils/app_logger.dart';
 import 'package:barruu/core/services/ai/deepseek_config.dart';
 import 'package:barruu/core/services/ai/deepseek_models.dart';
-import 'package:flutter/foundation.dart';
 
 /// Service for communicating with DeepSeek AI API.
-/// 
+///
 /// This service handles all HTTP communication with the DeepSeek API,
 /// including authentication, request formatting, and response parsing.
 class DeepSeekApiService {
   final http.Client _client;
   final String _apiKey;
-  final String _baseUrl;
 
-  DeepSeekApiService({
-    http.Client? client,
-    String? apiKey,
-    String? baseUrl,
-  })  : _client = client ?? http.Client(),
-        _apiKey = apiKey ?? DeepSeekConfig.apiKey,
-        _baseUrl = baseUrl ?? DeepSeekConfig.apiUrl;
+  DeepSeekApiService({http.Client? client, String? apiKey, String? baseUrl})
+    : _client = client ?? http.Client(),
+      _apiKey = apiKey ?? DeepSeekConfig.apiKey;
 
   /// Sends a chat completion request to the DeepSeek API.
-  /// 
+  ///
   /// [messages] - List of messages in the conversation
   /// [model] - The model to use (defaults to deepseek-chat)
   /// [maxTokens] - Maximum tokens in the response
   /// [temperature] - Response creativity (0.0 - 1.0)
-  /// 
+  ///
   /// Returns a [DeepSeekChatResponse] on success.
   /// Throws [DeepSeekException] on failure.
   Future<DeepSeekChatResponse> chatCompletion({
@@ -42,7 +36,8 @@ class DeepSeekApiService {
     // Validate API key is configured
     if (_apiKey.isEmpty) {
       throw const DeepSeekException(
-        message: 'DeepSeek API key is not configured. Add DEEP_SEEK_API_KEY to your .env file.',
+        message:
+            'DeepSeek API key is not configured. Add DEEP_SEEK_API_KEY to your .env file.',
       );
     }
 
@@ -67,36 +62,41 @@ class DeepSeekApiService {
 
       return _handleResponse(response);
     } on TimeoutException {
-      logger.e('DeepSeek API request timed out after ${DeepSeekConfig.apiTimeout.inSeconds} seconds');
+      logger.e(
+        'DeepSeek API request timed out after ${DeepSeekConfig.apiTimeout.inSeconds} seconds',
+      );
       throw const DeepSeekException(
-        message: 'Request timed out. The AI is taking too long to respond. Please try again with a simpler prompt or check your internet connection.',
+        message:
+            'Request timed out. The AI is taking too long to respond. Please try again with a simpler prompt or check your internet connection.',
       );
     } on DeepSeekException {
       rethrow;
     } catch (e, stackTrace) {
       logger.e('DeepSeek API request failed', error: e, stackTrace: stackTrace);
-      
+
       // Provide more helpful error messages
       String errorMessage;
-      if (e.toString().contains('SocketException') || 
+      if (e.toString().contains('SocketException') ||
           e.toString().contains('Failed host lookup')) {
-        errorMessage = 'Network error: Unable to connect to DeepSeek API. Please check your internet connection.';
+        errorMessage =
+            'Network error: Unable to connect to DeepSeek API. Please check your internet connection.';
       } else if (e.toString().contains('HandshakeException')) {
-        errorMessage = 'SSL/TLS error: Unable to establish secure connection. Please check your network settings.';
+        errorMessage =
+            'SSL/TLS error: Unable to establish secure connection. Please check your network settings.';
       } else {
         errorMessage = 'Failed to communicate with DeepSeek API: $e';
       }
-      
+
       throw DeepSeekException(message: errorMessage);
     }
   }
 
   /// Sends a simple prompt and returns the text response.
-  /// 
+  ///
   /// This is a convenience method for simple single-turn conversations.
   /// [prompt] - The user prompt
   /// [systemPrompt] - Optional system prompt for context
-  /// 
+  ///
   /// Returns the text content of the response.
   Future<String> simplePrompt({
     required String prompt,
@@ -138,10 +138,16 @@ class DeepSeekApiService {
       try {
         final json = jsonDecode(body) as Map<String, dynamic>;
         final chatResponse = DeepSeekChatResponse.fromJson(json);
-        logger.i('DeepSeek API response received: ${chatResponse.usage.totalTokens} tokens used');
+        logger.i(
+          'DeepSeek API response received: ${chatResponse.usage.totalTokens} tokens used',
+        );
         return chatResponse;
       } catch (e, stackTrace) {
-        logger.e('Failed to parse DeepSeek response', error: e, stackTrace: stackTrace);
+        logger.e(
+          'Failed to parse DeepSeek response',
+          error: e,
+          stackTrace: stackTrace,
+        );
         throw DeepSeekException(
           message: 'Failed to parse API response: $e',
           statusCode: statusCode,
@@ -157,17 +163,21 @@ class DeepSeekApiService {
       }
 
       logger.e('DeepSeek API error: $statusCode - ${error?.message ?? body}');
-      
+
       // Provide user-friendly error messages based on status code
       String errorMessage;
       if (statusCode == 401) {
-        errorMessage = 'Invalid API key. Please check your DEEP_SEEK_API_KEY in the .env file.';
+        errorMessage =
+            'Invalid API key. Please check your DEEP_SEEK_API_KEY in the .env file.';
       } else if (statusCode == 429) {
-        errorMessage = 'Rate limit exceeded. Please wait a moment and try again.';
+        errorMessage =
+            'Rate limit exceeded. Please wait a moment and try again.';
       } else if (statusCode == 500 || statusCode == 502 || statusCode == 503) {
-        errorMessage = 'DeepSeek server error. The service may be temporarily unavailable. Please try again later.';
+        errorMessage =
+            'DeepSeek server error. The service may be temporarily unavailable. Please try again later.';
       } else {
-        errorMessage = error?.message ?? 'API request failed with status $statusCode';
+        errorMessage =
+            error?.message ?? 'API request failed with status $statusCode';
       }
 
       throw DeepSeekException(
@@ -195,7 +205,8 @@ class DeepSeekApiService {
   }) async* {
     if (_apiKey.isEmpty) {
       throw const DeepSeekException(
-        message: 'DeepSeek API key is not configured. Add DEEP_SEEK_API_KEY to your .env file.',
+        message:
+            'DeepSeek API key is not configured. Add DEEP_SEEK_API_KEY to your .env file.',
       );
     }
 
@@ -210,20 +221,30 @@ class DeepSeekApiService {
     });
 
     try {
-      logger.i('Sending DeepSeek streaming request with ${messages.length} messages');
-      final streamedResponse = await _client.send(request).timeout(DeepSeekConfig.apiTimeout);
+      logger.i(
+        'Sending DeepSeek streaming request with ${messages.length} messages',
+      );
+      final streamedResponse = await _client
+          .send(request)
+          .timeout(DeepSeekConfig.apiTimeout);
 
-      if (streamedResponse.statusCode < 200 || streamedResponse.statusCode >= 300) {
+      if (streamedResponse.statusCode < 200 ||
+          streamedResponse.statusCode >= 300) {
         final body = await streamedResponse.stream.bytesToString();
-        logger.e('DeepSeek streaming API error: ${streamedResponse.statusCode} - $body');
+        logger.e(
+          'DeepSeek streaming API error: ${streamedResponse.statusCode} - $body',
+        );
         throw DeepSeekException(
-          message: 'Streaming request failed with status ${streamedResponse.statusCode}',
+          message:
+              'Streaming request failed with status ${streamedResponse.statusCode}',
           statusCode: streamedResponse.statusCode,
         );
       }
 
       String buffer = '';
-      await for (final chunk in streamedResponse.stream.transform(utf8.decoder)) {
+      await for (final chunk in streamedResponse.stream.transform(
+        utf8.decoder,
+      )) {
         buffer += chunk;
         // SSE events are separated by '\n\n'; process complete events only
         final events = buffer.split('\n\n');
@@ -237,7 +258,9 @@ class DeepSeekApiService {
               final json = jsonDecode(data) as Map<String, dynamic>;
               final choices = json['choices'] as List<dynamic>?;
               if (choices == null || choices.isEmpty) continue;
-              final delta = (choices.first as Map<String, dynamic>)['delta'] as Map<String, dynamic>?;
+              final delta =
+                  (choices.first as Map<String, dynamic>)['delta']
+                      as Map<String, dynamic>?;
               final content = delta?['content'] as String?;
               if (content != null && content.isNotEmpty) yield content;
             } catch (_) {
@@ -255,7 +278,9 @@ class DeepSeekApiService {
           final json = jsonDecode(data) as Map<String, dynamic>;
           final choices = json['choices'] as List<dynamic>?;
           if (choices == null || choices.isEmpty) continue;
-          final delta = (choices.first as Map<String, dynamic>)['delta'] as Map<String, dynamic>?;
+          final delta =
+              (choices.first as Map<String, dynamic>)['delta']
+                  as Map<String, dynamic>?;
           final content = delta?['content'] as String?;
           if (content != null && content.isNotEmpty) yield content;
         } catch (_) {
@@ -265,7 +290,11 @@ class DeepSeekApiService {
     } on DeepSeekException {
       rethrow;
     } catch (e, stackTrace) {
-      logger.e('DeepSeek streaming request failed', error: e, stackTrace: stackTrace);
+      logger.e(
+        'DeepSeek streaming request failed',
+        error: e,
+        stackTrace: stackTrace,
+      );
       throw DeepSeekException(message: 'Streaming failed: $e');
     }
   }

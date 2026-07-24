@@ -32,7 +32,7 @@ Widget buildStandardCardTemplate({
   final emoji = card['emoji'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
   
-  return Container(
+  return SizedBox(
     width: 200,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +42,7 @@ Widget buildStandardCardTemplate({
           ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
             child: Image.file(
-              File('${docDir!.path}/$imagePath'),
+              File('${docDir.path}/$imagePath'),
               width: double.infinity,
               height: 120,
               fit: BoxFit.cover,
@@ -73,7 +73,7 @@ Widget buildStandardCardTemplate({
                     data: card['description'] ?? '',
                     styleSheet: MarkdownStyleSheet(
                       p: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onSurface.withOpacity(0.7),
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                       ),
                       strong: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
                       em: theme.textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic),
@@ -101,7 +101,7 @@ Widget buildHorizontalCardTemplate({
   final emoji = card['emoji'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
   
-  return Container(
+  return SizedBox(
     width: 280,
     height: 140,
     child: Row(
@@ -112,7 +112,7 @@ Widget buildHorizontalCardTemplate({
           ClipRRect(
             borderRadius: const BorderRadius.horizontal(left: Radius.circular(12)),
             child: Image.file(
-              File('${docDir!.path}/$imagePath'),
+              File('${docDir.path}/$imagePath'),
               width: 100,
               height: double.infinity,
               fit: BoxFit.cover,
@@ -144,7 +144,7 @@ Widget buildHorizontalCardTemplate({
                     data: card['description'] ?? '',
                     styleSheet: MarkdownStyleSheet(
                       p: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onSurface.withOpacity(0.7),
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                         fontSize: 12,
                       ),
                       strong: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
@@ -212,7 +212,7 @@ Widget buildCompactCardTemplate({
           data: card['description'] ?? '',
           styleSheet: MarkdownStyleSheet(
             p: theme.textTheme.bodySmall?.copyWith(
-              color: theme.colorScheme.onSurface.withOpacity(0.6),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
               fontSize: 11,
             ),
             strong: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
@@ -236,7 +236,7 @@ Widget buildFeaturedCardTemplate({
   final emoji = card['emoji'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
   
-  return Container(
+  return SizedBox(
     width: 300,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -246,7 +246,7 @@ Widget buildFeaturedCardTemplate({
           ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
             child: Image.file(
-              File('${docDir!.path}/$imagePath'),
+              File('${docDir.path}/$imagePath'),
               width: double.infinity,
               height: 180,
               fit: BoxFit.cover,
@@ -278,7 +278,7 @@ Widget buildFeaturedCardTemplate({
                     data: card['description'] ?? '',
                     styleSheet: MarkdownStyleSheet(
                       p: theme.textTheme.bodyMedium?.copyWith(
-                        color: theme.colorScheme.onSurface.withOpacity(0.7),
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                       ),
                       strong: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
                       em: theme.textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
@@ -306,7 +306,7 @@ Widget buildOverlayCardTemplate({
   final imagePath = card['imagePath'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
   
-  return Container(
+  return SizedBox(
     width: 280,
     height: 200,
     child: Stack(
@@ -317,7 +317,7 @@ Widget buildOverlayCardTemplate({
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Image.file(
-                File('${docDir!.path}/$imagePath'),
+                File('${docDir.path}/$imagePath'),
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) => 
                   _buildGradientBackground(theme),
@@ -342,7 +342,7 @@ Widget buildOverlayCardTemplate({
                 end: Alignment.bottomCenter,
                 colors: [
                   Colors.transparent,
-                  Colors.black.withOpacity(0.7),
+                  Colors.black.withValues(alpha: 0.7),
                 ],
                 stops: const [0.3, 1.0],
               ),
@@ -373,7 +373,7 @@ Widget buildOverlayCardTemplate({
                 data: card['description'] ?? '',
                 styleSheet: MarkdownStyleSheet(
                   p: theme.textTheme.bodyMedium?.copyWith(
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.white.withValues(alpha: 0.9),
                   ),
                   strong: theme.textTheme.bodyMedium?.copyWith(
                     color: Colors.white,
@@ -408,7 +408,7 @@ Widget buildMagazineCardTemplate({
   final imagePath = card['imagePath'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
   
-  return Container(
+  return SizedBox(
     width: 240,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -418,7 +418,7 @@ Widget buildMagazineCardTemplate({
           ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
             child: Image.file(
-              File('${docDir!.path}/$imagePath'),
+              File('${docDir.path}/$imagePath'),
               width: double.infinity,
               height: 180,
               fit: BoxFit.cover,
@@ -453,7 +453,7 @@ Widget buildMagazineCardTemplate({
                     data: card['description'] ?? '',
                     styleSheet: MarkdownStyleSheet(
                       p: theme.textTheme.bodyMedium?.copyWith(
-                        color: theme.colorScheme.onSurface.withOpacity(0.7),
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                         height: 1.4,
                       ),
                       strong: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -482,7 +482,7 @@ Widget buildSplitCardTemplate({
   final imagePath = card['imagePath'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
   
-  return Container(
+  return SizedBox(
     width: 300,
     height: 180,
     child: Row(
@@ -494,7 +494,7 @@ Widget buildSplitCardTemplate({
             ? ClipRRect(
                 borderRadius: const BorderRadius.horizontal(left: Radius.circular(12)),
                 child: Image.file(
-                  File('${docDir!.path}/$imagePath'),
+                  File('${docDir.path}/$imagePath'),
                   width: double.infinity,
                   height: double.infinity,
                   fit: BoxFit.cover,
@@ -528,7 +528,7 @@ Widget buildSplitCardTemplate({
                     data: card['description'] ?? '',
                     styleSheet: MarkdownStyleSheet(
                       p: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onSurface.withOpacity(0.7),
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                       ),
                       strong: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
                       em: theme.textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic),
@@ -556,7 +556,7 @@ Widget buildBannerCardTemplate({
   final imagePath = card['imagePath'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
   
-  return Container(
+  return SizedBox(
     width: 350,
     height: 140,
     child: Stack(
@@ -567,7 +567,7 @@ Widget buildBannerCardTemplate({
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Image.file(
-                File('${docDir!.path}/$imagePath'),
+                File('${docDir.path}/$imagePath'),
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) => 
                   _buildBannerFallback(theme),
@@ -587,7 +587,7 @@ Widget buildBannerCardTemplate({
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              color: Colors.black.withOpacity(0.4),
+              color: Colors.black.withValues(alpha: 0.4),
             ),
           ),
         ),
@@ -614,7 +614,7 @@ Widget buildBannerCardTemplate({
                   data: card['description'] ?? '',
                   styleSheet: MarkdownStyleSheet(
                     p: theme.textTheme.bodyMedium?.copyWith(
-                      color: Colors.white.withOpacity(0.95),
+                      color: Colors.white.withValues(alpha: 0.95),
                     ),
                     strong: theme.textTheme.bodyMedium?.copyWith(
                       color: Colors.white,
@@ -663,7 +663,7 @@ Widget _buildFallbackHeader(ThemeData theme, String? emoji) {
           : Icon(
               Icons.article_outlined,
               size: 40,
-              color: theme.colorScheme.onPrimaryContainer.withOpacity(0.6),
+              color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.6),
             ),
     ),
   );
@@ -689,7 +689,7 @@ Widget _buildCompactFallback(ThemeData theme, String? emoji, double width) {
           : Icon(
               Icons.article_outlined,
               size: 32,
-              color: theme.colorScheme.onPrimaryContainer.withOpacity(0.6),
+              color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.6),
             ),
     ),
   );
@@ -716,7 +716,7 @@ Widget _buildFeaturedFallback(ThemeData theme, String? emoji) {
           : Icon(
               Icons.article_outlined,
               size: 56,
-              color: theme.colorScheme.onPrimaryContainer.withOpacity(0.6),
+              color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.6),
             ),
     ),
   );
@@ -729,8 +729,8 @@ Widget _buildGradientBackground(ThemeData theme) {
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         colors: [
-          theme.colorScheme.primary.withOpacity(0.8),
-          theme.colorScheme.secondary.withOpacity(0.8),
+          theme.colorScheme.primary.withValues(alpha: 0.8),
+          theme.colorScheme.secondary.withValues(alpha: 0.8),
         ],
       ),
     ),
@@ -756,7 +756,7 @@ Widget _buildMagazineFallback(ThemeData theme) {
       child: Icon(
         Icons.image_outlined,
         size: 48,
-        color: theme.colorScheme.onPrimaryContainer.withOpacity(0.6),
+        color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.6),
       ),
     ),
   );
@@ -779,7 +779,7 @@ Widget _buildSplitFallback(ThemeData theme) {
       child: Icon(
         Icons.image_outlined,
         size: 40,
-        color: theme.colorScheme.onPrimaryContainer.withOpacity(0.6),
+        color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.6),
       ),
     ),
   );
@@ -825,7 +825,7 @@ Widget buildAvatarCardTemplate({
         if (hasImage)
           ClipOval(
             child: Image.file(
-              File('${docDir!.path}/$imagePath'),
+              File('${docDir.path}/$imagePath'),
               width: 80,
               height: 80,
               fit: BoxFit.cover,
@@ -855,7 +855,7 @@ Widget buildAvatarCardTemplate({
           data: card['description'] ?? '',
           styleSheet: MarkdownStyleSheet(
             p: theme.textTheme.bodySmall?.copyWith(
-              color: theme.colorScheme.onSurface.withOpacity(0.7),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
             ),
             strong: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
             em: theme.textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic),
@@ -883,7 +883,7 @@ Widget buildImageRightCardTemplate({
   final emoji = card['emoji'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
   
-  return Container(
+  return SizedBox(
     width: 280,
     height: 140,
     child: Row(
@@ -910,7 +910,7 @@ Widget buildImageRightCardTemplate({
                     data: card['description'] ?? '',
                     styleSheet: MarkdownStyleSheet(
                       p: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onSurface.withOpacity(0.7),
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                         fontSize: 12,
                       ),
                       strong: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
@@ -929,7 +929,7 @@ Widget buildImageRightCardTemplate({
           ClipRRect(
             borderRadius: const BorderRadius.horizontal(right: Radius.circular(12)),
             child: Image.file(
-              File('${docDir!.path}/$imagePath'),
+              File('${docDir.path}/$imagePath'),
               width: 100,
               height: double.infinity,
               fit: BoxFit.cover,
@@ -997,7 +997,7 @@ Widget buildIconCardTemplate({
           data: card['description'] ?? '',
           styleSheet: MarkdownStyleSheet(
             p: theme.textTheme.bodySmall?.copyWith(
-              color: theme.colorScheme.onSurface.withOpacity(0.7),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               fontSize: 11,
             ),
             strong: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
@@ -1026,7 +1026,7 @@ Widget buildSocialCardTemplate({
   final emoji = card['emoji'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
   
-  return Container(
+  return SizedBox(
     width: 220,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1036,7 +1036,7 @@ Widget buildSocialCardTemplate({
           ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
             child: Image.file(
-              File('${docDir!.path}/$imagePath'),
+              File('${docDir.path}/$imagePath'),
               width: double.infinity,
               height: 140,
               fit: BoxFit.cover,
@@ -1066,7 +1066,7 @@ Widget buildSocialCardTemplate({
                 data: card['description'] ?? '',
                 styleSheet: MarkdownStyleSheet(
                   p: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.7),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                     fontSize: 12,
                   ),
                   strong: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
@@ -1108,7 +1108,7 @@ Widget buildProductCardTemplate({
   final emoji = card['emoji'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
   
-  return Container(
+  return SizedBox(
     width: 200,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1118,7 +1118,7 @@ Widget buildProductCardTemplate({
           ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
             child: Image.file(
-              File('${docDir!.path}/$imagePath'),
+              File('${docDir.path}/$imagePath'),
               width: double.infinity,
               height: 120,
               fit: BoxFit.cover,
@@ -1153,7 +1153,7 @@ Widget buildProductCardTemplate({
                     data: card['description'] ?? '',
                     styleSheet: MarkdownStyleSheet(
                       p: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onSurface.withOpacity(0.7),
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                         fontSize: 11,
                       ),
                       strong: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
@@ -1215,7 +1215,7 @@ Widget _buildCircularFallback(ThemeData theme, String? emoji, double size) {
           : Icon(
               Icons.person_outline,
               size: size * 0.5,
-              color: theme.colorScheme.onPrimaryContainer.withOpacity(0.6),
+              color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.6),
             ),
     ),
   );
@@ -1241,7 +1241,7 @@ Widget _buildCompactFallbackRight(ThemeData theme, String? emoji, double width) 
           : Icon(
               Icons.article_outlined,
               size: 32,
-              color: theme.colorScheme.onPrimaryContainer.withOpacity(0.6),
+              color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.6),
             ),
     ),
   );
@@ -1268,7 +1268,7 @@ Widget _buildSocialFallback(ThemeData theme, String? emoji) {
           : Icon(
               Icons.image_outlined,
               size: 40,
-              color: theme.colorScheme.onPrimaryContainer.withOpacity(0.6),
+              color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.6),
             ),
     ),
   );
@@ -1295,7 +1295,7 @@ Widget _buildProductFallback(ThemeData theme, String? emoji) {
           : Icon(
               Icons.shopping_bag_outlined,
               size: 36,
-              color: theme.colorScheme.onPrimaryContainer.withOpacity(0.6),
+              color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.6),
             ),
     ),
   );

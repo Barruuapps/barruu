@@ -41,11 +41,11 @@ Widget buildPageBlockCompactStyle({
   final containerWidget = Container(
     decoration: BoxDecoration(
       color: styleUtils.parseHex(blockStyle.background) ??
-          theme.colorScheme.primaryContainer.withOpacity(0.15),
+          theme.colorScheme.primaryContainer.withValues(alpha: 0.15),
       borderRadius: BorderRadius.circular(8),
       border: Border.all(
         color: styleUtils.parseHex(blockStyle.borderColor) ??
-            theme.colorScheme.primary.withOpacity(0.4),
+            theme.colorScheme.primary.withValues(alpha: 0.4),
       ),
     ),
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),

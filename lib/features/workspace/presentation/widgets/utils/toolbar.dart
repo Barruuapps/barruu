@@ -67,7 +67,7 @@ class Toolbar extends ConsumerWidget {
                   color: theme.colorScheme.surfaceContainerHighest,
                   border: Border(
                     bottom: BorderSide(
-                      color: theme.colorScheme.outline.withOpacity(0.2),
+                      color: theme.colorScheme.outline.withValues(alpha: 0.2),
                     ),
                   ),
                 ),
@@ -204,8 +204,8 @@ class Toolbar extends ConsumerWidget {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
                                 border: Border.all(
-                                  color: theme.colorScheme.outline.withOpacity(
-                                    0.2,
+                                  color: theme.colorScheme.outline.withValues(
+                                    alpha: 0.2,
                                   ),
                                 ),
                               ),
@@ -249,7 +249,7 @@ class Toolbar extends ConsumerWidget {
       height: isCompact ? 24 : 28,
       margin: EdgeInsets.symmetric(horizontal: isCompact ? 6 : 10),
       decoration: BoxDecoration(
-        color: theme.colorScheme.outline.withOpacity(0.3),
+        color: theme.colorScheme.outline.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(1),
       ),
     );
@@ -404,13 +404,13 @@ class _TextStyleControls extends ConsumerWidget {
             padding: EdgeInsets.all(buttonPadding),
             decoration: BoxDecoration(
               color: isActive
-                  ? theme.colorScheme.primaryContainer.withOpacity(0.5)
+                  ? theme.colorScheme.primaryContainer.withValues(alpha: 0.5)
                   : Colors.transparent,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
                 color: isActive
-                    ? theme.colorScheme.primary.withOpacity(0.3)
-                    : theme.colorScheme.outline.withOpacity(0.2),
+                    ? theme.colorScheme.primary.withValues(alpha: 0.3)
+                    : theme.colorScheme.outline.withValues(alpha: 0.2),
                 width: isActive ? 1.5 : 1,
               ),
             ),
@@ -496,7 +496,7 @@ class _AlignmentControls extends ConsumerWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                color: theme.colorScheme.outline.withOpacity(0.2),
+                color: theme.colorScheme.outline.withValues(alpha: 0.2),
               ),
             ),
             child: Icon(
@@ -598,7 +598,7 @@ class _FontControls extends ConsumerWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: theme.colorScheme.outline.withOpacity(0.2),
+                    color: theme.colorScheme.outline.withValues(alpha: 0.2),
                   ),
                 ),
                 child: Row(
@@ -693,7 +693,7 @@ class _FontControls extends ConsumerWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: theme.colorScheme.outline.withOpacity(0.2),
+                    color: theme.colorScheme.outline.withValues(alpha: 0.2),
                   ),
                 ),
                 child: Row(

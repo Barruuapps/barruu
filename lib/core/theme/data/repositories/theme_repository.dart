@@ -10,144 +10,99 @@ class ThemeRepository {
   /// Each [ThemeOption] contains a unique identifier, display name, and associated [ThemeData].
   List<ThemeOption> getAvailableThemes() {
     return [
-      // Primary Brand Theme
+      // ── Light Themes ──
       ThemeOption(
         id: AppThemeType.professionalTeal,
-        name: 'Professional (Default)',
+        name: 'Teal Pro',
         theme: AppTheme.professionalTeal,
-        description: 'Modern editorial style - trustworthy and professional',
-      ),
-      
-      // Light Themes
-      ThemeOption(
-        id: AppThemeType.purpleCyan,
-        name: 'Purple Cyan',
-        theme: AppTheme.purpleCyan,
-        description: 'Vibrant purple with cyan accents',
-      ),
-      ThemeOption(
-        id: AppThemeType.softBeige,
-        name: 'Soft Beige',
-        theme: AppTheme.softBeige,
-        description: 'Warm and sophisticated neutral tones',
+        description: 'Modern editorial — clean, trustworthy, distraction-free',
       ),
       ThemeOption(
         id: AppThemeType.calmBlue,
         name: 'Calm Blue',
         theme: AppTheme.calmBlue,
-        description: 'Clean and trustworthy blue palette',
-      ),
-      ThemeOption(
-        id: AppThemeType.softGreen,
-        name: 'Soft Green',
-        theme: AppTheme.softGreen,
-        description: 'Natural green for balance and calm',
+        description: 'Cool blue tones — perfect for focused work',
       ),
       ThemeOption(
         id: AppThemeType.minimalWhite,
         name: 'Minimal White',
         theme: AppTheme.minimalWhite,
-        description: 'Ultra-professional monochrome style',
-      ),
-      ThemeOption(
-        id: AppThemeType.sunsetGlow,
-        name: 'Sunset Glow',
-        theme: AppTheme.sunsetGlow,
-        description: 'Vibrant gradient-inspired warmth',
-      ),
-      ThemeOption(
-        id: AppThemeType.oceanBreeze,
-        name: 'Ocean Breeze',
-        theme: AppTheme.oceanBreeze,
-        description: 'Serene teal for refreshing focus',
-      ),
-      ThemeOption(
-        id: AppThemeType.royalIndigo,
-        name: 'Royal Indigo',
-        theme: AppTheme.royalIndigo,
-        description: 'Classic indigo for elegance',
-      ),
-      ThemeOption(
-        id: AppThemeType.graphiteSteel,
-        name: 'Graphite Steel',
-        theme: AppTheme.graphiteSteel,
-        description: 'Corporate sleek tech-forward style',
-      ),
-      ThemeOption(
-        id: AppThemeType.coralReef,
-        name: 'Coral Reef',
-        theme: AppTheme.coralReef,
-        description: 'Vibrant coral with teal accents',
+        description: 'Ultra-clean monochrome for maximum clarity',
       ),
       ThemeOption(
         id: AppThemeType.nordicFrost,
         name: 'Nordic Frost',
         theme: AppTheme.nordicFrost,
-        description: 'Clean Nordic-inspired minimalism',
+        description: 'Airy, premium Scandinavian minimalism',
+      ),
+      ThemeOption(
+        id: AppThemeType.softBeige,
+        name: 'Warm Paper',
+        theme: AppTheme.softBeige,
+        description: 'Warm paper tones — gentle on the eyes',
+      ),
+      ThemeOption(
+        id: AppThemeType.softGreen,
+        name: 'Soft Mint',
+        theme: AppTheme.softGreen,
+        description: 'Natural green — calming and refreshing',
       ),
 
-      // Dark Themes
-      ThemeOption(
-        id: AppThemeType.warmDark,
-        name: 'Warm Dark',
-        theme: AppTheme.warmDark,
-        description: 'Rich and inviting dark mode',
-        category: ThemeCategory.dark,
-        isDark: true,
-      ),
+      // ── Dark Themes ──
       ThemeOption(
         id: AppThemeType.elegantDark,
-        name: 'Elegant Dark',
+        name: 'Midnight Ink',
         theme: AppTheme.elegantDark,
-        description: 'Premium sleek dark experience',
+        description: 'Rich dark blue — premium night reading',
         category: ThemeCategory.dark,
         isDark: true,
       ),
       ThemeOption(
-        id: AppThemeType.emeraldSlate,
-        name: 'Emerald Slate',
-        theme: AppTheme.emeraldSlate,
-        description: 'Luxurious emerald on dark slate',
+        id: AppThemeType.graphiteSteel,
+        name: 'Deep Charcoal',
+        theme: AppTheme.graphiteSteel,
+        description: 'Sleek charcoal — modern dark workspace',
         category: ThemeCategory.dark,
         isDark: true,
-      ),
-      ThemeOption(
-        id: AppThemeType.amberNoir,
-        name: 'Amber Noir',
-        theme: AppTheme.amberNoir,
-        description: 'Premium warm amber luxury',
-        category: ThemeCategory.dark,
-        isDark: true,
-      ),
-
-      // Study-Focused Themes
-      ThemeOption(
-        id: AppThemeType.focusStudy,
-        name: 'Focus Study',
-        theme: AppTheme.focusStudy,
-        description: 'Warm paper-like for concentration',
-        category: ThemeCategory.study,
-      ),
-      ThemeOption(
-        id: AppThemeType.libraryClassic,
-        name: 'Library Classic',
-        theme: AppTheme.libraryClassic,
-        description: 'Sepia tones for comfortable reading',
-        category: ThemeCategory.study,
       ),
       ThemeOption(
         id: AppThemeType.nightScholar,
         name: 'Night Scholar',
         theme: AppTheme.nightScholar,
-        description: 'Dark mode for late-night study',
+        description: 'Optimized for late-night reading',
         category: ThemeCategory.study,
         isDark: true,
       ),
       ThemeOption(
-        id: AppThemeType.freshMint,
-        name: 'Fresh Mint',
-        theme: AppTheme.freshMint,
-        description: 'Calming green for stress-free reading',
+        id: AppThemeType.emeraldSlate,
+        name: 'Dark Emerald',
+        theme: AppTheme.emeraldSlate,
+        description: 'Luxurious green on dark background',
+        category: ThemeCategory.dark,
+        isDark: true,
+      ),
+      ThemeOption(
+        id: AppThemeType.warmDark,
+        name: 'Obsidian Warm',
+        theme: AppTheme.warmDark,
+        description: 'Deep black with warm amber accents',
+        category: ThemeCategory.dark,
+        isDark: true,
+      ),
+
+      // ── Reading / Study Themes ──
+      ThemeOption(
+        id: AppThemeType.libraryClassic,
+        name: 'Library Classic',
+        theme: AppTheme.libraryClassic,
+        description: 'Sepia book-like tones for immersive reading',
+        category: ThemeCategory.study,
+      ),
+      ThemeOption(
+        id: AppThemeType.focusStudy,
+        name: 'Focus Study',
+        theme: AppTheme.focusStudy,
+        description: 'Warm paper — deep concentration mode',
         category: ThemeCategory.study,
       ),
     ];

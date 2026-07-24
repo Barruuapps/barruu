@@ -242,7 +242,7 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
     switch (template) {
       case 'filled':
         final fillColor = parsedBackground ??
-            theme.colorScheme.primaryContainer.withOpacity(0.3);
+            theme.colorScheme.primaryContainer.withValues(alpha: 0.3);
         return _buildContainerTemplate(theme, fillColor, color, baseTextStyle,
             title, contentType, contentData,
             borderRadius: 12);
@@ -274,8 +274,8 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
         color: parsedBackground ?? theme.colorScheme.surface,
         border: Border.all(
           color: _isExpanded
-              ? theme.colorScheme.primary.withOpacity(0.3)
-              : theme.colorScheme.outline.withOpacity(0.2),
+              ? theme.colorScheme.primary.withValues(alpha: 0.3)
+              : theme.colorScheme.outline.withValues(alpha: 0.2),
           width: _isExpanded ? 2 : 1,
         ),
         borderRadius: BorderRadius.circular(12),
@@ -336,7 +336,7 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
                       child: Icon(Icons.keyboard_arrow_down_rounded,
                           color: _isExpanded
                               ? theme.colorScheme.primary
-                              : color.withOpacity(0.6),
+                              : color.withValues(alpha: 0.6),
                           size: 24),
                     ),
                   ],
@@ -344,7 +344,7 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
               ),
               Divider(
                   height: 1,
-                  color: theme.colorScheme.outline.withOpacity(0.3)),
+                  color: theme.colorScheme.outline.withValues(alpha: 0.3)),
               _buildContentSection(
                   theme, baseTextStyle, contentType, contentData),
             ],
@@ -364,7 +364,7 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.shadow.withOpacity(0.1),
+            color: theme.colorScheme.shadow.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: const Offset(0, 3),
           ),
@@ -384,7 +384,7 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
       decoration: BoxDecoration(
         color: Colors.transparent,
         border: Border.all(
-          color: theme.colorScheme.primary.withOpacity(0.6),
+          color: theme.colorScheme.primary.withValues(alpha: 0.6),
           width: 1.5,
         ),
         borderRadius: BorderRadius.circular(12),
@@ -402,7 +402,7 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
       margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
         color: parsedBackground ??
-            theme.colorScheme.primaryContainer.withOpacity(0.1),
+            theme.colorScheme.primaryContainer.withValues(alpha: 0.1),
         border: Border(
           left: BorderSide(color: theme.colorScheme.primary, width: 4),
         ),
@@ -446,7 +446,7 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
                       Icons.keyboard_arrow_down_rounded,
                       color: _isExpanded
                           ? theme.colorScheme.primary
-                          : color.withOpacity(0.6),
+                          : color.withValues(alpha: 0.6),
                       size: 28,
                     ),
                   ),
@@ -487,8 +487,8 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          theme.colorScheme.primary.withOpacity(0.3),
-                          theme.colorScheme.primary.withOpacity(0.0),
+                          theme.colorScheme.primary.withValues(alpha: 0.3),
+                          theme.colorScheme.primary.withValues(alpha: 0.0),
                         ],
                       ),
                     ),
@@ -562,7 +562,7 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
                   errorBuilder: (_, __, ___) => Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.errorContainer.withOpacity(0.3),
+                      color: theme.colorScheme.errorContainer.withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
@@ -588,7 +588,7 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
             style: TextStyle(
               fontSize: 12,
               fontStyle: FontStyle.italic,
-              color: theme.colorScheme.onSurface.withOpacity(0.6),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
             ),
             textAlign: TextAlign.center,
           ),
@@ -614,7 +614,7 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
     TextStyle cellStyle(bool isHeader) => TextStyle(
           fontSize: 13,
           fontWeight: isHeader ? FontWeight.w600 : FontWeight.normal,
-          color: theme.colorScheme.onSurface.withOpacity(isHeader ? 0.9 : 0.75),
+          color: theme.colorScheme.onSurface.withValues(alpha: isHeader ? 0.9 : 0.75),
         );
 
     Widget buildCell(String text, bool isHeader, {bool isLast = false, bool isLastRow = false}) {
@@ -622,10 +622,10 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
           decoration: BoxDecoration(
-            color: isHeader ? theme.colorScheme.primary.withOpacity(0.08) : Colors.transparent,
+            color: isHeader ? theme.colorScheme.primary.withValues(alpha: 0.08) : Colors.transparent,
             border: Border(
-              right: isLast ? BorderSide.none : BorderSide(color: theme.colorScheme.outline.withOpacity(0.25)),
-              bottom: isLastRow ? BorderSide.none : BorderSide(color: theme.colorScheme.outline.withOpacity(0.2)),
+              right: isLast ? BorderSide.none : BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.25)),
+              bottom: isLastRow ? BorderSide.none : BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.2)),
             ),
           ),
           child: Text(text, style: cellStyle(isHeader), maxLines: 3, overflow: TextOverflow.ellipsis),
@@ -635,7 +635,7 @@ class _ExpandableReaderBlockState extends ConsumerState<ExpandableReaderBlock>
 
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: theme.colorScheme.outline.withOpacity(0.3)),
+        border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
         borderRadius: BorderRadius.circular(8),
       ),
       clipBehavior: Clip.antiAlias,

@@ -154,7 +154,7 @@ class _MathWorkpadBlockState extends BaseEditableBlockState<MathWorkpadBlock> {
   @override
   Widget buildEditor(BuildContext context) {
     final theme = Theme.of(context);
-    final outlineColor = theme.colorScheme.outline.withOpacity(0.3);
+    final outlineColor = theme.colorScheme.outline.withValues(alpha: 0.3);
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -182,8 +182,8 @@ class _MathWorkpadBlockState extends BaseEditableBlockState<MathWorkpadBlock> {
             decoration: InputDecoration(
               hintText: 'Type instruction (e.g. Order the steps...)',
               filled: true,
-              fillColor: theme.colorScheme.surfaceContainerHighest.withOpacity(
-                0.3,
+              fillColor: theme.colorScheme.surfaceContainerHighest.withValues(
+                alpha: 0.3,
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),

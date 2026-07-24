@@ -110,7 +110,7 @@ class VideoDisplaySection extends StatelessWidget {
       onTap: isEditing ? onTap : null,
       child: Container(
         decoration: BoxDecoration(
-          color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.5),
+          color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Center(
@@ -135,7 +135,7 @@ class VideoDisplaySection extends StatelessWidget {
                 Text(
                   'Choose from gallery, YouTube, or URL',
                   style: TextStyle(
-                    color: theme.colorScheme.onSurfaceVariant.withOpacity(0.7),
+                    color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
                     fontSize: 12,
                   ),
                 ),
@@ -154,7 +154,7 @@ class VideoDisplaySection extends StatelessWidget {
         decoration: isEditing
             ? BoxDecoration(
                 border: Border.all(
-                  color: theme.colorScheme.primary.withOpacity(0.3),
+                  color: theme.colorScheme.primary.withValues(alpha: 0.3),
                   width: 2,
                 ),
                 borderRadius: BorderRadius.circular(14),

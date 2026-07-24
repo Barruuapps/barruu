@@ -110,6 +110,41 @@ coverage/
 # Symbols
 app.*.symbols
 
+# IDE
+.idea/
+*.iml
+.vscode/settings.json
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Rust
+rust/target/
+**/target/
+
+# Dependencies
+node_modules/
+
+# Build artifacts
+*.zip
+*.tar.gz
+
+# Local configuration
+local.properties
+secrets.yaml
+android/key.properties
+android/app/debug.keystore
+android/app/release.keystore
+
 # Exceptions to above rules.
 !**/ios/**/default.mode1v3
 !**/ios/**/default.mode2v3

@@ -246,7 +246,7 @@ class _RecordingDialogState extends State<_RecordingDialog> {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.red.withOpacity(0.1),
+              color: Colors.red.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
             child: Icon(
@@ -276,7 +276,7 @@ class _RecordingDialogState extends State<_RecordingDialog> {
                     ? 'Recording in progress...' 
                     : 'Recording stopped',
             style: TextStyle(
-              color: theme.colorScheme.onSurface.withOpacity(0.6),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
             ),
           ),
         ],

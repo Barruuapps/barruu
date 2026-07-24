@@ -527,7 +527,7 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
                         : 'Tap an item on the left, then its match on the right.',
                     style: baseStyle.copyWith(
                       fontSize: (baseStyle.fontSize ?? 14) * 0.82,
-                      color: theme.colorScheme.onSurface.withOpacity(0.6),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                       fontStyle: FontStyle.italic,
                     ),
                   ),
@@ -540,8 +540,8 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
                   ),
                   decoration: BoxDecoration(
                     color: allMatched
-                        ? theme.colorScheme.primary.withOpacity(0.12)
-                        : theme.colorScheme.surfaceVariant,
+                        ? theme.colorScheme.primary.withValues(alpha: 0.12)
+                        : theme.colorScheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Text(
@@ -790,15 +790,15 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
 
     if (isRejected) {
       borderColor = theme.colorScheme.error;
-      bgColor = theme.colorScheme.error.withOpacity(0.1);
+      bgColor = theme.colorScheme.error.withValues(alpha: 0.1);
       borderWidth = 2;
     } else if (isSelected) {
       borderColor = theme.colorScheme.primary;
-      bgColor = theme.colorScheme.primary.withOpacity(0.08);
+      bgColor = theme.colorScheme.primary.withValues(alpha: 0.08);
       borderWidth = 2;
     } else if (isPaired) {
-      borderColor = theme.colorScheme.secondary.withOpacity(0.55);
-      bgColor = theme.colorScheme.secondary.withOpacity(0.05);
+      borderColor = theme.colorScheme.secondary.withValues(alpha: 0.55);
+      bgColor = theme.colorScheme.secondary.withValues(alpha: 0.05);
       borderWidth = 1.5;
     } else {
       borderColor = Colors.transparent;
@@ -855,7 +855,7 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
                       child: Icon(
                         Icons.close_rounded,
                         size: 15,
-                        color: theme.colorScheme.onSurface.withOpacity(0.38),
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.38),
                       ),
                     ),
                   )
@@ -889,10 +889,10 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
     final double opacity;
 
     if (isUsed) {
-      bgColor = theme.colorScheme.secondary.withOpacity(0.08);
+      bgColor = theme.colorScheme.secondary.withValues(alpha: 0.08);
       opacity = 0.6;
     } else if (isActiveTarget) {
-      bgColor = theme.colorScheme.primary.withOpacity(0.06);
+      bgColor = theme.colorScheme.primary.withValues(alpha: 0.06);
       opacity = 1.0;
     } else {
       bgColor = surface;
@@ -916,7 +916,7 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
                   color: isActiveTarget
-                      ? theme.colorScheme.primary.withOpacity(0.4)
+                      ? theme.colorScheme.primary.withValues(alpha: 0.4)
                       : Colors.transparent,
                   width: 1.5,
                 ),
@@ -928,7 +928,7 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
                     Icon(
                       Icons.check_rounded,
                       size: 14,
-                      color: theme.colorScheme.secondary.withOpacity(0.65),
+                      color: theme.colorScheme.secondary.withValues(alpha: 0.65),
                     ),
                 ],
               ),
@@ -953,7 +953,7 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
         style: baseStyle.copyWith(
           fontSize: (baseStyle.fontSize ?? 14) * (compact ? 0.7 : 0.75),
           fontWeight: FontWeight.w700,
-          color: theme.colorScheme.onSurface.withOpacity(0.45),
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.45),
           letterSpacing: 0.8,
         ),
       ),
@@ -981,18 +981,18 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
 
     if (isRejected) {
       borderColor = theme.colorScheme.error;
-      bgColor = theme.colorScheme.error.withOpacity(0.1);
+      bgColor = theme.colorScheme.error.withValues(alpha: 0.1);
       borderWidth = 2;
     } else if (isSelected) {
       borderColor = theme.colorScheme.primary;
-      bgColor = theme.colorScheme.primary.withOpacity(0.1);
+      bgColor = theme.colorScheme.primary.withValues(alpha: 0.1);
       borderWidth = 2;
     } else if (isPaired) {
-      borderColor = theme.colorScheme.secondary.withOpacity(0.55);
-      bgColor = theme.colorScheme.secondary.withOpacity(0.06);
+      borderColor = theme.colorScheme.secondary.withValues(alpha: 0.55);
+      bgColor = theme.colorScheme.secondary.withValues(alpha: 0.06);
       borderWidth = 1.5;
     } else {
-      borderColor = theme.colorScheme.outline.withOpacity(0.35);
+      borderColor = theme.colorScheme.outline.withValues(alpha: 0.35);
       bgColor = Colors.transparent;
       borderWidth = 1;
     }
@@ -1041,7 +1041,7 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
                   child: Icon(
                     Icons.close_rounded,
                     size: 15,
-                    color: theme.colorScheme.onSurface.withOpacity(0.38),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.38),
                   ),
                 ),
               )
@@ -1080,17 +1080,17 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
     final double opacity;
 
     if (isUsed) {
-      borderColor = theme.colorScheme.secondary.withOpacity(0.35);
-      bgColor = theme.colorScheme.secondary.withOpacity(0.05);
+      borderColor = theme.colorScheme.secondary.withValues(alpha: 0.35);
+      bgColor = theme.colorScheme.secondary.withValues(alpha: 0.05);
       borderWidth = 1.5;
       opacity = 0.6;
     } else if (isActiveTarget) {
-      borderColor = theme.colorScheme.primary.withOpacity(0.55);
-      bgColor = theme.colorScheme.primary.withOpacity(0.05);
+      borderColor = theme.colorScheme.primary.withValues(alpha: 0.55);
+      bgColor = theme.colorScheme.primary.withValues(alpha: 0.05);
       borderWidth = 1.5;
       opacity = 1.0;
     } else {
-      borderColor = theme.colorScheme.outline.withOpacity(0.35);
+      borderColor = theme.colorScheme.outline.withValues(alpha: 0.35);
       bgColor = Colors.transparent;
       borderWidth = 1;
       opacity = 1.0;
@@ -1116,7 +1116,7 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
                 Icon(
                   Icons.check_rounded,
                   size: 14,
-                  color: theme.colorScheme.secondary.withOpacity(0.65),
+                  color: theme.colorScheme.secondary.withValues(alpha: 0.65),
                 ),
             ],
           ),
@@ -1142,23 +1142,23 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
 
     if (isRejected) {
       borderColor = theme.colorScheme.error;
-      bgColor = theme.colorScheme.error.withOpacity(0.1);
+      bgColor = theme.colorScheme.error.withValues(alpha: 0.1);
       badgeColor = theme.colorScheme.error;
       borderWidth = 2;
     } else if (isSelected) {
       borderColor = theme.colorScheme.primary;
-      bgColor = theme.colorScheme.primary.withOpacity(0.1);
+      bgColor = theme.colorScheme.primary.withValues(alpha: 0.1);
       badgeColor = theme.colorScheme.primary;
       borderWidth = 2;
     } else if (isPaired) {
-      borderColor = theme.colorScheme.secondary.withOpacity(0.55);
-      bgColor = theme.colorScheme.secondary.withOpacity(0.06);
+      borderColor = theme.colorScheme.secondary.withValues(alpha: 0.55);
+      bgColor = theme.colorScheme.secondary.withValues(alpha: 0.06);
       badgeColor = theme.colorScheme.secondary;
       borderWidth = 1.5;
     } else {
-      borderColor = theme.colorScheme.outline.withOpacity(0.35);
+      borderColor = theme.colorScheme.outline.withValues(alpha: 0.35);
       bgColor = Colors.transparent;
-      badgeColor = theme.colorScheme.outline.withOpacity(0.5);
+      badgeColor = theme.colorScheme.outline.withValues(alpha: 0.5);
       borderWidth = 1;
     }
 
@@ -1225,7 +1225,7 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
                   child: Icon(
                     Icons.close_rounded,
                     size: 15,
-                    color: theme.colorScheme.onSurface.withOpacity(0.38),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.38),
                   ),
                 ),
               )
@@ -1262,21 +1262,21 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
     final double opacity;
 
     if (isUsed) {
-      borderColor = theme.colorScheme.secondary.withOpacity(0.35);
-      bgColor = theme.colorScheme.secondary.withOpacity(0.05);
+      borderColor = theme.colorScheme.secondary.withValues(alpha: 0.35);
+      bgColor = theme.colorScheme.secondary.withValues(alpha: 0.05);
       badgeColor = theme.colorScheme.secondary;
       borderWidth = 1.5;
       opacity = 0.6;
     } else if (isActiveTarget) {
-      borderColor = theme.colorScheme.primary.withOpacity(0.55);
-      bgColor = theme.colorScheme.primary.withOpacity(0.05);
+      borderColor = theme.colorScheme.primary.withValues(alpha: 0.55);
+      bgColor = theme.colorScheme.primary.withValues(alpha: 0.05);
       badgeColor = theme.colorScheme.primary;
       borderWidth = 1.5;
       opacity = 1.0;
     } else {
-      borderColor = theme.colorScheme.outline.withOpacity(0.35);
+      borderColor = theme.colorScheme.outline.withValues(alpha: 0.35);
       bgColor = Colors.transparent;
-      badgeColor = theme.colorScheme.outline.withOpacity(0.5);
+      badgeColor = theme.colorScheme.outline.withValues(alpha: 0.5);
       borderWidth = 1;
       opacity = 1.0;
     }
@@ -1321,7 +1321,7 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
                 Icon(
                   Icons.check_rounded,
                   size: 14,
-                  color: theme.colorScheme.secondary.withOpacity(0.65),
+                  color: theme.colorScheme.secondary.withValues(alpha: 0.65),
                 ),
             ],
           ),
@@ -1345,16 +1345,16 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
 
     if (isRejected) {
       accentColor = theme.colorScheme.error;
-      bgColor = theme.colorScheme.error.withOpacity(0.06);
+      bgColor = theme.colorScheme.error.withValues(alpha: 0.06);
     } else if (isSelected) {
       accentColor = theme.colorScheme.primary;
-      bgColor = theme.colorScheme.primary.withOpacity(0.07);
+      bgColor = theme.colorScheme.primary.withValues(alpha: 0.07);
     } else if (isPaired) {
       accentColor = theme.colorScheme.secondary;
-      bgColor = theme.colorScheme.secondary.withOpacity(0.05);
+      bgColor = theme.colorScheme.secondary.withValues(alpha: 0.05);
     } else {
-      accentColor = theme.colorScheme.outline.withOpacity(0.4);
-      bgColor = theme.colorScheme.surfaceContainerHighest.withOpacity(0.4);
+      accentColor = theme.colorScheme.outline.withValues(alpha: 0.4);
+      bgColor = theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4);
     }
 
     final evaluateOnMatch = _content['evaluateOnMatch'] as bool? ?? false;
@@ -1412,7 +1412,7 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
                   child: Icon(
                     Icons.close_rounded,
                     size: 15,
-                    color: theme.colorScheme.onSurface.withOpacity(0.38),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.38),
                   ),
                 ),
               )
@@ -1445,15 +1445,15 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
 
     if (isUsed) {
       accentColor = theme.colorScheme.secondary;
-      bgColor = theme.colorScheme.secondary.withOpacity(0.05);
+      bgColor = theme.colorScheme.secondary.withValues(alpha: 0.05);
       opacity = 0.6;
     } else if (isActiveTarget) {
       accentColor = theme.colorScheme.primary;
-      bgColor = theme.colorScheme.primary.withOpacity(0.05);
+      bgColor = theme.colorScheme.primary.withValues(alpha: 0.05);
       opacity = 1.0;
     } else {
-      accentColor = theme.colorScheme.outline.withOpacity(0.3);
-      bgColor = theme.colorScheme.surfaceContainerHighest.withOpacity(0.4);
+      accentColor = theme.colorScheme.outline.withValues(alpha: 0.3);
+      bgColor = theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4);
       opacity = 1.0;
     }
 
@@ -1478,7 +1478,7 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
                 Icon(
                   Icons.check_rounded,
                   size: 14,
-                  color: theme.colorScheme.secondary.withOpacity(0.65),
+                  color: theme.colorScheme.secondary.withValues(alpha: 0.65),
                 ),
             ],
           ),
@@ -1498,21 +1498,21 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
         leading: Icon(
           Icons.lightbulb_outline_rounded,
           size: 18,
-          color: theme.colorScheme.onSurface.withOpacity(0.55),
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.55),
         ),
         title: Text(
           'See Explanation',
           style: baseStyle.copyWith(
             fontSize: (baseStyle.fontSize ?? 14) * 0.9,
-            color: theme.colorScheme.onSurface.withOpacity(0.7),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
             fontWeight: FontWeight.w500,
           ),
         ),
         tilePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
         childrenPadding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
-        backgroundColor: theme.colorScheme.surfaceVariant.withOpacity(0.35),
-        collapsedBackgroundColor: theme.colorScheme.surfaceVariant.withOpacity(
-          0.18,
+        backgroundColor: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.35),
+        collapsedBackgroundColor: theme.colorScheme.surfaceContainerHighest.withValues(
+          alpha: 0.18,
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         collapsedShape: RoundedRectangleBorder(
@@ -1523,7 +1523,7 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
             explanation,
             style: baseStyle.copyWith(
               fontSize: (baseStyle.fontSize ?? 14) * 0.9,
-              color: theme.colorScheme.onSurface.withOpacity(0.7),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
             ),
           ),
         ],
@@ -1554,9 +1554,9 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
                   ? theme.colorScheme.error
                   : theme.colorScheme.outline);
         final pairBg = isCorrect == true
-            ? const Color(0xFF2E7D32).withOpacity(0.06)
+            ? const Color(0xFF2E7D32).withValues(alpha: 0.06)
             : (isCorrect == false
-                  ? theme.colorScheme.error.withOpacity(0.06)
+                  ? theme.colorScheme.error.withValues(alpha: 0.06)
                   : Colors.transparent);
 
         return Container(
@@ -1566,7 +1566,7 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
           decoration: BoxDecoration(
             color: pairBg,
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: pairColor.withOpacity(0.4), width: 1.5),
+            border: Border.all(color: pairColor.withValues(alpha: 0.4), width: 1.5),
           ),
           child: Row(
             children: [
@@ -1585,7 +1585,7 @@ class _MatchingReaderBlockState extends ConsumerState<MatchingReaderBlock> {
                 child: Icon(
                   Icons.arrow_forward_rounded,
                   size: 14,
-                  color: theme.colorScheme.onSurface.withOpacity(0.35),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.35),
                 ),
               ),
               // Right item (user answer + correct answer if wrong)

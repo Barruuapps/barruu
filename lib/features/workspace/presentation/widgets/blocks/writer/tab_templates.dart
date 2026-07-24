@@ -2,6 +2,7 @@
 /// 
 /// This file contains template definitions for tab blocks, providing
 /// various visual styles for displaying tabbed content.
+library;
 
 /// Available tab templates
 const String kTabTemplateStandard = 'standard';

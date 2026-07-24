@@ -28,7 +28,6 @@ import 'package:barruu/features/workspace/presentation/services/media_block_serv
 import 'package:barruu/features/workspace/presentation/services/document_auth_service.dart';
 import 'package:barruu/features/workspace/presentation/services/scroll_helper.dart';
 import 'package:barruu/core/utils/app_logger.dart';
-import 'package:barruu/features/workspace/data/sources/user_identity_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart' hide Block;
@@ -1115,7 +1114,7 @@ class _EditDocumentScreenState extends ConsumerState<EditDocumentScreen>
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: theme.colorScheme.outlineVariant.withOpacity(0.5),
+                    color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
                     width: 1,
                   ),
                 ),
@@ -1134,7 +1133,7 @@ class _EditDocumentScreenState extends ConsumerState<EditDocumentScreen>
                         indicatorWeight: 3.0,
                         labelColor: theme.colorScheme.primary,
                         unselectedLabelColor: theme.colorScheme.onSurface
-                            .withOpacity(0.6),
+                            .withValues(alpha: 0.6),
                         labelStyle: theme.textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
@@ -1174,7 +1173,7 @@ class _EditDocumentScreenState extends ConsumerState<EditDocumentScreen>
                                     IconsaxPlusLinear.more,
                                     size: 18,
                                     color: theme.colorScheme.onSurface
-                                        .withOpacity(0.6),
+                                        .withValues(alpha: 0.6),
                                   ),
                                   tooltip: 'Tab Options',
                                   padding: EdgeInsets.zero,
@@ -1248,10 +1247,10 @@ class _EditDocumentScreenState extends ConsumerState<EditDocumentScreen>
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             color: theme.colorScheme.primaryContainer
-                                .withOpacity(0.3),
+                                .withValues(alpha: 0.3),
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(
-                              color: theme.colorScheme.primary.withOpacity(0.3),
+                              color: theme.colorScheme.primary.withValues(alpha: 0.3),
                               width: 1,
                             ),
                           ),
@@ -1346,17 +1345,18 @@ class _EditDocumentScreenState extends ConsumerState<EditDocumentScreen>
                 );
               }
 
+              // Mobile: quick block type chips pinned above content
               return Stack(
                 children: [
                   Column(
                     children: [
-                      Expanded(child: content),
-                      BlockTypeSelectorWidget(
+                      // Compact quick-access block type chips
+                      _MobileBlockChips(
                         theme: theme,
                         onBlockTypeSelected: (type, isSidebar) async =>
                             await _handleBlockTypeAdd(type, isSidebar),
-                        maxWidth: constraints.maxWidth,
                       ),
+                      Expanded(child: content),
                     ],
                   ),
                   Align(
@@ -1459,6 +1459,162 @@ class _EditPageTitleDialogState extends State<_EditPageTitleDialog> {
   }
 }
 
+/// Compact horizontal block type chips for mobile editor.
+/// Shows the most common block types in a single scrollable row.
+class _MobileBlockChips extends StatelessWidget {
+  final ThemeData theme;
+  final Function(BlockType type, bool isSidebar) onBlockTypeSelected;
+
+  const _MobileBlockChips({
+    required this.theme,
+    required this.onBlockTypeSelected,
+  });
+
+  static const _quickTypes = [
+    BlockType.header,
+    BlockType.paragraph,
+    BlockType.image,
+    BlockType.list,
+    BlockType.blockquote,
+    BlockType.code,
+    BlockType.math,
+    BlockType.divider,
+    BlockType.checkbox,
+    BlockType.table,
+    BlockType.graph,
+    BlockType.chat,
+    BlockType.multipleChoice,
+    BlockType.trueFalse,
+    BlockType.fillInBlank,
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 44,
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        border: Border(
+          bottom: BorderSide(
+            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.4),
+            width: 0.5,
+          ),
+        ),
+      ),
+      child: Row(
+        children: [
+          // "Quick add" label
+          Padding(
+            padding: const EdgeInsets.only(left: 12, right: 4),
+            child: Icon(
+              IconsaxPlusLinear.add_circle,
+              size: 16,
+              color: theme.colorScheme.primary,
+            ),
+          ),
+          Expanded(
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              itemCount: _quickTypes.length,
+              separatorBuilder: (_, __) => const SizedBox(width: 2),
+              itemBuilder: (context, index) {
+                final type = _quickTypes[index];
+                return _ChipButton(
+                  icon: type.icon,
+                  label: type.displayName,
+                  color: theme.colorScheme.primary,
+                  onTap: () => onBlockTypeSelected(type, false),
+                );
+              },
+            ),
+          ),
+          // "All blocks" overflow button
+          _ChipButton(
+            icon: IconsaxPlusLinear.more,
+            label: 'More',
+            color: theme.colorScheme.onSurfaceVariant,
+            onTap: () => _showAllBlocksSheet(context),
+          ),
+          const SizedBox(width: 6),
+        ],
+      ),
+    );
+  }
+
+  void _showAllBlocksSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: BlockType.values
+                .where((t) => t != BlockType.unsupported)
+                .map((t) => ActionChip(
+                      avatar: Icon(t.icon, size: 18),
+                      label: Text(t.displayName),
+                      onPressed: () {
+                        Navigator.pop(ctx);
+                        onBlockTypeSelected(t, false);
+                      },
+                    ))
+                .toList(),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ChipButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final Color color;
+  final VoidCallback onTap;
+
+  const _ChipButton({
+    required this.icon,
+    required this.label,
+    required this.color,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, size: 16, color: color),
+              const SizedBox(width: 4),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: color,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 /// A placeholder widget rendered for block types this version of the Flutter
 /// app does not recognise (e.g. new STEM blocks added on the web app).
 /// The block data is preserved in full so re-exporting as .bipy retains it.
@@ -1483,8 +1639,8 @@ class _UnsupportedBlockPlaceholder extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.5),
-        border: Border.all(color: theme.colorScheme.outline.withOpacity(0.4)),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+        border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.4)),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(

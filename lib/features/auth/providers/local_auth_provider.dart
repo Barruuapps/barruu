@@ -1,5 +1,4 @@
 import 'package:barruu/features/workspace/data/sources/user_identity_service.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
 /// Local user identity state (replaces Firebase Auth).

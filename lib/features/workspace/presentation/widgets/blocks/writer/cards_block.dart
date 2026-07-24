@@ -405,7 +405,7 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            border: Border.all(color: theme.colorScheme.outline.withOpacity(0.3)),
+            border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
@@ -523,7 +523,7 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: theme.colorScheme.outline.withOpacity(0.3),
+          color: theme.colorScheme.outline.withValues(alpha: 0.3),
           width: 1.5,
         ),
       ),
@@ -581,7 +581,7 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
                       if (hasImage) ...[
                         Container(
                           decoration: BoxDecoration(
-                            color: theme.colorScheme.surface.withOpacity(0.9),
+                            color: theme.colorScheme.surface.withValues(alpha: 0.9),
                             shape: BoxShape.circle,
                           ),
                           child: IconButton(
@@ -599,7 +599,7 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
                         const SizedBox(width: 4),
                         Container(
                           decoration: BoxDecoration(
-                            color: theme.colorScheme.surface.withOpacity(0.9),
+                            color: theme.colorScheme.surface.withValues(alpha: 0.9),
                             shape: BoxShape.circle,
                           ),
                           child: IconButton(
@@ -618,7 +618,7 @@ class _CardsBlockState extends BaseEditableBlockState<CardsBlock> {
                       const SizedBox(width: 4),
                       Container(
                         decoration: BoxDecoration(
-                          color: theme.colorScheme.surface.withOpacity(0.9),
+                          color: theme.colorScheme.surface.withValues(alpha: 0.9),
                           shape: BoxShape.circle,
                         ),
                         child: IconButton(

@@ -95,10 +95,10 @@ class _AiInsightCardState extends State<AiInsightCard> {
     return Container(
       margin: const EdgeInsets.only(top: 4, bottom: 8),
       decoration: BoxDecoration(
-        color: colorScheme.primaryContainer.withOpacity(0.18),
+        color: colorScheme.primaryContainer.withValues(alpha: 0.18),
         border: Border(
           left: BorderSide(
-            color: colorScheme.primary.withOpacity(0.6),
+            color: colorScheme.primary.withValues(alpha: 0.6),
             width: 3,
           ),
         ),

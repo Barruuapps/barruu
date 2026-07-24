@@ -34,7 +34,7 @@ class PrimaryButton extends StatelessWidget {
           borderRadius: AppBorders.medium,
         ),
         elevation: 0,
-        disabledBackgroundColor: AppColors.primary.withOpacity(0.5),
+        disabledBackgroundColor: AppColors.primary.withValues(alpha: 0.5),
       ),
       child: isLoading
           ? const ShimmerButtonLoading(width: 20, height: 20)

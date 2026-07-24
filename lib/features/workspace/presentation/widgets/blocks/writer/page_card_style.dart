@@ -43,11 +43,11 @@ Widget buildPageBlockCardStyle({
   // otherwise fall back to the default low-opacity gradient.
   final Color? explicitBg = styleUtils.parseHex(blockStyle.background);
   final Color gradientStart = explicitBg != null
-      ? explicitBg.withOpacity(0.85)
-      : theme.colorScheme.primaryContainer.withOpacity(0.2);
+      ? explicitBg.withValues(alpha: 0.85)
+      : theme.colorScheme.primaryContainer.withValues(alpha: 0.2);
   final Color gradientEnd = explicitBg != null
-      ? explicitBg.withOpacity(0.65)
-      : theme.colorScheme.primaryContainer.withOpacity(0.05);
+      ? explicitBg.withValues(alpha: 0.65)
+      : theme.colorScheme.primaryContainer.withValues(alpha: 0.05);
 
   final cardWidget = Container(
     decoration: BoxDecoration(
@@ -59,7 +59,7 @@ Widget buildPageBlockCardStyle({
       borderRadius: BorderRadius.circular(16),
       border: Border.all(
         color: styleUtils.parseHex(blockStyle.borderColor) ??
-            theme.colorScheme.primary.withOpacity(0.4),
+            theme.colorScheme.primary.withValues(alpha: 0.4),
         width: 2,
       ),
     ),
@@ -73,7 +73,7 @@ Widget buildPageBlockCardStyle({
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.primary.withOpacity(0.15),
+                  color: theme.colorScheme.primary.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
@@ -92,7 +92,7 @@ Widget buildPageBlockCardStyle({
                     Text(
                       'Linked Page',
                       style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onSurface.withOpacity(0.6),
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                         fontSize: 11,
                         fontWeight: FontWeight.w500,
                         letterSpacing: 0.5,
@@ -159,7 +159,7 @@ Widget buildPageBlockCardStyle({
                   style: OutlinedButton.styleFrom(
                     foregroundColor: theme.colorScheme.primary,
                     side: BorderSide(
-                      color: theme.colorScheme.primary.withOpacity(0.5),
+                      color: theme.colorScheme.primary.withValues(alpha: 0.5),
                       width: 1.5,
                     ),
                     padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),

@@ -32,7 +32,7 @@ class CoverImagePreview extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: theme.colorScheme.surfaceContainer,
-        border: Border.all(color: theme.colorScheme.outline.withOpacity(0.4)),
+        border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.4)),
       ),
       child: Stack(
         fit: StackFit.expand,
@@ -64,7 +64,7 @@ class CoverImagePreview extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.surface.withOpacity(0.9),
+                  color: theme.colorScheme.surface.withValues(alpha: 0.9),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(

@@ -59,12 +59,12 @@ class CheckboxTemplateSelector extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(
-            color: isSelected ? theme.colorScheme.primary : theme.colorScheme.outline.withOpacity(0.3),
+            color: isSelected ? theme.colorScheme.primary : theme.colorScheme.outline.withValues(alpha: 0.3),
             width: isSelected ? 2.5 : 1,
           ),
           borderRadius: BorderRadius.circular(8),
           color: isSelected
-              ? theme.colorScheme.primaryContainer.withOpacity(0.2)
+              ? theme.colorScheme.primaryContainer.withValues(alpha: 0.2)
               : null,
         ),
         child: Column(
@@ -80,8 +80,8 @@ class CheckboxTemplateSelector extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
               decoration: BoxDecoration(
                 color: isSelected
-                    ? theme.colorScheme.primary.withOpacity(0.1)
-                    : theme.colorScheme.surfaceVariant.withOpacity(0.5),
+                    ? theme.colorScheme.primary.withValues(alpha: 0.1)
+                    : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(7),
                   bottomRight: Radius.circular(7),
@@ -133,8 +133,8 @@ class CheckboxTemplateSelector extends StatelessWidget {
                 height: 3,
                 decoration: BoxDecoration(
                   color: i == 0
-                      ? theme.colorScheme.onSurface.withOpacity(0.3)
-                      : theme.colorScheme.onSurface.withOpacity(0.6),
+                      ? theme.colorScheme.onSurface.withValues(alpha: 0.3)
+                      : theme.colorScheme.onSurface.withValues(alpha: 0.6),
                   borderRadius: BorderRadius.circular(1),
                 ),
               ),
@@ -157,7 +157,7 @@ class CheckboxTemplateSelector extends StatelessWidget {
           borderRadius: BorderRadius.circular(4),
           boxShadow: [
             BoxShadow(
-              color: theme.colorScheme.shadow.withOpacity(0.1),
+              color: theme.colorScheme.shadow.withValues(alpha: 0.1),
               blurRadius: 2,
               offset: const Offset(0, 1),
             ),
@@ -178,7 +178,7 @@ class CheckboxTemplateSelector extends StatelessWidget {
             Expanded(
               child: Container(
                 height: 3,
-                color: theme.colorScheme.onSurface.withOpacity(0.5),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
               ),
             ),
           ],
@@ -200,18 +200,18 @@ class CheckboxTemplateSelector extends StatelessWidget {
               height: 8,
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: theme.colorScheme.outline.withOpacity(0.5),
+                  color: theme.colorScheme.outline.withValues(alpha: 0.5),
                   width: 1,
                 ),
                 shape: BoxShape.circle,
-                color: i == 0 ? theme.colorScheme.primary.withOpacity(0.3) : null,
+                color: i == 0 ? theme.colorScheme.primary.withValues(alpha: 0.3) : null,
               ),
             ),
             const SizedBox(width: 4),
             Expanded(
               child: Container(
                 height: 2,
-                color: theme.colorScheme.onSurface.withOpacity(i == 0 ? 0.3 : 0.5),
+                color: theme.colorScheme.onSurface.withValues(alpha: i == 0 ? 0.3 : 0.5),
               ),
             ),
           ],
@@ -247,7 +247,7 @@ class CheckboxTemplateSelector extends StatelessWidget {
               Expanded(
                 child: Container(
                   height: 2,
-                  color: theme.colorScheme.onSurface.withOpacity(i == 0 ? 0.3 : 0.6),
+                  color: theme.colorScheme.onSurface.withValues(alpha: i == 0 ? 0.3 : 0.6),
                 ),
               ),
             ],
@@ -260,7 +260,7 @@ class CheckboxTemplateSelector extends StatelessWidget {
   Widget _buildModernPreview() {
     return Container(
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceVariant.withOpacity(0.5),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(6),
       ),
       padding: const EdgeInsets.all(4),
@@ -272,7 +272,7 @@ class CheckboxTemplateSelector extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
           decoration: BoxDecoration(
             color: i == 0
-                ? theme.colorScheme.primaryContainer.withOpacity(0.5)
+                ? theme.colorScheme.primaryContainer.withValues(alpha: 0.5)
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(3),
           ),
@@ -282,7 +282,7 @@ class CheckboxTemplateSelector extends StatelessWidget {
                 width: 9,
                 height: 9,
                 decoration: BoxDecoration(
-                  color: i == 0 ? theme.colorScheme.primary : theme.colorScheme.outline.withOpacity(0.3),
+                  color: i == 0 ? theme.colorScheme.primary : theme.colorScheme.outline.withValues(alpha: 0.3),
                   borderRadius: BorderRadius.circular(2),
                 ),
                 child: i == 0
@@ -293,7 +293,7 @@ class CheckboxTemplateSelector extends StatelessWidget {
               Expanded(
                 child: Container(
                   height: 2,
-                  color: theme.colorScheme.onSurface.withOpacity(i == 0 ? 0.3 : 0.6),
+                  color: theme.colorScheme.onSurface.withValues(alpha: i == 0 ? 0.3 : 0.6),
                 ),
               ),
             ],
@@ -308,12 +308,12 @@ class CheckboxTemplateSelector extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            theme.colorScheme.primaryContainer.withOpacity(0.5),
-            theme.colorScheme.secondaryContainer.withOpacity(0.5),
+            theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
+            theme.colorScheme.secondaryContainer.withValues(alpha: 0.5),
           ],
         ),
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: theme.colorScheme.primary.withOpacity(0.3), width: 1),
+        border: Border.all(color: theme.colorScheme.primary.withValues(alpha: 0.3), width: 1),
       ),
       padding: const EdgeInsets.all(4),
       child: Column(
@@ -336,7 +336,7 @@ class CheckboxTemplateSelector extends StatelessWidget {
               Expanded(
                 child: Container(
                   height: 2,
-                  color: theme.colorScheme.onSurface.withOpacity(i == 0 ? 0.3 : 0.6),
+                  color: theme.colorScheme.onSurface.withValues(alpha: i == 0 ? 0.3 : 0.6),
                 ),
               ),
             ],
@@ -357,7 +357,7 @@ class CheckboxTemplateSelector extends StatelessWidget {
           child: LinearProgressIndicator(
             value: 0.6,
             minHeight: 5,
-            backgroundColor: theme.colorScheme.outline.withOpacity(0.2),
+            backgroundColor: theme.colorScheme.outline.withValues(alpha: 0.2),
             valueColor: AlwaysStoppedAnimation<Color>(theme.colorScheme.primary),
           ),
         ),
@@ -379,7 +379,7 @@ class CheckboxTemplateSelector extends StatelessWidget {
               Expanded(
                 child: Container(
                   height: 2,
-                  color: theme.colorScheme.onSurface.withOpacity(i < 2 ? 0.3 : 0.6),
+                  color: theme.colorScheme.onSurface.withValues(alpha: i < 2 ? 0.3 : 0.6),
                 ),
               ),
             ],
@@ -391,9 +391,9 @@ class CheckboxTemplateSelector extends StatelessWidget {
 
   Widget _buildPriorityPreview() {
     final colors = [
-      Colors.red.withOpacity(0.7),
-      Colors.orange.withOpacity(0.7),
-      Colors.amber.withOpacity(0.7),
+      Colors.red.withValues(alpha: 0.7),
+      Colors.orange.withValues(alpha: 0.7),
+      Colors.amber.withValues(alpha: 0.7),
     ];
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -404,7 +404,7 @@ class CheckboxTemplateSelector extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(3),
           border: Border(left: BorderSide(color: colors[i], width: 3)),
-          color: colors[i].withOpacity(0.08),
+          color: colors[i].withValues(alpha: 0.08),
         ),
         child: Row(
           children: [
@@ -420,7 +420,7 @@ class CheckboxTemplateSelector extends StatelessWidget {
             Expanded(
               child: Container(
                 height: 2,
-                color: theme.colorScheme.onSurface.withOpacity(0.5),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
               ),
             ),
           ],
@@ -451,7 +451,7 @@ class CheckboxTemplateSelector extends StatelessWidget {
               Expanded(
                 child: Container(
                   height: 2,
-                  color: theme.colorScheme.onSurface.withOpacity(0.6),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                 ),
               ),
             ],
@@ -462,7 +462,7 @@ class CheckboxTemplateSelector extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 3),
           child: Container(
             height: 0.5,
-            color: theme.colorScheme.outline.withOpacity(0.4),
+            color: theme.colorScheme.outline.withValues(alpha: 0.4),
           ),
         ),
         // Done items
@@ -474,7 +474,7 @@ class CheckboxTemplateSelector extends StatelessWidget {
                 width: 9,
                 height: 9,
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.primary.withOpacity(0.4),
+                  color: theme.colorScheme.primary.withValues(alpha: 0.4),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -482,7 +482,7 @@ class CheckboxTemplateSelector extends StatelessWidget {
               Expanded(
                 child: Container(
                   height: 2,
-                  color: theme.colorScheme.onSurface.withOpacity(0.3),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
                 ),
               ),
             ],
@@ -507,7 +507,7 @@ class CheckboxTemplateSelector extends StatelessWidget {
                 border: Border.all(
                   color: i == 0
                       ? theme.colorScheme.primary
-                      : theme.colorScheme.outline.withOpacity(0.6),
+                      : theme.colorScheme.outline.withValues(alpha: 0.6),
                   width: 1.2,
                 ),
                 borderRadius: BorderRadius.circular(1.5),
@@ -518,7 +518,7 @@ class CheckboxTemplateSelector extends StatelessWidget {
             Expanded(
               child: Container(
                 height: 2,
-                color: theme.colorScheme.onSurface.withOpacity(i == 0 ? 0.3 : 0.55),
+                color: theme.colorScheme.onSurface.withValues(alpha: i == 0 ? 0.3 : 0.55),
               ),
             ),
           ],

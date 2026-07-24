@@ -52,7 +52,7 @@ class ScrollIndicatorWidget extends StatelessWidget {
                     width: 8,
                     height: thumbHeight,
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.primary.withOpacity(0.85),
+                      color: theme.colorScheme.primary.withValues(alpha: 0.85),
                       borderRadius: BorderRadius.circular(4),
                     ),
                   ),

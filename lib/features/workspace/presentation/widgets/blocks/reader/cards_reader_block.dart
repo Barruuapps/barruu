@@ -59,7 +59,7 @@ class CardsReaderBlock extends ConsumerWidget {
         child: Text(
           'No cards available',
           style: baseTextStyle.copyWith(
-            color: theme.colorScheme.onSurface.withOpacity(0.5),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
           ),
         ),
       );
@@ -260,7 +260,7 @@ class CardsReaderBlock extends ConsumerWidget {
         return Card(
           elevation: 0,
           clipBehavior: Clip.antiAlias,
-          color: theme.colorScheme.surfaceVariant,
+          color: theme.colorScheme.surfaceContainerHighest,
           child: cardContent,
         );
       default:

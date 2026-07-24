@@ -1,4 +1,3 @@
-import 'package:barruu/core/utils/ui_utils.dart';
 import 'package:barruu/core/utils/format_utils.dart';
 import 'package:barruu/core/widgets/app_logo_widget.dart';
 import 'package:barruu/core/widgets/shimmer_loading.dart';
@@ -28,7 +27,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
   bool _usernameManuallySet = false;
-  bool _isLoading = false;
+  final bool _isLoading = false;
 
   @override
   void dispose() {
@@ -121,7 +120,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     Text(
                       'Join professionals who share expertise',
                       style: theme.textTheme.bodyMedium?.copyWith(
-                        color: theme.colorScheme.onSurface.withOpacity(0.6),
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -292,7 +291,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           child: Text(
                             'OR',
                             style: theme.textTheme.bodySmall?.copyWith(
-                              color: theme.colorScheme.onSurface.withOpacity(0.6),
+                              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                             ),
                           ),
                         ),

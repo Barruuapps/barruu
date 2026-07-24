@@ -30,11 +30,11 @@ class ShimmerLoading extends StatelessWidget {
 
     return Shimmer.fromColors(
       baseColor: isDark
-          ? theme.colorScheme.surfaceContainerHighest.withOpacity(0.3)
-          : theme.colorScheme.surfaceContainerHighest.withOpacity(0.5),
+          ? theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3)
+          : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
       highlightColor: isDark
-          ? theme.colorScheme.surfaceContainerHighest.withOpacity(0.5)
-          : Colors.white.withOpacity(0.9),
+          ? theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5)
+          : Colors.white.withValues(alpha: 0.9),
       period: const Duration(milliseconds: 1500), // Smooth, calm animation
       child: child,
     );
@@ -216,7 +216,7 @@ class ShimmerCircularProgress extends StatelessWidget {
             height: size,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: progressColor.withOpacity(0.1),
+              color: progressColor.withValues(alpha: 0.1),
             ),
           ),
           // Outer shimmer ring
@@ -226,7 +226,7 @@ class ShimmerCircularProgress extends StatelessWidget {
               height: size * 0.85,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: progressColor.withOpacity(0.2),
+                color: progressColor.withValues(alpha: 0.2),
               ),
             ),
           ),
@@ -237,7 +237,7 @@ class ShimmerCircularProgress extends StatelessWidget {
               height: size * 0.5,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: progressColor.withOpacity(0.3),
+                color: progressColor.withValues(alpha: 0.3),
               ),
             ),
           ),
@@ -270,7 +270,7 @@ class ShimmerButtonLoading extends StatelessWidget {
         width: width,
         height: height,
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.8),
+          color: Colors.white.withValues(alpha: 0.8),
           borderRadius: BorderRadius.circular(4),
         ),
       ),
@@ -297,7 +297,7 @@ class ShimmerInlineLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final shimmerColor = color ?? theme.colorScheme.primary.withOpacity(0.3);
+    final shimmerColor = color ?? theme.colorScheme.primary.withValues(alpha: 0.3);
     
     return SizedBox(
       width: size,
@@ -411,7 +411,7 @@ class ShimmerDocumentLoading extends StatelessWidget {
                 width: double.infinity,
                 margin: const EdgeInsets.only(bottom: 24),
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.5),
+                  color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
                     color: theme.colorScheme.outlineVariant,
@@ -600,7 +600,7 @@ class ShimmerArticleCardLoading extends StatelessWidget {
             Divider(
               height: 1,
               thickness: 1,
-              color: theme.colorScheme.outlineVariant.withOpacity(0.2),
+              color: theme.colorScheme.outlineVariant.withValues(alpha: 0.2),
             ),
           ],
         ),

@@ -398,7 +398,7 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
             decoration: InputDecoration(
               border: InputBorder.none,
               hintText: 'Checklist Title (optional)',
-              hintStyle: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.5)),
+              hintStyle: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
             ),
             style: styleUtils.applyStyle(widget.block.style).copyWith(
               fontWeight: FontWeight.bold,
@@ -459,7 +459,7 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
                 const SizedBox(height: 8),
                 Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: theme.colorScheme.outline.withOpacity(0.3)),
+                    border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
                     borderRadius: BorderRadius.circular(8),
                     color: theme.colorScheme.surface,
                   ),
@@ -472,7 +472,7 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
                           'Enter your checklist items (one per line). Add [x] for checked items:',
                           style: TextStyle(
                             fontSize: 12,
-                            color: theme.colorScheme.onSurface.withOpacity(0.7),
+                            color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                           ),
                         ),
                       ),
@@ -484,7 +484,7 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
                           border: InputBorder.none,
                           contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                           hintText: 'Buy milk [x]\nCall doctor\nSend email',
-                          hintStyle: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.4)),
+                          hintStyle: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.4)),
                         ),
                         onChanged: (_) => _applyBulkInput(),
                       ),
@@ -546,7 +546,7 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
           Icon(
             Icons.drag_indicator,
             size: 20,
-            color: theme.colorScheme.onSurface.withOpacity(0.4),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
           ),
           const SizedBox(width: 4),
           Expanded(
@@ -566,14 +566,14 @@ class _CheckBoxBlockState extends BaseEditableBlockState<CheckBoxBlock> {
                     onTap: () => _updateItemChecked(index, !_itemCheckedStates[index]),
                     child: Icon(
                       _itemCheckedStates[index] ? Icons.check_box : Icons.check_box_outline_blank,
-                      color: theme.colorScheme.onSurface.withOpacity(0.5),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                       size: 18,
                     ),
                   ),
                 ),
                 border: InputBorder.none,
                 hintText: 'List item ${index + 1}',
-                hintStyle: TextStyle(color: theme.colorScheme.onSurface.withOpacity(0.5)),
+                hintStyle: TextStyle(color: theme.colorScheme.onSurface.withValues(alpha: 0.5)),
                 suffixIcon: _itemControllers.length > 1
                     ? IconButton(
                   icon: const Icon(Icons.remove, size: 18),

@@ -64,7 +64,7 @@ class ColumnsReaderBlock extends ConsumerWidget {
         child: Text(
           'No columns available',
           style: baseTextStyle.copyWith(
-            color: theme.colorScheme.onSurface.withOpacity(0.5),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
           ),
         ),
       );
@@ -291,23 +291,23 @@ class ColumnsReaderBlock extends ConsumerWidget {
         break;
       case 'filled':
         decoration = BoxDecoration(
-          color: theme.colorScheme.surfaceVariant,
+          color: theme.colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(8),
         );
         break;
       default:
         decoration = BoxDecoration(
-          color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+          color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: theme.colorScheme.outline.withOpacity(0.2)),
+          border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.2)),
         );
     }
 
-    Widget _imagePlaceholder() => Container(
+    Widget imagePlaceholder() => Container(
       width: double.infinity,
       height: 100,
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceVariant.withOpacity(0.5),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(8),
       ),
       child: const Center(child: Text('🖼️', style: TextStyle(fontSize: 36))),
@@ -328,12 +328,12 @@ class ColumnsReaderBlock extends ConsumerWidget {
                 height: 100,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) =>
-                    _imagePlaceholder(),
+                    imagePlaceholder(),
               ),
             ),
             const SizedBox(height: 12),
           ] else ...[
-            _imagePlaceholder(),
+            imagePlaceholder(),
             const SizedBox(height: 12),
           ],
           MarkdownBody(

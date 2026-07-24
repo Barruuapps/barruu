@@ -352,7 +352,7 @@ class _FillBlankReaderBlockState extends ConsumerState<FillBlankReaderBlock> {
         decoration = InputDecoration(
           hintText: '···',
           hintStyle: baseStyle.copyWith(
-            color: theme.colorScheme.onSurface.withOpacity(0.3),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
           ),
           isDense: true,
           contentPadding: const EdgeInsets.symmetric(
@@ -382,7 +382,7 @@ class _FillBlankReaderBlockState extends ConsumerState<FillBlankReaderBlock> {
         decoration = InputDecoration(
           hintText: '···',
           hintStyle: baseStyle.copyWith(
-            color: theme.colorScheme.onSurface.withOpacity(0.3),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
           ),
           isDense: true,
           contentPadding: const EdgeInsets.symmetric(
@@ -390,7 +390,7 @@ class _FillBlankReaderBlockState extends ConsumerState<FillBlankReaderBlock> {
             vertical: 4,
           ),
           filled: true,
-          fillColor: underlineColor.withOpacity(0.12),
+          fillColor: underlineColor.withValues(alpha: 0.12),
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: underlineColor, width: 2),
           ),
@@ -410,7 +410,7 @@ class _FillBlankReaderBlockState extends ConsumerState<FillBlankReaderBlock> {
         decoration = InputDecoration(
           hintText: '···',
           hintStyle: baseStyle.copyWith(
-            color: theme.colorScheme.onSurface.withOpacity(0.3),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
           ),
           isDense: true,
           contentPadding: const EdgeInsets.only(bottom: 4, left: 2, right: 2),
@@ -545,8 +545,8 @@ class _FillBlankReaderBlockState extends ConsumerState<FillBlankReaderBlock> {
               style: baseStyle.copyWith(
                 fontSize: (baseStyle.fontSize ?? 14) * 0.82,
                 color: allFilled
-                    ? theme.colorScheme.primary.withOpacity(0.8)
-                    : theme.colorScheme.onSurface.withOpacity(0.55),
+                    ? theme.colorScheme.primary.withValues(alpha: 0.8)
+                    : theme.colorScheme.onSurface.withValues(alpha: 0.55),
                 fontStyle: FontStyle.italic,
               ),
             ),
@@ -611,14 +611,14 @@ class _FillBlankReaderBlockState extends ConsumerState<FillBlankReaderBlock> {
         return Container(
           padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
           decoration: BoxDecoration(
-            color: theme.colorScheme.primary.withOpacity(0.04),
+            color: theme.colorScheme.primary.withValues(alpha: 0.04),
             borderRadius: BorderRadius.circular(10),
             border: Border(
               left: BorderSide(color: theme.colorScheme.primary, width: 3),
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.04),
+                color: Colors.black.withValues(alpha: 0.04),
                 blurRadius: 6,
                 offset: const Offset(0, 2),
               ),
@@ -674,7 +674,7 @@ class _FillBlankReaderBlockState extends ConsumerState<FillBlankReaderBlock> {
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: theme.colorScheme.primary.withOpacity(0.6),
+                  color: theme.colorScheme.primary.withValues(alpha: 0.6),
                 ),
                 borderRadius: BorderRadius.circular(4),
               ),
@@ -700,8 +700,9 @@ class _FillBlankReaderBlockState extends ConsumerState<FillBlankReaderBlock> {
     } else {
       final parts = templateText.split('_____');
       for (int i = 0; i < parts.length; i++) {
-        if (parts[i].isNotEmpty)
+        if (parts[i].isNotEmpty) {
           spans.add(TextSpan(text: parts[i], style: baseStyle));
+        }
         if (i < parts.length - 1) {
           final num = i + 1;
           spans.add(
@@ -712,7 +713,7 @@ class _FillBlankReaderBlockState extends ConsumerState<FillBlankReaderBlock> {
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: theme.colorScheme.primary.withOpacity(0.6),
+                    color: theme.colorScheme.primary.withValues(alpha: 0.6),
                   ),
                   borderRadius: BorderRadius.circular(4),
                 ),
@@ -739,7 +740,7 @@ class _FillBlankReaderBlockState extends ConsumerState<FillBlankReaderBlock> {
           const SizedBox(height: 12),
           Divider(
             thickness: 0.5,
-            color: theme.colorScheme.outline.withOpacity(0.3),
+            color: theme.colorScheme.outline.withValues(alpha: 0.3),
           ),
           const SizedBox(height: 8),
           ...blanks.asMap().entries.map((entry) {
@@ -782,21 +783,21 @@ class _FillBlankReaderBlockState extends ConsumerState<FillBlankReaderBlock> {
         leading: Icon(
           Icons.lightbulb_outline_rounded,
           size: 18,
-          color: theme.colorScheme.onSurface.withOpacity(0.55),
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.55),
         ),
         title: Text(
           'See Explanation',
           style: baseStyle.copyWith(
             fontSize: (baseStyle.fontSize ?? 14) * 0.9,
-            color: theme.colorScheme.onSurface.withOpacity(0.7),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
             fontWeight: FontWeight.w500,
           ),
         ),
         tilePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
         childrenPadding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
-        backgroundColor: theme.colorScheme.surfaceVariant.withOpacity(0.35),
-        collapsedBackgroundColor: theme.colorScheme.surfaceVariant.withOpacity(
-          0.18,
+        backgroundColor: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.35),
+        collapsedBackgroundColor: theme.colorScheme.surfaceContainerHighest.withValues(
+          alpha: 0.18,
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         collapsedShape: RoundedRectangleBorder(
@@ -807,7 +808,7 @@ class _FillBlankReaderBlockState extends ConsumerState<FillBlankReaderBlock> {
             explanation,
             style: baseStyle.copyWith(
               fontSize: (baseStyle.fontSize ?? 14) * 0.9,
-              color: theme.colorScheme.onSurface.withOpacity(0.7),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
             ),
           ),
         ],
@@ -841,10 +842,10 @@ class _FillBlankReaderBlockState extends ConsumerState<FillBlankReaderBlock> {
                   vertical: 8,
                 ),
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.errorContainer.withOpacity(0.15),
+                  color: theme.colorScheme.errorContainer.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: theme.colorScheme.error.withOpacity(0.25),
+                    color: theme.colorScheme.error.withValues(alpha: 0.25),
                   ),
                 ),
                 child: Row(
@@ -852,7 +853,7 @@ class _FillBlankReaderBlockState extends ConsumerState<FillBlankReaderBlock> {
                     Icon(
                       Icons.edit_note_rounded,
                       size: 16,
-                      color: theme.colorScheme.error.withOpacity(0.7),
+                      color: theme.colorScheme.error.withValues(alpha: 0.7),
                     ),
                     const SizedBox(width: 8),
                     Expanded(
@@ -865,8 +866,8 @@ class _FillBlankReaderBlockState extends ConsumerState<FillBlankReaderBlock> {
                             TextSpan(
                               text: 'Blank ${i + 1}: ',
                               style: TextStyle(
-                                color: theme.colorScheme.onSurface.withOpacity(
-                                  0.6,
+                                color: theme.colorScheme.onSurface.withValues(
+                                  alpha: 0.6,
                                 ),
                               ),
                             ),

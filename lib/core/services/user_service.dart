@@ -42,13 +42,13 @@ class UserService {
   Future<Result<UserProfile>> getProfile(String uid) async {
     try {
       final userId = _identityService != null
-          ? await _identityService!.getUserId()
+          ? await _identityService.getUserId()
           : uid;
       if (uid != userId) {
         return Result.error('User profile not found');
       }
       final name = _identityService != null
-          ? await _identityService!.getUserName()
+          ? await _identityService.getUserName()
           : null;
       final profile = UserProfile.create(
         uid: userId,
@@ -65,10 +65,10 @@ class UserService {
   Future<Result<UserProfile>> getProfileByUsername(String username) async {
     try {
       final userId = _identityService != null
-          ? await _identityService!.getUserId()
+          ? await _identityService.getUserId()
           : 'local';
       final name = _identityService != null
-          ? await _identityService!.getUserName()
+          ? await _identityService.getUserName()
           : null;
       if (username == 'local_user') {
         final profile = UserProfile.create(

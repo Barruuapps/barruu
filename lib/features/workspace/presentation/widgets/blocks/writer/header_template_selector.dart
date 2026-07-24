@@ -64,12 +64,12 @@ class HeaderTemplateSelector extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(
-            color: isSelected ? theme.colorScheme.primary : theme.colorScheme.outline.withOpacity(0.3),
+            color: isSelected ? theme.colorScheme.primary : theme.colorScheme.outline.withValues(alpha: 0.3),
             width: isSelected ? 2.5 : 1,
           ),
           borderRadius: BorderRadius.circular(8),
           color: isSelected 
-              ? theme.colorScheme.primaryContainer.withOpacity(0.2)
+              ? theme.colorScheme.primaryContainer.withValues(alpha: 0.2)
               : null,
         ),
         child: Column(
@@ -85,8 +85,8 @@ class HeaderTemplateSelector extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
               decoration: BoxDecoration(
                 color: isSelected 
-                    ? theme.colorScheme.primary.withOpacity(0.1)
-                    : theme.colorScheme.surfaceVariant.withOpacity(0.5),
+                    ? theme.colorScheme.primary.withValues(alpha: 0.1)
+                    : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(7),
                   bottomRight: Radius.circular(7),
@@ -122,7 +122,7 @@ class HeaderTemplateSelector extends StatelessWidget {
             height: 5,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: theme.colorScheme.onSurface.withOpacity(0.8),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -141,7 +141,7 @@ class HeaderTemplateSelector extends StatelessWidget {
             height: 5,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: theme.colorScheme.onSurface.withOpacity(0.8),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -152,9 +152,9 @@ class HeaderTemplateSelector extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  theme.colorScheme.primary.withOpacity(0.3),
+                  theme.colorScheme.primary.withValues(alpha: 0.3),
                   theme.colorScheme.primary,
-                  theme.colorScheme.primary.withOpacity(0.3),
+                  theme.colorScheme.primary.withValues(alpha: 0.3),
                 ],
               ),
             ),
@@ -174,7 +174,7 @@ class HeaderTemplateSelector extends StatelessWidget {
             height: 5,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: theme.colorScheme.onSurface.withOpacity(0.8),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -202,7 +202,7 @@ class HeaderTemplateSelector extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Column(
@@ -212,7 +212,7 @@ class HeaderTemplateSelector extends StatelessWidget {
             height: 5,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: theme.colorScheme.onSurface.withOpacity(0.8),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -250,7 +250,7 @@ class HeaderTemplateSelector extends StatelessWidget {
             height: 5,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: theme.colorScheme.onSurface.withOpacity(0.8),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -291,7 +291,7 @@ class HeaderTemplateSelector extends StatelessWidget {
             height: 5,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: theme.colorScheme.onSurface.withOpacity(0.8),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -321,8 +321,8 @@ class HeaderTemplateSelector extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            theme.colorScheme.primaryContainer.withOpacity(0.6),
-            theme.colorScheme.secondaryContainer.withOpacity(0.6),
+            theme.colorScheme.primaryContainer.withValues(alpha: 0.6),
+            theme.colorScheme.secondaryContainer.withValues(alpha: 0.6),
           ],
         ),
         borderRadius: BorderRadius.circular(4),
@@ -338,7 +338,7 @@ class HeaderTemplateSelector extends StatelessWidget {
             height: 5,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: theme.colorScheme.onSurface.withOpacity(0.8),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -354,8 +354,8 @@ class HeaderTemplateSelector extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            theme.colorScheme.primary.withOpacity(0.2),
-            theme.colorScheme.tertiary.withOpacity(0.2),
+            theme.colorScheme.primary.withValues(alpha: 0.2),
+            theme.colorScheme.tertiary.withValues(alpha: 0.2),
           ],
         ),
         borderRadius: BorderRadius.circular(4),
@@ -371,7 +371,7 @@ class HeaderTemplateSelector extends StatelessWidget {
             height: 6,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: theme.colorScheme.onSurface.withOpacity(0.9),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.9),
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -383,7 +383,7 @@ class HeaderTemplateSelector extends StatelessWidget {
   Widget _buildModernPreview() {
     return Container(
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceVariant.withOpacity(0.5),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(6),
       ),
       padding: const EdgeInsets.all(8),
@@ -405,7 +405,7 @@ class HeaderTemplateSelector extends StatelessWidget {
                 child: Container(
                   height: 5,
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.onSurface.withOpacity(0.8),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -457,7 +457,7 @@ class HeaderTemplateSelector extends StatelessWidget {
             height: 5,
             width: 50,
             decoration: BoxDecoration(
-              color: theme.colorScheme.onSurface.withOpacity(0.8),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -465,7 +465,7 @@ class HeaderTemplateSelector extends StatelessWidget {
           Container(
             height: 1,
             width: 35,
-            color: theme.colorScheme.primary.withOpacity(0.5),
+            color: theme.colorScheme.primary.withValues(alpha: 0.5),
           ),
         ],
       ),
@@ -502,7 +502,7 @@ class HeaderTemplateSelector extends StatelessWidget {
                   height: 5,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.onSurface.withOpacity(0.8),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -539,7 +539,7 @@ class HeaderTemplateSelector extends StatelessWidget {
                 child: Container(
                   height: 5,
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.onSurface.withOpacity(0.8),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -558,7 +558,7 @@ class HeaderTemplateSelector extends StatelessWidget {
           margin: const EdgeInsets.only(left: 8, top: 6),
           padding: const EdgeInsets.all(6),
           decoration: BoxDecoration(
-            color: theme.colorScheme.surfaceVariant.withOpacity(0.5),
+            color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Column(
@@ -568,7 +568,7 @@ class HeaderTemplateSelector extends StatelessWidget {
                 height: 5,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.onSurface.withOpacity(0.8),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -601,7 +601,7 @@ class HeaderTemplateSelector extends StatelessWidget {
   Widget _buildCalloutPreview() {
     return Container(
       decoration: BoxDecoration(
-        color: theme.colorScheme.primaryContainer.withOpacity(0.5),
+        color: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(6),
         border: Border.all(
           color: theme.colorScheme.primary,
@@ -621,7 +621,7 @@ class HeaderTemplateSelector extends StatelessWidget {
             child: Container(
               height: 5,
               decoration: BoxDecoration(
-                color: theme.colorScheme.onSurface.withOpacity(0.8),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
                 borderRadius: BorderRadius.circular(2),
               ),
             ),

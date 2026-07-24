@@ -37,7 +37,7 @@ class EnhancedGraphEditor extends StatelessWidget {
         color: theme.colorScheme.surfaceContainerLowest,
         borderRadius: BorderRadius.circular(borderRadius),
         border: Border.all(
-          color: theme.colorScheme.outline.withOpacity(0.2),
+          color: theme.colorScheme.outline.withValues(alpha: 0.2),
         ),
       ),
       child: Column(
@@ -79,7 +79,7 @@ class EnhancedGraphEditor extends StatelessWidget {
         Container(
           padding: EdgeInsets.all(horizontalPadding),
           decoration: BoxDecoration(
-            color: categoryColor.withOpacity(0.1),
+            color: categoryColor.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Icon(
@@ -388,7 +388,7 @@ class EnhancedGraphEditor extends StatelessWidget {
       child: Text(
         'This graph type uses the traditional editor',
         style: theme.textTheme.bodyMedium?.copyWith(
-          color: theme.colorScheme.onSurface.withOpacity(0.6),
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
         ),
       ),
     );
@@ -592,7 +592,7 @@ class _DiagramEditorWithBulkImportState extends State<_DiagramEditorWithBulkImpo
         Text(
           label,
           style: widget.theme.textTheme.bodySmall?.copyWith(
-            color: widget.theme.colorScheme.onSurface.withOpacity(0.6),
+            color: widget.theme.colorScheme.onSurface.withValues(alpha: 0.6),
           ),
         ),
       ],

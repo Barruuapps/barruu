@@ -230,7 +230,7 @@ class _TableBlockState extends BaseEditableBlockState<TableBlock> {
               isCollapsed: true,
               hintText: 'Table Title (optional)',
               hintStyle: TextStyle(
-                color: theme.colorScheme.onSurface.withOpacity(0.4),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -258,7 +258,7 @@ class _TableBlockState extends BaseEditableBlockState<TableBlock> {
                   scrollDirection: Axis.horizontal,
                   child: Table(
                     border: TableBorder.all(
-                      color: theme.colorScheme.outline.withOpacity(0.4),
+                      color: theme.colorScheme.outline.withValues(alpha: 0.4),
                     ),
                     columnWidths: {
                       for (int c = 0; c < numCols; c++) c: const FixedColumnWidth(120),
@@ -268,7 +268,7 @@ class _TableBlockState extends BaseEditableBlockState<TableBlock> {
                     return TableRow(
                       decoration: isFirstRow
                           ? BoxDecoration(
-                              color: theme.colorScheme.primaryContainer.withOpacity(0.4),
+                              color: theme.colorScheme.primaryContainer.withValues(alpha: 0.4),
                             )
                           : null,
                       children: List.generate(numCols, (colIdx) {
@@ -350,7 +350,7 @@ class _TableBlockState extends BaseEditableBlockState<TableBlock> {
                 'First row is treated as header',
                 style: TextStyle(
                   fontSize: 11,
-                  color: theme.colorScheme.onSurface.withOpacity(0.5),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                 ),
               ),
             ],

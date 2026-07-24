@@ -301,7 +301,7 @@ Widget buildPageBlockFloatingStyle({
         borderRadius: BorderRadius.circular(14),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.shadow.withOpacity(0.12),
+            color: theme.colorScheme.shadow.withValues(alpha: 0.12),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -317,7 +317,7 @@ Widget buildPageBlockFloatingStyle({
                 Container(
                   padding: const EdgeInsets.all(9),
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.primaryContainer.withOpacity(0.4),
+                    color: theme.colorScheme.primaryContainer.withValues(alpha: 0.4),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Icon(getPageIcon(blockStyle.customIcon),
@@ -456,7 +456,7 @@ Widget buildPageBlockGradientStyle({
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
+                    color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Icon(getPageIcon(blockStyle.customIcon),
@@ -474,7 +474,7 @@ Widget buildPageBlockGradientStyle({
                         decoration: InputDecoration(
                           hintText: 'Untitled',
                           hintStyle:
-                              titleStyle?.copyWith(color: fg.withOpacity(0.5)),
+                              titleStyle?.copyWith(color: fg.withValues(alpha: 0.5)),
                           border: InputBorder.none,
                           isDense: true,
                           contentPadding: EdgeInsets.zero,
@@ -484,7 +484,7 @@ Widget buildPageBlockGradientStyle({
               ),
               if (!isEditing && hasPage) ...[
                 const SizedBox(width: 8),
-                Icon(IconsaxPlusLinear.arrow_right_3, size: 18, color: fg.withOpacity(0.8)),
+                Icon(IconsaxPlusLinear.arrow_right_3, size: 18, color: fg.withValues(alpha: 0.8)),
               ],
             ],
           ),
@@ -498,7 +498,7 @@ Widget buildPageBlockGradientStyle({
                     label: const Text('Go to Page'),
                     onPressed: hasPage ? onNavigate : null,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white.withOpacity(0.25),
+                      backgroundColor: Colors.white.withValues(alpha: 0.25),
                       foregroundColor: fg,
                       elevation: 0,
                       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -561,7 +561,7 @@ Widget buildPageBlockOutlinedStyle({
   required ValueChanged<String> onTitleChanged,
 }) {
   final borderColor = styleUtils.parseHex(blockStyle.borderColor) ??
-      theme.colorScheme.primary.withOpacity(0.6);
+      theme.colorScheme.primary.withValues(alpha: 0.6);
 
   final titleStyle = theme.textTheme.bodyLarge?.copyWith(
     color: styleUtils.parseHex(blockStyle.color) ??
@@ -696,7 +696,7 @@ Widget buildPageBlockHeroStyle({
   final heroWidget = Container(
       decoration: BoxDecoration(
         color: styleUtils.parseHex(blockStyle.background) ??
-            theme.colorScheme.primaryContainer.withOpacity(0.12),
+            theme.colorScheme.primaryContainer.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(16),
       ),
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),

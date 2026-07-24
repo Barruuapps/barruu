@@ -24,11 +24,11 @@ Widget buildStandardRowTemplate({
   final imagePath = row['imagePath'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
   
-  Widget _stdPlaceholder() => Container(
+  Widget stdPlaceholder() => Container(
     width: double.infinity,
     height: 100,
     decoration: BoxDecoration(
-      color: theme.colorScheme.surfaceVariant.withOpacity(0.4),
+      color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
       borderRadius: BorderRadius.circular(8),
     ),
     child: const Center(child: Text('🖼️', style: TextStyle(fontSize: 36))),
@@ -45,16 +45,16 @@ Widget buildStandardRowTemplate({
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Image.file(
-              File('${docDir!.path}/$imagePath'),
+              File('${docDir.path}/$imagePath'),
               width: double.infinity,
               height: 100,
               fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => _stdPlaceholder(),
+              errorBuilder: (context, error, stackTrace) => stdPlaceholder(),
             ),
           ),
           const SizedBox(height: 12),
         ] else ...[
-          _stdPlaceholder(),
+          stdPlaceholder(),
           const SizedBox(height: 12),
         ],
         Expanded(
@@ -98,7 +98,7 @@ Widget buildStackedRowTemplate({
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Image.file(
-              File('${docDir!.path}/$imagePath'),
+              File('${docDir.path}/$imagePath'),
               width: 70,
               height: 70,
               fit: BoxFit.cover,
@@ -111,7 +111,7 @@ Widget buildStackedRowTemplate({
             width: 70,
             height: 70,
             decoration: BoxDecoration(
-              color: theme.colorScheme.primaryContainer.withOpacity(0.3),
+              color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(
@@ -159,8 +159,8 @@ Widget buildHighlightRowTemplate({
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         colors: [
-          theme.colorScheme.primaryContainer.withOpacity(0.8),
-          theme.colorScheme.secondaryContainer.withOpacity(0.8),
+          theme.colorScheme.primaryContainer.withValues(alpha: 0.8),
+          theme.colorScheme.secondaryContainer.withValues(alpha: 0.8),
         ],
       ),
       borderRadius: BorderRadius.circular(16),
@@ -175,7 +175,7 @@ Widget buildHighlightRowTemplate({
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Image.file(
-              File('${docDir!.path}/$imagePath'),
+              File('${docDir.path}/$imagePath'),
               width: double.infinity,
               height: 120,
               fit: BoxFit.cover,
@@ -248,8 +248,8 @@ Widget buildTimelineRowTemplate({
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        theme.colorScheme.primary.withOpacity(0.3),
-                        theme.colorScheme.primary.withOpacity(0.6),
+                        theme.colorScheme.primary.withValues(alpha: 0.3),
+                        theme.colorScheme.primary.withValues(alpha: 0.6),
                       ],
                     ),
                   ),
@@ -282,8 +282,8 @@ Widget buildTimelineRowTemplate({
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          theme.colorScheme.primary.withOpacity(0.6),
-                          theme.colorScheme.primary.withOpacity(0.3),
+                          theme.colorScheme.primary.withValues(alpha: 0.6),
+                          theme.colorScheme.primary.withValues(alpha: 0.3),
                         ],
                       ),
                     ),
@@ -308,7 +308,7 @@ Widget buildTimelineRowTemplate({
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.file(
-                      File('${docDir!.path}/$imagePath'),
+                      File('${docDir.path}/$imagePath'),
                       width: double.infinity,
                       height: 120,
                       fit: BoxFit.cover,
@@ -353,7 +353,7 @@ Widget buildFeatureRowTemplate({
     padding: const EdgeInsets.all(24),
     decoration: BoxDecoration(
       color: rowStyle == 'filled' 
-        ? theme.colorScheme.surfaceVariant
+        ? theme.colorScheme.surfaceContainerHighest
         : theme.colorScheme.surface,
       borderRadius: BorderRadius.circular(16),
       border: rowStyle == 'outlined'
@@ -370,7 +370,7 @@ Widget buildFeatureRowTemplate({
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Image.file(
-              File('${docDir!.path}/$imagePath'),
+              File('${docDir.path}/$imagePath'),
               width: double.infinity,
               height: 180,
               fit: BoxFit.cover,
@@ -396,7 +396,7 @@ Widget buildFeatureRowTemplate({
             child: Icon(
               Icons.auto_awesome,
               size: 64,
-              color: theme.colorScheme.primary.withOpacity(0.5),
+              color: theme.colorScheme.primary.withValues(alpha: 0.5),
             ),
           ),
           const SizedBox(height: 20),
@@ -439,15 +439,15 @@ BoxDecoration _getRowDecoration(ThemeData theme, String rowStyle) {
       );
     case 'filled':
       return BoxDecoration(
-        color: theme.colorScheme.surfaceVariant,
+        color: theme.colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(8),
       );
     default:
       return BoxDecoration(
-        color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: theme.colorScheme.outline.withOpacity(0.2),
+          color: theme.colorScheme.outline.withValues(alpha: 0.2),
         ),
       );
   }
@@ -510,7 +510,7 @@ Widget buildCompactRowTemplate({
           ClipRRect(
             borderRadius: BorderRadius.circular(6),
             child: Image.file(
-              File('${docDir!.path}/$imagePath'),
+              File('${docDir.path}/$imagePath'),
               width: 60,
               height: 60,
               fit: BoxFit.cover,
@@ -522,7 +522,7 @@ Widget buildCompactRowTemplate({
             width: 60,
             height: 60,
             decoration: BoxDecoration(
-              color: theme.colorScheme.primaryContainer.withOpacity(0.3),
+              color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
               borderRadius: BorderRadius.circular(6),
             ),
             child: Icon(
@@ -566,7 +566,7 @@ Widget buildOverlayRowTemplate({
   final imagePath = row['imagePath'] as String?;
   final hasImage = imagePath != null && imagePath.isNotEmpty && docDir != null;
   
-  return Container(
+  return SizedBox(
     width: 240,
     height: 250,
     child: Stack(
@@ -578,7 +578,7 @@ Widget buildOverlayRowTemplate({
               end: Alignment.bottomCenter,
               colors: [
                 theme.colorScheme.primaryContainer,
-                theme.colorScheme.primary.withOpacity(0.7),
+                theme.colorScheme.primary.withValues(alpha: 0.7),
               ],
             ),
             borderRadius: BorderRadius.circular(12),
@@ -589,7 +589,7 @@ Widget buildOverlayRowTemplate({
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Image.file(
-                File('${docDir!.path}/$imagePath'),
+                File('${docDir.path}/$imagePath'),
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
               ),
@@ -607,7 +607,7 @@ Widget buildOverlayRowTemplate({
                 end: Alignment.bottomCenter,
                 colors: [
                   Colors.transparent,
-                  Colors.black.withOpacity(0.8),
+                  Colors.black.withValues(alpha: 0.8),
                 ],
               ),
               borderRadius: const BorderRadius.vertical(bottom: Radius.circular(12)),
@@ -655,7 +655,7 @@ Widget buildMagazineRowTemplate({
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.file(
-                File('${docDir!.path}/$imagePath'),
+                File('${docDir.path}/$imagePath'),
                 height: 140,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
@@ -700,7 +700,7 @@ Widget buildSplitRowTemplate({
   final content = row['content']?.toString() ?? '';
   final parts = content.split('|');
   
-  return Container(
+  return SizedBox(
     width: 260,
     height: 200,
     child: Row(
@@ -709,7 +709,7 @@ Widget buildSplitRowTemplate({
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: theme.colorScheme.primaryContainer.withOpacity(0.3),
+              color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(12),
                 bottomLeft: Radius.circular(12),
@@ -722,7 +722,7 @@ Widget buildSplitRowTemplate({
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.file(
-                      File('${docDir!.path}/$imagePath'),
+                      File('${docDir.path}/$imagePath'),
                       width: double.infinity,
                       height: 80,
                       fit: BoxFit.cover,
@@ -749,9 +749,9 @@ Widget buildSplitRowTemplate({
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                theme.colorScheme.primary.withOpacity(0.3),
+                theme.colorScheme.primary.withValues(alpha: 0.3),
                 theme.colorScheme.primary,
-                theme.colorScheme.primary.withOpacity(0.3),
+                theme.colorScheme.primary.withValues(alpha: 0.3),
               ],
             ),
           ),
@@ -760,7 +760,7 @@ Widget buildSplitRowTemplate({
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: theme.colorScheme.secondaryContainer.withOpacity(0.3),
+              color: theme.colorScheme.secondaryContainer.withValues(alpha: 0.3),
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(12),
                 bottomRight: Radius.circular(12),
@@ -816,7 +816,7 @@ Widget buildBannerRowTemplate({
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Image.file(
-              File('${docDir!.path}/$imagePath'),
+              File('${docDir.path}/$imagePath'),
               width: 100,
               height: 60,
               fit: BoxFit.cover,
@@ -866,7 +866,7 @@ Widget buildAvatarRowTemplate({
         if (hasImage)
           ClipOval(
             child: Image.file(
-              File('${docDir!.path}/$imagePath'),
+              File('${docDir.path}/$imagePath'),
               width: 80,
               height: 80,
               fit: BoxFit.cover,
@@ -934,7 +934,7 @@ Widget buildIconRowTemplate({
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Image.file(
-              File('${docDir!.path}/$imagePath'),
+              File('${docDir.path}/$imagePath'),
               width: 60,
               height: 60,
               fit: BoxFit.cover,
@@ -1009,7 +1009,7 @@ Widget buildHorizontalRowTemplate({
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.file(
-                File('${docDir!.path}/$imagePath'),
+                File('${docDir.path}/$imagePath'),
                 height: 140,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
@@ -1028,7 +1028,7 @@ Widget buildHorizontalRowTemplate({
               child: Icon(
                 Icons.image_outlined,
                 size: 48,
-                color: theme.colorScheme.onPrimaryContainer.withOpacity(0.5),
+                color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.5),
               ),
             ),
           ),

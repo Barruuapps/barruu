@@ -39,7 +39,7 @@ class TableReaderBlock extends ConsumerWidget {
         decoration: BoxDecoration(
           border: Border.all(color: theme.colorScheme.error),
           borderRadius: BorderRadius.circular(4),
-          color: theme.colorScheme.error.withOpacity(0.1),
+          color: theme.colorScheme.error.withValues(alpha: 0.1),
         ),
         child: Text(
           'Error displaying table. Please check your table format.',
@@ -145,13 +145,13 @@ class TableReaderBlock extends ConsumerWidget {
       switch (tableTemplate) {
         case 'striped':
           containerBgColor = theme.colorScheme.surface;
-          containerBorder = Border.all(color: theme.colorScheme.outline.withOpacity(0.3));
+          containerBorder = Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3));
           headerBgColor = theme.colorScheme.primary;
           rowBgColor = (i) => i % 2 == 0
-              ? theme.colorScheme.surfaceVariant.withOpacity(0.3)
+              ? theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3)
               : Colors.transparent;
           tableBorder = TableBorder(
-            horizontalInside: BorderSide(color: theme.colorScheme.outline.withOpacity(0.2)),
+            horizontalInside: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.2)),
           );
           break;
         case 'minimal':
@@ -161,28 +161,28 @@ class TableReaderBlock extends ConsumerWidget {
           headerTextColor = theme.colorScheme.onSurface;
           rowBgColor = (_) => Colors.transparent;
           tableBorder = TableBorder(
-            horizontalInside: BorderSide(color: theme.colorScheme.outline.withOpacity(0.3)),
+            horizontalInside: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
           );
           break;
         case 'bordered':
           containerBgColor = theme.colorScheme.surface;
           containerBorder = Border.all(color: theme.colorScheme.primary, width: 1.5);
           containerRadius = BorderRadius.circular(8);
-          headerBgColor = theme.colorScheme.primaryContainer.withOpacity(0.5);
+          headerBgColor = theme.colorScheme.primaryContainer.withValues(alpha: 0.5);
           headerTextColor = theme.colorScheme.onSurface;
           rowBgColor = (_) => Colors.transparent;
           tableBorder = TableBorder.all(
-            color: theme.colorScheme.primary.withOpacity(0.5),
+            color: theme.colorScheme.primary.withValues(alpha: 0.5),
             width: 1,
           );
           break;
         case 'modern':
           containerBgColor = theme.colorScheme.surface;
-          containerBorder = Border.all(color: theme.colorScheme.outline.withOpacity(0.1));
+          containerBorder = Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.1));
           containerRadius = BorderRadius.circular(12);
           containerShadow = [
             BoxShadow(
-              color: theme.colorScheme.shadow.withOpacity(0.08),
+              color: theme.colorScheme.shadow.withValues(alpha: 0.08),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -190,7 +190,7 @@ class TableReaderBlock extends ConsumerWidget {
           headerBgColor = theme.colorScheme.primary;
           rowBgColor = (_) => Colors.transparent;
           tableBorder = TableBorder(
-            horizontalInside: BorderSide(color: theme.colorScheme.outline.withOpacity(0.15)),
+            horizontalInside: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.15)),
           );
           break;
         case 'card':
@@ -199,18 +199,18 @@ class TableReaderBlock extends ConsumerWidget {
           containerRadius = BorderRadius.circular(12);
           containerShadow = [
             BoxShadow(
-              color: theme.colorScheme.shadow.withOpacity(0.12),
+              color: theme.colorScheme.shadow.withValues(alpha: 0.12),
               blurRadius: 8,
               offset: const Offset(0, 3),
             ),
           ];
-          headerBgColor = theme.colorScheme.primaryContainer.withOpacity(0.7);
+          headerBgColor = theme.colorScheme.primaryContainer.withValues(alpha: 0.7);
           headerTextColor = theme.colorScheme.onSurface;
           rowBgColor = (i) => i % 2 == 0
-              ? theme.colorScheme.surfaceVariant.withOpacity(0.15)
+              ? theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.15)
               : Colors.transparent;
           tableBorder = TableBorder(
-            horizontalInside: BorderSide(color: theme.colorScheme.outline.withOpacity(0.1)),
+            horizontalInside: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.1)),
           );
           break;
         default: // 'default'
@@ -219,7 +219,7 @@ class TableReaderBlock extends ConsumerWidget {
           headerBgColor = isFirstRowHeader ? theme.colorScheme.primary : null;
           headerTextColor = isFirstRowHeader ? theme.colorScheme.onPrimary : theme.colorScheme.onSurface;
           rowBgColor = (i) => i % 2 == 0
-              ? theme.colorScheme.surfaceVariant.withOpacity(0.1)
+              ? theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.1)
               : Colors.transparent;
           tableBorder = TableBorder(
             horizontalInside: BorderSide(color: theme.colorScheme.outline),
@@ -270,12 +270,12 @@ class TableReaderBlock extends ConsumerWidget {
                 );
                 final linkStyle = baseStyle.copyWith(
                   color: isHeaderRow
-                      ? headerTextColor.withOpacity(0.85)
+                      ? headerTextColor.withValues(alpha: 0.85)
                       : theme.colorScheme.primary,
                   decoration: TextDecoration.underline,
                   fontWeight: isHeaderRow ? FontWeight.w600 : FontWeight.w500,
                 );
-                final hoverColor = theme.colorScheme.primary.withOpacity(0.7);
+                final hoverColor = theme.colorScheme.primary.withValues(alpha: 0.7);
 
                 return Semantics(
                   label: cell.isEmpty

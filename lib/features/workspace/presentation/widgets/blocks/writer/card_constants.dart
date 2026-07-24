@@ -1,6 +1,7 @@
 /// Constants for card block templates.
 /// 
 /// Shared constants used across card template widgets to ensure consistency.
+library;
 
 /// Default emoji used for icon card templates when no emoji is provided.
 const String kDefaultIconEmoji = '✨';

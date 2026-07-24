@@ -63,10 +63,10 @@ class GraphInfoPanelWidget extends StatelessWidget {
       margin: const EdgeInsets.only(top: 8),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.5),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: theme.colorScheme.outline.withOpacity(0.3),
+          color: theme.colorScheme.outline.withValues(alpha: 0.3),
         ),
       ),
       child: Column(
@@ -124,13 +124,13 @@ class GraphInfoPanelWidget extends StatelessWidget {
             Text(
               'No key points found in visible range',
               style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.6),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                 fontStyle: FontStyle.italic,
               ),
             ),
           
           const SizedBox(height: 8),
-          Divider(color: theme.colorScheme.outline.withOpacity(0.3)),
+          Divider(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
           const SizedBox(height: 8),
           
           // Domain
@@ -186,7 +186,7 @@ class GraphInfoPanelWidget extends StatelessWidget {
           Text(
             value,
             style: theme.textTheme.bodySmall?.copyWith(
-              color: theme.colorScheme.onSurface.withOpacity(0.8),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
               fontFamily: 'RobotoMono',
             ),
           ),

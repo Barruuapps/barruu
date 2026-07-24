@@ -274,7 +274,7 @@ class _AudioTrimmingWidgetState extends ConsumerState<AudioTrimmingWidget> {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: theme.colorScheme.primaryContainer.withOpacity(0.3),
+              color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
               borderRadius: BorderRadius.circular(4),
             ),
             child: Row(

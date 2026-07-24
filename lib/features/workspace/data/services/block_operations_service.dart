@@ -194,8 +194,9 @@ class BlockOperationsService {
         if (b.id == block.id) return false;
         if (b.type != BlockType.audio &&
             b.type != BlockType.video &&
-            b.type != BlockType.image)
+            b.type != BlockType.image) {
           return false;
+        }
 
         try {
           final otherJson = jsonDecode(b.content) as Map<String, dynamic>;

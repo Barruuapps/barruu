@@ -85,7 +85,7 @@ class _ChipInterestsSelector extends StatelessWidget {
         Text(
           'Select at least $minSelection interests (max $maxSelection) to personalize your feed',
           style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.onSurface.withOpacity(0.6),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
           ),
         ),
         const SizedBox(height: 12),
@@ -174,7 +174,7 @@ class _CompactInterestsSelector extends StatelessWidget {
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(
-                  color: theme.colorScheme.outlineVariant.withOpacity(0.5),
+                  color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
                 ),
               ),
               suffixIcon: const Icon(Icons.arrow_drop_down),
@@ -185,7 +185,7 @@ class _CompactInterestsSelector extends StatelessWidget {
                 ? Text(
                     'Tap to select your interests…',
                     style: theme.textTheme.bodyMedium?.copyWith(
-                      color: theme.colorScheme.onSurface.withOpacity(0.5),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                     ),
                   )
                 : Wrap(
@@ -295,7 +295,7 @@ class _InterestsPickerSheetState extends State<_InterestsPickerSheet> {
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.onSurface.withOpacity(0.2),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),

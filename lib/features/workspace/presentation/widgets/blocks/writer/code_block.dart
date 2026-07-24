@@ -187,7 +187,7 @@ class _CodeBlockState extends BaseEditableBlockState<CodeBlock> {
                   readOnly: !widget.isEditing,
                   wrap: false,
                   gutterStyle: CodeBlockStyle.gutterStyle(
-                    theme.colorScheme.onSurfaceVariant.withOpacity(0.5),
+                    theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
                   ),
                   textStyle: CodeBlockStyle.codeTextStyle(),
                 ),

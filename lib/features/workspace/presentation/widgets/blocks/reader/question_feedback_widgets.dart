@@ -168,7 +168,7 @@ class _DuolingoSheetState extends ConsumerState<_DuolingoSheet> {
                       Text(
                         'Correct answer:',
                         style: theme.textTheme.labelMedium?.copyWith(
-                          color: theme.colorScheme.onSurface.withOpacity(0.6),
+                          color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -187,7 +187,7 @@ class _DuolingoSheetState extends ConsumerState<_DuolingoSheet> {
                       Text(
                         widget.explanation,
                         style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.colorScheme.onSurface.withOpacity(0.75),
+                          color: theme.colorScheme.onSurface.withValues(alpha: 0.75),
                           height: 1.5,
                         ),
                       ),
@@ -201,7 +201,7 @@ class _DuolingoSheetState extends ConsumerState<_DuolingoSheet> {
                             Icon(
                               Icons.auto_awesome_rounded,
                               size: 14,
-                              color: theme.colorScheme.primary.withOpacity(0.7),
+                              color: theme.colorScheme.primary.withValues(alpha: 0.7),
                             ),
                             const SizedBox(width: 6),
                             Expanded(
@@ -209,7 +209,7 @@ class _DuolingoSheetState extends ConsumerState<_DuolingoSheet> {
                                 text,
                                 style: theme.textTheme.bodySmall?.copyWith(
                                   color: theme.colorScheme.onSurface
-                                      .withOpacity(0.75),
+                                      .withValues(alpha: 0.75),
                                   height: 1.5,
                                 ),
                               ),
@@ -234,8 +234,8 @@ class _DuolingoSheetState extends ConsumerState<_DuolingoSheet> {
                               'Generating…',
                               style: theme.textTheme.bodySmall?.copyWith(
                                 fontStyle: FontStyle.italic,
-                                color: theme.colorScheme.onSurface.withOpacity(
-                                  0.5,
+                                color: theme.colorScheme.onSurface.withValues(
+                                  alpha: 0.5,
                                 ),
                               ),
                             ),
@@ -462,7 +462,7 @@ class _PostSubmitActionsState extends ConsumerState<PostSubmitActions> {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         decoration: BoxDecoration(
           border: Border.all(
-            color: theme.colorScheme.outline.withOpacity(0.35),
+            color: theme.colorScheme.outline.withValues(alpha: 0.35),
           ),
           borderRadius: BorderRadius.circular(20),
         ),
@@ -472,14 +472,14 @@ class _PostSubmitActionsState extends ConsumerState<PostSubmitActions> {
             Icon(
               Icons.refresh_rounded,
               size: 13,
-              color: theme.colorScheme.onSurface.withOpacity(0.55),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.55),
             ),
             const SizedBox(width: 4),
             Text(
               'Try Again',
               style: TextStyle(
                 fontSize: 11,
-                color: theme.colorScheme.onSurface.withOpacity(0.55),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.55),
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -496,9 +496,9 @@ class _PostSubmitActionsState extends ConsumerState<PostSubmitActions> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         decoration: BoxDecoration(
-          color: theme.colorScheme.primaryContainer.withOpacity(0.15),
+          color: theme.colorScheme.primaryContainer.withValues(alpha: 0.15),
           border: Border.all(
-            color: theme.colorScheme.primary.withOpacity(0.25),
+            color: theme.colorScheme.primary.withValues(alpha: 0.25),
           ),
           borderRadius: BorderRadius.circular(20),
         ),
@@ -508,14 +508,14 @@ class _PostSubmitActionsState extends ConsumerState<PostSubmitActions> {
             Icon(
               Icons.lightbulb_outline_rounded,
               size: 13,
-              color: theme.colorScheme.primary.withOpacity(0.7),
+              color: theme.colorScheme.primary.withValues(alpha: 0.7),
             ),
             const SizedBox(width: 4),
             Text(
               'Explanation',
               style: TextStyle(
                 fontSize: 11,
-                color: theme.colorScheme.primary.withOpacity(0.8),
+                color: theme.colorScheme.primary.withValues(alpha: 0.8),
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -525,7 +525,7 @@ class _PostSubmitActionsState extends ConsumerState<PostSubmitActions> {
                   ? Icons.keyboard_arrow_up_rounded
                   : Icons.keyboard_arrow_down_rounded,
               size: 13,
-              color: theme.colorScheme.primary.withOpacity(0.6),
+              color: theme.colorScheme.primary.withValues(alpha: 0.6),
             ),
           ],
         ),
@@ -541,9 +541,9 @@ class _PostSubmitActionsState extends ConsumerState<PostSubmitActions> {
     return Container(
       padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
       decoration: BoxDecoration(
-        color: theme.colorScheme.primaryContainer.withOpacity(0.08),
+        color: theme.colorScheme.primaryContainer.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: theme.colorScheme.outline.withOpacity(0.12)),
+        border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.12)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -554,7 +554,7 @@ class _PostSubmitActionsState extends ConsumerState<PostSubmitActions> {
               widget.explanation,
               style: widget.baseStyle.copyWith(
                 fontSize: _bodyFontSize,
-                color: theme.colorScheme.onSurface.withOpacity(0.75),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.75),
                 height: 1.5,
               ),
             ),
@@ -568,14 +568,14 @@ class _PostSubmitActionsState extends ConsumerState<PostSubmitActions> {
                 Divider(
                   height: 1,
                   thickness: 0.5,
-                  color: theme.colorScheme.outline.withOpacity(0.2),
+                  color: theme.colorScheme.outline.withValues(alpha: 0.2),
                 ),
               ] else if (index > 0) ...[
                 const SizedBox(height: 6),
                 Divider(
                   height: 1,
                   thickness: 0.5,
-                  color: theme.colorScheme.outline.withOpacity(0.12),
+                  color: theme.colorScheme.outline.withValues(alpha: 0.12),
                 ),
               ],
               const SizedBox(height: 8),
@@ -585,7 +585,7 @@ class _PostSubmitActionsState extends ConsumerState<PostSubmitActions> {
                   Icon(
                     Icons.auto_awesome_rounded,
                     size: 13,
-                    color: theme.colorScheme.primary.withOpacity(0.6),
+                    color: theme.colorScheme.primary.withValues(alpha: 0.6),
                   ),
                   const SizedBox(width: 6),
                   Expanded(
@@ -593,7 +593,7 @@ class _PostSubmitActionsState extends ConsumerState<PostSubmitActions> {
                       text,
                       style: widget.baseStyle.copyWith(
                         fontSize: _bodyFontSize,
-                        color: theme.colorScheme.onSurface.withOpacity(0.75),
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.75),
                         height: 1.5,
                       ),
                     ),
@@ -620,7 +620,7 @@ class _PostSubmitActionsState extends ConsumerState<PostSubmitActions> {
                     'Generating…',
                     style: widget.baseStyle.copyWith(
                       fontSize: _bodyFontSize,
-                      color: theme.colorScheme.onSurface.withOpacity(0.5),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                       fontStyle: FontStyle.italic,
                     ),
                   ),
@@ -636,11 +636,11 @@ class _PostSubmitActionsState extends ConsumerState<PostSubmitActions> {
                     vertical: 5,
                   ),
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.secondaryContainer.withOpacity(
-                      0.25,
+                    color: theme.colorScheme.secondaryContainer.withValues(
+                      alpha: 0.25,
                     ),
                     border: Border.all(
-                      color: theme.colorScheme.secondary.withOpacity(0.3),
+                      color: theme.colorScheme.secondary.withValues(alpha: 0.3),
                     ),
                     borderRadius: BorderRadius.circular(16),
                   ),
@@ -650,7 +650,7 @@ class _PostSubmitActionsState extends ConsumerState<PostSubmitActions> {
                       Icon(
                         Icons.auto_awesome_rounded,
                         size: 13,
-                        color: theme.colorScheme.secondary.withOpacity(0.8),
+                        color: theme.colorScheme.secondary.withValues(alpha: 0.8),
                       ),
                       const SizedBox(width: 5),
                       Text(
@@ -659,7 +659,7 @@ class _PostSubmitActionsState extends ConsumerState<PostSubmitActions> {
                             : 'Ask AI again',
                         style: TextStyle(
                           fontSize: 11,
-                          color: theme.colorScheme.secondary.withOpacity(0.85),
+                          color: theme.colorScheme.secondary.withValues(alpha: 0.85),
                           fontWeight: FontWeight.w500,
                         ),
                       ),

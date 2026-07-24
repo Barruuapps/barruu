@@ -95,9 +95,9 @@ class _MathBlockState extends BaseEditableBlockState<MathBlock> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: theme.colorScheme.outline.withOpacity(0.2),
+              color: theme.colorScheme.outline.withValues(alpha: 0.2),
             ),
-            color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.05),
+            color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.05),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,7 +111,7 @@ class _MathBlockState extends BaseEditableBlockState<MathBlock> {
                     borderRadius: BorderRadius.circular(6),
                     color: theme.colorScheme.surface,
                     border: Border.all(
-                      color: theme.colorScheme.outline.withOpacity(0.1),
+                      color: theme.colorScheme.outline.withValues(alpha: 0.1),
                     ),
                   ),
                   child: Column(
@@ -154,7 +154,7 @@ class _MathBlockState extends BaseEditableBlockState<MathBlock> {
                   border: InputBorder.none,
                   hintText: 'Type LaTeX math... One equation per line (e.g., E = mc^2)',
                   hintStyle: TextStyle(
-                    color: theme.colorScheme.onSurface.withOpacity(0.5),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                     fontStyle: FontStyle.italic,
                     fontSize: (styleUtils.applyStyle(widget.block.style).fontSize ?? 16) * 0.9,
                   ),
@@ -170,14 +170,14 @@ class _MathBlockState extends BaseEditableBlockState<MathBlock> {
                 style: styleUtils.applyStyle(widget.block.style).copyWith(
                   fontStyle: FontStyle.italic,
                   fontSize: (styleUtils.applyStyle(widget.block.style).fontSize ?? 16) * 0.85,
-                  color: theme.colorScheme.onSurface.withOpacity(0.7),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                 ),
                 textAlign: textAlign,
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: 'Add an optional caption...',
                   hintStyle: TextStyle(
-                    color: theme.colorScheme.onSurface.withOpacity(0.4),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
                     fontStyle: FontStyle.italic,
                     fontSize: (styleUtils.applyStyle(widget.block.style).fontSize ?? 16) * 0.85,
                   ),

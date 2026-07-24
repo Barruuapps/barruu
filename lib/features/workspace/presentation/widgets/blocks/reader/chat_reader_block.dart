@@ -65,13 +65,13 @@ class ChatReaderBlock extends ConsumerWidget {
 
     final linkStyle = baseStyle.copyWith(
       color: isRight 
-          ? theme.colorScheme.primary.withOpacity(0.9) 
+          ? theme.colorScheme.primary.withValues(alpha: 0.9) 
           : theme.colorScheme.primary,
       decoration: TextDecoration.none,
       fontWeight: FontWeight.w500,
     );
 
-    final hoverColor = theme.colorScheme.primary.withOpacity(0.7);
+    final hoverColor = theme.colorScheme.primary.withValues(alpha: 0.7);
 
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -103,7 +103,7 @@ class ChatReaderBlock extends ConsumerWidget {
                     : Icon(
                         Icons.person_outline_rounded,
                         size: isDesktop ? 18 : 16,
-                        color: theme.colorScheme.onSecondaryContainer.withOpacity(0.6),
+                        color: theme.colorScheme.onSecondaryContainer.withValues(alpha: 0.6),
                       ),
               ),
             ),
@@ -124,7 +124,7 @@ class ChatReaderBlock extends ConsumerWidget {
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
-                        color: theme.colorScheme.onSurface.withOpacity(0.7),
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                         letterSpacing: 0.3,
                       ),
                     ),
@@ -144,8 +144,8 @@ class ChatReaderBlock extends ConsumerWidget {
                     ),
                     border: Border.all(
                       color: isRight 
-                        ? theme.colorScheme.primary.withOpacity(0.2)
-                        : theme.colorScheme.secondaryContainer.withOpacity(0.5),
+                        ? theme.colorScheme.primary.withValues(alpha: 0.2)
+                        : theme.colorScheme.secondaryContainer.withValues(alpha: 0.5),
                     ),
                   ),
                   child: Semantics(
@@ -184,7 +184,7 @@ class ChatReaderBlock extends ConsumerWidget {
                     : Icon(
                         Icons.person_outline_rounded,
                         size: isDesktop ? 18 : 16,
-                        color: theme.colorScheme.onPrimaryContainer.withOpacity(0.6),
+                        color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.6),
                       ),
               ),
             ),

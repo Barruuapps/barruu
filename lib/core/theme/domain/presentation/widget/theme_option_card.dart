@@ -33,13 +33,13 @@ class ThemeOptionCard extends ConsumerWidget {
             end: Alignment.bottomRight,
             colors: [
               colors.surface,
-              colors.surfaceContainerHighest.withOpacity(0.3),
+              colors.surfaceContainerHighest.withValues(alpha: 0.3),
             ],
           ),
           border: Border.all(
             color: isSelected
                 ? colors.primary
-                : colors.outline.withOpacity(0.2),
+                : colors.outline.withValues(alpha: 0.2),
             width: isSelected ? 2 : 1,
           ),
         ),
@@ -54,7 +54,7 @@ class ThemeOptionCard extends ConsumerWidget {
                     center: Alignment.topRight,
                     radius: 1.5,
                     colors: [
-                      colors.primary.withOpacity(0.05),
+                      colors.primary.withValues(alpha: 0.05),
                       Colors.transparent,
                     ],
                   ),
@@ -90,7 +90,7 @@ class ThemeOptionCard extends ConsumerWidget {
                             width: 40,
                             height: 8,
                             decoration: BoxDecoration(
-                              color: colors.surface.withOpacity(0.9),
+                              color: colors.surface.withValues(alpha: 0.9),
                               borderRadius: BorderRadius.circular(4),
                             ),
                           ),
@@ -103,7 +103,7 @@ class ThemeOptionCard extends ConsumerWidget {
                           child: Container(
                             height: 6,
                             decoration: BoxDecoration(
-                              color: colors.surface.withOpacity(0.8),
+                              color: colors.surface.withValues(alpha: 0.8),
                               borderRadius: BorderRadius.circular(3),
                             ),
                           ),
@@ -119,7 +119,7 @@ class ThemeOptionCard extends ConsumerWidget {
                                 height: 4,
                                 margin: const EdgeInsets.only(bottom: 3),
                                 decoration: BoxDecoration(
-                                  color: colors.surface.withOpacity(0.7),
+                                  color: colors.surface.withValues(alpha: 0.7),
                                   borderRadius: BorderRadius.circular(2),
                                 ),
                               ),
@@ -127,7 +127,7 @@ class ThemeOptionCard extends ConsumerWidget {
                                 height: 4,
                                 margin: const EdgeInsets.only(bottom: 3),
                                 decoration: BoxDecoration(
-                                  color: colors.surface.withOpacity(0.7),
+                                  color: colors.surface.withValues(alpha: 0.7),
                                   borderRadius: BorderRadius.circular(2),
                                 ),
                               ),
@@ -222,7 +222,7 @@ class ThemeOptionCard extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(

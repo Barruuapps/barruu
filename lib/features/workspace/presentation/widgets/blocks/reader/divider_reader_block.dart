@@ -30,7 +30,7 @@ class DividerReaderBlock extends ConsumerWidget {
         decoration: BoxDecoration(
           border: Border.all(color: theme.colorScheme.error),
           borderRadius: BorderRadius.circular(4),
-          color: theme.colorScheme.error.withOpacity(0.1),
+          color: theme.colorScheme.error.withValues(alpha: 0.1),
         ),
         child: Text(
           'Error displaying divider.',
@@ -122,7 +122,7 @@ class DividerReaderBlock extends ConsumerWidget {
           painter: DividerPainter(
             style: dividerStyle,
             // Platform-specific opacity (Apple: more subtle)
-            color: color.withOpacity(PlatformThemeHelper.isAndroid ? 0.6 : 0.4),
+            color: color.withValues(alpha: PlatformThemeHelper.isAndroid ? 0.6 : 0.4),
             thickness: thickness,
           ),
         ),

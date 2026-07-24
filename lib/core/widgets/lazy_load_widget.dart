@@ -11,7 +11,7 @@ import 'package:barruu/core/widgets/shimmer_loading.dart';
 /// - Configurable visibility threshold
 /// - Placeholder widget while not visible
 /// - Automatic resource management
-/// 
+///
 /// Usage:
 /// ```dart
 /// LazyLoadWidget(
@@ -23,20 +23,20 @@ class LazyLoadWidget extends StatefulWidget {
   /// Builder function that creates the actual content widget.
   /// This is only called once when the widget becomes visible.
   final Widget Function(BuildContext context) builder;
-  
+
   /// Placeholder widget shown while the content is not yet loaded.
   /// Defaults to an empty SizedBox if not provided.
   final Widget? placeholder;
-  
+
   /// The fraction of the widget that must be visible before loading.
   /// Value between 0.0 and 1.0, where:
   /// - 0.0 means load as soon as any pixel is visible
   /// - 0.5 means load when 50% of the widget is visible
   /// - 1.0 means load only when fully visible
-  /// 
+  ///
   /// Default is 0.1 (load when 10% visible).
   final double visibilityThreshold;
-  
+
   /// Whether to keep the widget loaded once it has been built.
   /// If true (default), the widget stays loaded even after scrolling out of view.
   /// If false, it will be unloaded when scrolled out of view.
@@ -48,8 +48,10 @@ class LazyLoadWidget extends StatefulWidget {
     this.placeholder,
     this.visibilityThreshold = 0.1,
     this.keepAlive = true,
-  }) : assert(visibilityThreshold >= 0.0 && visibilityThreshold <= 1.0,
-            'visibilityThreshold must be between 0.0 and 1.0');
+  }) : assert(
+         visibilityThreshold >= 0.0 && visibilityThreshold <= 1.0,
+         'visibilityThreshold must be between 0.0 and 1.0',
+       );
 
   @override
   State<LazyLoadWidget> createState() => _LazyLoadWidgetState();
@@ -67,18 +69,18 @@ class _LazyLoadWidgetState extends State<LazyLoadWidget> {
       _checkVisibilityOnce();
     });
   }
-  
+
   /// Check visibility once initially. If not in scrollable, mark as visible.
   void _checkVisibilityOnce() {
     if (!mounted) return;
-    
+
     final renderObject = context.findRenderObject();
     if (renderObject == null || renderObject is! RenderBox) {
       return;
     }
 
     try {
-      final viewport = RenderAbstractViewport.of(renderObject);
+      RenderAbstractViewport.of(renderObject);
     } catch (e) {
       // Not in a scrollable viewport (RenderAbstractViewport.of throws AssertionError/FlutterError)
       // Assume visible since we can't check viewport
@@ -91,7 +93,7 @@ class _LazyLoadWidgetState extends State<LazyLoadWidget> {
         rethrow;
       }
     }
-    
+
     // If we get here, we're in a scrollable, perform normal visibility check
     _checkVisibility();
   }
@@ -107,7 +109,7 @@ class _LazyLoadWidgetState extends State<LazyLoadWidget> {
 
   void _checkVisibility() {
     if (!mounted) return;
-    
+
     final renderObject = context.findRenderObject();
     if (renderObject == null || renderObject is! RenderBox) {
       return;
@@ -119,13 +121,13 @@ class _LazyLoadWidgetState extends State<LazyLoadWidget> {
       // Get the widget's position and size
       final size = renderObject.size;
       final viewportHeight = viewport.paintBounds.height;
-      
+
       // Calculate reveal offsets for top and bottom of widget
       // The reveal offset indicates how much we need to scroll to bring that point into view
       // Negative means scroll up, positive means scroll down, 0 means it's visible
       final topReveal = viewport.getOffsetToReveal(renderObject, 0.0);
       final bottomReveal = viewport.getOffsetToReveal(renderObject, 1.0);
-      
+
       // A widget is visible if the reveal offset is near zero (within viewport)
       // The reveal offset indicates how far we'd need to scroll to bring that edge into view
       // When offset is negative, the edge is above the viewport (need to scroll up)
@@ -133,17 +135,18 @@ class _LazyLoadWidgetState extends State<LazyLoadWidget> {
       // When offset is 0, the edge is at the top of the viewport
       final topOffset = topReveal.offset;
       final bottomOffset = bottomReveal.offset;
-      
+
       // Widget is visible if either edge is within the viewport bounds
       // We check if offset is between -viewportHeight and 0:
       // - Top edge visible: between -viewportHeight and 0 (below viewport top, above viewport bottom)
       // - Bottom edge visible: between -viewportHeight and 0 (same range)
       final topEdgeVisible = topOffset >= -viewportHeight && topOffset <= 0;
-      final bottomEdgeVisible = bottomOffset >= -viewportHeight && bottomOffset <= 0;
-      
+      final bottomEdgeVisible =
+          bottomOffset >= -viewportHeight && bottomOffset <= 0;
+
       // Widget is visible if any part of it is in the viewport
       final isInViewport = topEdgeVisible || bottomEdgeVisible;
-      
+
       if (isInViewport != _isVisible) {
         setState(() {
           _isVisible = isInViewport;
@@ -169,7 +172,7 @@ class _LazyLoadWidgetState extends State<LazyLoadWidget> {
     // 1. Currently visible
     // 2. keepAlive is true and has been built before
     final shouldBuild = _isVisible || (widget.keepAlive && _hasBuilt);
-    
+
     if (shouldBuild) {
       _hasBuilt = true;
       return NotificationListener<ScrollNotification>(
@@ -183,7 +186,7 @@ class _LazyLoadWidgetState extends State<LazyLoadWidget> {
         child: widget.builder(context),
       );
     }
-    
+
     // Show placeholder while not visible
     return widget.placeholder ?? const SizedBox.shrink();
   }
@@ -209,13 +212,9 @@ class LazyLoadPlaceholder extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final color = backgroundColor ?? theme.colorScheme.surfaceContainerHighest;
-    
+
     if (!showShimmer) {
-      return Container(
-        width: width,
-        height: height,
-        color: color,
-      );
+      return Container(width: width, height: height, color: color);
     }
 
     return ShimmerLoading(

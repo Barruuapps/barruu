@@ -6,7 +6,6 @@ import 'package:barruu/features/workspace/domain/entities/page.dart';
 import 'package:barruu/features/workspace/data/sources/document_local_source.dart';
 import 'package:barruu/features/workspace/presentation/widgets/edit_document/page_drawer_widget.dart';
 import 'package:barruu/features/workspace/constants/meta_file.dart';
-import 'package:barruu/core/theme/domain/presentation/pages/theme_selection_page.dart';
 import 'package:barruu/core/utils/app_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -127,7 +126,9 @@ class _PreviewDocumentState extends ConsumerState<PreviewDocument> with TickerPr
     }
   }
 
-  Widget _buildPageDrawer() {
+  /// Build a persistent page outline sidebar for desktop,
+  /// or use a traditional drawer for mobile.
+  Widget _buildPageOutline() {
     final theme = Theme.of(context); // Use current theme from context
     final documentService = ref.watch(documentServiceProvider);
     
@@ -153,7 +154,7 @@ class _PreviewDocumentState extends ConsumerState<PreviewDocument> with TickerPr
             children: [
               DrawerHeader(
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.primary.withOpacity(0.1),
+                  color: theme.colorScheme.primary.withValues(alpha: 0.1),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -193,7 +194,7 @@ class _PreviewDocumentState extends ConsumerState<PreviewDocument> with TickerPr
                         ),
                       ),
                       selected: isCurrentPage,
-                      selectedTileColor: theme.colorScheme.primary.withOpacity(0.1),
+                      selectedTileColor: theme.colorScheme.primary.withValues(alpha: 0.1),
                       onTap: () {
                         ref.read(currentPageIdProvider(widget.doc.path).notifier).state = page.id;
                         Navigator.pop(context);
@@ -302,7 +303,7 @@ class _PreviewDocumentState extends ConsumerState<PreviewDocument> with TickerPr
                   indicatorColor: theme.colorScheme.primary,
                   indicatorWeight: 3.0,
                   labelColor: theme.colorScheme.primary,
-                  unselectedLabelColor: theme.colorScheme.onSurface.withOpacity(0.6),
+                  unselectedLabelColor: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                   labelStyle: theme.textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
@@ -334,7 +335,7 @@ class _PreviewDocumentState extends ConsumerState<PreviewDocument> with TickerPr
                 )
               : null,
         ),
-        drawer: _buildPageDrawer(),
+        drawer: _buildPageOutline(),
         body: DisplayDocument(
           doc: widget.doc,
           showAllBlocks: _showAllBlocks,
@@ -346,10 +347,9 @@ class _PreviewDocumentState extends ConsumerState<PreviewDocument> with TickerPr
   /// Handles edit document action
   Future<void> _handleEditDocument() async {
     try {
-      // Navigate to edit screen
       if (mounted) {
         final docPath = Uri.encodeComponent(widget.doc.path);
-        router.go('/edit-document/$docPath');
+        context.push('/edit-document/$docPath');
       }
     } catch (e, stackTrace) {
       logger.e('Failed to handle edit document', error: e, stackTrace: stackTrace);

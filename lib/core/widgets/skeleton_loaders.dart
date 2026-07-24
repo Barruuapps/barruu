@@ -25,11 +25,11 @@ class _ShimmerWrapper extends StatelessWidget {
 
     return Shimmer.fromColors(
       baseColor: isDark
-          ? theme.colorScheme.surfaceContainerHighest.withOpacity(0.25)
-          : theme.colorScheme.surfaceContainerHighest.withOpacity(0.45),
+          ? theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.25)
+          : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.45),
       highlightColor: isDark
-          ? theme.colorScheme.surfaceContainerHighest.withOpacity(0.45)
-          : Colors.white.withOpacity(0.85),
+          ? theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.45)
+          : Colors.white.withValues(alpha: 0.85),
       period: const Duration(milliseconds: 1500),
       child: child,
     );

@@ -111,10 +111,10 @@ class _ChatBlockState extends BaseEditableBlockState<ChatBlock> {
           child: Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.5),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: theme.colorScheme.outline.withOpacity(0.2),
+                color: theme.colorScheme.outline.withValues(alpha: 0.2),
               ),
             ),
             child: Row(
@@ -137,7 +137,7 @@ class _ChatBlockState extends BaseEditableBlockState<ChatBlock> {
                       hintText: 'Profile name (optional)',
                       hintStyle: TextStyle(
                         fontSize: 13,
-                        color: theme.colorScheme.onSurface.withOpacity(0.5),
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                       ),
                       filled: true,
                       fillColor: theme.colorScheme.surface,
@@ -160,7 +160,7 @@ class _ChatBlockState extends BaseEditableBlockState<ChatBlock> {
                     color: theme.colorScheme.surface,
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: theme.colorScheme.outline.withOpacity(0.2),
+                      color: theme.colorScheme.outline.withValues(alpha: 0.2),
                     ),
                   ),
                   child: IconButton(
@@ -193,8 +193,8 @@ class _ChatBlockState extends BaseEditableBlockState<ChatBlock> {
               borderRadius: BorderRadius.circular(16),
               border: Border.all(
                 color: isRight
-                    ? theme.colorScheme.primary.withOpacity(0.3)
-                    : theme.colorScheme.secondaryContainer.withOpacity(0.5),
+                    ? theme.colorScheme.primary.withValues(alpha: 0.3)
+                    : theme.colorScheme.secondaryContainer.withValues(alpha: 0.5),
                 width: 1.5,
               ),
             ),
@@ -214,7 +214,7 @@ class _ChatBlockState extends BaseEditableBlockState<ChatBlock> {
               decoration: InputDecoration(
                 hintText: 'Type your message here...',
                 hintStyle: TextStyle(
-                  color: textColor.withOpacity(0.5),
+                  color: textColor.withValues(alpha: 0.5),
                   fontSize: 14,
                 ),
                 filled: false,

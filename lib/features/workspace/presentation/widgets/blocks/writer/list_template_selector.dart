@@ -59,12 +59,12 @@ class ListTemplateSelector extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(
-            color: isSelected ? theme.colorScheme.primary : theme.colorScheme.outline.withOpacity(0.3),
+            color: isSelected ? theme.colorScheme.primary : theme.colorScheme.outline.withValues(alpha: 0.3),
             width: isSelected ? 2.5 : 1,
           ),
           borderRadius: BorderRadius.circular(8),
           color: isSelected
-              ? theme.colorScheme.primaryContainer.withOpacity(0.2)
+              ? theme.colorScheme.primaryContainer.withValues(alpha: 0.2)
               : null,
         ),
         child: Column(
@@ -80,8 +80,8 @@ class ListTemplateSelector extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
               decoration: BoxDecoration(
                 color: isSelected
-                    ? theme.colorScheme.primary.withOpacity(0.1)
-                    : theme.colorScheme.surfaceVariant.withOpacity(0.5),
+                    ? theme.colorScheme.primary.withValues(alpha: 0.1)
+                    : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(7),
                   bottomRight: Radius.circular(7),
@@ -129,7 +129,7 @@ class ListTemplateSelector extends StatelessWidget {
               child: Container(
                 height: 3,
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.onSurface.withOpacity(0.6),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                   borderRadius: BorderRadius.circular(1),
                 ),
               ),
@@ -152,7 +152,7 @@ class ListTemplateSelector extends StatelessWidget {
           borderRadius: BorderRadius.circular(4),
           boxShadow: [
             BoxShadow(
-              color: theme.colorScheme.shadow.withOpacity(0.12),
+              color: theme.colorScheme.shadow.withValues(alpha: 0.12),
               blurRadius: 2,
               offset: const Offset(0, 1),
             ),
@@ -172,7 +172,7 @@ class ListTemplateSelector extends StatelessWidget {
             Expanded(
               child: Container(
                 height: 3,
-                color: theme.colorScheme.onSurface.withOpacity(0.5),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
               ),
             ),
           ],
@@ -194,7 +194,7 @@ class ListTemplateSelector extends StatelessWidget {
               width: 4,
               height: 4,
               decoration: BoxDecoration(
-                color: theme.colorScheme.outline.withOpacity(0.5),
+                color: theme.colorScheme.outline.withValues(alpha: 0.5),
                 shape: BoxShape.circle,
               ),
             ),
@@ -202,7 +202,7 @@ class ListTemplateSelector extends StatelessWidget {
             Expanded(
               child: Container(
                 height: 2,
-                color: theme.colorScheme.onSurface.withOpacity(0.5),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
               ),
             ),
           ],
@@ -238,7 +238,7 @@ class ListTemplateSelector extends StatelessWidget {
               Expanded(
                 child: Container(
                   height: 2,
-                  color: theme.colorScheme.onSurface.withOpacity(0.6),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                 ),
               ),
             ],
@@ -253,12 +253,12 @@ class ListTemplateSelector extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            theme.colorScheme.primaryContainer.withOpacity(0.5),
-            theme.colorScheme.secondaryContainer.withOpacity(0.5),
+            theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
+            theme.colorScheme.secondaryContainer.withValues(alpha: 0.5),
           ],
         ),
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: theme.colorScheme.primary.withOpacity(0.3)),
+        border: Border.all(color: theme.colorScheme.primary.withValues(alpha: 0.3)),
       ),
       padding: const EdgeInsets.all(4),
       child: Column(
@@ -281,7 +281,7 @@ class ListTemplateSelector extends StatelessWidget {
               Expanded(
                 child: Container(
                   height: 2,
-                  color: theme.colorScheme.onSurface.withOpacity(0.6),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                 ),
               ),
             ],
@@ -294,7 +294,7 @@ class ListTemplateSelector extends StatelessWidget {
   Widget _buildModernPreview() {
     return Container(
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceVariant.withOpacity(0.5),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(6),
       ),
       padding: const EdgeInsets.all(4),
@@ -305,7 +305,7 @@ class ListTemplateSelector extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 2),
           padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
           decoration: BoxDecoration(
-            color: theme.colorScheme.primary.withOpacity(i == 0 ? 0.1 : 0.0),
+            color: theme.colorScheme.primary.withValues(alpha: i == 0 ? 0.1 : 0.0),
             borderRadius: BorderRadius.circular(3),
             border: Border(
               left: BorderSide(
@@ -320,7 +320,7 @@ class ListTemplateSelector extends StatelessWidget {
               Expanded(
                 child: Container(
                   height: 2,
-                  color: theme.colorScheme.onSurface.withOpacity(0.6),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                 ),
               ),
             ],
@@ -350,7 +350,7 @@ class ListTemplateSelector extends StatelessWidget {
                 Container(
                   width: 2,
                   height: 10,
-                  color: theme.colorScheme.primary.withOpacity(0.25),
+                  color: theme.colorScheme.primary.withValues(alpha: 0.25),
                 ),
             ],
           )),
@@ -365,7 +365,7 @@ class ListTemplateSelector extends StatelessWidget {
               child: Container(
                 height: 3,
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.onSurface.withOpacity(0.5),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                   borderRadius: BorderRadius.circular(1),
                 ),
               ),
@@ -384,9 +384,9 @@ class ListTemplateSelector extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 2),
         padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 3),
         decoration: BoxDecoration(
-          color: theme.colorScheme.surfaceVariant.withOpacity(0.4),
+          color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
           borderRadius: BorderRadius.circular(4),
-          border: Border.all(color: theme.colorScheme.outline.withOpacity(0.15)),
+          border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.15)),
         ),
         child: Row(
           children: [
@@ -412,7 +412,7 @@ class ListTemplateSelector extends StatelessWidget {
             Expanded(
               child: Container(
                 height: 3,
-                color: theme.colorScheme.onSurface.withOpacity(0.5),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
               ),
             ),
           ],
@@ -430,15 +430,15 @@ class ListTemplateSelector extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: theme.colorScheme.primaryContainer.withOpacity(0.5),
+          color: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
           border: Border.all(
-            color: theme.colorScheme.primary.withOpacity(0.3),
+            color: theme.colorScheme.primary.withValues(alpha: 0.3),
           ),
         ),
         child: Container(
           height: 3,
           width: 18 + (i % 2) * 8.0,
-          color: theme.colorScheme.onSurface.withOpacity(0.5),
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
         ),
       )),
     );
@@ -446,9 +446,9 @@ class ListTemplateSelector extends StatelessWidget {
 
   Widget _buildPriorityPreview() {
     final colors = [
-      Colors.red.withOpacity(0.7),
-      Colors.orange.withOpacity(0.7),
-      Colors.amber.withOpacity(0.7),
+      Colors.red.withValues(alpha: 0.7),
+      Colors.orange.withValues(alpha: 0.7),
+      Colors.amber.withValues(alpha: 0.7),
     ];
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -459,11 +459,11 @@ class ListTemplateSelector extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(3),
           border: Border(left: BorderSide(color: colors[i], width: 3)),
-          color: colors[i].withOpacity(0.08),
+          color: colors[i].withValues(alpha: 0.08),
         ),
         child: Container(
           height: 3,
-          color: theme.colorScheme.onSurface.withOpacity(0.5),
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
         ),
       )),
     );

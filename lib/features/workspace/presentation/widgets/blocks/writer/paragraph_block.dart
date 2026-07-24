@@ -234,7 +234,7 @@ class _ParagraphBlockState
               isCollapsed: true,
               hintText: 'Type something...',
               hintStyle: TextStyle(
-                color: theme.colorScheme.onSurface.withOpacity(0.5),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
               ),
             ),
             onChanged: (value) {

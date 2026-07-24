@@ -43,7 +43,7 @@ class DefaultAvatar extends StatelessWidget {
           end: Alignment.bottomRight,
           colors: [
             backgroundColor,
-            backgroundColor.withOpacity(0.8),
+            backgroundColor.withValues(alpha: 0.8),
           ],
         ),
       ),

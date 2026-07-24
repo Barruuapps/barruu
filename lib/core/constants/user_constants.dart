@@ -1,4 +1,5 @@
 /// Constants related to user profiles, account types, professions, interests, and categories
+library;
 
 /// Account types available in the platform
 class AccountType {

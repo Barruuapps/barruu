@@ -246,7 +246,7 @@ class GraphLineChartWidget extends StatelessWidget {
                   r.expression,
                   style: TextStyle(
                     fontSize: 11,
-                    color: theme.colorScheme.onSurface.withOpacity(0.8),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
                     fontFamily: 'RobotoMono',
                   ),
                   overflow: TextOverflow.ellipsis,

@@ -323,7 +323,7 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
                   Container(
                     padding: EdgeInsets.all(_spacingMedium),
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.primaryContainer.withOpacity(0.3),
+                      color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(_spacingMedium),
                     ),
                     child: Icon(
@@ -347,7 +347,7 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
                         Text(
                           'Create tabbed content sections',
                           style: theme.textTheme.bodySmall?.copyWith(
-                            color: theme.colorScheme.onSurface.withOpacity(0.6),
+                            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                           ),
                         ),
                       ],
@@ -386,13 +386,13 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
                   Icon(
                     IconsaxPlusLinear.arrow_up_3,
                     size: 18,
-                    color: theme.colorScheme.onSurface.withOpacity(0.6),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                   SizedBox(width: _spacingSmall),
                   Text(
                     'Height:',
                     style: theme.textTheme.labelMedium?.copyWith(
-                      color: theme.colorScheme.onSurface.withOpacity(0.7),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
                   ),
                   SizedBox(width: _spacingSmall),
@@ -454,7 +454,7 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
                   style: OutlinedButton.styleFrom(
                     padding: EdgeInsets.symmetric(vertical: _spacingLarge, horizontal: _spacingXXLarge),
                     side: BorderSide(
-                      color: theme.colorScheme.primary.withOpacity(0.5),
+                      color: theme.colorScheme.primary.withValues(alpha: 0.5),
                       width: 2,
                     ),
                     shape: RoundedRectangleBorder(
@@ -492,7 +492,7 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
         border: Border.all(
           color: index == _selectedIndex
               ? theme.colorScheme.primary
-              : theme.colorScheme.outline.withOpacity(0.2),
+              : theme.colorScheme.outline.withValues(alpha: 0.2),
           width: index == _selectedIndex ? 2 : 1,
         ),
       ),
@@ -510,7 +510,7 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
                   height: 32,
                   margin: const EdgeInsets.only(right: 8),
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.surfaceVariant,
+                    color: theme.colorScheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Icon(
@@ -567,7 +567,7 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
                     contentPadding: EdgeInsets.zero,
                     hintText: 'Tab title',
                     hintStyle: TextStyle(
-                      color: theme.colorScheme.onSurface.withOpacity(0.4),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
                     ),
                   ),
                   onChanged: (value) {
@@ -599,7 +599,7 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
           Text(
             'Content',
             style: theme.textTheme.labelMedium?.copyWith(
-              color: theme.colorScheme.onSurface.withOpacity(0.7),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -612,7 +612,7 @@ class _TabsBlockState extends BaseEditableBlockState<TabsBlock> {
               border: InputBorder.none,
               hintText: 'Type content...',
               hintStyle: TextStyle(
-                color: theme.colorScheme.onSurface.withOpacity(0.4),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
               ),
               contentPadding: EdgeInsets.all(_spacingMedium),
             ),

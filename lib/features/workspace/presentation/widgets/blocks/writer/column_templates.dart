@@ -145,7 +145,7 @@ Widget buildGridColumnTemplate({
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.file(
-                      File('${docDir!.path}/$imagePath'),
+                      File('${docDir.path}/$imagePath'),
                       width: double.infinity,
                       height: 100,
                       fit: BoxFit.cover,
@@ -219,7 +219,7 @@ Widget buildCardColumnTemplate({
                 : BorderSide.none,
             ),
             color: columnStyle == 'filled' 
-              ? theme.colorScheme.surfaceVariant 
+              ? theme.colorScheme.surfaceContainerHighest 
               : null,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,7 +228,7 @@ Widget buildCardColumnTemplate({
                   ClipRRect(
                     borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
                     child: Image.file(
-                      File('${docDir!.path}/$imagePath'),
+                      File('${docDir.path}/$imagePath'),
                       width: double.infinity,
                       height: 160,
                       fit: BoxFit.cover,
@@ -252,7 +252,7 @@ Widget buildCardColumnTemplate({
                     child: Icon(
                       Icons.image_outlined,
                       size: 48,
-                      color: theme.colorScheme.onPrimaryContainer.withOpacity(0.5),
+                      color: theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.5),
                     ),
                   ),
                 Padding(
@@ -286,7 +286,7 @@ Widget _buildColumnContent(ThemeData theme, Map<String, dynamic> column, String 
     width: double.infinity,
     height: 120,
     decoration: BoxDecoration(
-      color: theme.colorScheme.surfaceVariant.withOpacity(0.5),
+      color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
       borderRadius: BorderRadius.circular(8),
     ),
     child: const Center(child: Text('🖼️', style: TextStyle(fontSize: 40))),
@@ -302,7 +302,7 @@ Widget _buildColumnContent(ThemeData theme, Map<String, dynamic> column, String 
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Image.file(
-              File('${docDir!.path}/$imagePath'),
+              File('${docDir.path}/$imagePath'),
               width: double.infinity,
               height: 120,
               fit: BoxFit.cover,
@@ -336,7 +336,7 @@ Widget _buildRawColumnContent(ThemeData theme, Map<String, dynamic> column, Dire
     width: double.infinity,
     height: 120,
     decoration: BoxDecoration(
-      color: theme.colorScheme.surfaceVariant.withOpacity(0.5),
+      color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
       borderRadius: BorderRadius.circular(8),
     ),
     child: const Center(child: Text('🖼️', style: TextStyle(fontSize: 40))),
@@ -349,7 +349,7 @@ Widget _buildRawColumnContent(ThemeData theme, Map<String, dynamic> column, Dire
         ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Image.file(
-            File('${docDir!.path}/$imagePath'),
+            File('${docDir.path}/$imagePath'),
             width: double.infinity,
             height: 120,
             fit: BoxFit.cover,
@@ -392,15 +392,15 @@ BoxDecoration _getColumnDecoration(ThemeData theme, String columnStyle) {
       );
     case 'filled':
       return BoxDecoration(
-        color: theme.colorScheme.surfaceVariant,
+        color: theme.colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(8),
       );
     default:
       return BoxDecoration(
-        color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: theme.colorScheme.outline.withOpacity(0.2),
+          color: theme.colorScheme.outline.withValues(alpha: 0.2),
         ),
       );
   }
@@ -435,13 +435,13 @@ BoxDecoration _getGridDecoration(ThemeData theme, String columnStyle) {
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: theme.colorScheme.primary.withOpacity(0.3),
+          color: theme.colorScheme.primary.withValues(alpha: 0.3),
           width: 2,
         ),
       );
     case 'filled':
       return BoxDecoration(
-        color: theme.colorScheme.primaryContainer.withOpacity(0.5),
+        color: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(12),
       );
     default:
@@ -449,7 +449,7 @@ BoxDecoration _getGridDecoration(ThemeData theme, String columnStyle) {
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: theme.colorScheme.outline.withOpacity(0.3),
+          color: theme.colorScheme.outline.withValues(alpha: 0.3),
         ),
       );
   }
@@ -487,7 +487,7 @@ Widget buildCompactColumnTemplate({
                   ClipRRect(
                     borderRadius: BorderRadius.circular(6),
                     child: Image.file(
-                      File('${docDir!.path}/$imagePath'),
+                      File('${docDir.path}/$imagePath'),
                       width: double.infinity,
                       height: 80,
                       fit: BoxFit.cover,
@@ -564,7 +564,7 @@ Widget buildFeaturedColumnTemplate({
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.file(
-                      File('${docDir!.path}/$imagePath'),
+                      File('${docDir.path}/$imagePath'),
                       width: double.infinity,
                       height: isFeatured ? 150 : 100,
                       fit: BoxFit.cover,
@@ -627,7 +627,7 @@ Widget buildOverlayColumnTemplate({
                     end: Alignment.bottomCenter,
                     colors: [
                       theme.colorScheme.primaryContainer,
-                      theme.colorScheme.primary.withOpacity(0.7),
+                      theme.colorScheme.primary.withValues(alpha: 0.7),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(12),
@@ -638,7 +638,7 @@ Widget buildOverlayColumnTemplate({
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: Image.file(
-                      File('${docDir!.path}/$imagePath'),
+                      File('${docDir.path}/$imagePath'),
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
                     ),
@@ -656,7 +656,7 @@ Widget buildOverlayColumnTemplate({
                       end: Alignment.bottomCenter,
                       colors: [
                         Colors.transparent,
-                        Colors.black.withOpacity(0.7),
+                        Colors.black.withValues(alpha: 0.7),
                       ],
                     ),
                     borderRadius: const BorderRadius.vertical(bottom: Radius.circular(12)),
@@ -722,7 +722,7 @@ Widget buildMagazineColumnTemplate({
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.file(
-                      File('${docDir!.path}/$imagePath'),
+                      File('${docDir.path}/$imagePath'),
                       height: 120,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
@@ -777,9 +777,9 @@ Widget buildSplitColumnTemplate({
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                theme.colorScheme.primary.withOpacity(0.3),
+                theme.colorScheme.primary.withValues(alpha: 0.3),
                 theme.colorScheme.primary,
-                theme.colorScheme.primary.withOpacity(0.3),
+                theme.colorScheme.primary.withValues(alpha: 0.3),
               ],
             ),
             borderRadius: BorderRadius.circular(2),
@@ -803,7 +803,7 @@ Widget buildSplitColumnTemplate({
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.file(
-                    File('${docDir!.path}/$imagePath'),
+                    File('${docDir.path}/$imagePath'),
                     width: double.infinity,
                     height: 100,
                     fit: BoxFit.cover,
@@ -920,7 +920,7 @@ Widget buildAvatarColumnTemplate({
                 if (hasImage)
                   ClipOval(
                     child: Image.file(
-                      File('${docDir!.path}/$imagePath'),
+                      File('${docDir.path}/$imagePath'),
                       width: 80,
                       height: 80,
                       fit: BoxFit.cover,
@@ -998,7 +998,7 @@ Widget buildIconColumnTemplate({
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.file(
-                      File('${docDir!.path}/$imagePath'),
+                      File('${docDir.path}/$imagePath'),
                       width: double.infinity,
                       height: 80,
                       fit: BoxFit.cover,

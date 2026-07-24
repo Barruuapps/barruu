@@ -99,7 +99,7 @@ class EnhancedGraphRenderer extends StatelessWidget {
                   caption,
                   style: theme.textTheme.bodySmall?.copyWith(
                     fontStyle: FontStyle.italic,
-                    color: theme.colorScheme.onSurface.withOpacity(0.6),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                     fontSize: isWide ? 13 : 12,
                   ),
                   textAlign: TextAlign.center,
@@ -268,7 +268,7 @@ class EnhancedGraphRenderer extends StatelessWidget {
         child: Text(
           'Use the edit mode to configure this mathematical graph',
           style: theme.textTheme.bodyMedium?.copyWith(
-            color: theme.colorScheme.onSurface.withOpacity(0.6),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
           ),
           textAlign: TextAlign.center,
         ),
@@ -286,13 +286,13 @@ class EnhancedGraphRenderer extends StatelessWidget {
             Icon(
               Icons.add_chart,
               size: 64,
-              color: theme.colorScheme.primary.withOpacity(0.5),
+              color: theme.colorScheme.primary.withValues(alpha: 0.5),
             ),
             const SizedBox(height: 16),
             Text(
               message,
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.6),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
               ),
               textAlign: TextAlign.center,
             ),

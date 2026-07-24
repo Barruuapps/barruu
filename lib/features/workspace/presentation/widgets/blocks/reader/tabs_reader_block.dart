@@ -2,8 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
-import 'package:barruu/core/utils/responsive_utils.dart';
-import 'package:barruu/core/theme/platform_theme_helper.dart';
 import 'package:barruu/features/workspace/domain/entities/block.dart';
 import 'package:barruu/features/workspace/utils/json_string_converter.dart';
 import 'package:barruu/features/workspace/presentation/widgets/edit_document/page_drawer_widget.dart';
@@ -74,7 +72,7 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
         child: Text(
           'No tabs configured',
           style: theme.textTheme.bodyMedium?.copyWith(
-            color: theme.colorScheme.onSurface.withOpacity(0.5),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
           ),
         ),
       );
@@ -114,7 +112,7 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: theme.colorScheme.outline.withOpacity(0.15),
+          color: theme.colorScheme.outline.withValues(alpha: 0.15),
           width: 1,
         ),
       ),
@@ -123,14 +121,14 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
           // TabBar at the top with improved styling
           Container(
             decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.5),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(16),
                 topRight: Radius.circular(16),
               ),
               border: Border(
                 bottom: BorderSide(
-                  color: theme.colorScheme.outline.withOpacity(0.15),
+                  color: theme.colorScheme.outline.withValues(alpha: 0.15),
                   width: 1,
                 ),
               ),
@@ -152,7 +150,7 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0.2,
               ),
-              unselectedLabelColor: theme.colorScheme.onSurface.withOpacity(0.7),
+              unselectedLabelColor: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               unselectedLabelStyle: theme.textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.w500,
               ),
@@ -218,20 +216,20 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
               Icon(
                 IconsaxPlusLinear.document_text,
                 size: 48,
-                color: theme.colorScheme.onSurface.withOpacity(0.3),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
               ),
               const SizedBox(height: 16),
               Text(
                 'No content yet',
                 style: theme.textTheme.titleMedium?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.5),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                 ),
               ),
               const SizedBox(height: 8),
               Text(
                 'Add content in edit mode',
                 style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.4),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
                 ),
               ),
             ],
@@ -264,13 +262,13 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
           color: theme.colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: theme.colorScheme.outline.withOpacity(0.2),
+            color: theme.colorScheme.outline.withValues(alpha: 0.2),
           ),
         ),
         codeblockPadding: const EdgeInsets.all(16),
         blockquote: baseStyle.copyWith(
           fontStyle: FontStyle.italic,
-          color: theme.colorScheme.onSurface.withOpacity(0.8),
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
         ),
         blockquoteDecoration: BoxDecoration(
           border: Border(
@@ -315,7 +313,7 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
         horizontalRuleDecoration: BoxDecoration(
           border: Border(
             top: BorderSide(
-              color: theme.colorScheme.outline.withOpacity(0.3),
+              color: theme.colorScheme.outline.withValues(alpha: 0.3),
               width: 1,
             ),
           ),
@@ -353,7 +351,7 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                     decoration: BoxDecoration(
                       color: isSelected 
                           ? theme.colorScheme.primary 
-                          : theme.colorScheme.surfaceVariant,
+                          : theme.colorScheme.surfaceContainerHighest,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
@@ -402,7 +400,7 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  color: theme.colorScheme.outline.withOpacity(0.3),
+                  color: theme.colorScheme.outline.withValues(alpha: 0.3),
                   width: 1,
                 ),
               ),
@@ -419,7 +417,7 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                 ),
               ),
               labelColor: theme.colorScheme.primary,
-              unselectedLabelColor: theme.colorScheme.onSurface.withOpacity(0.6),
+              unselectedLabelColor: theme.colorScheme.onSurface.withValues(alpha: 0.6),
               tabs: List.generate(tabs.length, (index) {
                 final tab = tabs[index] as Map<String, dynamic>;
                 return Tab(
@@ -460,7 +458,7 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: theme.colorScheme.outline.withOpacity(0.15),
+          color: theme.colorScheme.outline.withValues(alpha: 0.15),
         ),
       ),
       child: Column(
@@ -468,7 +466,7 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceVariant.withOpacity(0.5),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(16),
                 topRight: Radius.circular(16),
@@ -487,12 +485,12 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                       decoration: BoxDecoration(
                         color: isSelected 
-                            ? theme.colorScheme.primary.withOpacity(0.2)
+                            ? theme.colorScheme.primary.withValues(alpha: 0.2)
                             : Colors.transparent,
                         borderRadius: BorderRadius.circular(8),
                         border: isSelected 
                             ? Border.all(
-                                color: theme.colorScheme.primary.withOpacity(0.5),
+                                color: theme.colorScheme.primary.withValues(alpha: 0.5),
                               )
                             : null,
                       ),
@@ -567,7 +565,7 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                       style: theme.textTheme.labelMedium?.copyWith(
                         color: isSelected 
                             ? theme.colorScheme.primary 
-                            : theme.colorScheme.onSurface.withOpacity(0.6),
+                            : theme.colorScheme.onSurface.withValues(alpha: 0.6),
                         fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
                       ),
                     ),
@@ -606,7 +604,7 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: theme.colorScheme.outline.withOpacity(0.15),
+          color: theme.colorScheme.outline.withValues(alpha: 0.15),
         ),
       ),
       child: Row(
@@ -614,7 +612,7 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
           Container(
             width: 200,
             decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceVariant.withOpacity(0.5),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(16),
                 bottomLeft: Radius.circular(16),
@@ -632,7 +630,7 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       color: isSelected 
-                          ? theme.colorScheme.primary.withOpacity(0.15)
+                          ? theme.colorScheme.primary.withValues(alpha: 0.15)
                           : Colors.transparent,
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -678,7 +676,7 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: theme.colorScheme.outline.withOpacity(0.15),
+          color: theme.colorScheme.outline.withValues(alpha: 0.15),
         ),
       ),
       child: Column(
@@ -696,12 +694,12 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       color: isSelected 
-                          ? theme.colorScheme.primary.withOpacity(0.15)
-                          : theme.colorScheme.surfaceVariant.withOpacity(0.3),
+                          ? theme.colorScheme.primary.withValues(alpha: 0.15)
+                          : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(8),
                       border: isSelected 
                           ? Border.all(
-                              color: theme.colorScheme.primary.withOpacity(0.5),
+                              color: theme.colorScheme.primary.withValues(alpha: 0.5),
                             )
                           : null,
                     ),
@@ -750,10 +748,10 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
             margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
             padding: const EdgeInsets.all(4),
             decoration: BoxDecoration(
-              color: theme.colorScheme.surfaceVariant.withOpacity(0.5),
+              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                color: theme.colorScheme.outline.withOpacity(0.3),
+                color: theme.colorScheme.outline.withValues(alpha: 0.3),
               ),
             ),
             child: Row(
@@ -838,7 +836,7 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                       border: Border.all(
                         color: isSelected 
                             ? theme.colorScheme.primary 
-                            : theme.colorScheme.outline.withOpacity(0.2),
+                            : theme.colorScheme.outline.withValues(alpha: 0.2),
                         width: isSelected ? 2 : 1,
                       ),
                     ),
@@ -851,7 +849,7 @@ class _TabsReaderBlockState extends ConsumerState<TabsReaderBlock> with SingleTi
                             decoration: BoxDecoration(
                               color: isSelected 
                                   ? theme.colorScheme.primaryContainer 
-                                  : theme.colorScheme.surfaceVariant,
+                                  : theme.colorScheme.surfaceContainerHighest,
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Icon(

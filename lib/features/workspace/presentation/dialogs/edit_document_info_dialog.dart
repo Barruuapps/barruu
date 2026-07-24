@@ -241,7 +241,7 @@ Future<void> showEditDocumentInfoDialog({
   final theme = Theme.of(context);
   await showDialog(
     context: context,
-    barrierColor: theme.colorScheme.onSurface.withOpacity(0.3),
+    barrierColor: theme.colorScheme.onSurface.withValues(alpha: 0.3),
     builder: (ctx) => EditDocumentInfoDialog(
       doc: doc,
       meta: meta,

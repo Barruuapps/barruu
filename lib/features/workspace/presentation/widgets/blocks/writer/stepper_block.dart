@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:barruu/core/widgets/blocks/base_editable_block.dart';
-import 'package:barruu/features/workspace/domain/entities/block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/blocks/block_empty_state.dart';
 import 'package:barruu/features/workspace/presentation/widgets/blocks/reader/stepper_reader_block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/utils/toolbar.dart';
@@ -279,7 +278,7 @@ class _StepperBlockState extends BaseEditableBlockState<StepperBlock> {
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            border: Border.all(color: theme.colorScheme.outline.withOpacity(0.3)),
+            border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
@@ -383,13 +382,13 @@ class _StepperBlockState extends BaseEditableBlockState<StepperBlock> {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: isCompleted 
-            ? theme.colorScheme.primaryContainer.withOpacity(0.3)
-            : theme.colorScheme.surfaceVariant.withOpacity(0.3),
+            ? theme.colorScheme.primaryContainer.withValues(alpha: 0.3)
+            : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: isCompleted 
-              ? theme.colorScheme.primary.withOpacity(0.4)
-              : theme.colorScheme.outline.withOpacity(0.2),
+              ? theme.colorScheme.primary.withValues(alpha: 0.4)
+              : theme.colorScheme.outline.withValues(alpha: 0.2),
           width: isCompleted ? 2 : 1,
         ),
       ),
@@ -406,12 +405,12 @@ class _StepperBlockState extends BaseEditableBlockState<StepperBlock> {
                   decoration: BoxDecoration(
                     color: isCompleted 
                         ? theme.colorScheme.primary
-                        : theme.colorScheme.surfaceVariant,
+                        : theme.colorScheme.surfaceContainerHighest,
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: isCompleted 
                           ? theme.colorScheme.primary
-                          : theme.colorScheme.outline.withOpacity(0.5),
+                          : theme.colorScheme.outline.withValues(alpha: 0.5),
                       width: 2,
                     ),
                   ),
@@ -441,7 +440,7 @@ class _StepperBlockState extends BaseEditableBlockState<StepperBlock> {
                     fontWeight: FontWeight.w600,
                     decoration: isCompleted ? TextDecoration.lineThrough : null,
                     color: isCompleted 
-                        ? theme.colorScheme.onSurface.withOpacity(0.6)
+                        ? theme.colorScheme.onSurface.withValues(alpha: 0.6)
                         : null,
                   ),
                   decoration: const InputDecoration(
@@ -469,7 +468,7 @@ class _StepperBlockState extends BaseEditableBlockState<StepperBlock> {
               style: theme.textTheme.bodySmall?.copyWith(
                 decoration: isCompleted ? TextDecoration.lineThrough : null,
                 color: isCompleted 
-                    ? theme.colorScheme.onSurface.withOpacity(0.5)
+                    ? theme.colorScheme.onSurface.withValues(alpha: 0.5)
                     : null,
               ),
               decoration: const InputDecoration(

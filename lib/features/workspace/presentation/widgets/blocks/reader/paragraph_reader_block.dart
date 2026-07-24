@@ -565,7 +565,7 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
       margin: margin,
       decoration: BoxDecoration(
         color: styleUtils.parseHex(widget.block.style.background) ??
-            theme.colorScheme.primaryContainer.withOpacity(0.25),
+            theme.colorScheme.primaryContainer.withValues(alpha: 0.25),
         border: Border(
           left: BorderSide(color: accentColor, width: 4),
         ),
@@ -628,8 +628,8 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
             ? null
             : LinearGradient(
                 colors: [
-                  theme.colorScheme.secondaryContainer.withOpacity(0.45),
-                  theme.colorScheme.tertiaryContainer.withOpacity(0.45),
+                  theme.colorScheme.secondaryContainer.withValues(alpha: 0.45),
+                  theme.colorScheme.tertiaryContainer.withValues(alpha: 0.45),
                 ],
               ),
         color: hasCustomBg
@@ -666,7 +666,7 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
 
     final quoteMarkStyle = baseStyle.copyWith(
       fontSize: (baseStyle.fontSize ?? 18.0) * 3.5,
-      color: accentColor.withOpacity(0.35),
+      color: accentColor.withValues(alpha: 0.35),
       height: 0.8,
       fontWeight: FontWeight.bold,
     );
@@ -732,7 +732,7 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
       margin: margin,
       decoration: BoxDecoration(
         color: styleUtils.parseHex(widget.block.style.background) ??
-            resolvedAccent.withOpacity(0.08),
+            resolvedAccent.withValues(alpha: 0.08),
         border: Border(
           left: BorderSide(color: resolvedAccent, width: 4),
         ),
@@ -798,7 +798,7 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
         ),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.shadow.withOpacity(0.10),
+            color: theme.colorScheme.shadow.withValues(alpha: 0.10),
             blurRadius: 8,
             offset: const Offset(0, 3),
           ),
@@ -824,7 +824,7 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Icon(Icons.format_quote_rounded,
-                    size: 22, color: accentColor.withOpacity(0.5)),
+                    size: 22, color: accentColor.withValues(alpha: 0.5)),
                 const SizedBox(width: 8),
                 Expanded(
                   child: MarkdownBody(
@@ -858,7 +858,7 @@ class _ParagraphReaderBlockState extends ConsumerState<ParagraphReaderBlock> {
     final styleUtils = ref.read(styleUtilsProvider);
     final rulerColor =
         styleUtils.parseHex(widget.block.style.borderColor) ??
-            theme.colorScheme.primary.withOpacity(0.4);
+            theme.colorScheme.primary.withValues(alpha: 0.4);
 
     final centeredSheet = MarkdownStyleSheet(
       p: baseStyle.copyWith(

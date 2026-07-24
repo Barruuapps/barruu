@@ -622,7 +622,7 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
       onTap: widget.isEditing ? _showVideoSourceDialog : null,
       child: Container(
         decoration: BoxDecoration(
-          color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.5),
+          color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Center(
@@ -647,7 +647,7 @@ class _VideoBlockState extends BaseEditableBlockState<VideoBlock> with WidgetsBi
                 Text(
                   'Choose from gallery, YouTube, or URL',
                   style: TextStyle(
-                    color: theme.colorScheme.onSurfaceVariant.withOpacity(0.7),
+                    color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
                     fontSize: 12,
                   ),
                 ),

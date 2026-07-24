@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:barruu/core/widgets/blocks/base_editable_block.dart';
-import 'package:barruu/features/workspace/domain/entities/block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/blocks/reader/true_false_reader_block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/utils/toolbar.dart';
 import 'package:barruu/features/workspace/utils/debouncer.dart';
@@ -111,7 +110,7 @@ class _TrueFalseBlockState extends BaseEditableBlockState<TrueFalseBlock> {
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
-            border: Border.all(color: theme.colorScheme.outline.withOpacity(0.2)),
+            border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.2)),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
@@ -168,7 +167,7 @@ class _TrueFalseBlockState extends BaseEditableBlockState<TrueFalseBlock> {
                           decoration: BoxDecoration(
                             color: correctAnswer
                                 ? theme.colorScheme.primary
-                                : theme.colorScheme.surfaceVariant.withOpacity(0.5),
+                                : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Row(
@@ -215,7 +214,7 @@ class _TrueFalseBlockState extends BaseEditableBlockState<TrueFalseBlock> {
                           decoration: BoxDecoration(
                             color: !correctAnswer
                                 ? theme.colorScheme.primary
-                                : theme.colorScheme.surfaceVariant.withOpacity(0.5),
+                                : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Row(

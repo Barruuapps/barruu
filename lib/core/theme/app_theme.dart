@@ -260,7 +260,7 @@ class AppTheme {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: colorScheme.outline.withOpacity(0.5)),
+          borderSide: BorderSide(color: colorScheme.outline.withValues(alpha: 0.5)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
@@ -272,14 +272,14 @@ class AppTheme {
         ),
         labelStyle: textTheme.bodyMedium,
         hintStyle: textTheme.bodyMedium?.copyWith(
-          color: colorScheme.onSurface.withOpacity(0.6),
+          color: colorScheme.onSurface.withValues(alpha: 0.6),
         ),
       ),
       chipTheme: ChipThemeData(
         backgroundColor: colorScheme.surface,
         disabledColor: colorScheme.surfaceContainerHighest,
-        selectedColor: colorScheme.primary.withOpacity(0.1),
-        secondarySelectedColor: colorScheme.secondary.withOpacity(0.1),
+        selectedColor: colorScheme.primary.withValues(alpha: 0.1),
+        secondarySelectedColor: colorScheme.secondary.withValues(alpha: 0.1),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -289,14 +289,14 @@ class AppTheme {
       dividerTheme: DividerThemeData(
         space: 1,
         thickness: 0.5,
-        color: colorScheme.outlineVariant.withOpacity(0.3),
+        color: colorScheme.outlineVariant.withValues(alpha: 0.3),
       ),
       switchTheme: SwitchThemeData(
         thumbColor: WidgetStateProperty.resolveWith((states) => colorScheme.onPrimary),
         trackColor: WidgetStateProperty.resolveWith((states) {
           return states.contains(WidgetState.selected)
               ? colorScheme.primary
-              : colorScheme.outline.withOpacity(0.4);
+              : colorScheme.outline.withValues(alpha: 0.4);
         }),
         trackOutlineColor: WidgetStateProperty.all(Colors.transparent),
       ),
@@ -315,7 +315,7 @@ class AppTheme {
       ),
       snackBarTheme: SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
-        backgroundColor: colorScheme.inverseSurface.withOpacity(0.9),
+        backgroundColor: colorScheme.inverseSurface.withValues(alpha: 0.9),
         contentTextStyle: textTheme.bodyMedium?.copyWith(
           color: colorScheme.onInverseSurface,
         ),
@@ -333,7 +333,7 @@ class AppTheme {
       ),
       tabBarTheme: TabBarThemeData(
         labelColor: colorScheme.primary,
-        unselectedLabelColor: colorScheme.onSurface.withOpacity(0.6),
+        unselectedLabelColor: colorScheme.onSurface.withValues(alpha: 0.6),
         labelStyle: textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
         unselectedLabelStyle: textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
         indicatorSize: TabBarIndicatorSize.label,

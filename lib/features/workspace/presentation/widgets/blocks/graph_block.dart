@@ -328,7 +328,7 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
                 textAlign: textAlign,
                 style: textStyle.copyWith(
                   fontStyle: FontStyle.italic,
-                  color: color.withOpacity(0.7),
+                  color: color.withValues(alpha: 0.7),
                 ),
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -337,7 +337,7 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
                   ),
                   hintText: 'Optional caption...',
                   hintStyle: textStyle.copyWith(
-                    color: color.withOpacity(0.3),
+                    color: color.withValues(alpha: 0.3),
                     fontStyle: FontStyle.italic,
                   ),
                   contentPadding: const EdgeInsets.symmetric(
@@ -406,7 +406,7 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
                 textAlign: textAlign,
                 style: textStyle.copyWith(
                   fontStyle: FontStyle.italic,
-                  color: color.withOpacity(0.7),
+                  color: color.withValues(alpha: 0.7),
                 ),
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -415,7 +415,7 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
                   ),
                   hintText: 'Optional caption...',
                   hintStyle: textStyle.copyWith(
-                    color: color.withOpacity(0.3),
+                    color: color.withValues(alpha: 0.3),
                     fontStyle: FontStyle.italic,
                   ),
                   contentPadding: const EdgeInsets.symmetric(
@@ -488,7 +488,7 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
                     decoration: InputDecoration(
                       hintText: i == 0 ? 'e.g. x^2 + 1' : 'e.g. sin(x)',
                       hintStyle: textStyle.copyWith(
-                        color: color.withOpacity(0.4),
+                        color: color.withValues(alpha: 0.4),
                         fontStyle: FontStyle.italic,
                       ),
                       border: OutlineInputBorder(
@@ -499,7 +499,7 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide(
-                          color: equationColor.withOpacity(0.4),
+                          color: equationColor.withValues(alpha: 0.4),
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
@@ -514,7 +514,7 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
                               icon: const Icon(
                                   Icons.remove_circle_outline,
                                   size: 20),
-                              color: theme.colorScheme.error.withOpacity(0.7),
+                              color: theme.colorScheme.error.withValues(alpha: 0.7),
                               tooltip: 'Remove equation',
                               onPressed: () => _removeEquation(i),
                               padding: EdgeInsets.zero,
@@ -577,7 +577,7 @@ class _GraphBlockState extends BaseEditableBlockState<GraphBlock> {
       decoration: InputDecoration(
         hintText: _getExpressionHint(),
         hintStyle: textStyle.copyWith(
-          color: color.withOpacity(0.4),
+          color: color.withValues(alpha: 0.4),
           fontStyle: FontStyle.italic,
         ),
         border: OutlineInputBorder(

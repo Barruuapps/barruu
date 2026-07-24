@@ -254,7 +254,7 @@ class _TrueFalseReaderBlockState extends ConsumerState<TrueFalseReaderBlock> {
                   : 'Ready to check!',
               style: baseStyle.copyWith(
                 fontSize: (baseStyle.fontSize ?? 14) * 0.82,
-                color: theme.colorScheme.onSurface.withOpacity(0.6),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                 fontStyle: FontStyle.italic,
               ),
             ),
@@ -407,25 +407,25 @@ class _TrueFalseReaderBlockState extends ConsumerState<TrueFalseReaderBlock> {
     if (_isSubmitted) {
       if (isCorrectChoice) {
         borderColor = _kCorrectColor;
-        bgColor = _kCorrectColor.withOpacity(0.08);
+        bgColor = _kCorrectColor.withValues(alpha: 0.08);
         contentColor = _kCorrectColor;
       } else if (isWrongSelection) {
         borderColor = theme.colorScheme.error;
-        bgColor = theme.colorScheme.error.withOpacity(0.06);
+        bgColor = theme.colorScheme.error.withValues(alpha: 0.06);
         contentColor = theme.colorScheme.error;
       } else {
-        borderColor = theme.colorScheme.outline.withOpacity(0.2);
+        borderColor = theme.colorScheme.outline.withValues(alpha: 0.2);
         bgColor = Colors.transparent;
-        contentColor = theme.colorScheme.onSurface.withOpacity(0.3);
+        contentColor = theme.colorScheme.onSurface.withValues(alpha: 0.3);
       }
     } else if (isSelected) {
       borderColor = theme.colorScheme.primary;
-      bgColor = theme.colorScheme.primary.withOpacity(0.09);
+      bgColor = theme.colorScheme.primary.withValues(alpha: 0.09);
       contentColor = theme.colorScheme.primary;
     } else {
-      borderColor = theme.colorScheme.outline.withOpacity(0.4);
-      bgColor = theme.colorScheme.surfaceContainerHighest.withOpacity(0.5);
-      contentColor = theme.colorScheme.onSurface.withOpacity(0.65);
+      borderColor = theme.colorScheme.outline.withValues(alpha: 0.4);
+      bgColor = theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5);
+      contentColor = theme.colorScheme.onSurface.withValues(alpha: 0.65);
     }
 
     return Material(
@@ -512,25 +512,25 @@ class _TrueFalseReaderBlockState extends ConsumerState<TrueFalseReaderBlock> {
     if (_isSubmitted) {
       if (isCorrectChoice) {
         borderColor = _kCorrectColor;
-        bgColor = _kCorrectColor.withOpacity(0.1);
+        bgColor = _kCorrectColor.withValues(alpha: 0.1);
         contentColor = _kCorrectColor;
       } else if (isWrongSelection) {
         borderColor = theme.colorScheme.error;
-        bgColor = theme.colorScheme.error.withOpacity(0.08);
+        bgColor = theme.colorScheme.error.withValues(alpha: 0.08);
         contentColor = theme.colorScheme.error;
       } else {
-        borderColor = theme.colorScheme.outline.withOpacity(0.2);
+        borderColor = theme.colorScheme.outline.withValues(alpha: 0.2);
         bgColor = Colors.transparent;
-        contentColor = theme.colorScheme.onSurface.withOpacity(0.3);
+        contentColor = theme.colorScheme.onSurface.withValues(alpha: 0.3);
       }
     } else if (isSelected) {
       borderColor = theme.colorScheme.primary;
-      bgColor = theme.colorScheme.primary.withOpacity(0.09);
+      bgColor = theme.colorScheme.primary.withValues(alpha: 0.09);
       contentColor = theme.colorScheme.primary;
     } else {
-      borderColor = theme.colorScheme.outline.withOpacity(0.4);
+      borderColor = theme.colorScheme.outline.withValues(alpha: 0.4);
       bgColor = Colors.transparent;
-      contentColor = theme.colorScheme.onSurface.withOpacity(0.65);
+      contentColor = theme.colorScheme.onSurface.withValues(alpha: 0.65);
     }
 
     return InkWell(
@@ -591,14 +591,14 @@ class _TrueFalseReaderBlockState extends ConsumerState<TrueFalseReaderBlock> {
             dotColor = theme.colorScheme.error;
             textColor = theme.colorScheme.error;
           } else {
-            dotColor = theme.colorScheme.outline.withOpacity(0.3);
-            textColor = theme.colorScheme.onSurface.withOpacity(0.4);
+            dotColor = theme.colorScheme.outline.withValues(alpha: 0.3);
+            textColor = theme.colorScheme.onSurface.withValues(alpha: 0.4);
           }
         } else if (isSelected) {
           dotColor = theme.colorScheme.primary;
           textColor = theme.colorScheme.primary;
         } else {
-          dotColor = theme.colorScheme.outline.withOpacity(0.5);
+          dotColor = theme.colorScheme.outline.withValues(alpha: 0.5);
           textColor = baseStyle.color ?? theme.colorScheme.onSurface;
         }
 
@@ -699,14 +699,14 @@ class _TrueFalseReaderBlockState extends ConsumerState<TrueFalseReaderBlock> {
         contentColor = theme.colorScheme.onError;
       } else {
         bgColor = Colors.transparent;
-        contentColor = theme.colorScheme.onSurface.withOpacity(0.3);
+        contentColor = theme.colorScheme.onSurface.withValues(alpha: 0.3);
       }
     } else if (isSelected) {
       bgColor = theme.colorScheme.primary;
       contentColor = theme.colorScheme.onPrimary;
     } else {
       bgColor = Colors.transparent;
-      contentColor = theme.colorScheme.onSurface.withOpacity(0.55);
+      contentColor = theme.colorScheme.onSurface.withValues(alpha: 0.55);
     }
 
     return GestureDetector(
@@ -794,46 +794,46 @@ class _TrueFalseReaderBlockState extends ConsumerState<TrueFalseReaderBlock> {
     if (_isSubmitted) {
       if (isCorrectChoice) {
         borderColor = _kCorrectColor;
-        bgColor = _kCorrectColor.withOpacity(0.1);
+        bgColor = _kCorrectColor.withValues(alpha: 0.1);
         contentColor = _kCorrectColor;
         shadows = [
           BoxShadow(
-            color: _kCorrectColor.withOpacity(0.3),
+            color: _kCorrectColor.withValues(alpha: 0.3),
             blurRadius: 12,
             spreadRadius: 1,
           ),
         ];
       } else if (isWrongSelection) {
         borderColor = theme.colorScheme.error;
-        bgColor = theme.colorScheme.error.withOpacity(0.07);
+        bgColor = theme.colorScheme.error.withValues(alpha: 0.07);
         contentColor = theme.colorScheme.error;
         shadows = null;
       } else {
-        borderColor = theme.colorScheme.outline.withOpacity(0.15);
+        borderColor = theme.colorScheme.outline.withValues(alpha: 0.15);
         bgColor = Colors.transparent;
-        contentColor = theme.colorScheme.onSurface.withOpacity(0.2);
+        contentColor = theme.colorScheme.onSurface.withValues(alpha: 0.2);
         shadows = null;
       }
     } else if (isSelected) {
       borderColor = theme.colorScheme.primary;
-      bgColor = theme.colorScheme.primary.withOpacity(0.1);
+      bgColor = theme.colorScheme.primary.withValues(alpha: 0.1);
       contentColor = theme.colorScheme.primary;
       shadows = [
         BoxShadow(
-          color: theme.colorScheme.primary.withOpacity(0.25),
+          color: theme.colorScheme.primary.withValues(alpha: 0.25),
           blurRadius: 10,
           spreadRadius: 1,
         ),
       ];
     } else if (isDimmed) {
-      borderColor = theme.colorScheme.outline.withOpacity(0.2);
+      borderColor = theme.colorScheme.outline.withValues(alpha: 0.2);
       bgColor = Colors.transparent;
-      contentColor = theme.colorScheme.onSurface.withOpacity(0.25);
+      contentColor = theme.colorScheme.onSurface.withValues(alpha: 0.25);
       shadows = null;
     } else {
-      borderColor = theme.colorScheme.outline.withOpacity(0.45);
+      borderColor = theme.colorScheme.outline.withValues(alpha: 0.45);
       bgColor = Colors.transparent;
-      contentColor = theme.colorScheme.onSurface.withOpacity(0.65);
+      contentColor = theme.colorScheme.onSurface.withValues(alpha: 0.65);
       shadows = null;
     }
 
@@ -881,21 +881,21 @@ class _TrueFalseReaderBlockState extends ConsumerState<TrueFalseReaderBlock> {
         leading: Icon(
           Icons.lightbulb_outline_rounded,
           size: 18,
-          color: theme.colorScheme.onSurface.withOpacity(0.55),
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.55),
         ),
         title: Text(
           'See Explanation',
           style: baseStyle.copyWith(
             fontSize: (baseStyle.fontSize ?? 14) * 0.9,
-            color: theme.colorScheme.onSurface.withOpacity(0.7),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
             fontWeight: FontWeight.w500,
           ),
         ),
         tilePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
         childrenPadding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
-        backgroundColor: theme.colorScheme.surfaceVariant.withOpacity(0.35),
-        collapsedBackgroundColor: theme.colorScheme.surfaceVariant.withOpacity(
-          0.18,
+        backgroundColor: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.35),
+        collapsedBackgroundColor: theme.colorScheme.surfaceContainerHighest.withValues(
+          alpha: 0.18,
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         collapsedShape: RoundedRectangleBorder(
@@ -906,7 +906,7 @@ class _TrueFalseReaderBlockState extends ConsumerState<TrueFalseReaderBlock> {
             explanation,
             style: baseStyle.copyWith(
               fontSize: (baseStyle.fontSize ?? 14) * 0.9,
-              color: theme.colorScheme.onSurface.withOpacity(0.7),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
             ),
           ),
         ],
@@ -941,29 +941,29 @@ class _TrueFalseReaderBlockState extends ConsumerState<TrueFalseReaderBlock> {
     if (_isSubmitted) {
       if (isCorrectChoice) {
         borderColor = _kCorrectColor;
-        bgColor = _kCorrectColor.withOpacity(0.1);
+        bgColor = _kCorrectColor.withValues(alpha: 0.1);
         contentColor = _kCorrectColor;
         borderWidth = 2;
       } else if (isWrongSelection) {
         borderColor = theme.colorScheme.error;
-        bgColor = theme.colorScheme.error.withOpacity(0.08);
+        bgColor = theme.colorScheme.error.withValues(alpha: 0.08);
         contentColor = theme.colorScheme.error;
         borderWidth = 2;
       } else {
-        borderColor = theme.colorScheme.outline.withOpacity(0.25);
+        borderColor = theme.colorScheme.outline.withValues(alpha: 0.25);
         bgColor = Colors.transparent;
-        contentColor = theme.colorScheme.onSurface.withOpacity(0.35);
+        contentColor = theme.colorScheme.onSurface.withValues(alpha: 0.35);
         borderWidth = 1;
       }
     } else if (isSelected) {
       borderColor = theme.colorScheme.primary;
-      bgColor = theme.colorScheme.primary.withOpacity(0.1);
+      bgColor = theme.colorScheme.primary.withValues(alpha: 0.1);
       contentColor = theme.colorScheme.primary;
       borderWidth = 2;
     } else {
-      borderColor = theme.colorScheme.outline.withOpacity(0.45);
+      borderColor = theme.colorScheme.outline.withValues(alpha: 0.45);
       bgColor = Colors.transparent;
-      contentColor = theme.colorScheme.onSurface.withOpacity(0.6);
+      contentColor = theme.colorScheme.onSurface.withValues(alpha: 0.6);
       borderWidth = 1;
     }
 

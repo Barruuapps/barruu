@@ -33,9 +33,9 @@ class MathReaderBlock extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          border: Border.all(color: theme.colorScheme.outline.withOpacity(0.3)),
+          border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
           borderRadius: BorderRadius.circular(8),
-          color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.1),
+          color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.1),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -62,9 +62,9 @@ class MathReaderBlock extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          border: Border.all(color: theme.colorScheme.error.withOpacity(0.3)),
+          border: Border.all(color: theme.colorScheme.error.withValues(alpha: 0.3)),
           borderRadius: BorderRadius.circular(6),
-          color: theme.colorScheme.error.withOpacity(0.05),
+          color: theme.colorScheme.error.withValues(alpha: 0.05),
         ),
         child: Row(
           children: [
@@ -103,7 +103,7 @@ class MathReaderBlock extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
-        color: background.withOpacity(0.05),
+        color: background.withValues(alpha: 0.05),
       ),
       child: Center(
         child: ConstrainedBox(
@@ -208,7 +208,7 @@ class MathReaderBlock extends ConsumerWidget {
                   decoration: BoxDecoration(
                     border: Border(
                       left: BorderSide(
-                        color: theme.colorScheme.outline.withOpacity(0.3),
+                        color: theme.colorScheme.outline.withValues(alpha: 0.3),
                         width: 2,
                       ),
                     ),
@@ -218,7 +218,7 @@ class MathReaderBlock extends ConsumerWidget {
                     style: styleUtils.applyStyle(block.style).copyWith(
                       fontSize: (styleUtils.applyStyle(block.style).fontSize ?? 14) * 0.9,
                       fontStyle: FontStyle.italic,
-                      color: theme.colorScheme.onSurface.withOpacity(0.7),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
                     textAlign: textAlign,
                   ),

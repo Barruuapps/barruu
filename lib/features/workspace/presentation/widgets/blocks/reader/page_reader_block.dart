@@ -127,7 +127,7 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
       fontStyle: blockStyle.italic ? FontStyle.italic : FontStyle.normal,
       color: hasLink
           ? (styleUtils.parseHex(blockStyle.color) ?? theme.colorScheme.onSurface)
-          : theme.colorScheme.onSurface.withOpacity(0.5),
+          : theme.colorScheme.onSurface.withValues(alpha: 0.5),
       fontSize: blockStyle.fontSize,
       fontFamily: blockStyle.fontFamily,
       decoration: _buildDecoration(blockStyle),
@@ -147,18 +147,18 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
                 // Use full opacity when user sets an explicit background color
                 (styleUtils.parseHex(blockStyle.background) != null)
                     ? styleUtils.parseHex(blockStyle.background)!.withOpacity(hasLink ? 0.85 : 0.5)
-                    : theme.colorScheme.primaryContainer.withOpacity(hasLink ? 0.2 : 0.08),
+                    : theme.colorScheme.primaryContainer.withValues(alpha: hasLink ? 0.2 : 0.08),
                 (styleUtils.parseHex(blockStyle.background) != null)
                     ? styleUtils.parseHex(blockStyle.background)!.withOpacity(hasLink ? 0.65 : 0.3)
-                    : theme.colorScheme.primaryContainer.withOpacity(hasLink ? 0.05 : 0.02),
+                    : theme.colorScheme.primaryContainer.withValues(alpha: hasLink ? 0.05 : 0.02),
               ],
             ),
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
               color: hasLink
                   ? (styleUtils.parseHex(blockStyle.borderColor) ??
-                      theme.colorScheme.primary.withOpacity(0.4))
-                  : theme.colorScheme.outline.withOpacity(0.3),
+                      theme.colorScheme.primary.withValues(alpha: 0.4))
+                  : theme.colorScheme.outline.withValues(alpha: 0.3),
               width: 2,
             ),
           ),
@@ -169,7 +169,7 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.primary.withOpacity(hasLink ? 0.15 : 0.06),
+                    color: theme.colorScheme.primary.withValues(alpha: hasLink ? 0.15 : 0.06),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Icon(
@@ -178,7 +178,7 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
                         : IconsaxPlusLinear.link_circle,
                     color: hasLink
                         ? theme.colorScheme.primary
-                        : theme.colorScheme.onSurface.withOpacity(0.4),
+                        : theme.colorScheme.onSurface.withValues(alpha: 0.4),
                     size: 24,
                   ),
                 ),
@@ -197,7 +197,7 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
                       Text(
                         'Page not linked',
                         style: theme.textTheme.bodySmall?.copyWith(
-                          color: theme.colorScheme.onSurface.withOpacity(0.4),
+                          color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
                           fontSize: 11,
                           fontStyle: FontStyle.italic,
                         ),
@@ -248,7 +248,7 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
           foregroundColor: hasLink
               ? (styleUtils.parseHex(blockStyle.color) ??
                   theme.colorScheme.onPrimary)
-              : theme.colorScheme.onSurface.withOpacity(0.5),
+              : theme.colorScheme.onSurface.withValues(alpha: 0.5),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -269,7 +269,7 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
     final titleStyle = theme.textTheme.bodyMedium?.copyWith(
       color: hasLink
           ? (styleUtils.parseHex(blockStyle.color) ?? theme.colorScheme.onSurface)
-          : theme.colorScheme.onSurface.withOpacity(0.5),
+          : theme.colorScheme.onSurface.withValues(alpha: 0.5),
       fontWeight: blockStyle.bold ? FontWeight.bold : FontWeight.w500,
       fontStyle: blockStyle.italic ? FontStyle.italic : FontStyle.normal,
       fontSize: blockStyle.fontSize,
@@ -286,14 +286,14 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
           decoration: BoxDecoration(
             color: hasLink
                 ? (styleUtils.parseHex(blockStyle.background) ??
-                    theme.colorScheme.primaryContainer.withOpacity(0.15))
-                : theme.colorScheme.surfaceContainerHighest.withOpacity(0.2),
+                    theme.colorScheme.primaryContainer.withValues(alpha: 0.15))
+                : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.2),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
               color: hasLink
                   ? (styleUtils.parseHex(blockStyle.borderColor) ??
-                      theme.colorScheme.primary.withOpacity(0.4))
-                  : theme.colorScheme.outline.withOpacity(0.2),
+                      theme.colorScheme.primary.withValues(alpha: 0.4))
+                  : theme.colorScheme.outline.withValues(alpha: 0.2),
             ),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -304,7 +304,7 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
                   getPageIcon(blockStyle.customIcon),
                   color: hasLink
                       ? theme.colorScheme.primary
-                      : theme.colorScheme.onSurface.withOpacity(0.4),
+                      : theme.colorScheme.onSurface.withValues(alpha: 0.4),
                   size: 18,
                 ),
                 const SizedBox(width: 8),
@@ -341,7 +341,7 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
     final titleStyle = theme.textTheme.bodyMedium?.copyWith(
       color: hasLink
           ? (styleUtils.parseHex(blockStyle.color) ?? theme.colorScheme.primary)
-          : theme.colorScheme.onSurface.withOpacity(0.4),
+          : theme.colorScheme.onSurface.withValues(alpha: 0.4),
       fontWeight: blockStyle.bold ? FontWeight.bold : FontWeight.w500,
       fontStyle: blockStyle.italic ? FontStyle.italic : FontStyle.normal,
       fontSize: blockStyle.fontSize,
@@ -364,7 +364,7 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
                   color: hasLink
                       ? (styleUtils.parseHex(blockStyle.color) ??
                           theme.colorScheme.primary)
-                      : theme.colorScheme.onSurface.withOpacity(0.4),
+                      : theme.colorScheme.onSurface.withValues(alpha: 0.4),
                   size: 16,
                 ),
                 const SizedBox(width: 6),
@@ -450,7 +450,7 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
     final titleStyle = theme.textTheme.bodyLarge?.copyWith(
       color: hasLink
           ? (styleUtils.parseHex(blockStyle.color) ?? theme.colorScheme.onSurface)
-          : theme.colorScheme.onSurface.withOpacity(0.5),
+          : theme.colorScheme.onSurface.withValues(alpha: 0.5),
       fontWeight: blockStyle.bold ? FontWeight.bold : FontWeight.w600,
       fontStyle: blockStyle.italic ? FontStyle.italic : FontStyle.normal,
       fontSize: blockStyle.fontSize,
@@ -514,7 +514,7 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
       fontStyle: blockStyle.italic ? FontStyle.italic : FontStyle.normal,
       color: hasLink
           ? (styleUtils.parseHex(blockStyle.color) ?? theme.colorScheme.onSurface)
-          : theme.colorScheme.onSurface.withOpacity(0.5),
+          : theme.colorScheme.onSurface.withValues(alpha: 0.5),
       fontSize: blockStyle.fontSize,
       fontFamily: blockStyle.fontFamily,
       decoration: _buildDecoration(blockStyle),
@@ -532,7 +532,7 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
             borderRadius: BorderRadius.circular(14),
             boxShadow: [
               BoxShadow(
-                color: theme.colorScheme.shadow.withOpacity(0.12),
+                color: theme.colorScheme.shadow.withValues(alpha: 0.12),
                 blurRadius: 12,
                 offset: const Offset(0, 4),
               ),
@@ -545,7 +545,7 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
                 Container(
                   padding: const EdgeInsets.all(9),
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.primaryContainer.withOpacity(0.4),
+                    color: theme.colorScheme.primaryContainer.withValues(alpha: 0.4),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Icon(getPageIcon(blockStyle.customIcon),
@@ -606,7 +606,7 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
               colors: hasLink
                   ? gradientColors
                   : gradientColors
-                      .map((c) => c.withOpacity(0.4))
+                      .map((c) => c.withValues(alpha: 0.4))
                       .toList(),
             ),
             borderRadius: BorderRadius.circular(14),
@@ -618,7 +618,7 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
+                    color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Icon(getPageIcon(blockStyle.customIcon),
@@ -646,11 +646,11 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
       String pageTitle, bool hasLink, bool showIcon) {
     final textAlign = styleUtils.textAlignFromStyle(blockStyle);
     final borderColor = styleUtils.parseHex(blockStyle.borderColor) ??
-        theme.colorScheme.primary.withOpacity(0.6);
+        theme.colorScheme.primary.withValues(alpha: 0.6);
     final titleStyle = theme.textTheme.bodyLarge?.copyWith(
       color: hasLink
           ? (styleUtils.parseHex(blockStyle.color) ?? theme.colorScheme.primary)
-          : theme.colorScheme.onSurface.withOpacity(0.4),
+          : theme.colorScheme.onSurface.withValues(alpha: 0.4),
       fontWeight: blockStyle.bold ? FontWeight.bold : FontWeight.w600,
       fontStyle: blockStyle.italic ? FontStyle.italic : FontStyle.normal,
       fontSize: blockStyle.fontSize,
@@ -718,7 +718,7 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
         child: Container(
           decoration: BoxDecoration(
             color: styleUtils.parseHex(blockStyle.background) ??
-                theme.colorScheme.primaryContainer.withOpacity(0.12),
+                theme.colorScheme.primaryContainer.withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(16),
           ),
           padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
@@ -743,7 +743,7 @@ class _PageReaderBlockState extends ConsumerState<PageReaderBlock> {
                 Text(
                   'Page not linked',
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.4),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
                     fontStyle: FontStyle.italic,
                   ),
                 ),

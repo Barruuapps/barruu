@@ -72,9 +72,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen> with SingleTickerPr
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              theme.colorScheme.primaryContainer.withOpacity(0.3),
+              theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
               theme.colorScheme.surface,
-              theme.colorScheme.secondaryContainer.withOpacity(0.2),
+              theme.colorScheme.secondaryContainer.withValues(alpha: 0.2),
             ],
           ),
         ),
@@ -92,7 +92,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> with SingleTickerPr
                       borderRadius: BorderRadius.circular(24),
                       boxShadow: [
                         BoxShadow(
-                          color: theme.colorScheme.primary.withOpacity(0.3),
+                          color: theme.colorScheme.primary.withValues(alpha: 0.3),
                           blurRadius: 20,
                           spreadRadius: 5,
                         ),
@@ -133,7 +133,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> with SingleTickerPr
                 Text(
                   'Your Knowledge Companion',
                   style: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.7),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                     letterSpacing: 0.5,
                   ),
                 ),

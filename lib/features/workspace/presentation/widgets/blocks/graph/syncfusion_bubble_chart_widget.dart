@@ -107,7 +107,7 @@ class SyncfusionBubbleChartWidget extends StatelessWidget {
               yValueMapper: (BubbleChartData data, _) => data.y,
               sizeValueMapper: (BubbleChartData data, _) => data.size * (isWide ? _desktopScaleFactor : _mobileScaleFactor),
               name: 'Data',
-              color: theme.colorScheme.primary.withOpacity(0.7),
+              color: theme.colorScheme.primary.withValues(alpha: 0.7),
               borderColor: theme.colorScheme.primary,
               borderWidth: 1,
               dataLabelSettings: DataLabelSettings(

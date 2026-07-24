@@ -88,10 +88,10 @@ class _EvaluationButtonBlockState
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             border: Border.all(
-              color: theme.colorScheme.primary.withOpacity(0.5),
+              color: theme.colorScheme.primary.withValues(alpha: 0.5),
             ),
             borderRadius: BorderRadius.circular(8),
-            color: theme.colorScheme.primary.withOpacity(0.05),
+            color: theme.colorScheme.primary.withValues(alpha: 0.05),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,12 +145,12 @@ class _EvaluationButtonBlockState
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.surfaceContainerHighest.withOpacity(
-                    0.3,
+                  color: theme.colorScheme.surfaceContainerHighest.withValues(
+                    alpha: 0.3,
                   ),
                   borderRadius: BorderRadius.circular(4),
                   border: Border.all(
-                    color: theme.colorScheme.outline.withOpacity(0.2),
+                    color: theme.colorScheme.outline.withValues(alpha: 0.2),
                   ),
                 ),
                 child: Row(
@@ -180,19 +180,19 @@ class _EvaluationButtonBlockState
                   onPressed: null, // disabled preview
                   icon: Icon(
                     Icons.calculate_outlined,
-                    color: theme.colorScheme.onSurface.withOpacity(0.4),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
                   ),
                   label: Text(
                     _buttonTextController.text.isNotEmpty
                         ? _buttonTextController.text
                         : 'Show Results',
                     style: textStyle.copyWith(
-                      color: theme.colorScheme.onSurface.withOpacity(0.4),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
                     disabledBackgroundColor: theme.colorScheme.primary
-                        .withOpacity(0.12),
+                        .withValues(alpha: 0.12),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 24,
                       vertical: 12,
@@ -206,7 +206,7 @@ class _EvaluationButtonBlockState
                   'Preview — button is active in read mode',
                   style: textStyle.copyWith(
                     fontSize: 10,
-                    color: theme.colorScheme.onSurface.withOpacity(0.4),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
                   ),
                 ),
               ),

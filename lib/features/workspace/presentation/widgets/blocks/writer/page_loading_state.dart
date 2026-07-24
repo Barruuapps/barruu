@@ -7,10 +7,10 @@ import 'package:barruu/core/widgets/shimmer_loading.dart';
 Widget buildPageBlockLoadingState(ThemeData theme) {
   return Container(
     decoration: BoxDecoration(
-      color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
+      color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
       borderRadius: BorderRadius.circular(12),
       border: Border.all(
-        color: theme.colorScheme.outline.withOpacity(0.3),
+        color: theme.colorScheme.outline.withValues(alpha: 0.3),
         width: 1.5,
       ),
     ),
@@ -26,7 +26,7 @@ Widget buildPageBlockLoadingState(ThemeData theme) {
         Text(
           'Creating page...',
           style: theme.textTheme.bodyMedium?.copyWith(
-            color: theme.colorScheme.onSurface.withOpacity(0.7),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
           ),
         ),
       ],

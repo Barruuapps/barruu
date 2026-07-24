@@ -7,7 +7,6 @@ import 'package:barruu/features/workspace/domain/entities/block_type.dart';
 import 'package:barruu/features/workspace/presentation/dialogs/graph_type_selector_dialog.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:uuid/uuid.dart';
 import 'dart:convert';
 
 // Service imports

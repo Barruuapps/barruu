@@ -86,8 +86,4 @@ class AppThemeModeNotifier extends StateNotifier<AppThemeMode> {
     }
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }

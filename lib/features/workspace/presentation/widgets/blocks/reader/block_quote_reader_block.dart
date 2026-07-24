@@ -503,7 +503,7 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
               children: [
                 Icon(
                   Icons.format_quote,
-                  color: borderColor.withOpacity(0.5),
+                  color: borderColor.withValues(alpha: 0.5),
                   size: ResponsiveUtils.getIconSize(context),
                 ),
                 const SizedBox(width: 12),
@@ -578,8 +578,8 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            theme.colorScheme.primaryContainer.withOpacity(0.6),
-            theme.colorScheme.secondaryContainer.withOpacity(0.6),
+            theme.colorScheme.primaryContainer.withValues(alpha: 0.6),
+            theme.colorScheme.secondaryContainer.withValues(alpha: 0.6),
           ],
         ),
         borderRadius: BorderRadius.circular(12),
@@ -614,7 +614,7 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
       padding: padding,
       margin: margin,
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceVariant.withOpacity(0.5),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -674,7 +674,7 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.shadow.withOpacity(0.1),
+            color: theme.colorScheme.shadow.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),
@@ -686,7 +686,7 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
           Icon(
             Icons.format_quote,
             size: 28,
-            color: borderColor.withOpacity(0.5),
+            color: borderColor.withValues(alpha: 0.5),
           ),
           const SizedBox(height: 6),
           quoteContent,
@@ -712,7 +712,7 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
       padding: padding,
       margin: margin,
       decoration: BoxDecoration(
-        color: theme.colorScheme.primaryContainer.withOpacity(0.5),
+        color: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: borderColor, width: 1.5),
       ),
@@ -788,7 +788,7 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
               child: Container(
                 padding: padding,
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.surfaceVariant.withOpacity(0.5),
+                  color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
                   borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(8),
                     bottomRight: Radius.circular(8),
@@ -839,8 +839,8 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            theme.colorScheme.primary.withOpacity(0.3),
-            theme.colorScheme.tertiary.withOpacity(0.3),
+            theme.colorScheme.primary.withValues(alpha: 0.3),
+            theme.colorScheme.tertiary.withValues(alpha: 0.3),
           ],
         ),
         borderRadius: BorderRadius.circular(12),
@@ -898,7 +898,7 @@ class BlockQuoteReaderBlock extends ConsumerWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.shadow.withOpacity(0.15),
+            color: theme.colorScheme.shadow.withValues(alpha: 0.15),
             blurRadius: 12,
             offset: const Offset(0, 6),
           ),

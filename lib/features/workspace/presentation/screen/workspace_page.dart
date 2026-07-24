@@ -16,7 +16,6 @@ import 'package:barruu/core/services/user_service.dart';
 import 'package:barruu/core/models/user_profile.dart';
 import 'package:barruu/router/app_router.dart';
 import 'package:barruu/features/workspace/data/sources/user_identity_service.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -325,7 +324,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
                       BorderRadius.circular(DesignTokens.radiusXLarge),
                   boxShadow: [
                     BoxShadow(
-                      color: theme.colorScheme.shadow.withOpacity(0.04),
+                      color: theme.colorScheme.shadow.withValues(alpha: 0.04),
                       blurRadius: 8,
                       offset: const Offset(0, 2),
                     ),
@@ -338,7 +337,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
                     hintText: 'Search documents by name...',
                     hintStyle: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurface
-                          .withOpacity(DesignTokens.opacitySubtle),
+                          .withValues(alpha: DesignTokens.opacitySubtle),
                     ),
                     prefixIcon: Icon(
                       IconsaxPlusLinear.search_normal,
@@ -506,7 +505,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
                             '${filteredDocs.length} document${filteredDocs.length == 1 ? '' : 's'} found',
                             style: textTheme.titleMedium?.copyWith(
                               color: colorScheme.onSurface
-                                  .withOpacity(DesignTokens.opacitySubtle),
+                                  .withValues(alpha: DesignTokens.opacitySubtle),
                               fontWeight: DesignTokens.weightMedium,
                             ),
                           ),
@@ -594,7 +593,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
                     'You have $docCount document${docCount == 1 ? '' : 's'} in your workspace',
                     style: textTheme.bodyLarge?.copyWith(
                       color: colorScheme.onSurface
-                          .withOpacity(DesignTokens.opacitySubtle),
+                          .withValues(alpha: DesignTokens.opacitySubtle),
                     ),
                   ),
                 ],
@@ -639,7 +638,7 @@ class _WorkspacePageState extends ConsumerState<WorkspacePage>
           '$docCount document${docCount == 1 ? '' : 's'}',
           style: textTheme.bodyMedium?.copyWith(
             color: colorScheme.onSurface
-                .withOpacity(DesignTokens.opacitySubtle),
+                .withValues(alpha: DesignTokens.opacitySubtle),
           ),
         ),
         const SizedBox(height: DesignTokens.spacing8),
@@ -774,7 +773,7 @@ class _BarruuAppBarIconButton extends StatelessWidget {
       margin: const EdgeInsets.only(right: DesignTokens.spacing4),
       decoration: BoxDecoration(
         color: highlightColor ??
-            theme.colorScheme.surfaceContainerHighest.withOpacity(0.6),
+            theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.6),
         borderRadius: BorderRadius.circular(DesignTokens.radiusLarge),
       ),
       child: IconButton(
@@ -815,10 +814,10 @@ class _QuickActionChip extends StatelessWidget {
             vertical: DesignTokens.spacing8,
           ),
           decoration: BoxDecoration(
-            color: theme.colorScheme.primaryContainer.withOpacity(0.3),
+            color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
             borderRadius: BorderRadius.circular(DesignTokens.radiusLarge),
             border: Border.all(
-              color: theme.colorScheme.primary.withOpacity(0.15),
+              color: theme.colorScheme.primary.withValues(alpha: 0.15),
             ),
           ),
           child: Row(

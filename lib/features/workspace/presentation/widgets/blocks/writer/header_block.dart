@@ -149,9 +149,9 @@ class _HeaderBlockState extends BaseEditableBlockState<HeaderBlock> {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      borderColor.withOpacity(0.3),
+                      borderColor.withValues(alpha: 0.3),
                       borderColor,
-                      borderColor.withOpacity(0.3),
+                      borderColor.withValues(alpha: 0.3),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(1),
@@ -293,8 +293,8 @@ class _HeaderBlockState extends BaseEditableBlockState<HeaderBlock> {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                theme.colorScheme.primary.withOpacity(0.15),
-                theme.colorScheme.tertiary.withOpacity(0.15),
+                theme.colorScheme.primary.withValues(alpha: 0.15),
+                theme.colorScheme.tertiary.withValues(alpha: 0.15),
               ],
             ),
             border: Border(
@@ -309,7 +309,7 @@ class _HeaderBlockState extends BaseEditableBlockState<HeaderBlock> {
           padding: padding,
           margin: margin,
           decoration: BoxDecoration(
-            color: theme.colorScheme.surfaceVariant.withOpacity(0.5),
+            color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
@@ -361,7 +361,7 @@ class _HeaderBlockState extends BaseEditableBlockState<HeaderBlock> {
               Container(
                 height: 1,
                 width: 60,
-                color: borderColor.withOpacity(0.5),
+                color: borderColor.withValues(alpha: 0.5),
               ),
             ],
           ),
@@ -428,7 +428,7 @@ class _HeaderBlockState extends BaseEditableBlockState<HeaderBlock> {
               padding: padding.copyWith(left: horizontalPadding + 24),
               margin: margin.copyWith(top: verticalMargin + 12),
               decoration: BoxDecoration(
-                color: theme.colorScheme.surfaceVariant.withOpacity(0.5),
+                color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: headerTextWidget,
@@ -446,7 +446,7 @@ class _HeaderBlockState extends BaseEditableBlockState<HeaderBlock> {
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
+                      color: Colors.black.withValues(alpha: 0.1),
                       blurRadius: 4,
                       offset: const Offset(0, 2),
                     ),
@@ -467,7 +467,7 @@ class _HeaderBlockState extends BaseEditableBlockState<HeaderBlock> {
           padding: padding,
           margin: margin,
           decoration: BoxDecoration(
-            color: theme.colorScheme.primaryContainer.withOpacity(0.5),
+            color: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
               color: borderColor,

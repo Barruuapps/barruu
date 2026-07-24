@@ -161,8 +161,9 @@ class _EvaluationButtonReaderBlockState
 
           // Legacy checkbox quiz blocks must have 'options' field
           if (block.type == BlockType.checkbox &&
-              blockContent['options'] == null)
+              blockContent['options'] == null) {
             return false;
+          }
 
           // Filter by group if specified
           if (questionGroup.isNotEmpty) {
@@ -399,7 +400,7 @@ class _EvaluationButtonReaderBlockState
         children: [
           // Decorative divider before button
           Divider(
-            color: theme.colorScheme.primary.withOpacity(0.2),
+            color: theme.colorScheme.primary.withValues(alpha: 0.2),
             thickness: 2,
             height: 32,
           ),
@@ -437,12 +438,12 @@ class _EvaluationButtonReaderBlockState
             'Click to calculate your score',
             style: TextStyle(
               fontSize: 12,
-              color: theme.colorScheme.onSurface.withOpacity(0.6),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
               fontStyle: FontStyle.italic,
             ),
           ),
           Divider(
-            color: theme.colorScheme.primary.withOpacity(0.2),
+            color: theme.colorScheme.primary.withValues(alpha: 0.2),
             thickness: 2,
             height: 32,
           ),
@@ -484,7 +485,7 @@ class _EvaluationButtonReaderBlockState
       margin: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        border: Border.all(color: gradeColor.withOpacity(0.3), width: 2),
+        border: Border.all(color: gradeColor.withValues(alpha: 0.3), width: 2),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -496,8 +497,8 @@ class _EvaluationButtonReaderBlockState
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  gradeColor.withOpacity(0.15),
-                  gradeColor.withOpacity(0.05),
+                  gradeColor.withValues(alpha: 0.15),
+                  gradeColor.withValues(alpha: 0.05),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -552,7 +553,7 @@ class _EvaluationButtonReaderBlockState
                         '$submittedQuestions of $totalQuestions question${totalQuestions != 1 ? 's' : ''} answered',
                         style: TextStyle(
                           fontSize: 14,
-                          color: theme.colorScheme.onSurface.withOpacity(0.7),
+                          color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                         ),
                       ),
                       if (unansweredQuestions > 0)
@@ -679,9 +680,9 @@ class _EvaluationButtonReaderBlockState
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.08),
+        color: color.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withOpacity(0.2)),
+        border: Border.all(color: color.withValues(alpha: 0.2)),
       ),
       child: Column(
         children: [
@@ -700,7 +701,7 @@ class _EvaluationButtonReaderBlockState
             subtitle,
             style: TextStyle(
               fontSize: 11,
-              color: theme.colorScheme.onSurface.withOpacity(0.6),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
             ),
           ),
           const SizedBox(height: 4),
@@ -709,7 +710,7 @@ class _EvaluationButtonReaderBlockState
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: theme.colorScheme.onSurface.withOpacity(0.8),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
             ),
           ),
         ],

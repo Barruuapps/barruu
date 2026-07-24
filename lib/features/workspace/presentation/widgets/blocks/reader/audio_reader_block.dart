@@ -577,7 +577,7 @@ class _AudioPlayerWidgetState extends ConsumerState<_AudioPlayerWidget>
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -589,7 +589,7 @@ class _AudioPlayerWidgetState extends ConsumerState<_AudioPlayerWidget>
                 _formatDuration(_position),
                 style: TextStyle(
                   fontSize: 12,
-                  color: theme.colorScheme.onSurface.withOpacity(0.7),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                 ),
               ),
               Expanded(
@@ -602,14 +602,14 @@ class _AudioPlayerWidgetState extends ConsumerState<_AudioPlayerWidget>
                     _seek(Duration(milliseconds: value.toInt()));
                   },
                   activeColor: theme.colorScheme.primary,
-                  inactiveColor: theme.colorScheme.primary.withOpacity(0.2),
+                  inactiveColor: theme.colorScheme.primary.withValues(alpha: 0.2),
                 ),
               ),
               Text(
                 _formatDuration(_duration),
                 style: TextStyle(
                   fontSize: 12,
-                  color: theme.colorScheme.onSurface.withOpacity(0.7),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                 ),
               ),
             ],
@@ -627,7 +627,7 @@ class _AudioPlayerWidgetState extends ConsumerState<_AudioPlayerWidget>
               const SizedBox(width: 8),
               Container(
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.primary.withOpacity(0.2),
+                  color: theme.colorScheme.primary.withValues(alpha: 0.2),
                   shape: BoxShape.circle,
                 ),
                 child: IconButton(

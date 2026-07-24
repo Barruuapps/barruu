@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:barruu/core/widgets/blocks/base_editable_block.dart';
-import 'package:barruu/features/workspace/domain/entities/block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/blocks/block_empty_state.dart';
 import 'package:barruu/features/workspace/presentation/widgets/blocks/reader/columns_reader_block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/utils/toolbar.dart';
@@ -351,7 +350,7 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            border: Border.all(color: theme.colorScheme.outline.withOpacity(0.3)),
+            border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
@@ -493,7 +492,7 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
       child: IconButton(
         icon: Icon(icon, size: 14),
         padding: EdgeInsets.zero,
-        color: isSelected ? theme.colorScheme.primary : theme.colorScheme.onSurface.withOpacity(0.4),
+        color: isSelected ? theme.colorScheme.primary : theme.colorScheme.onSurface.withValues(alpha: 0.4),
         onPressed: () => _updateColumnAlign(index, align),
         tooltip: align[0].toUpperCase() + align.substring(1),
         constraints: const BoxConstraints(),
@@ -513,10 +512,10 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: theme.colorScheme.outline.withOpacity(0.2),
+          color: theme.colorScheme.outline.withValues(alpha: 0.2),
         ),
       ),
       child: Column(
@@ -528,7 +527,7 @@ class _ColumnsBlockState extends BaseEditableBlockState<ColumnsBlock> {
               Text(
                 'Column ${index + 1}',
                 style: theme.textTheme.labelSmall?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.6),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                 ),
               ),
               Row(

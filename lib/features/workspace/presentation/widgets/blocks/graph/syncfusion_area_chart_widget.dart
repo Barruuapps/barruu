@@ -94,7 +94,7 @@ class SyncfusionAreaChartWidget extends StatelessWidget {
               xValueMapper: (ChartData data, _) => data.x,
               yValueMapper: (ChartData data, _) => data.y,
               name: 'Data',
-              color: theme.colorScheme.primary.withOpacity(0.5),
+              color: theme.colorScheme.primary.withValues(alpha: 0.5),
               borderColor: theme.colorScheme.primary,
               borderWidth: isWide ? 2 : 1.5,
               dataLabelSettings: DataLabelSettings(

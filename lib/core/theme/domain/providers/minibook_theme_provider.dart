@@ -2,7 +2,6 @@ import 'package:barruu/core/utils/app_logger.dart';
 import 'package:barruu/core/theme/app_theme.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/material.dart';
 
 /// Provides a Riverpod state notifier for managing minibook themes.
 ///

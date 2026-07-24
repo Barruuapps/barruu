@@ -57,12 +57,12 @@ class ReorderTemplateSelector extends StatelessWidget {
           border: Border.all(
             color: isSelected
                 ? theme.colorScheme.primary
-                : theme.colorScheme.outline.withOpacity(0.3),
+                : theme.colorScheme.outline.withValues(alpha: 0.3),
             width: isSelected ? 2.5 : 1,
           ),
           borderRadius: BorderRadius.circular(8),
           color: isSelected
-              ? theme.colorScheme.primaryContainer.withOpacity(0.2)
+              ? theme.colorScheme.primaryContainer.withValues(alpha: 0.2)
               : null,
         ),
         child: Column(
@@ -78,8 +78,8 @@ class ReorderTemplateSelector extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
               decoration: BoxDecoration(
                 color: isSelected
-                    ? theme.colorScheme.primary.withOpacity(0.1)
-                    : theme.colorScheme.surfaceVariant.withOpacity(0.5),
+                    ? theme.colorScheme.primary.withValues(alpha: 0.1)
+                    : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(7),
                   bottomRight: Radius.circular(7),
@@ -111,7 +111,7 @@ class ReorderTemplateSelector extends StatelessWidget {
   // ---------------------------------------------------------------------------
 
   Widget _buildDefaultPreview() {
-    final outline = theme.colorScheme.outline.withOpacity(0.4);
+    final outline = theme.colorScheme.outline.withValues(alpha: 0.4);
     final primary = theme.colorScheme.primary;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -120,7 +120,7 @@ class ReorderTemplateSelector extends StatelessWidget {
         Container(
           height: 5,
           width: double.infinity,
-          color: theme.colorScheme.onSurface.withOpacity(0.5),
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
           margin: const EdgeInsets.only(bottom: 7),
         ),
         // Word pool area - wrap layout
@@ -128,7 +128,7 @@ class ReorderTemplateSelector extends StatelessWidget {
           spacing: 3,
           runSpacing: 3,
           children: [
-            _pillBox(color: primary.withOpacity(0.12), border: primary.withOpacity(0.4), width: 22),
+            _pillBox(color: primary.withValues(alpha: 0.12), border: primary.withValues(alpha: 0.4), width: 22),
             _pillBox(color: null, border: outline, width: 18),
             _pillBox(color: null, border: outline, width: 24),
             _pillBox(color: null, border: outline, width: 16),
@@ -156,16 +156,16 @@ class ReorderTemplateSelector extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(height: 5, width: double.infinity, color: theme.colorScheme.onSurface.withOpacity(0.5), margin: const EdgeInsets.only(bottom: 7)),
+        Container(height: 5, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.5), margin: const EdgeInsets.only(bottom: 7)),
         // Selected cards
         ...List.generate(2, (i) => Container(
           height: 11,
           margin: const EdgeInsets.only(bottom: 4),
           decoration: BoxDecoration(
-            color: i == 0 ? primary.withOpacity(0.1) : surface,
+            color: i == 0 ? primary.withValues(alpha: 0.1) : surface,
             borderRadius: BorderRadius.circular(5),
             border: Border.all(color: i == 0 ? primary : Colors.transparent, width: 1.5),
-            boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 2, offset: const Offset(0, 1))],
+            boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.06), blurRadius: 2, offset: const Offset(0, 1))],
           ),
         )),
         const SizedBox(height: 4),
@@ -177,7 +177,7 @@ class ReorderTemplateSelector extends StatelessWidget {
             decoration: BoxDecoration(
               color: surface,
               borderRadius: BorderRadius.circular(4),
-              boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 1)],
+              boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 1)],
             ),
           )),
         ),
@@ -192,14 +192,14 @@ class ReorderTemplateSelector extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(height: 5, width: double.infinity, color: theme.colorScheme.onSurface.withOpacity(0.5), margin: const EdgeInsets.only(bottom: 7)),
+        Container(height: 5, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.5), margin: const EdgeInsets.only(bottom: 7)),
         Wrap(
           spacing: 3,
           runSpacing: 3,
           children: [
-            _pillBox(color: primary.withOpacity(0.18), border: Colors.transparent, width: 24, radius: 12),
-            _pillBox(color: secondary.withOpacity(0.15), border: Colors.transparent, width: 18, radius: 12),
-            _pillBox(color: primary.withOpacity(0.1), border: Colors.transparent, width: 20, radius: 12),
+            _pillBox(color: primary.withValues(alpha: 0.18), border: Colors.transparent, width: 24, radius: 12),
+            _pillBox(color: secondary.withValues(alpha: 0.15), border: Colors.transparent, width: 18, radius: 12),
+            _pillBox(color: primary.withValues(alpha: 0.1), border: Colors.transparent, width: 20, radius: 12),
           ],
         ),
         const SizedBox(height: 5),
@@ -207,9 +207,9 @@ class ReorderTemplateSelector extends StatelessWidget {
           spacing: 3,
           runSpacing: 3,
           children: [
-            _pillBox(color: theme.colorScheme.surfaceVariant, border: Colors.transparent, width: 22, radius: 12),
-            _pillBox(color: theme.colorScheme.surfaceVariant, border: Colors.transparent, width: 16, radius: 12),
-            _pillBox(color: theme.colorScheme.surfaceVariant, border: Colors.transparent, width: 26, radius: 12),
+            _pillBox(color: theme.colorScheme.surfaceContainerHighest, border: Colors.transparent, width: 22, radius: 12),
+            _pillBox(color: theme.colorScheme.surfaceContainerHighest, border: Colors.transparent, width: 16, radius: 12),
+            _pillBox(color: theme.colorScheme.surfaceContainerHighest, border: Colors.transparent, width: 26, radius: 12),
           ],
         ),
       ],
@@ -218,19 +218,19 @@ class ReorderTemplateSelector extends StatelessWidget {
 
   Widget _buildTilePreview() {
     final primary = theme.colorScheme.primary;
-    final outline = theme.colorScheme.outline.withOpacity(0.5);
+    final outline = theme.colorScheme.outline.withValues(alpha: 0.5);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(height: 5, width: double.infinity, color: theme.colorScheme.onSurface.withOpacity(0.5), margin: const EdgeInsets.only(bottom: 7)),
+        Container(height: 5, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.5), margin: const EdgeInsets.only(bottom: 7)),
         ...List.generate(2, (i) => Container(
           height: 10, width: double.infinity,
           margin: const EdgeInsets.only(bottom: 3),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(3),
             border: Border.all(color: i == 0 ? primary : outline, width: i == 0 ? 2 : 1.5),
-            color: i == 0 ? primary.withOpacity(0.07) : null,
+            color: i == 0 ? primary.withValues(alpha: 0.07) : null,
           ),
         )),
         const SizedBox(height: 4),
@@ -250,19 +250,19 @@ class ReorderTemplateSelector extends StatelessWidget {
 
   Widget _buildNumberedPreview() {
     final primary = theme.colorScheme.primary;
-    final outline = theme.colorScheme.outline.withOpacity(0.4);
+    final outline = theme.colorScheme.outline.withValues(alpha: 0.4);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(height: 5, width: double.infinity, color: theme.colorScheme.onSurface.withOpacity(0.5), margin: const EdgeInsets.only(bottom: 7)),
+        Container(height: 5, width: double.infinity, color: theme.colorScheme.onSurface.withValues(alpha: 0.5), margin: const EdgeInsets.only(bottom: 7)),
         ...List.generate(3, (i) => Container(
           height: 10, width: double.infinity,
           margin: const EdgeInsets.only(bottom: 3),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
             border: Border.all(color: i == 0 ? primary : outline, width: 1),
-            color: i == 0 ? primary.withOpacity(0.07) : null,
+            color: i == 0 ? primary.withValues(alpha: 0.07) : null,
           ),
           child: Row(
             children: [
@@ -271,7 +271,7 @@ class ReorderTemplateSelector extends StatelessWidget {
                 width: 7, height: 7,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: i == 0 ? primary : outline.withOpacity(0.7),
+                  color: i == 0 ? primary : outline.withValues(alpha: 0.7),
                 ),
                 child: Center(child: Text('${i + 1}', style: const TextStyle(fontSize: 4, color: Colors.white))),
               ),
@@ -292,7 +292,7 @@ class ReorderTemplateSelector extends StatelessWidget {
         Container(
           height: 5,
           width: double.infinity,
-          color: onSurface.withOpacity(0.5),
+          color: onSurface.withValues(alpha: 0.5),
           margin: const EdgeInsets.only(bottom: 7),
         ),
         // Selected words: plain coloured text with thin underline
@@ -311,8 +311,8 @@ class ReorderTemplateSelector extends StatelessWidget {
           spacing: 4,
           runSpacing: 5,
           children: [
-            _textWord('brown', onSurface.withOpacity(0.55)),
-            _textWord('jumps', onSurface.withOpacity(0.55)),
+            _textWord('brown', onSurface.withValues(alpha: 0.55)),
+            _textWord('jumps', onSurface.withValues(alpha: 0.55)),
           ],
         ),
       ],
@@ -330,7 +330,7 @@ class ReorderTemplateSelector extends StatelessWidget {
         Container(
           height: 5,
           width: double.infinity,
-          color: onSurface.withOpacity(0.5),
+          color: onSurface.withValues(alpha: 0.5),
           margin: const EdgeInsets.only(bottom: 7),
         ),
         // Selected words: marker-highlight (no border)
@@ -338,9 +338,9 @@ class ReorderTemplateSelector extends StatelessWidget {
           spacing: 3,
           runSpacing: 3,
           children: [
-            _pillBox(color: primary.withOpacity(0.2), border: Colors.transparent, width: 22, radius: 3),
-            _pillBox(color: primary.withOpacity(0.2), border: Colors.transparent, width: 16, radius: 3),
-            _pillBox(color: primary.withOpacity(0.2), border: Colors.transparent, width: 26, radius: 3),
+            _pillBox(color: primary.withValues(alpha: 0.2), border: Colors.transparent, width: 22, radius: 3),
+            _pillBox(color: primary.withValues(alpha: 0.2), border: Colors.transparent, width: 16, radius: 3),
+            _pillBox(color: primary.withValues(alpha: 0.2), border: Colors.transparent, width: 26, radius: 3),
           ],
         ),
         const SizedBox(height: 5),
@@ -349,8 +349,8 @@ class ReorderTemplateSelector extends StatelessWidget {
           spacing: 3,
           runSpacing: 3,
           children: [
-            _pillBox(color: secondary.withOpacity(0.15), border: Colors.transparent, width: 20, radius: 3),
-            _pillBox(color: secondary.withOpacity(0.15), border: Colors.transparent, width: 24, radius: 3),
+            _pillBox(color: secondary.withValues(alpha: 0.15), border: Colors.transparent, width: 20, radius: 3),
+            _pillBox(color: secondary.withValues(alpha: 0.15), border: Colors.transparent, width: 24, radius: 3),
           ],
         ),
       ],

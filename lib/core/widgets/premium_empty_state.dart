@@ -162,7 +162,7 @@ class PremiumEmptyState extends StatelessWidget {
         ? DesignTokens.spacing16
         : DesignTokens.spacing24;
     final bgColor = iconBackgroundColor ??
-        theme.colorScheme.primaryContainer.withOpacity(0.25);
+        theme.colorScheme.primaryContainer.withValues(alpha: 0.25);
     final fgColor = iconColor ?? theme.colorScheme.primary;
 
     return Center(
@@ -183,7 +183,7 @@ class PremiumEmptyState extends StatelessWidget {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: fgColor.withOpacity(0.08),
+                    color: fgColor.withValues(alpha: 0.08),
                     blurRadius: 24,
                     offset: const Offset(0, 4),
                   ),
@@ -224,7 +224,7 @@ class PremiumEmptyState extends StatelessWidget {
                         : theme.textTheme.bodyLarge)
                     ?.copyWith(
                   color: theme.colorScheme.onSurface
-                      .withOpacity(DesignTokens.opacitySubtle),
+                      .withValues(alpha: DesignTokens.opacitySubtle),
                   height: DesignTokens.lineHeightBody,
                 ),
                 textAlign: TextAlign.center,

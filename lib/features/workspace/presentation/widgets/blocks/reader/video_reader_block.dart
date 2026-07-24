@@ -3,7 +3,6 @@ import 'dart:async';
 import 'dart:math' show pi;
 
 import 'package:barruu/core/utils/responsive_utils.dart';
-import 'package:barruu/core/theme/platform_theme_helper.dart';
 import 'package:barruu/core/widgets/shimmer_loading.dart';
 import 'package:barruu/features/workspace/domain/entities/block.dart';
 import 'package:barruu/features/workspace/utils/json_string_converter.dart';
@@ -441,7 +440,7 @@ class _VideoReaderBlockState extends ConsumerState<VideoReaderBlock> with Widget
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [Colors.transparent, Colors.black.withOpacity(0.7)],
+                      colors: [Colors.transparent, Colors.black.withValues(alpha: 0.7)],
                     ),
                   ),
                   child: Column(

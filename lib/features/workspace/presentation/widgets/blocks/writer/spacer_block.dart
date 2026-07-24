@@ -77,7 +77,7 @@ class _SpacerBlockState extends BaseEditableBlockState<SpacerBlock> {
           decoration: BoxDecoration(
             color: theme.colorScheme.surfaceContainerLow,
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: theme.colorScheme.outline.withOpacity(0.3)),
+            border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3)),
           ),
           child: Column(
             children: [
@@ -85,9 +85,9 @@ class _SpacerBlockState extends BaseEditableBlockState<SpacerBlock> {
                 height: _height,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6),
-                  color: theme.colorScheme.primary.withOpacity(0.12),
+                  color: theme.colorScheme.primary.withValues(alpha: 0.12),
                   border: Border.all(
-                    color: theme.colorScheme.primary.withOpacity(0.45),
+                    color: theme.colorScheme.primary.withValues(alpha: 0.45),
                     style: BorderStyle.solid,
                   ),
                 ),

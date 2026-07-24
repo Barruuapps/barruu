@@ -84,7 +84,7 @@ class _InlineChartDataEditorState extends State<InlineChartDataEditor> {
         color: widget.theme.colorScheme.surfaceContainerLowest,
         borderRadius: BorderRadius.circular(borderRadius),
         border: Border.all(
-          color: widget.theme.colorScheme.outline.withOpacity(0.2),
+          color: widget.theme.colorScheme.outline.withValues(alpha: 0.2),
         ),
       ),
       child: Column(
@@ -160,7 +160,7 @@ class _InlineChartDataEditorState extends State<InlineChartDataEditor> {
                 color: widget.theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(isWide ? 8 : 6),
                 border: Border.all(
-                  color: widget.theme.colorScheme.outline.withOpacity(0.3),
+                  color: widget.theme.colorScheme.outline.withValues(alpha: 0.3),
                 ),
               ),
               padding: EdgeInsets.all(isWide ? 12 : 10),
@@ -202,8 +202,8 @@ class _InlineChartDataEditorState extends State<InlineChartDataEditor> {
                   Text(
                     'Paste CSV data (label, value) - one row per line:',
                     style: widget.theme.textTheme.bodySmall?.copyWith(
-                      color: widget.theme.colorScheme.onSurface.withOpacity(
-                        0.7,
+                      color: widget.theme.colorScheme.onSurface.withValues(
+                        alpha: 0.7,
                       ),
                       fontSize: isWide ? 13 : 12,
                     ),
@@ -261,7 +261,7 @@ class _InlineChartDataEditorState extends State<InlineChartDataEditor> {
         color: widget.theme.colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(borderRadius),
         border: Border.all(
-          color: widget.theme.colorScheme.outline.withOpacity(0.1),
+          color: widget.theme.colorScheme.outline.withValues(alpha: 0.1),
         ),
       ),
       child: Row(
@@ -378,13 +378,13 @@ class _InlineChartDataEditorState extends State<InlineChartDataEditor> {
           Icon(
             IconsaxPlusLinear.chart,
             size: isWide ? 32 : 28,
-            color: widget.theme.colorScheme.primary.withOpacity(0.3),
+            color: widget.theme.colorScheme.primary.withValues(alpha: 0.3),
           ),
           SizedBox(height: isWide ? 8 : 6),
           Text(
             'No data points',
             style: widget.theme.textTheme.bodySmall?.copyWith(
-              color: widget.theme.colorScheme.onSurface.withOpacity(0.6),
+              color: widget.theme.colorScheme.onSurface.withValues(alpha: 0.6),
               fontSize: isWide ? 13 : 12,
             ),
           ),
@@ -392,7 +392,7 @@ class _InlineChartDataEditorState extends State<InlineChartDataEditor> {
           Text(
             'Tap the + button to add data',
             style: widget.theme.textTheme.bodySmall?.copyWith(
-              color: widget.theme.colorScheme.onSurface.withOpacity(0.4),
+              color: widget.theme.colorScheme.onSurface.withValues(alpha: 0.4),
               fontSize: isWide ? 11 : 10,
             ),
           ),

@@ -87,7 +87,7 @@ class ColorPickerControls extends ConsumerWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                color: theme.colorScheme.outline.withOpacity(0.2),
+                color: theme.colorScheme.outline.withValues(alpha: 0.2),
               ),
             ),
             child: Stack(
@@ -101,7 +101,7 @@ class ColorPickerControls extends ConsumerWidget {
                     height: 3,
                     decoration: BoxDecoration(
                       color: initialColor.alpha == 0
-                        ? Colors.red.withOpacity(0.8)
+                        ? Colors.red.withValues(alpha: 0.8)
                         : initialColor,
                       borderRadius: BorderRadius.circular(2),
                       border: initialColor.alpha == 0
@@ -199,7 +199,7 @@ class ColorPickerControls extends ConsumerWidget {
                       color: pickedColor,
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
-                        color: theme.colorScheme.outline.withOpacity(0.3),
+                        color: theme.colorScheme.outline.withValues(alpha: 0.3),
                         width: 2,
                       ),
                     ),
@@ -209,11 +209,11 @@ class ColorPickerControls extends ConsumerWidget {
                         decoration: BoxDecoration(
                           color: (pickedColor.computeLuminance() > 0.5
                             ? Colors.black
-                            : Colors.white).withOpacity(0.1),
+                            : Colors.white).withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
-                          '#${pickedColor.value.toRadixString(16).padLeft(8, '0').substring(2).toUpperCase()}',
+                          '#${pickedColor.toARGB32().toRadixString(16).padLeft(8, '0').substring(2).toUpperCase()}',
                           style: TextStyle(
                             color: pickedColor.computeLuminance() > 0.5 ? Colors.black87 : Colors.white,
                             fontWeight: FontWeight.bold,
@@ -243,7 +243,7 @@ class ColorPickerControls extends ConsumerWidget {
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
                           ),
-                          dividerColor: theme.colorScheme.outline.withOpacity(0.1),
+                          dividerColor: theme.colorScheme.outline.withValues(alpha: 0.1),
                         ),
                         const SizedBox(height: 16),
                         SizedBox(
@@ -257,7 +257,7 @@ class ColorPickerControls extends ConsumerWidget {
                                     Container(
                                       padding: const EdgeInsets.all(12),
                                       decoration: BoxDecoration(
-                                        color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
+                                        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                       child: Column(
@@ -301,7 +301,7 @@ class ColorPickerControls extends ConsumerWidget {
                                     Container(
                                       padding: const EdgeInsets.all(12),
                                       decoration: BoxDecoration(
-                                        color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
+                                        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                       child: Column(
@@ -334,7 +334,7 @@ class ColorPickerControls extends ConsumerWidget {
                                     Container(
                                       padding: const EdgeInsets.all(12),
                                       decoration: BoxDecoration(
-                                        color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
+                                        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                       child: Column(
@@ -421,7 +421,7 @@ class ColorPickerControls extends ConsumerWidget {
                 backgroundColor: theme.colorScheme.primary,
                 foregroundColor: theme.colorScheme.onPrimary,
                 elevation: 2,
-                shadowColor: theme.colorScheme.primary.withOpacity(0.4),
+                shadowColor: theme.colorScheme.primary.withValues(alpha: 0.4),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               ),
               child: const Text('Apply', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
@@ -432,7 +432,7 @@ class ColorPickerControls extends ConsumerWidget {
     );
   }
   Widget _colorBoxButton(Color color, Color selectedColor, Function(Color) onSelect) {
-    final isSelected = color.value == selectedColor.value;
+    final isSelected = color.toARGB32() == selectedColor.toARGB32();
     final isTransparent = color.alpha == 0 || color == Colors.transparent;
 
     return GestureDetector(
@@ -454,14 +454,14 @@ class ColorPickerControls extends ConsumerWidget {
           borderRadius: BorderRadius.circular(8),
           boxShadow: isSelected ? [
             BoxShadow(
-              color: Colors.blue.withOpacity(0.4),
+              color: Colors.blue.withValues(alpha: 0.4),
               blurRadius: 8,
               offset: const Offset(0, 3),
               spreadRadius: 1,
             ),
           ] : [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 2,
               offset: const Offset(0, 1),
             ),
@@ -512,7 +512,7 @@ class ColorPickerControls extends ConsumerWidget {
             ? Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(7),
-                  color: Colors.black.withOpacity(0.2),
+                  color: Colors.black.withValues(alpha: 0.2),
                 ),
                 child: Center(
                   child: Icon(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:barruu/core/widgets/blocks/base_editable_block.dart';
-import 'package:barruu/features/workspace/domain/entities/block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/blocks/reader/expandable_reader_block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/utils/toolbar.dart';
 import 'package:barruu/features/workspace/utils/debouncer.dart';
@@ -213,7 +212,9 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
                 ?.map((e) => e.toString()).toList() ??
             <String>[];
         if (items.length != _listItemControllers.length) {
-          for (final c in _listItemControllers) c.dispose();
+          for (final c in _listItemControllers) {
+            c.dispose();
+          }
           setState(() {
             _listItemControllers = items.isEmpty
                 ? [TextEditingController()]
@@ -252,7 +253,9 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
         final newRows = _parseTableRows(data['rows']);
         if (_tableDataDiffers(newRows)) {
           for (final row in _tableCellControllers) {
-            for (final ctrl in row) ctrl.dispose();
+            for (final ctrl in row) {
+              ctrl.dispose();
+            }
           }
           setState(() {
             _tableCellControllers = newRows
@@ -273,14 +276,18 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
     _paragraphFocusNode.dispose();
     _blockquoteController.dispose();
     _blockquoteAuthorController.dispose();
-    for (final c in _listItemControllers) c.dispose();
+    for (final c in _listItemControllers) {
+      c.dispose();
+    }
     _codeController.dispose();
     _latexController.dispose();
     _captionController.dispose();
     _imageUrlController.dispose();
     _imageCaptionController.dispose();
     for (final row in _tableCellControllers) {
-      for (final ctrl in row) ctrl.dispose();
+      for (final ctrl in row) {
+        ctrl.dispose();
+      }
     }
   }
 
@@ -423,7 +430,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
     // formatting (font family, size, color, bold/italic) applies to the inner
     // content area automatically.
     final contentTextStyle = styleUtils.applyStyle(blockStyle).copyWith(
-      color: titleColor.withOpacity(0.9),
+      color: titleColor.withValues(alpha: 0.9),
       fontSize: blockStyle.fontSize,
     );
 
@@ -491,7 +498,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
       decoration: BoxDecoration(
         color: bgColor,
         border: Border.all(
-          color: theme.colorScheme.primary.withOpacity(0.4),
+          color: theme.colorScheme.primary.withValues(alpha: 0.4),
           width: 2,
         ),
         borderRadius: BorderRadius.circular(12),
@@ -505,7 +512,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
       Color bgColor, TextStyle titleStyle, TextStyle contentTextStyle,
       Color titleColor) {
     final fillColor = bgColor == theme.colorScheme.surface
-        ? theme.colorScheme.primaryContainer.withOpacity(0.3)
+        ? theme.colorScheme.primaryContainer.withValues(alpha: 0.3)
         : bgColor;
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
@@ -542,7 +549,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.shadow.withOpacity(0.1),
+            color: theme.colorScheme.shadow.withValues(alpha: 0.1),
             blurRadius: 8,
             offset: const Offset(0, 3),
           ),
@@ -560,7 +567,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
       decoration: BoxDecoration(
         color: Colors.transparent,
         border: Border.all(
-          color: theme.colorScheme.primary.withOpacity(0.6),
+          color: theme.colorScheme.primary.withValues(alpha: 0.6),
           width: 1.5,
         ),
         borderRadius: BorderRadius.circular(12),
@@ -589,7 +596,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
             Expanded(
               child: Container(
                 color: bgColor == theme.colorScheme.surface
-                    ? theme.colorScheme.primaryContainer.withOpacity(0.1)
+                    ? theme.colorScheme.primaryContainer.withValues(alpha: 0.1)
                     : bgColor,
                 child: _buildExpandableContent(
                     context, theme, titleStyle, contentTextStyle, titleColor),
@@ -640,7 +647,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
                   decoration: InputDecoration(
                     hintText: 'Section title...',
                     hintStyle: titleStyle.copyWith(
-                      color: titleColor.withOpacity(0.4),
+                      color: titleColor.withValues(alpha: 0.4),
                     ),
                     border: InputBorder.none,
                     isDense: true,
@@ -661,7 +668,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
           if (showDivider)
             Divider(
               height: 12,
-              color: theme.colorScheme.outline.withOpacity(0.3),
+              color: theme.colorScheme.outline.withValues(alpha: 0.3),
             ),
         ],
       ),
@@ -691,8 +698,8 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  theme.colorScheme.primary.withOpacity(0.3),
-                  theme.colorScheme.primary.withOpacity(0.0),
+                  theme.colorScheme.primary.withValues(alpha: 0.3),
+                  theme.colorScheme.primary.withValues(alpha: 0.0),
                 ],
               ),
             ),
@@ -734,7 +741,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
             style: theme.textTheme.labelSmall?.copyWith(
               color: isOn
                   ? theme.colorScheme.primary
-                  : theme.colorScheme.onSurface.withOpacity(0.45),
+                  : theme.colorScheme.onSurface.withValues(alpha: 0.45),
               fontWeight: isOn ? FontWeight.w600 : FontWeight.normal,
             ),
           ),
@@ -763,10 +770,10 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: theme.colorScheme.primary.withOpacity(0.06),
+        color: theme.colorScheme.primary.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(8),
         border:
-            Border.all(color: theme.colorScheme.primary.withOpacity(0.25)),
+            Border.all(color: theme.colorScheme.primary.withValues(alpha: 0.25)),
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
@@ -872,10 +879,10 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.4),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: theme.colorScheme.outline.withOpacity(0.18),
+          color: theme.colorScheme.outline.withValues(alpha: 0.18),
         ),
       ),
       child: TextField(
@@ -885,7 +892,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
         decoration: InputDecoration(
           hintText: 'Write your content here...',
           hintStyle: contentTextStyle.copyWith(
-            color: titleColor.withOpacity(0.35),
+            color: titleColor.withValues(alpha: 0.35),
           ),
           border: InputBorder.none,
           isCollapsed: true,
@@ -902,14 +909,14 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
       ThemeData theme, TextStyle contentTextStyle, Color titleColor) {
     return Container(
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(8),
           bottomRight: Radius.circular(8),
         ),
         border: Border(
           left: BorderSide(
-            color: theme.colorScheme.primary.withOpacity(0.6),
+            color: theme.colorScheme.primary.withValues(alpha: 0.6),
             width: 3,
           ),
         ),
@@ -924,7 +931,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
             decoration: InputDecoration(
               hintText: 'Quote text...',
               hintStyle: contentTextStyle.copyWith(
-                color: titleColor.withOpacity(0.35),
+                color: titleColor.withValues(alpha: 0.35),
                 fontStyle: FontStyle.italic,
               ),
               border: InputBorder.none,
@@ -936,20 +943,20 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
           const SizedBox(height: 8),
           Divider(
             height: 1,
-            color: theme.colorScheme.outline.withOpacity(0.15),
+            color: theme.colorScheme.outline.withValues(alpha: 0.15),
           ),
           const SizedBox(height: 6),
           TextField(
             controller: _blockquoteAuthorController,
             style: contentTextStyle.copyWith(
               fontSize: (contentTextStyle.fontSize ?? 16) * 0.85,
-              color: titleColor.withOpacity(0.6),
+              color: titleColor.withValues(alpha: 0.6),
             ),
             decoration: InputDecoration(
               hintText: '— Author (optional)',
               hintStyle: contentTextStyle.copyWith(
                 fontSize: (contentTextStyle.fontSize ?? 16) * 0.85,
-                color: titleColor.withOpacity(0.3),
+                color: titleColor.withValues(alpha: 0.3),
               ),
               border: InputBorder.none,
               isCollapsed: true,
@@ -968,10 +975,10 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
       ThemeData theme, TextStyle contentTextStyle, Color titleColor) {
     return Container(
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.4),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: theme.colorScheme.outline.withOpacity(0.18),
+          color: theme.colorScheme.outline.withValues(alpha: 0.18),
         ),
       ),
       clipBehavior: Clip.antiAlias,
@@ -983,7 +990,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
               Divider(
                 height: 1,
                 indent: 36,
-                color: theme.colorScheme.outline.withOpacity(0.12),
+                color: theme.colorScheme.outline.withValues(alpha: 0.12),
               ),
             Padding(
               padding:
@@ -997,7 +1004,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
                     height: 22,
                     margin: const EdgeInsets.only(right: 10),
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.primary.withOpacity(0.12),
+                      color: theme.colorScheme.primary.withValues(alpha: 0.12),
                       shape: BoxShape.circle,
                     ),
                     child: Center(
@@ -1018,7 +1025,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
                       decoration: InputDecoration(
                         hintText: 'Item ${i + 1}...',
                         hintStyle: contentTextStyle.copyWith(
-                          color: titleColor.withOpacity(0.35),
+                          color: titleColor.withValues(alpha: 0.35),
                         ),
                         border: InputBorder.none,
                         isCollapsed: true,
@@ -1041,7 +1048,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
                         child: Icon(
                           Icons.close_rounded,
                           size: 16,
-                          color: theme.colorScheme.onSurface.withOpacity(0.35),
+                          color: theme.colorScheme.onSurface.withValues(alpha: 0.35),
                         ),
                       ),
                     ),
@@ -1060,10 +1067,10 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
               padding: const EdgeInsets.symmetric(
                   horizontal: 12, vertical: 9),
               decoration: BoxDecoration(
-                color: theme.colorScheme.primary.withOpacity(0.04),
+                color: theme.colorScheme.primary.withValues(alpha: 0.04),
                 border: Border(
                   top: BorderSide(
-                    color: theme.colorScheme.outline.withOpacity(0.18),
+                    color: theme.colorScheme.outline.withValues(alpha: 0.18),
                   ),
                 ),
               ),
@@ -1072,14 +1079,14 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
                 children: [
                   Icon(Icons.add_rounded,
                       size: 16,
-                      color: theme.colorScheme.primary.withOpacity(0.8)),
+                      color: theme.colorScheme.primary.withValues(alpha: 0.8)),
                   const SizedBox(width: 6),
                   Text(
                     'Add item',
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
-                      color: theme.colorScheme.primary.withOpacity(0.8),
+                      color: theme.colorScheme.primary.withValues(alpha: 0.8),
                     ),
                   ),
                 ],
@@ -1153,7 +1160,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
               enabled: widget.isEditing,
               wrap: false,
               gutterStyle: CodeBlockStyle.gutterStyle(
-                theme.colorScheme.onSurfaceVariant.withOpacity(0.5),
+                theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
               ),
               textStyle: CodeBlockStyle.codeTextStyle(),
             ),
@@ -1238,7 +1245,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
               borderRadius: BorderRadius.circular(6),
               color: theme.colorScheme.surface,
               border: Border.all(
-                  color: theme.colorScheme.outline.withOpacity(0.2)),
+                  color: theme.colorScheme.outline.withValues(alpha: 0.2)),
             ),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -1260,7 +1267,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
           decoration: InputDecoration(
             hintText: 'LaTeX expression (e.g., E = mc^2)',
             hintStyle:
-                TextStyle(color: titleColor.withOpacity(0.4), fontSize: 14),
+                TextStyle(color: titleColor.withValues(alpha: 0.4), fontSize: 14),
             border: InputBorder.none,
             isDense: true,
             contentPadding: EdgeInsets.zero,
@@ -1276,13 +1283,13 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
           controller: _captionController,
           style: TextStyle(
             fontStyle: FontStyle.italic,
-            color: titleColor.withOpacity(0.7),
+            color: titleColor.withValues(alpha: 0.7),
             fontSize: 13,
           ),
           decoration: InputDecoration(
             hintText: 'Optional caption...',
             hintStyle:
-                TextStyle(color: titleColor.withOpacity(0.3), fontSize: 13),
+                TextStyle(color: titleColor.withValues(alpha: 0.3), fontSize: 13),
             border: InputBorder.none,
             isDense: true,
             contentPadding: EdgeInsets.zero,
@@ -1304,9 +1311,9 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           decoration: BoxDecoration(
-            color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.4),
+            color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: theme.colorScheme.outline.withOpacity(0.18)),
+            border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.18)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1316,11 +1323,11 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
                 style: TextStyle(color: titleColor, fontSize: 14),
                 decoration: InputDecoration(
                   hintText: 'Image URL…',
-                  hintStyle: TextStyle(color: titleColor.withOpacity(0.4), fontSize: 14),
+                  hintStyle: TextStyle(color: titleColor.withValues(alpha: 0.4), fontSize: 14),
                   border: InputBorder.none,
                   isDense: true,
                   contentPadding: EdgeInsets.zero,
-                  prefixIcon: Icon(Icons.link_rounded, size: 16, color: titleColor.withOpacity(0.5)),
+                  prefixIcon: Icon(Icons.link_rounded, size: 16, color: titleColor.withValues(alpha: 0.5)),
                   prefixIconConstraints: const BoxConstraints(minWidth: 28, minHeight: 0),
                 ),
                 maxLines: 1,
@@ -1332,10 +1339,10 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
               const SizedBox(height: 6),
               TextField(
                 controller: _imageCaptionController,
-                style: TextStyle(fontStyle: FontStyle.italic, color: titleColor.withOpacity(0.7), fontSize: 13),
+                style: TextStyle(fontStyle: FontStyle.italic, color: titleColor.withValues(alpha: 0.7), fontSize: 13),
                 decoration: InputDecoration(
                   hintText: 'Caption (optional)',
-                  hintStyle: TextStyle(color: titleColor.withOpacity(0.3), fontSize: 13, fontStyle: FontStyle.italic),
+                  hintStyle: TextStyle(color: titleColor.withValues(alpha: 0.3), fontSize: 13, fontStyle: FontStyle.italic),
                   border: InputBorder.none,
                   isDense: true,
                   contentPadding: EdgeInsets.zero,
@@ -1359,7 +1366,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
                     errorBuilder: (_, __, ___) => Container(
                       height: 60,
                       decoration: BoxDecoration(
-                        color: theme.colorScheme.errorContainer.withOpacity(0.3),
+                        color: theme.colorScheme.errorContainer.withValues(alpha: 0.3),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Center(
@@ -1373,13 +1380,13 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
                 : Container(
                     height: 60,
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.4),
+                      color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Center(
                       child: Text(
                         'Local path: $imageUrl',
-                        style: TextStyle(color: titleColor.withOpacity(0.6), fontSize: 12),
+                        style: TextStyle(color: titleColor.withValues(alpha: 0.6), fontSize: 12),
                       ),
                     ),
                   ),
@@ -1412,7 +1419,9 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
     void removeRow(int ri) {
       if (_tableCellControllers.length <= 1) return;
       setState(() {
-        for (final ctrl in _tableCellControllers[ri]) ctrl.dispose();
+        for (final ctrl in _tableCellControllers[ri]) {
+          ctrl.dispose();
+        }
         _tableCellControllers.removeAt(ri);
       });
       _saveContentLocal();
@@ -1442,9 +1451,9 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
 
     return Container(
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.4),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: theme.colorScheme.outline.withOpacity(0.18)),
+        border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.18)),
       ),
       clipBehavior: Clip.antiAlias,
       child: Column(
@@ -1458,7 +1467,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
                 children: [
                   for (var ri = 0; ri < rows.length; ri++) ...[
                     if (ri > 0)
-                      Divider(height: 1, color: theme.colorScheme.outline.withOpacity(0.12)),
+                      Divider(height: 1, color: theme.colorScheme.outline.withValues(alpha: 0.12)),
                     Row(
                       children: [
                         for (var ci = 0; ci < rows[ri].length; ci++) ...[
@@ -1466,13 +1475,13 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
                             Container(
                               width: 1,
                               height: 36,
-                              color: theme.colorScheme.outline.withOpacity(0.12),
+                              color: theme.colorScheme.outline.withValues(alpha: 0.12),
                             ),
                           SizedBox(
                             width: 100,
                             child: Container(
                               color: ri == 0
-                                  ? theme.colorScheme.primary.withOpacity(0.06)
+                                  ? theme.colorScheme.primary.withValues(alpha: 0.06)
                                   : Colors.transparent,
                               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                               child: TextField(
@@ -1484,7 +1493,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
                                 ),
                                 decoration: InputDecoration(
                                   hintText: ri == 0 ? 'Header ${ci + 1}' : 'Cell',
-                                  hintStyle: TextStyle(color: titleColor.withOpacity(0.3), fontSize: 12),
+                                  hintStyle: TextStyle(color: titleColor.withValues(alpha: 0.3), fontSize: 12),
                                   border: InputBorder.none,
                                   isDense: true,
                                   contentPadding: EdgeInsets.zero,
@@ -1501,7 +1510,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 6),
                               child: Icon(Icons.close_rounded, size: 14,
-                                  color: theme.colorScheme.onSurface.withOpacity(0.35)),
+                                  color: theme.colorScheme.onSurface.withValues(alpha: 0.35)),
                             ),
                           ),
                       ],
@@ -1514,7 +1523,7 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
           Container(
             decoration: BoxDecoration(
               border: Border(
-                top: BorderSide(color: theme.colorScheme.outline.withOpacity(0.18)),
+                top: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.18)),
               ),
             ),
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
@@ -1542,20 +1551,20 @@ class _ExpandableBlockState extends BaseEditableBlockState<ExpandableBlock> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
-          color: theme.colorScheme.primary.withOpacity(0.06),
+          color: theme.colorScheme.primary.withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(6),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, size: 12, color: theme.colorScheme.primary.withOpacity(0.8)),
+            Icon(icon, size: 12, color: theme.colorScheme.primary.withValues(alpha: 0.8)),
             const SizedBox(width: 4),
             Text(
               label,
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w500,
-                color: theme.colorScheme.primary.withOpacity(0.8),
+                color: theme.colorScheme.primary.withValues(alpha: 0.8),
               ),
             ),
           ],

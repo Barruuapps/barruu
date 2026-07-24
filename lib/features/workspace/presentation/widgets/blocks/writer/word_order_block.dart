@@ -174,20 +174,24 @@ class _OrderingExerciseEditorState
   @override
   void onContentChanged() {
     final newQuestion = content['question']?.toString() ?? '';
-    if (_questionController.text != newQuestion)
+    if (_questionController.text != newQuestion) {
       _questionController.text = newQuestion;
+    }
 
     final newExplanation = content['explanation']?.toString() ?? '';
-    if (_explanationController.text != newExplanation)
+    if (_explanationController.text != newExplanation) {
       _explanationController.text = newExplanation;
+    }
 
     final newContentText = content['content']?.toString() ?? '';
-    if (_contentController.text != newContentText)
+    if (_contentController.text != newContentText) {
       _contentController.text = newContentText;
+    }
 
     final newTranslation = content['translation']?.toString() ?? '';
-    if (_translationController.text != newTranslation)
+    if (_translationController.text != newTranslation) {
       _translationController.text = newTranslation;
+    }
 
     final newMarks = (content['marksPerQuestion'] ?? 1.0).toString();
     if (_marksController.text != newMarks) _marksController.text = newMarks;
@@ -359,7 +363,7 @@ class _OrderingExerciseEditorState
         // Row 2: Math difficulty (only for math type)
         if (_isMathWorkpad) ...[
           DropdownButtonFormField<String>(
-            value: _mathDifficulty,
+            initialValue: _mathDifficulty,
             onChanged: _setMathDifficulty,
             decoration: const InputDecoration(
               labelText: 'Difficulty',

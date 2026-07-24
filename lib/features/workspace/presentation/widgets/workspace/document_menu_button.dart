@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:barruu/core/widgets/shimmer_loading.dart';
 import 'package:barruu/features/workspace/data/sources/document_local_source.dart';
-import 'package:barruu/features/workspace/presentation/controllers/documents_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -74,7 +73,7 @@ class DocumentMenuButton extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: menuTheme.colorScheme.primaryContainer.withOpacity(0.5),
+                color: menuTheme.colorScheme.primaryContainer.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(
@@ -102,7 +101,7 @@ class DocumentMenuButton extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: menuTheme.colorScheme.tertiaryContainer.withOpacity(0.5),
+                color: menuTheme.colorScheme.tertiaryContainer.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(
@@ -158,7 +157,7 @@ class DocumentMenuButton extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: menuTheme.colorScheme.secondaryContainer.withOpacity(0.5),
+                color: menuTheme.colorScheme.secondaryContainer.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(
@@ -186,7 +185,7 @@ class DocumentMenuButton extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: menuTheme.colorScheme.errorContainer.withOpacity(0.5),
+                color: menuTheme.colorScheme.errorContainer.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(

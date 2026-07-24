@@ -71,8 +71,8 @@ class WorkspaceDocumentCard extends StatelessWidget {
         elevation: 0,
         child: InkWell(
           borderRadius: BorderRadius.circular(borderRadius),
-          splashColor: theme.colorScheme.primary.withOpacity(0.15),
-          highlightColor: theme.colorScheme.primary.withOpacity(0.08),
+          splashColor: theme.colorScheme.primary.withValues(alpha: 0.15),
+          highlightColor: theme.colorScheme.primary.withValues(alpha: 0.08),
           onTap: () => _handleCardTap(context),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -104,7 +104,7 @@ class WorkspaceDocumentCard extends StatelessWidget {
                             end: Alignment.bottomCenter,
                             colors: [
                               Colors.transparent,
-                              theme.colorScheme.surface.withOpacity(0.1),
+                              theme.colorScheme.surface.withValues(alpha: 0.1),
                             ],
                           ),
                         ),
@@ -115,10 +115,10 @@ class WorkspaceDocumentCard extends StatelessWidget {
                       right: 12,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: theme.colorScheme.surface.withOpacity(0.95),
+                          color: theme.colorScheme.surface.withValues(alpha: 0.95),
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: theme.colorScheme.outline.withOpacity(0.2),
+                            color: theme.colorScheme.outline.withValues(alpha: 0.2),
                           ),
                         ),
                         child: buildPopupMenuButton(doc),
@@ -176,7 +176,7 @@ class WorkspaceDocumentCard extends StatelessWidget {
                           vertical: ResponsiveUtils.isDesktop(context) ? 8 : 6,
                         ),
                         decoration: BoxDecoration(
-                          color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.5),
+                          color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
                           borderRadius: BorderRadius.circular(ResponsiveUtils.getBorderRadius(context, baseRadius: 8.0)),
                         ),
                         child: Row(

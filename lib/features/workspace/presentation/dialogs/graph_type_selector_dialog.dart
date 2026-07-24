@@ -278,7 +278,7 @@ class _GraphTypeSelectorDialogState extends State<GraphTypeSelectorDialog>
             width: 40,
             height: 4,
             decoration: BoxDecoration(
-              color: theme.colorScheme.onSurface.withOpacity(0.2),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -304,7 +304,7 @@ class _GraphTypeSelectorDialogState extends State<GraphTypeSelectorDialog>
                 IconButton(
                   icon: Icon(
                     Icons.close,
-                    color: theme.colorScheme.onSurface.withOpacity(0.6),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
@@ -317,14 +317,14 @@ class _GraphTypeSelectorDialogState extends State<GraphTypeSelectorDialog>
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  color: theme.colorScheme.outline.withOpacity(0.2),
+                  color: theme.colorScheme.outline.withValues(alpha: 0.2),
                 ),
               ),
             ),
             child: TabBar(
               controller: _tabController,
               labelColor: theme.colorScheme.primary,
-              unselectedLabelColor: theme.colorScheme.onSurface.withOpacity(0.6),
+              unselectedLabelColor: theme.colorScheme.onSurface.withValues(alpha: 0.6),
               indicatorColor: theme.colorScheme.primary,
               indicatorWeight: 3,
               labelStyle: theme.textTheme.titleSmall?.copyWith(
@@ -419,13 +419,13 @@ class _GraphTypeCard extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              categoryColor.withOpacity(0.1),
-              categoryColor.withOpacity(0.05),
+              categoryColor.withValues(alpha: 0.1),
+              categoryColor.withValues(alpha: 0.05),
             ],
           ),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: categoryColor.withOpacity(0.3),
+            color: categoryColor.withValues(alpha: 0.3),
             width: 1.5,
           ),
         ),
@@ -441,8 +441,8 @@ class _GraphTypeCard extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    categoryColor.withOpacity(0.2),
-                    categoryColor.withOpacity(0.3),
+                    categoryColor.withValues(alpha: 0.2),
+                    categoryColor.withValues(alpha: 0.3),
                   ],
                 ),
               ),
@@ -471,7 +471,7 @@ class _GraphTypeCard extends StatelessWidget {
               child: Text(
                 type.description,
                 style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.6),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                 ),
                 textAlign: TextAlign.center,
                 maxLines: 2,

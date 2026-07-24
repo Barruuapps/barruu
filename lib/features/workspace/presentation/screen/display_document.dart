@@ -14,6 +14,7 @@ import 'package:barruu/features/workspace/data/sources/document_local_source.dar
 import 'package:barruu/features/workspace/domain/entities/block.dart';
 import 'package:barruu/features/workspace/domain/entities/block_type.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DisplayDocument extends ConsumerStatefulWidget {
@@ -460,6 +461,9 @@ class _DisplayDocumentScreenState extends ConsumerState<DisplayDocument>
                                 );
                               },
                               child: ListView.builder(
+                                scrollCacheExtent: ScrollCacheExtent.pixels(
+                                  1000.0,
+                                ),
                                 controller: _scrollController,
                                 padding: EdgeInsets.symmetric(
                                   horizontal: padding,
@@ -467,7 +471,6 @@ class _DisplayDocumentScreenState extends ConsumerState<DisplayDocument>
                                       ? 24.0
                                       : 16.0,
                                 ),
-                                cacheExtent: 1000.0,
                                 itemCount: widget.showAllBlocks
                                     ? blocks.length +
                                           1 // Add extra item for bottom padding
@@ -529,12 +532,12 @@ class _DisplayDocumentScreenState extends ConsumerState<DisplayDocument>
                                     height: 40,
                                     decoration: BoxDecoration(
                                       color: theme.colorScheme.primary
-                                          .withOpacity(0.7),
+                                          .withValues(alpha: 0.7),
                                       borderRadius: BorderRadius.circular(4),
                                       boxShadow: [
                                         BoxShadow(
                                           color: theme.colorScheme.primary
-                                              .withOpacity(0.3),
+                                              .withValues(alpha: 0.3),
                                           blurRadius: 8,
                                           spreadRadius: 1,
                                         ),
@@ -563,17 +566,17 @@ class _DisplayDocumentScreenState extends ConsumerState<DisplayDocument>
             : Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.surface.withOpacity(0.95),
+                  color: theme.colorScheme.surface.withValues(alpha: 0.95),
                   borderRadius: BorderRadius.circular(30),
                   boxShadow: [
                     BoxShadow(
-                      color: theme.colorScheme.shadow.withOpacity(0.15),
+                      color: theme.colorScheme.shadow.withValues(alpha: 0.15),
                       blurRadius: 12,
                       offset: const Offset(0, 4),
                     ),
                   ],
                   border: Border.all(
-                    color: theme.colorScheme.outline.withOpacity(0.2),
+                    color: theme.colorScheme.outline.withValues(alpha: 0.2),
                   ),
                 ),
                 child: Row(
@@ -615,7 +618,7 @@ class _DisplayDocumentScreenState extends ConsumerState<DisplayDocument>
                         width: 1,
                         height: 32,
                         margin: const EdgeInsets.symmetric(horizontal: 8),
-                        color: theme.colorScheme.outline.withOpacity(0.3),
+                        color: theme.colorScheme.outline.withValues(alpha: 0.3),
                       ),
                     if (_revealedBlockCount < blocks.length)
                       Material(
@@ -681,8 +684,10 @@ class _UnsupportedBlockPlaceholder extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.5),
-        border: Border.all(color: theme.colorScheme.outline.withOpacity(0.4)),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+        border: Border.all(
+          color: theme.colorScheme.outline.withValues(alpha: 0.4),
+        ),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
@@ -734,16 +739,18 @@ class _ProgressIconButton extends ConsumerWidget {
         width: 44,
         height: 44,
         decoration: BoxDecoration(
-          color: theme.colorScheme.surface.withOpacity(0.92),
+          color: theme.colorScheme.surface.withValues(alpha: 0.92),
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              color: theme.colorScheme.shadow.withOpacity(0.15),
+              color: theme.colorScheme.shadow.withValues(alpha: 0.15),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
           ],
-          border: Border.all(color: theme.colorScheme.outline.withOpacity(0.2)),
+          border: Border.all(
+            color: theme.colorScheme.outline.withValues(alpha: 0.2),
+          ),
         ),
         child: Stack(
           alignment: Alignment.center,
@@ -813,7 +820,7 @@ class _DocumentProgressSheet extends ConsumerWidget {
                   height: 4,
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.outline.withOpacity(0.4),
+                    color: theme.colorScheme.outline.withValues(alpha: 0.4),
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -871,7 +878,9 @@ class _DocumentProgressSheet extends ConsumerWidget {
                           'No assessment attempts yet.\nTry answering some questions!',
                           textAlign: TextAlign.center,
                           style: theme.textTheme.bodyMedium?.copyWith(
-                            color: theme.colorScheme.onSurface.withOpacity(0.6),
+                            color: theme.colorScheme.onSurface.withValues(
+                              alpha: 0.6,
+                            ),
                           ),
                         ),
                       )
@@ -902,8 +911,8 @@ class _DocumentProgressSheet extends ConsumerWidget {
                               '${e.attemptCount} attempt${e.attemptCount == 1 ? '' : 's'}  •  '
                               '${e.correctCount} correct',
                               style: theme.textTheme.bodySmall?.copyWith(
-                                color: theme.colorScheme.onSurface.withOpacity(
-                                  0.6,
+                                color: theme.colorScheme.onSurface.withValues(
+                                  alpha: 0.6,
                                 ),
                               ),
                             ),
@@ -991,9 +1000,9 @@ class _SummaryCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
         decoration: BoxDecoration(
-          color: color.withOpacity(0.08),
+          color: color.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: color.withOpacity(0.25)),
+          border: Border.all(color: color.withValues(alpha: 0.25)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -1011,7 +1020,7 @@ class _SummaryCard extends StatelessWidget {
             Text(
               label,
               style: theme.textTheme.labelSmall?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.6),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
               ),
             ),
           ],

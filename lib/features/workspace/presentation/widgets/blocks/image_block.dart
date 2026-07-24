@@ -493,7 +493,7 @@ class _ImageBlockState extends BaseEditableBlockState<ImageBlock> {
             Text(
               'Choose from gallery or enter URL',
               style: TextStyle(
-                color: theme.colorScheme.onSurfaceVariant.withOpacity(0.7),
+                color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
                 fontSize: 12,
               ),
             ),

@@ -481,9 +481,7 @@ Extracting questions, adding answers and explanations...''',
             pageNames.add(aiPage.title);
             
             // Remember the first created page ID
-            if (firstCreatedPageId == null) {
-              firstCreatedPageId = newPage.id;
-            }
+            firstCreatedPageId ??= newPage.id;
             
             // Switch to the new page temporarily to add blocks
             currentPageNotifier.state = newPage.id;
@@ -637,14 +635,14 @@ Extracting questions, adding answers and explanations...''',
 
   Color _getLinkColor(bool isUser, ThemeData theme) {
     return isUser
-        ? theme.colorScheme.onPrimary.withOpacity(0.9)
+        ? theme.colorScheme.onPrimary.withValues(alpha: 0.9)
         : theme.colorScheme.primary;
   }
 
   Color _getBlockquoteColor(bool isUser, ThemeData theme) {
     return isUser
-        ? theme.colorScheme.onPrimary.withOpacity(0.8)
-        : theme.colorScheme.onSurface.withOpacity(0.8);
+        ? theme.colorScheme.onPrimary.withValues(alpha: 0.8)
+        : theme.colorScheme.onSurface.withValues(alpha: 0.8);
   }
 
   Widget _buildMessage(ChatMessage message, ThemeData theme) {
@@ -684,7 +682,7 @@ Extracting questions, adding answers and explanations...''',
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: theme.colorScheme.shadow.withOpacity(0.1),
+                    color: theme.colorScheme.shadow.withValues(alpha: 0.1),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   ),
@@ -761,8 +759,8 @@ Extracting questions, adding answers and explanations...''',
                         ),
                         tableBorder: TableBorder.all(
                           color: isUser
-                              ? theme.colorScheme.onPrimary.withOpacity(0.3)
-                              : theme.colorScheme.outline.withOpacity(0.5),
+                              ? theme.colorScheme.onPrimary.withValues(alpha: 0.3)
+                              : theme.colorScheme.outline.withValues(alpha: 0.5),
                           width: 1,
                         ),
                         tableColumnWidth: const FlexColumnWidth(),
@@ -808,7 +806,7 @@ Extracting questions, adding answers and explanations...''',
                           fontSize: 14,
                           fontFamily: 'monospace',
                           backgroundColor: isUser
-                              ? theme.colorScheme.primary.withOpacity(0.2)
+                              ? theme.colorScheme.primary.withValues(alpha: 0.2)
                               : theme.colorScheme.surfaceContainerHighest,
                         ),
                         blockquote: TextStyle(
@@ -821,8 +819,8 @@ Extracting questions, adding answers and explanations...''',
                           border: Border(
                             left: BorderSide(
                               color: isUser
-                                  ? theme.colorScheme.onPrimary.withOpacity(0.5)
-                                  : theme.colorScheme.primary.withOpacity(0.5),
+                                  ? theme.colorScheme.onPrimary.withValues(alpha: 0.5)
+                                  : theme.colorScheme.primary.withValues(alpha: 0.5),
                               width: 4,
                             ),
                           ),
@@ -875,7 +873,7 @@ Extracting questions, adding answers and explanations...''',
         color: theme.colorScheme.surface,
         border: Border(
           top: BorderSide(
-            color: theme.colorScheme.outlineVariant.withOpacity(0.5),
+            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
             width: 1,
           ),
         ),
@@ -925,9 +923,9 @@ Extracting questions, adding answers and explanations...''',
                         color: theme.colorScheme.error,
                       ),
                       style: IconButton.styleFrom(
-                        backgroundColor: theme.colorScheme.errorContainer.withOpacity(0.3),
+                        backgroundColor: theme.colorScheme.errorContainer.withValues(alpha: 0.3),
                         side: BorderSide(
-                          color: theme.colorScheme.error.withOpacity(0.3),
+                          color: theme.colorScheme.error.withValues(alpha: 0.3),
                         ),
                       ),
                       tooltip: 'Clear uploaded file',
@@ -952,7 +950,7 @@ Extracting questions, adding answers and explanations...''',
                       decoration: InputDecoration(
                         hintText: _getPlaceholder(),
                         hintStyle: TextStyle(
-                          color: theme.colorScheme.onSurfaceVariant.withOpacity(0.6),
+                          color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
                       ),
                       border: InputBorder.none,
                       contentPadding: const EdgeInsets.symmetric(
@@ -1056,7 +1054,7 @@ Extracting questions, adding answers and explanations...''',
                   color: theme.colorScheme.primary,
                 ),
                 label: const Text('Document'),
-                backgroundColor: theme.colorScheme.primaryContainer.withOpacity(0.5),
+                backgroundColor: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
                 labelStyle: TextStyle(
                   color: theme.colorScheme.onPrimaryContainer,
                   fontSize: 12,

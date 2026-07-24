@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:barruu/core/utils/app_logger.dart';
 import 'package:barruu/core/widgets/shimmer_loading.dart';
 import 'package:barruu/core/services/follow_service.dart';
 import 'package:barruu/features/workspace/data/sources/user_identity_service.dart';
-import 'package:go_router/go_router.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 
 /// A reusable follow/unfollow button widget
@@ -205,11 +203,11 @@ class _FollowButtonState extends ConsumerState<FollowButton> {
           foregroundColor: foregroundColor,
           padding: buttonPadding,
           elevation: _isFollowing ? 0 : 2,
-          shadowColor: colorScheme.primary.withOpacity(0.3),
+          shadowColor: colorScheme.primary.withValues(alpha: 0.3),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
             side: _isFollowing
-                ? BorderSide(color: colorScheme.outline.withOpacity(0.5))
+                ? BorderSide(color: colorScheme.outline.withValues(alpha: 0.5))
                 : BorderSide.none,
           ),
         ),

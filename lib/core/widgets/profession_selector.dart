@@ -53,12 +53,12 @@ class _ProfessionSelectorState extends State<ProfessionSelector> {
         Text(
           'Select your profession or area of expertise',
           style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.onSurface.withOpacity(0.6),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
           ),
         ),
         const SizedBox(height: 12),
         DropdownButtonFormField<String>(
-          value: _isCustom ? Professions.other : widget.selectedProfession,
+          initialValue: _isCustom ? Professions.other : widget.selectedProfession,
           decoration: const InputDecoration(
             labelText: 'Select profession',
             border: OutlineInputBorder(),

@@ -207,7 +207,7 @@ class ListReaderBlock extends ConsumerWidget {
               theme.colorScheme.surface,
           boxShadow: [
             BoxShadow(
-              color: theme.colorScheme.shadow.withOpacity(0.1),
+              color: theme.colorScheme.shadow.withValues(alpha: 0.1),
               blurRadius: 6,
               offset: const Offset(0, 2),
             ),
@@ -232,11 +232,11 @@ class ListReaderBlock extends ConsumerWidget {
           borderRadius: BorderRadius.circular(12),
           gradient: LinearGradient(
             colors: [
-              theme.colorScheme.primaryContainer.withOpacity(0.4),
-              theme.colorScheme.secondaryContainer.withOpacity(0.4),
+              theme.colorScheme.primaryContainer.withValues(alpha: 0.4),
+              theme.colorScheme.secondaryContainer.withValues(alpha: 0.4),
             ],
           ),
-          border: Border.all(color: theme.colorScheme.primary.withOpacity(0.3)),
+          border: Border.all(color: theme.colorScheme.primary.withValues(alpha: 0.3)),
         );
         break;
       case 'modern':
@@ -244,7 +244,7 @@ class ListReaderBlock extends ConsumerWidget {
           borderRadius: BorderRadius.circular(12),
           color:
               styleUtils.parseHex(block.style.background) ??
-              theme.colorScheme.surfaceVariant.withOpacity(0.5),
+              theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
         );
         break;
       case 'timeline':
@@ -271,7 +271,7 @@ class ListReaderBlock extends ConsumerWidget {
             border: Border(
               left: BorderSide(color: theme.colorScheme.primary, width: 3),
             ),
-            color: theme.colorScheme.primary.withOpacity(0.04),
+            color: theme.colorScheme.primary.withValues(alpha: 0.04),
           );
         case 'card':
           return BoxDecoration(
@@ -279,7 +279,7 @@ class ListReaderBlock extends ConsumerWidget {
             color: theme.colorScheme.surface,
             boxShadow: [
               BoxShadow(
-                color: theme.colorScheme.shadow.withOpacity(0.06),
+                color: theme.colorScheme.shadow.withValues(alpha: 0.06),
                 blurRadius: 2,
                 offset: const Offset(0, 1),
               ),
@@ -288,9 +288,9 @@ class ListReaderBlock extends ConsumerWidget {
         case 'numbered_card':
           return BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+            color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
             border: Border.all(
-              color: theme.colorScheme.outline.withOpacity(0.15),
+              color: theme.colorScheme.outline.withValues(alpha: 0.15),
             ),
           );
         case 'priority':
@@ -298,7 +298,7 @@ class ListReaderBlock extends ConsumerWidget {
           return BoxDecoration(
             borderRadius: BorderRadius.circular(6),
             border: Border(left: BorderSide(color: color, width: 4)),
-            color: color.withOpacity(0.05),
+            color: color.withValues(alpha: 0.05),
           );
         default:
           return null;
@@ -347,7 +347,7 @@ class ListReaderBlock extends ConsumerWidget {
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
-              color: theme.colorScheme.primary.withOpacity(0.3),
+              color: theme.colorScheme.primary.withValues(alpha: 0.3),
               width: 2,
             ),
           ),
@@ -418,7 +418,7 @@ class ListReaderBlock extends ConsumerWidget {
                                   child: Container(
                                     width: 2,
                                     color: theme.colorScheme.primary
-                                        .withOpacity(0.25),
+                                        .withValues(alpha: 0.25),
                                   ),
                                 ),
                             ],
@@ -482,11 +482,11 @@ class ListReaderBlock extends ConsumerWidget {
                     ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: theme.colorScheme.primaryContainer.withOpacity(
-                        0.4,
+                      color: theme.colorScheme.primaryContainer.withValues(
+                        alpha: 0.4,
                       ),
                       border: Border.all(
-                        color: theme.colorScheme.primary.withOpacity(0.3),
+                        color: theme.colorScheme.primary.withValues(alpha: 0.3),
                       ),
                     ),
                     child: Row(

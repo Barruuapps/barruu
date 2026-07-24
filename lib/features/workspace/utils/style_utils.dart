@@ -15,7 +15,7 @@ class StyleUtils {
       : Color(int.parse(hex.replaceFirst('#', '0xff')));
 
   String toHex(Color c) {
-    final v = c.value.toRadixString(16).padLeft(8, '0');
+    final v = c.toARGB32().toRadixString(16).padLeft(8, '0');
     return '#${v.substring(2)}';
   }
 

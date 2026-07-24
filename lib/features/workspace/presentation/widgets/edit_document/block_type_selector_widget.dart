@@ -49,8 +49,8 @@ class BlockTypeSelectorWidget extends StatelessWidget {
       return Container(
         padding: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
-          color: theme.colorScheme.surface.withOpacity(0.95),
-          border: Border(top: BorderSide(color: theme.colorScheme.outline.withOpacity(0.3))),
+          color: theme.colorScheme.surface.withValues(alpha: 0.95),
+          border: Border(top: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.3))),
         ),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -68,8 +68,8 @@ class BlockTypeSelectorWidget extends StatelessWidget {
     return Container(
       width: sidebarWidth,
       decoration: BoxDecoration(
-        color: theme.colorScheme.surface.withOpacity(0.95),
-        border: Border(right: BorderSide(color: theme.colorScheme.outline.withOpacity(0.3))),
+        color: theme.colorScheme.surface.withValues(alpha: 0.95),
+        border: Border(right: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.3))),
       ),
       child: Column(
         children: [
@@ -119,17 +119,17 @@ class BlockTypeSelectorWidget extends StatelessWidget {
               // Increased padding for better touch targets on mobile/tablet
               padding: EdgeInsets.all(isMobileOrTablet ? 14.0 : 12.0),
               decoration: BoxDecoration(
-                color: theme.colorScheme.surface.withOpacity(0.7),
+                color: theme.colorScheme.surface.withValues(alpha: 0.7),
                 borderRadius: BorderRadius.circular(
                   ResponsiveUtils.getBorderRadius(context),
                 ),
                 border: Border.all(
-                  color: theme.colorScheme.primary.withOpacity(0.2),
+                  color: theme.colorScheme.primary.withValues(alpha: 0.2),
                   width: 1.5,
                 ),
                 gradient: LinearGradient(
                   colors: [
-                    theme.colorScheme.primary.withOpacity(0.08),
+                    theme.colorScheme.primary.withValues(alpha: 0.08),
                     Colors.transparent,
                   ],
                   begin: Alignment.topLeft,

@@ -1,0 +1,35 @@
+# Markdownlint configuration for Barruu
+# https://github.com/DavidAnson/markdownlint
+
+# Default state for all rules
+default: true
+
+# Allow inline HTML (needed for alignment badges and images)
+MD033: false
+
+# Line length (relaxed for documentation)
+MD013:
+  line_length: 120
+  heading_line_length: 80
+  code_block_line_length: 100
+
+# Allow duplicate headings (useful in changelogs)
+MD024:
+  siblings_only: true
+
+# Allow bare URLs (used in reference-style links)
+MD034: false
+
+# Allow emphasis as heading (used in README)
+MD036: false
+
+# First line in a file should be a top-level heading
+MD041: false
+
+# Unordered list style (consistent across project)
+MD004:
+  style: "dash"
+
+# Ordered list prefix
+MD029:
+  style: "one"

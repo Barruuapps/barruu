@@ -457,8 +457,8 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                theme.colorScheme.primaryContainer.withOpacity(0.6),
-                theme.colorScheme.secondaryContainer.withOpacity(0.6),
+                theme.colorScheme.primaryContainer.withValues(alpha: 0.6),
+                theme.colorScheme.secondaryContainer.withValues(alpha: 0.6),
               ],
             ),
             borderRadius: BorderRadius.circular(8),
@@ -471,7 +471,7 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
         return Container(
           margin: margin,
           decoration: BoxDecoration(
-            color: theme.colorScheme.surfaceVariant.withOpacity(0.5),
+            color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
@@ -509,7 +509,7 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
-                color: theme.colorScheme.shadow.withOpacity(0.1),
+                color: theme.colorScheme.shadow.withValues(alpha: 0.1),
                 blurRadius: 8,
                 offset: const Offset(0, 4),
               ),
@@ -519,7 +519,7 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Icon(Icons.format_quote, color: iconColor.withOpacity(0.5), size: 28),
+              Icon(Icons.format_quote, color: iconColor.withValues(alpha: 0.5), size: 28),
               const SizedBox(height: 6),
               _buildQuoteContent(context, theme, styleUtils, config, iconColor, color, fontSize, textMultiplier, lineHeight, horizontalPadding, verticalPadding),
             ],
@@ -529,7 +529,7 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
         return Container(
           margin: margin,
           decoration: BoxDecoration(
-            color: theme.colorScheme.primaryContainer.withOpacity(0.5),
+            color: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(color: borderColor, width: 1.5),
           ),
@@ -594,8 +594,8 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                theme.colorScheme.primary.withOpacity(0.2),
-                theme.colorScheme.tertiary.withOpacity(0.2),
+                theme.colorScheme.primary.withValues(alpha: 0.2),
+                theme.colorScheme.tertiary.withValues(alpha: 0.2),
               ],
             ),
             borderRadius: BorderRadius.circular(8),
@@ -623,7 +623,7 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
-                color: theme.colorScheme.shadow.withOpacity(0.15),
+                color: theme.colorScheme.shadow.withValues(alpha: 0.15),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
@@ -706,7 +706,7 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
             border: InputBorder.none,
             isCollapsed: true,
             hintText: 'Type your ${config.label.toLowerCase()}...',
-            hintStyle: TextStyle(color: color.withOpacity(0.5)),
+            hintStyle: TextStyle(color: color.withValues(alpha: 0.5)),
           ),
           onChanged: (value) => _saveQuoteContent(),
         ),
@@ -723,14 +723,14 @@ class _BlockQuoteBlockState extends BaseEditableBlockState<BlockQuoteBlock> {
                 child: TextField(
                   controller: _authorController,
                   focusNode: _authorFocusNode,
-                  style: TextStyle(fontSize: 14, color: color.withOpacity(0.8)),
+                  style: TextStyle(fontSize: 14, color: color.withValues(alpha: 0.8)),
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     isCollapsed: true,
                     hintText: '— Author name',
-                    hintStyle: TextStyle(color: color.withOpacity(0.5)),
+                    hintStyle: TextStyle(color: color.withValues(alpha: 0.5)),
                     prefixText: '— ',
-                    prefixStyle: TextStyle(color: color.withOpacity(0.8)),
+                    prefixStyle: TextStyle(color: color.withValues(alpha: 0.8)),
                   ),
                   onChanged: (value) => _saveQuoteContent(),
                 ),

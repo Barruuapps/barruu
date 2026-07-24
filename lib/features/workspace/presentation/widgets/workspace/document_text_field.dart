@@ -47,11 +47,11 @@ class DocumentTextField extends StatelessWidget {
         hintText: hintText,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: theme.colorScheme.outline.withOpacity(0.4)),
+          borderSide: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.4)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: theme.colorScheme.outline.withOpacity(0.4)),
+          borderSide: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.4)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),

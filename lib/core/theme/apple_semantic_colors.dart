@@ -21,35 +21,35 @@ extension AppleSemanticColors on ColorScheme {
   /// Secondary label color for less prominent text.
   /// - Light mode: 60% opacity
   /// - Dark mode: 60% opacity
-  Color get labelSecondary => onSurface.withOpacity(0.6);
+  Color get labelSecondary => onSurface.withValues(alpha: 0.6);
 
   /// Tertiary label color for even less prominent text.
   /// - Light mode: 30% opacity
   /// - Dark mode: 30% opacity
-  Color get labelTertiary => onSurface.withOpacity(0.3);
+  Color get labelTertiary => onSurface.withValues(alpha: 0.3);
 
   /// Quaternary label color for the least prominent text.
   /// - Light mode: 18% opacity
   /// - Dark mode: 18% opacity
-  Color get labelQuaternary => onSurface.withOpacity(0.18);
+  Color get labelQuaternary => onSurface.withValues(alpha: 0.18);
 
   // MARK: - Fill Colors (Backgrounds)
 
   /// Primary fill color for foreground elements.
   /// Subtle background for controls and containers.
-  Color get fillPrimary => onSurface.withOpacity(0.05);
+  Color get fillPrimary => onSurface.withValues(alpha: 0.05);
 
   /// Secondary fill color for foreground elements.
   /// Slightly more prominent than primary fill.
-  Color get fillSecondary => onSurface.withOpacity(0.08);
+  Color get fillSecondary => onSurface.withValues(alpha: 0.08);
 
   /// Tertiary fill color for foreground elements.
   /// More prominent fill for emphasized containers.
-  Color get fillTertiary => onSurface.withOpacity(0.12);
+  Color get fillTertiary => onSurface.withValues(alpha: 0.12);
 
   /// Quaternary fill color for foreground elements.
   /// Most prominent fill level.
-  Color get fillQuaternary => onSurface.withOpacity(0.16);
+  Color get fillQuaternary => onSurface.withValues(alpha: 0.16);
 
   // MARK: - System Colors
 
@@ -94,12 +94,12 @@ extension AppleSemanticColors on ColorScheme {
   /// Standard separator color for dividing content.
   /// - Light mode: 29% opacity
   /// - Dark mode: 29% opacity
-  Color get separator => onSurface.withOpacity(0.29);
+  Color get separator => onSurface.withValues(alpha: 0.29);
 
   /// Opaque separator for use on blurred backgrounds.
   /// - Light mode: Slightly lighter than separator
   /// - Dark mode: Slightly lighter than separator
-  Color get separatorOpaque => onSurface.withOpacity(0.2);
+  Color get separatorOpaque => onSurface.withValues(alpha: 0.2);
 
   // MARK: - Background Colors
 
@@ -184,7 +184,7 @@ extension MaterialSemanticColors on ColorScheme {
   Color getSurfaceWithTint({int elevation = 1}) {
     final opacity = elevation * 0.05;
     return Color.alphaBlend(
-      surfaceTint.withOpacity(opacity.clamp(0.0, 0.15)),
+      surfaceTint.withValues(alpha: opacity.clamp(0.0, 0.15)),
       surface,
     );
   }
@@ -205,8 +205,8 @@ extension MaterialSemanticColors on ColorScheme {
   }
 
   /// Returns ripple color with appropriate opacity for Material Design.
-  Color get rippleColor => primary.withOpacity(0.3);
+  Color get rippleColor => primary.withValues(alpha: 0.3);
 
   /// Returns highlight color with appropriate opacity for Material Design.
-  Color get highlightColor => primary.withOpacity(0.15);
+  Color get highlightColor => primary.withValues(alpha: 0.15);
 }

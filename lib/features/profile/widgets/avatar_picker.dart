@@ -151,7 +151,7 @@ class _AvatarPickerState extends State<AvatarPicker> {
           end: Alignment.bottomRight,
           colors: [
             theme.colorScheme.primaryContainer,
-            theme.colorScheme.secondaryContainer.withOpacity(0.7),
+            theme.colorScheme.secondaryContainer.withValues(alpha: 0.7),
           ],
         ),
       ),
@@ -170,7 +170,7 @@ class _AvatarPickerState extends State<AvatarPicker> {
       color: theme.colorScheme.primary,
       shape: const CircleBorder(),
       elevation: 4,
-      shadowColor: theme.colorScheme.primary.withOpacity(0.4),
+      shadowColor: theme.colorScheme.primary.withValues(alpha: 0.4),
       child: InkWell(
         onTap: widget.isLoading ? null : _showImageSourceDialog,
         customBorder: const CircleBorder(),
@@ -362,7 +362,7 @@ class _ImageSourceOption extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: isDestructive 
-                    ? theme.colorScheme.errorContainer.withOpacity(0.5)
+                    ? theme.colorScheme.errorContainer.withValues(alpha: 0.5)
                     : theme.colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(10),
               ),

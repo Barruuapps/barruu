@@ -65,7 +65,7 @@ class GraphUtilities {
     double verticalInterval,
   ) {
     final gridColor = theme.colorScheme.primary.withValues(alpha: 0.5);
-    final axisColor = theme.colorScheme.onSurface.withOpacity(0.9);
+    final axisColor = theme.colorScheme.onSurface.withValues(alpha: 0.9);
 
     return FlGridData(
       horizontalInterval: horizontalInterval,
@@ -167,7 +167,7 @@ class GraphUtilities {
       verticalLines.add(
         VerticalLine(
           x: 0,
-          color: Colors.green.withOpacity(0.3),
+          color: Colors.green.withValues(alpha: 0.3),
           dashArray: [8, 4],
           label: VerticalLineLabel(
             show: true,
@@ -189,7 +189,7 @@ class GraphUtilities {
         verticalLines.add(
           VerticalLine(
             x: intercept.x,
-            color: Colors.red.withOpacity(0.3),
+            color: Colors.red.withValues(alpha: 0.3),
             dashArray: [8, 4],
             label: VerticalLineLabel(
               show: true,
@@ -211,7 +211,7 @@ class GraphUtilities {
       horizontalLines.add(
         HorizontalLine(
           y: vertex.y,
-          color: Colors.blue.withOpacity(0.3),
+          color: Colors.blue.withValues(alpha: 0.3),
           dashArray: [8, 4],
           label: HorizontalLineLabel(
             show: true,
@@ -272,7 +272,7 @@ class GraphUtilities {
     final formatter = formatNumber ?? GraphUtilities.formatNumber;
     
     return LineTouchTooltipData(
-      getTooltipColor: (_) => theme.colorScheme.surface.withOpacity(0.9),
+      getTooltipColor: (_) => theme.colorScheme.surface.withValues(alpha: 0.9),
       tooltipBorderRadius: BorderRadius.circular(8),
       getTooltipItems: (touchedSpots) => touchedSpots.map((spot) {
         return LineTooltipItem(
@@ -297,7 +297,7 @@ class GraphUtilities {
     final formatter = formatNumber ?? GraphUtilities.formatNumber;
     
     return BarTouchTooltipData(
-      getTooltipColor: (_) => theme.colorScheme.surface.withOpacity(0.9),
+      getTooltipColor: (_) => theme.colorScheme.surface.withValues(alpha: 0.9),
       tooltipBorderRadius: BorderRadius.circular(8),
       getTooltipItem: (group, groupIndex, rod, rodIndex) {
         return BarTooltipItem(

@@ -221,7 +221,7 @@ class _ProfessionListItem extends StatelessWidget {
               height: 40,
               decoration: BoxDecoration(
                 color: isSelected
-                    ? AppColors.primary.withOpacity(0.1)
+                    ? AppColors.primary.withValues(alpha: 0.1)
                     : AppColors.surface,
                 borderRadius: AppBorders.small,
               ),

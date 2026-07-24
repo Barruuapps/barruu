@@ -154,7 +154,7 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
           color: styleUtils.parseHex(widget.block.style.background) ?? theme.colorScheme.surface,
           boxShadow: [
             BoxShadow(
-              color: theme.colorScheme.shadow.withOpacity(0.1),
+              color: theme.colorScheme.shadow.withValues(alpha: 0.1),
               blurRadius: 6,
               offset: const Offset(0, 2),
             ),
@@ -181,7 +181,7 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
         containerDecoration = BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: styleUtils.parseHex(widget.block.style.background) ??
-              theme.colorScheme.surfaceVariant.withOpacity(0.5),
+              theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
         );
         break;
       case 'gradient':
@@ -189,12 +189,12 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
           borderRadius: BorderRadius.circular(12),
           gradient: LinearGradient(
             colors: [
-              theme.colorScheme.primaryContainer.withOpacity(0.4),
-              theme.colorScheme.secondaryContainer.withOpacity(0.4),
+              theme.colorScheme.primaryContainer.withValues(alpha: 0.4),
+              theme.colorScheme.secondaryContainer.withValues(alpha: 0.4),
             ],
           ),
           border: Border.all(
-            color: theme.colorScheme.primary.withOpacity(0.3),
+            color: theme.colorScheme.primary.withValues(alpha: 0.3),
           ),
         );
         break;
@@ -202,7 +202,7 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
         containerDecoration = BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: styleUtils.parseHex(widget.block.style.background) ??
-              theme.colorScheme.surfaceVariant.withOpacity(0.3),
+              theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
         );
         break;
       case 'priority':
@@ -245,7 +245,7 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
-              color: theme.colorScheme.primary.withOpacity(0.3),
+              color: theme.colorScheme.primary.withValues(alpha: 0.3),
               width: 2,
             ),
           ),
@@ -347,7 +347,7 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
                 text,
                 baseTextStyle.copyWith(
                   decoration: checked ? TextDecoration.lineThrough : TextDecoration.none,
-                  color: checked ? color.withOpacity(0.6) : color,
+                  color: checked ? color.withValues(alpha: 0.6) : color,
                   height: 1.5,
                 ),
                 theme,
@@ -382,7 +382,7 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
                     child: LinearProgressIndicator(
                       value: progress,
                       minHeight: 6,
-                      backgroundColor: theme.colorScheme.outline.withOpacity(0.2),
+                      backgroundColor: theme.colorScheme.outline.withValues(alpha: 0.2),
                       valueColor: AlwaysStoppedAnimation<Color>(theme.colorScheme.primary),
                     ),
                   ),
@@ -392,7 +392,7 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
                   '$checkedCount/$total',
                   style: baseTextStyle.copyWith(
                     fontSize: 12,
-                    color: theme.colorScheme.onSurface.withOpacity(0.6),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                 ),
               ],
@@ -430,7 +430,7 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6),
                   border: Border(left: BorderSide(color: pc, width: 4)),
-                  color: pc.withOpacity(0.05),
+                  color: pc.withValues(alpha: 0.05),
                 ),
               );
             }),
@@ -462,7 +462,7 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
                   child: Row(children: [
                     Expanded(
                       child: Divider(
-                        color: theme.colorScheme.outline.withOpacity(0.4),
+                        color: theme.colorScheme.outline.withValues(alpha: 0.4),
                         thickness: 1,
                       ),
                     ),
@@ -472,13 +472,13 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
                         'Done',
                         style: baseTextStyle.copyWith(
                           fontSize: 11,
-                          color: theme.colorScheme.onSurface.withOpacity(0.5),
+                          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                         ),
                       ),
                     ),
                     Expanded(
                       child: Divider(
-                        color: theme.colorScheme.outline.withOpacity(0.4),
+                        color: theme.colorScheme.outline.withValues(alpha: 0.4),
                         thickness: 1,
                       ),
                     ),
@@ -532,11 +532,11 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
                     ResponsiveUtils.getPlatformRadius(context, baseRadius: 8.0),
                   ),
                   color: checked
-                      ? theme.colorScheme.primaryContainer.withOpacity(0.2)
+                      ? theme.colorScheme.primaryContainer.withValues(alpha: 0.2)
                       : theme.colorScheme.surface,
                   boxShadow: [
                     BoxShadow(
-                      color: theme.colorScheme.shadow.withOpacity(0.06),
+                      color: theme.colorScheme.shadow.withValues(alpha: 0.06),
                       blurRadius: 2,
                       offset: const Offset(0, 1),
                     ),
@@ -548,9 +548,9 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
                   borderRadius: BorderRadius.circular(
                     ResponsiveUtils.getPlatformRadius(context, baseRadius: 8.0),
                   ),
-                  color: checked ? theme.colorScheme.primaryContainer.withOpacity(0.1) : Colors.transparent,
+                  color: checked ? theme.colorScheme.primaryContainer.withValues(alpha: 0.1) : Colors.transparent,
                   border: Border.all(
-                    color: theme.colorScheme.outline.withOpacity(0.3),
+                    color: theme.colorScheme.outline.withValues(alpha: 0.3),
                   ),
                 );
                 break;
@@ -560,8 +560,8 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
                     ResponsiveUtils.getPlatformRadius(context, baseRadius: 8.0),
                   ),
                   color: checked
-                      ? theme.colorScheme.primaryContainer.withOpacity(0.3)
-                      : theme.colorScheme.surfaceVariant.withOpacity(0.2),
+                      ? theme.colorScheme.primaryContainer.withValues(alpha: 0.3)
+                      : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.2),
                 );
                 break;
               default:
@@ -570,7 +570,7 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
                     ResponsiveUtils.getPlatformRadius(context, baseRadius: 8.0),
                   ),
                   color: checked
-                      ? theme.colorScheme.primaryContainer.withOpacity(0.1)
+                      ? theme.colorScheme.primaryContainer.withValues(alpha: 0.1)
                       : Colors.transparent,
                 );
             }
@@ -658,7 +658,7 @@ class _CheckBoxReaderBlockState extends ConsumerState<CheckBoxReaderBlock> {
                       text,
                       baseTextStyle.copyWith(
                         decoration: checked ? TextDecoration.lineThrough : TextDecoration.none,
-                        color: checked ? color.withOpacity(0.6) : color,
+                        color: checked ? color.withValues(alpha: 0.6) : color,
                         height: 1.5,
                       ),
                       theme,

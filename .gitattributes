@@ -1,0 +1,93 @@
+# Auto detect text files and perform LF normalization
+* text=auto eol=lf
+
+# Dart/Flutter
+*.dart text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.json text eol=lf
+*.xml text eol=lf
+*.plist text eol=lf
+*.storyboard text eol=lf
+*.xcscheme text eol=lf
+
+# Rust
+*.rs text eol=lf
+*.toml text eol=lf
+Cargo.lock text eol=lf
+
+# Kotlin/Android
+*.kt text eol=lf
+*.kts text eol=lf
+*.gradle text eol=lf
+*.properties text eol=lf
+*.sh text eol=lf
+gradlew text eol=lf
+
+# Swift/iOS
+*.swift text eol=lf
+
+# CMake
+CMakeLists.txt text eol=lf
+*.cmake text eol=lf
+
+# Windows
+*.cpp text eol=lf
+*.h text eol=lf
+*.rc text eol=lf
+*.manifest text eol=lf
+
+# Web
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+
+# Documentation
+*.md text eol=lf
+*.rst text eol=lf
+*.txt text eol=lf
+LICENSE text eol=lf
+
+# Scripts
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Shell scripts always use LF
+*.sh text eol=lf
+
+# Images (binary)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg binary
+*.webp binary
+
+# Archives (binary)
+*.zip binary
+*.tar.gz binary
+*.jar binary
+
+# Fonts (binary)
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
+
+# Audio/Video (binary)
+*.mp3 binary
+*.mp4 binary
+*.wav binary
+*.ogg binary
+
+# Gradle wrapper JAR (binary)
+gradle/wrapper/gradle-wrapper.jar binary
+
+# Keystore (binary)
+*.jks binary
+*.keystore binary
+
+# Database (binary)
+*.db binary
+*.sqlite binary

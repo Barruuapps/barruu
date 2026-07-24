@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:barruu/core/widgets/blocks/base_editable_block.dart';
-import 'package:barruu/features/workspace/domain/entities/block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/blocks/reader/fill_blank_reader_block.dart';
 import 'package:barruu/features/workspace/presentation/widgets/utils/toolbar.dart';
 import 'package:barruu/features/workspace/utils/debouncer.dart';
@@ -163,7 +162,7 @@ class _FillBlankBlockState extends BaseEditableBlockState<FillBlankBlock> {
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
-            border: Border.all(color: theme.colorScheme.outline.withOpacity(0.2)),
+            border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.2)),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
@@ -210,7 +209,7 @@ class _FillBlankBlockState extends BaseEditableBlockState<FillBlankBlock> {
                 child: Text(
                   'Wrap the answer word in [brackets] — it becomes the blank.',
                   style: theme.textTheme.labelSmall?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.5),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                     fontStyle: FontStyle.italic,
                   ),
                 ),

@@ -186,7 +186,7 @@ class _DiagramBulkEditorState extends State<DiagramBulkEditor> {
         color: widget.theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(borderRadius),
         border: Border.all(
-          color: widget.theme.colorScheme.outline.withOpacity(0.3),
+          color: widget.theme.colorScheme.outline.withValues(alpha: 0.3),
         ),
       ),
       child: Column(
