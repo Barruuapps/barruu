@@ -42,7 +42,7 @@ dependencies:
   url_launcher: ^6.3.1
   http: any
   rxdart: ^0.28.0
-  shimmer: ^3.0.0
+  shimmer: ^4.0.0
   youtube_player_flutter: ^9.1.1  # TODO: v10 has breaking API changes (YoutubePlayerFlags, ProgressBarColors removed, controller API changed)
   flutter_dotenv: ^6.0.1
   pointycastle: any
